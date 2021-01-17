@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengqing.tool.crawler.mapper.StCrawlerWebsiteMapper">
+
+  <select
+    id="selectStCrawlerWebsites"
+    resultType="com.zhengqing.tool.crawler.model.vo.StCrawlerWebsiteListVO">
+    SELECT
+    tscw.website_id websiteId,
+    tscw.url,
+    tscw.name
+    FROM t_st_crawler_website tscw
+    <where>
+      AND tscw.is_valid = 1
+      <if test="filter.name!=null and filter.name!=''">
+        AND tscw.name LIKE CONCAT( '%', #{filter.name} , '%' )
+      </if>
+    </where>
+    ORDER BY tscw.website_id DESC
+  </select>
+
+  <update id="updateWebsiteInvalid">
+    UPDATE t_st_crawler_website SET is_valid=0
+    WHERE website_id = #{websiteId}
+  </update>
+
+</mapper>

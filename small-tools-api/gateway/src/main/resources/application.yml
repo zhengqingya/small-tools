@@ -1,0 +1,64 @@
+server:
+  port: 1218
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true               # 让gateway从nacos中获取服务信息
+          lower-case-service-id: true # 将请求路径上的服务名配置为小写
+    #      routes:
+    #        - id: nacos-consumer            # 唯一路由表示，没有实际作用不重复就好，建议配合服务名
+    #          uri: lb://nacos-consumer      # 匹配后提供服务的路由地址，lb后跟提供服务的微服务的名，不要写错！！！
+    #          predicates:
+    #            - Path=/consumer/*         # 以`consumer`开头的请求都负载到`nacos-consumer`服务
+    #          filters:
+    #            - RewritePath=/consumer/(?<segment>.*),/$\{segment} # 重写请求路径,例如 http://127.0.0.1:18090/consumer/hi -> http://127.0.0.1:18080/hi
+    #        - id: nacos-provider
+    #          uri: lb://nacos-provider
+    #          predicates:
+    #            - Path=/provider/**
+    #          filters:
+    #            - RewritePath=/provider/(?<segment>.*),/$\{segment}
+    sentinel:
+      enabled: true # 自动化配置是否生效
+      eager: true # 禁用控制台懒加载
+      transport:
+        dashboard: 127.0.0.1:8858 # 控制台地址
+      #        port: 18091 # 启动该服务，会在应用程序的相应服务器上启动HTTP Server，并且该服务器将与Sentinel dashboard进行交互
+      # nacos配置持久化
+#      datasource:
+#        ds1:
+#          nacos:
+#            server-addr: 127.0.0.1:8848
+#            dataId: sentinel-gateway
+#            groupId: DEFAULT_GROUP
+#            data-type: json
+#            rule-type: flow
+
+feign:
+  sentinel:
+    enabled: true # 开启sentinel监控功能
+
+
+# 监控： http://127.0.0.1:18090/actuator/gateway/routes
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+gateway:
+  swagger:
+    enabled: true # 开启swagger，默认关闭
+    title: 项目API接口文档
+    description: 项目API接口文档
+    version: 1.0.0
+    termsOfServiceUrl: 127.0.0.1:5000
+    license:
+    licenseUrl:
+    contact:
+      name: zhengqingya
+      url: www.zhengqingya.com
+      email: 960869719@qq.com

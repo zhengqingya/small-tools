@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+    environment {
+        NAME = 'small-tools-api';
+        APP = 'registry.cn-hangzhou.aliyuncs.com/zhengqing/small-tools-api:latest'
+        APP_PORT = 1218
+        APP_PORT_REMOTE = 50001
+        MVN_HOME = tool 'maven'
+    }
+
+    stages {
+        stage('下载代码') {
+            steps {
+                echo '******************************开始下载源码******************************'
+                git branch: 'master', credentialsId: 'xxx', url: 'https://gitee.com/zhengqingya/small-tools.git'
+            }
+        }
+
+        stage('删除旧容器') {
+            steps {
+                echo '******************************删除旧容器******************************'
+                sh 'docker ps -a|grep $APP_PORT|awk \'{print $1}\'|xargs -i docker stop {}|xargs -i docker rm {}'
+                sh 'docker rmi -f $(docker images -f "dangling=true" -q)'
+            }
+        }
+
+        stage('构建Docker镜像') {
+            steps {
+                echo '******************************开始构建Docker镜像并自动推送******************************'
+//                sh '${MVN_HOME}/bin/mvn compile jib:build'
+                sh '${MVN_HOME}/bin/mvn clean package docker:build'
+            }
+        }
+
+        stage('创建容器') {
+            steps {
+                echo '******************************开始运行镜像******************************'
+                sh 'docker run -d -e PROFILE=prod -p $APP_PORT:$APP_PORT -p $APP_PORT_REMOTE:$APP_PORT_REMOTE --restart=always --name $NAME $APP'
+            }
+        }
+    }
+}

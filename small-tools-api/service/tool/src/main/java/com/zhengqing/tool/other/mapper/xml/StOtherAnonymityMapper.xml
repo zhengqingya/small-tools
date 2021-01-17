@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengqing.tool.other.mapper.StOtherAnonymityMapper">
+
+
+  <select id="selectStOtherAnonymitys"
+    resultType="com.zhengqing.tool.other.model.vo.StOtherAnonymityListVO">
+    SELECT
+    tsoa.id id,
+    tsoa.content content,
+    tsoa.anonymous_user_name anonymousUserName,
+    tsoa.anonymous_handler_name anonymousHandlerName,
+    tsoa.status status,
+    tsoa.remark remark,
+    tsoa.create_time createTime,
+    tsoa.update_time updateTime,
+    tsoa.handle_time handleTime
+    FROM t_st_other_anonymity tsoa
+    <where>
+      AND tsoa.is_valid = 1
+      <if test="filter.content!=null and filter.content!=''">
+        AND tsoa.content LIKE CONCAT( '%', #{filter.content} , '%' )
+      </if>
+      <if test="filter.status!=null">
+        AND tsoa.status = #{filter.status}
+      </if>
+    </where>
+    ORDER BY tsoa.id DESC
+  </select>
+
+</mapper>

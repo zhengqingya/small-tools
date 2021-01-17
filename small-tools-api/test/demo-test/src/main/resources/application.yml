@@ -1,0 +1,8 @@
+server:
+  port: 21010
+
+spring:
+  application:
+    name: demo-test # 应用名称
+  profiles:
+    active: dev # 环境配置

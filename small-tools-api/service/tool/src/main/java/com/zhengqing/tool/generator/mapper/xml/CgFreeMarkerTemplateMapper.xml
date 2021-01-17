@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengqing.tool.generator.mapper.CgFreeMarkerTemplateMapper">
+
+
+  <select id="selectTemplates"
+    resultType="com.zhengqing.tool.generator.model.vo.CgFreeMarkerTemplateListVO">
+    SELECT
+    tcfmt.free_marker_template_id freeMarkerTemplateId,
+    tcfmt.template_key templateKey,
+    tcfmt.template_value templateValue,
+    tcfmt.template_re_user_id templateReUserId,
+    tcfmt.is_common isCommon
+    FROM t_cg_free_marker_template tcfmt
+    <where>
+      AND tcfmt.is_valid = 1
+      <if test="filter.templateKey!=null and filter.templateKey!=''">
+        AND tcfmt.template_key LIKE CONCAT( '%', #{filter.templateKey} , '%' )
+      </if>
+      <if test="filter.currentUserId!=null">
+        AND ( tcfmt.template_re_user_id = #{filter.currentUserId} OR tcfmt.is_common = 1 )
+      </if>
+    </where>
+    ORDER BY tcfmt.free_marker_template_id DESC
+  </select>
+
+</mapper>

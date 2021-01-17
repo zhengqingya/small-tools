@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengqing.tool.generator.mapper.CgProjectMapper">
+
+  <select
+    id="selectProjects"
+    resultType="com.zhengqing.tool.generator.model.vo.CgProjectListVO">
+    SELECT
+    tcp.id,
+    tcp.name,
+    tcp.data_re_user_id dataReUserId,
+    u.nickname username
+    FROM t_cg_project tcp
+    LEFT JOIN t_sys_user u ON tcp.data_re_user_id = u.user_id
+    WHERE tcp.is_valid=1
+    <if test="filter.id!=null">
+      AND tcp.id = #{filter.id}
+    </if>
+    <if test="filter.currentUserId!=null">
+      AND tcp.data_re_user_id = #{filter.currentUserId}
+    </if>
+    <if test="filter.name!=null and filter.name!=''">
+      AND tcp.name LIKE CONCAT( '%', #{filter.name} , '%' )
+    </if>
+    ORDER BY tcp.id DESC
+  </select>
+
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>small-tools-api</artifactId>
+    <groupId>com.zhengqing</groupId>
+    <version>0.0.1</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>service-api</artifactId>
+  <packaging>pom</packaging>
+
+  <description>小工具业务模块</description>
+
+  <modules>
+    <module>system-api</module>
+  </modules>
+
+  <dependencies>
+    <!-- FIXME 后面解决`BaseEntity` 去掉common依赖 -->
+    <dependency>
+      <groupId>com.zhengqing</groupId>
+      <artifactId>common</artifactId>
+      <version>${small-tools-api.project.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>commons-logging</artifactId>
+          <groupId>commons-logging</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>slf4j-log4j12</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- mybatis-plus -->
+    <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-boot-starter</artifactId>
+      <version>${mybatis-plus-boot-starter.version}</version>
+    </dependency>
+
+    <!-- knife4j -->
+    <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
+    <dependency>
+      <groupId>com.github.xiaoymin</groupId>
+      <artifactId>knife4j-spring-boot-starter</artifactId>
+      <version>${knife4j.version}</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <!-- 跳过父模块的此打包插件 -->
+          <skip>true</skip>
+          <finalName>${project.name}</finalName>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
+</project>

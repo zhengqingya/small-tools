@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengqing.system.mapper.SysDictMapper">
+
+  <select
+    id="selectDictListByCode"
+    resultType="com.zhengqing.system.model.vo.SysDictVO">
+    SELECT
+    sd.id,
+    sdt.id dictTypeId,
+    sdt.code code,
+    sd.name,
+    sd.value,
+    sd.sort
+    FROM t_sys_dict sd
+    LEFT JOIN t_sys_dict_type sdt on sd.dict_type_id = sdt.id
+    WHERE
+    sd.is_valid=1 AND sdt.code= #{code}
+    <if test="status!=null">
+      AND sdt.status = #{status}
+    </if>
+    ORDER BY sd.sort ASC
+  </select>
+
+</mapper>

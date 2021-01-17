@@ -1,0 +1,21 @@
+server:
+  port: 18070
+
+spring:
+  application:
+    name: nacos-provider
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848 # nacos服务地址
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+
+    sentinel:
+      enabled: true # 自动化配置是否生效
+      eager: true # 禁用控制台懒加载
+      transport:
+        dashboard: 127.0.0.1:8858 # 控制台地址
+
+myName: nacos--dev--test # 自定义参数

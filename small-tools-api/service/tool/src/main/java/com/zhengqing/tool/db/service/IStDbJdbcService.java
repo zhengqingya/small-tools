@@ -1,0 +1,99 @@
+package com.zhengqing.tool.db.service;
+
+import com.zhengqing.tool.db.model.dto.StDbTableColumnSaveDTO;
+import com.zhengqing.tool.db.model.vo.StDbDatabaseListVO;
+import com.zhengqing.tool.db.model.vo.StDbTableColumnListVO;
+import com.zhengqing.tool.db.model.vo.StDbTableListVO;
+import java.util.List;
+
+/**
+ * <p>
+ * JDBC方式服务类
+ * </p>
+ *
+ * @description:
+ * @author: zhengqing
+ * @date: 2019/9/13 0013 19:46
+ */
+public interface IStDbJdbcService {
+
+    /**
+     * 连接测试
+     *
+     * @param dataSourceId:
+     *            数据源id
+     * @param dbName:
+     *            数据库名称
+     * @return: void
+     * @author : zhengqing
+     * @date : 2020/9/4 15:01
+     */
+    void connectTest(Integer dataSourceId, String dbName);
+
+    /**
+     * 根据数据源id查询所有数据库信息
+     *
+     * @param dataSourceId:
+     *            数据源id
+     * @return: 所有数据库名列表
+     * @author : zhengqing
+     * @date : 2020/9/4 14:07
+     */
+    List<StDbDatabaseListVO> getAllDatabasesByDataSourceId(Integer dataSourceId);
+
+    /**
+     * 根据数据源id和库名查询所有表信息
+     *
+     * @param dataSourceId:
+     *            数据源id
+     * @param dbName:
+     *            数据库名
+     * @param tableName:
+     *            表名
+     * @return: 所有表名列表
+     * @author : zhengqing
+     * @date : 2020/9/6 3:21
+     */
+    List<StDbTableListVO> getAllTablesByDataSourceIdAndDbName(Integer dataSourceId, String dbName, String tableName);
+
+    /**
+     * 根据数据源id+库名+表名查询具体表字段信息
+     *
+     * @param dataSourceId:
+     *            数据源id
+     * @param dbName:
+     *            数据库名
+     * @param tableName:
+     *            表名
+     * @return: 表字段列表
+     * @author : zhengqing
+     * @date : 2020/9/6 13:21
+     */
+    StDbTableColumnListVO getAllColumnsByDataSourceIdAndDbNameAndTableName(Integer dataSourceId, String dbName,
+        String tableName);
+
+    /**
+     * 根据数据源id+库名+表名更新具体表字段信息
+     *
+     * @param params:
+     *            保存参数
+     * @return: void
+     * @author : zhengqing
+     * @date : 2020/9/6 20:01
+     */
+    void updateColumnInfo(StDbTableColumnSaveDTO params);
+
+    /**
+     * 根据数据源id+数据库名导出数据库表信息生成Word文档
+     *
+     * @param dataSourceId:
+     *            数据源id
+     * @param dbName:
+     *            数据库名
+     * @return: word下载地址
+     * @author : zhengqing
+     * @date : 2020/9/8 16:40
+     */
+    String tableInfoToWordByDataSourceIdAndDbName(Integer dataSourceId, String dbName);
+
+}

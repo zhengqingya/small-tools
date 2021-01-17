@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengqing.tool.generator.mapper.CgProjectTemplateMapper">
+
+  <select id="selectDataList"
+    resultType="com.zhengqing.tool.generator.model.vo.CgProjectTemplateListVO">
+    SELECT
+    tcpt.project_template_id projectTemplateId,
+    tcpt.project_id projectId,
+    tcpt.project_package_id projectPackageId,
+    tcpt.file_name fileName,
+    tcpt.file_suffix fileSuffix,
+    tcpt.content,
+    tcpt.is_basic isBasic,
+    tcp.name AS projectName,
+    tcpp.name AS packageName
+    FROM t_cg_project_template tcpt
+    LEFT JOIN t_cg_project tcp ON tcpt.project_id = tcp.id
+    LEFT JOIN t_cg_project_package tcpp ON tcpt.project_package_id = tcpp.id
+    WHERE
+    tcpt.is_valid=1
+    <if test="filter.projectTemplateId!=null">
+      AND tcpt.project_template_id = #{filter.projectTemplateId}
+    </if>
+    <if test="filter.projectId!=null">
+      AND tcpt.project_id = #{filter.projectId}
+    </if>
+    <if test="filter.currentUserId!=null">
+      AND tcpt.data_re_user_id = #{filter.currentUserId}
+    </if>
+    <if test="filter.isBasic!=null">
+      AND tcpt.is_basic = #{filter.isBasic}
+    </if>
+    ORDER BY tcpt.project_template_id DESC
+  </select>
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengqing.tool.generator.mapper.CgProjectVelocityContextMapper">
+
+  <select
+    id="selectCodeProjectVelocityContexts"
+    resultType="com.zhengqing.tool.generator.entity.CgProjectVelocityContext">
+    SELECT
+    id,
+    velocity,
+    context,
+    project_id
+    FROM t_cg_project_velocity_context
+    WHERE is_valid=1
+    <if test="filter.projectId!=null">
+      AND project_id = #{filter.projectId}
+    </if>
+    ORDER BY id DESC
+  </select>
+
+</mapper>

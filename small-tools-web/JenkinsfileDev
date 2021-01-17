@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+    environment {
+        APP_NAME = 'small-tools-web'
+        APP_PROFILE = 'dev'
+        APP_IMAGE = 'registry.cn-hangzhou.aliyuncs.com/zhengqing/small-tools-web:dev'
+        APP_PORT = 80
+        NODE_HOME = tool 'nodejs'
+    }
+
+    stages {
+        stage('下载代码') {
+            steps {
+                echo '****************************** download code start... ******************************'
+                git branch: 'dev', credentialsId: 'xxx', url: 'https://gitee.com/zhengqingya/small-tools.git'
+            }
+        }
+
+        stage('vue环境准备') {
+            steps {
+                echo '****************************** vue start... ******************************'
+                sh 'pwd'
+                sh 'cnpm install'
+                sh 'cnpm run build:dev'
+            }
+        }
+
+        stage('构建Docker镜像') {
+            steps {
+                echo '****************************** delete container and image... ******************************'
+                sh 'docker ps -a|grep $APP_NAME|awk \'{print $1}\'|xargs -i docker stop {}|xargs -i docker rm {}'
+                sh 'docker images|grep $APP_NAME|grep dev|awk \'{print $3}\'|xargs -i docker rmi {}'
+
+                echo '****************************** build image... ******************************'
+                sh 'docker build -t $APP_IMAGE .'
+            }
+        }
+
+        stage('运行容器') {
+            steps {
+                echo '****************************** run start... ******************************'
+                sh 'docker run -d -p $APP_PORT:80 --restart=always --name $APP_NAME $APP_IMAGE'
+            }
+        }
+    }
+}

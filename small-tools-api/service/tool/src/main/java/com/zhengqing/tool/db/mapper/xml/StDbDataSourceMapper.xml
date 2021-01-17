@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengqing.tool.db.mapper.StDbDataSourceMapper">
+
+  <select
+    id="selectStDbDataSources"
+    resultType="com.zhengqing.tool.db.model.vo.StDbDataSourceListVO">
+    SELECT
+    tsdbs.id id,
+    tsdbs.name name,
+    tsdbs.ip_address ipAddress,
+    tsdbs.port port,
+    tsdbs.username username,
+    tsdbs.password password,
+    tsdbs.type type,
+    tsdbs.driver_class_name driverClassName,
+    tsdbs.remark remark,
+    tsdbs.create_by createBy,
+    tsdbs.create_time createTime,
+    tsdbs.update_by updateBy,
+    tsdbs.update_time updateTime
+    FROM t_st_db_data_source tsdbs
+    WHERE
+    tsdbs.is_valid=1
+    <if test="filter.name!=null and filter.name!=''">
+      AND tsdbs.name LIKE CONCAT( '%', #{filter.name} , '%' )
+    </if>
+    ORDER BY tsdbs.id DESC
+  </select>
+
+  <select
+    id="detail"
+    resultType="com.zhengqing.tool.db.model.vo.StDbDataSourceListVO">
+    SELECT
+    tsdbs.id id,
+    tsdbs.name name,
+    tsdbs.ip_address ipAddress,
+    tsdbs.port port,
+    tsdbs.username username,
+    tsdbs.password password,
+    tsdbs.type type,
+    tsdbs.driver_class_name driverClassName,
+    tsdbs.remark remark
+    FROM t_st_db_data_source tsdbs
+    WHERE tsdbs.is_valid=1 AND tsdbs.id = #{id}
+  </select>
+
+</mapper>

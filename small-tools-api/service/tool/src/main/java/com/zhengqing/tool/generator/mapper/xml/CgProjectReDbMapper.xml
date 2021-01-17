@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengqing.tool.generator.mapper.CgProjectReDbMapper">
+
+
+  <select id="selectCodeProjectReDbs"
+    resultType="com.zhengqing.tool.generator.model.vo.CgProjectReDbListVO">
+    SELECT
+    tcprd.project_re_db_data_source_id projectReDbDataSourceId,
+    tcprd.project_id projectId,
+    tcp.name projectName,
+    tcprd.db_data_source_id dbDataSourceId,
+    tsdbs.name dbDataSourceName,
+    tcprd.db_name dbName,
+    tcprd.remark remark
+    FROM t_cg_project_re_db tcprd
+    LEFT JOIN t_cg_project tcp ON tcprd.project_id = tcp.id
+    LEFT JOIN t_st_db_data_source tsdbs ON tcprd.db_data_source_id = tsdbs.id
+    <where>
+      AND tcprd.is_valid = 1
+      <if test="filter.projectId!=null">
+        AND tcprd.project_id = #{filter.projectId}
+      </if>
+      <if test="filter.dbDataSourceId!=null">
+        AND tcprd.db_data_source_id = #{filter.dbDataSourceId}
+      </if>
+      <if test="filter.currentUserId!=null">
+        AND tcprd.data_re_user_id = #{filter.currentUserId}
+      </if>
+    </where>
+    ORDER BY tcprd.project_re_db_data_source_id DESC
+  </select>
+
+</mapper>

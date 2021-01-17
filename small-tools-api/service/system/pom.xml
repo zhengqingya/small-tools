@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>service</artifactId>
+    <groupId>com.zhengqing</groupId>
+    <version>0.0.1</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>system</artifactId>
+
+  <name>${project.artifactId}</name>
+  <version>${small-tools-api.project.version}</version>
+  <packaging>jar</packaging>
+
+  <properties>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.zhengqing</groupId>
+      <artifactId>common</artifactId>
+      <version>${small-tools-api.project.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>commons-logging</artifactId>
+          <groupId>commons-logging</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>slf4j-log4j12</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.zhengqing</groupId>
+      <artifactId>system-api</artifactId>
+      <version>${small-tools-api.project.version}</version>
+    </dependency>
+
+    <!-- Spring Security依赖 -->
+    <!--    <dependency>-->
+    <!--      <groupId>org.springframework.boot</groupId>-->
+    <!--      <artifactId>spring-boot-starter-security</artifactId>-->
+    <!--    </dependency>-->
+
+    <!-- justauth工具类 -->
+    <!--    https://mvnrepository.com/artifact/me.zhyd.oauth/JustAuth-->
+    <dependency>
+      <groupId>me.zhyd.oauth</groupId>
+      <artifactId>JustAuth</artifactId>
+      <version>1.15.8</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.squareup.okhttp3</groupId>
+      <artifactId>okhttp</artifactId>
+      <version>4.4.1</version>
+    </dependency>
+
+
+  </dependencies>
+
+
+  <build>
+    <finalName>${project.name}</finalName>
+
+    <!-- 注：maven默认是不编译，因此加上如下resources才会生产对应的xml文件 目的：解决mybatis映射关系不对应问题  start =============== -->
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+        <filtering>false</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+        <filtering>false</filtering>
+      </testResource>
+    </testResources>
+    <!-- 注：maven默认是不编译，因此加上如上resources才会生产对应的xml文件 目的：解决mybatis映射关系不对应问题  end =============== -->
+
+    <plugins>
+
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+
+      <!-- 复制，删除，打包，重命名文件等...（详情见父pom） -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+      </plugin>
+
+    </plugins>
+  </build>
+
+
+</project>

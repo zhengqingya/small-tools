@@ -1,0 +1,70 @@
+.cus-dark-theme{
+  // 覆盖table样式
+  .el-table{color:$dark_table_td_color}
+  .el-table, .el-table__expanded-cell{background:none;}
+  .el-table--border, .el-table--group{
+    border:1px solid $dark_table_border_color;
+  }
+  .el-table--border{border-right: none;border-bottom:none;}
+  .el-table thead{color:#fff;}
+  .el-table th, .el-table tr{background:$dark_table_td_bgcolor;}
+  .el-table thead tr th{background:$dark_table_th_bgcolor;}
+  .el-table td, .el-table th.is-leaf{border-bottom:1px solid $dark_table_border_color}
+  .el-table--border::after, .el-table--group::after, .el-table::before{background-color:$dark_table_border_color}
+  .el-table--enable-row-hover .el-table__body tr:hover>td{background-color: $dark_table_hover_color}
+  // 分页
+  .el-pagination__total, .el-pagination__jump{color:#fff}
+  .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li{background-color:$dark_table_th_bgcolor;color:#fff;}
+  // input框
+  .el-input__inner, .el-textarea__inner,
+  .el-input.is-disabled .el-input__inner{background-color: transparent;color:#fff;border:1px solid $dark_table_border_color}
+  .el-input-group__append, .el-input-group__prepend{background:$dark_table_th_bgcolor;color:#fff;border:1px solid $dark_table_border_color}
+  .el-textarea.is-disabled .el-textarea__inner{background-color:$dark_table_td_bgcolor}
+  .el-date-picker__time-header .el-date-picker__editor-wrap .el-input__inner{background:#fff;color:#666;border:1px solid #DCDFE6;}
+  // input 数字框
+  .el-input-number__decrease, .el-input-number__increase{background: transparent;color:#fff;}
+  .el-input-number__decrease{border-right:1px solid $dark_table_border_color}
+  .el-input-number__increase{border-left:1px solid $dark_table_border_color}
+  // 面包屑
+  .el-breadcrumb__inner a, .el-breadcrumb__inner.is-link{color:#fff;}
+  .app-breadcrumb.el-breadcrumb .no-redirect{color:#7189C8!important;}
+  // form
+  .el-form-item__label{color:#7189C8;}
+  // 文件上传
+  .el-upload--picture-card{background-color:transparent;border:1px dashed #7189C8}
+  .el-upload--picture-card i{color:#7189C8;}
+  // radio
+  .el-radio-button__inner{background:transparent;color:#909399;border:1px solid $dark_table_border_color}
+  .el-radio-button:first-child .el-radio-button__inner{border-left:1px solid $dark_table_border_color;}
+  // dialog
+  .el-dialog__title{color:#fff;}
+  .el-dialog, .el-pager li{background:$dark_main_color;}
+  .el-dialog__header{border-bottom:1px solid $dark_table_border_color;}
+  .el-dialog__headerbtn .el-dialog__close{color:#fff}
+  //tree
+  .el-tree{background:transparent;color:$dark_table_td_color;}
+  // transfer
+  .el-transfer-panel{background:$dark_main_color;border:1px solid $dark_table_border_color}
+  .el-transfer-panel .el-transfer-panel__header{background:$dark_table_th_bgcolor;border-bottom:1px solid $dark_table_border_color;}
+  .el-transfer-panel .el-transfer-panel__header .el-checkbox .el-checkbox__label{color:#fff;}
+  .el-transfer-panel__item.el-checkbox{color:$dark_table_td_color;}
+  // tab
+  .el-tabs__item{color:#fff}
+  .el-tabs__item.is-active{color:#409EFF;}
+  // loading
+  .el-loading-mask{background-color:rgba(41, 51, 84, 0.9)}
+  // card
+  .el-card{background:$dark_main_color;border:2px solid $dark_table_border_color;}
+  .el-card__header{border-bottom:1px solid $dark_table_border_color}
+  .el-collapse-item__header{
+    background:$dark_main_color;
+    border-bottom:none;
+    color:$dark_table_td_color;
+  }
+  .el-collapse-item__wrap{
+    background-color:$dark_main_color;
+  }
+  // el-upload-dragger
+  .el-upload-dragger{background:$dark_main_color;border:1px dashed $dark_table_border_color;}
+  .el-upload-dragger .el-upload_text{color:$dark_table_td_color;}
+}

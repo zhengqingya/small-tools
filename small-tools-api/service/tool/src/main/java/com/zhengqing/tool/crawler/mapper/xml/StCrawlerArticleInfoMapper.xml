@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengqing.tool.crawler.mapper.StCrawlerArticleInfoMapper">
+
+  <select
+    id="selectStCrawlerArticleInfos"
+    resultType="com.zhengqing.tool.crawler.model.vo.StCrawlerArticleInfoListVO">
+    SELECT
+    tscai.article_info_id articleInfoId,
+    tscai.website_id websiteId,
+    tscai.article_id articleId,
+    tscai.title title,
+    tscai.category category,
+    tscai.content content,
+    tscai.url url,
+    tscai.publish_time publishTime,
+    tscw.name websiteName
+    FROM t_st_crawler_article_info tscai
+    LEFT JOIN t_st_crawler_website tscw ON tscai.website_id = tscw.website_id
+    WHERE
+    tscw.is_valid=1
+    <if test="filter.title!=null and filter.title!=''">
+      AND tscai.title LIKE CONCAT( '%', #{filter.title}, '%' )
+    </if>
+    <if test="filter.websiteId!=null">
+      AND tscai.website_id = #{filter.websiteId}
+    </if>
+    <if test="filter.startTime != null and filter.startTime != ''">
+      AND tscai.publish_time >= STR_TO_DATE(#{filter.startTime}, '%Y-%m-%d %H:%i:%s')
+    </if>
+    <if test="filter.endTime != null and filter.endTime != ''">
+      AND tscai.publish_time &lt;= STR_TO_DATE(#{filter.endTime}, '%Y-%m-%d %H:%i:%s')
+    </if>
+    ORDER BY tscai.publish_time DESC
+  </select>
+
+  <select
+    id="selectArticleInfoId"
+    resultType="java.lang.Integer">
+    SELECT
+      tscai.article_info_id articleInfoId
+    FROM
+      t_st_crawler_article_info tscai
+    WHERE
+      tscai.is_valid=1 AND tscai.article_id = #{articleId}
+  </select>
+
+  <select
+    id="selectArticleSumByWebsiteId"
+    resultType="java.lang.Integer">
+    SELECT
+      COUNT(tscai.article_info_id)
+    FROM
+      t_st_crawler_article_info tscai
+    WHERE
+      tscai.is_valid=1 AND tscai.website_id = #{websiteId}
+  </select>
+
+  <select
+    id="selectArticlesByWebsiteId"
+    resultType="com.zhengqing.tool.crawler.model.vo.StCrawlerArticleInfoListVO">
+    SELECT
+      tscai.article_info_id articleInfoId,
+      tscai.website_id websiteId,
+      tscai.article_id articleId,
+      tscai.title title,
+      tscai.category category,
+      tscai.content content,
+      tscai.url url,
+      tscai.publish_time publishTime,
+      tscw.name websiteName
+    FROM t_st_crawler_article_info tscai
+    LEFT JOIN t_st_crawler_website tscw ON tscai.website_id = tscw.website_id
+    WHERE
+    tscw.is_valid = 1 AND tscai.website_id = #{websiteId}
+    ORDER BY tscai.publish_time DESC
+  </select>
+
+  <select
+    id="selectArticleDetail"
+    resultType="com.zhengqing.tool.crawler.model.vo.StCrawlerArticleInfoListVO">
+    SELECT
+    tscai.article_info_id articleInfoId,
+    tscai.website_id websiteId,
+    tscai.article_id articleId,
+    tscai.title title,
+    tscai.category category,
+    tscai.content content,
+    tscai.url url,
+    tscai.publish_time publishTime
+    FROM t_st_crawler_article_info tscai
+    WHERE tscai.is_valid=1
+    <if test="filter.websiteId!=null">
+      AND tscai.website_id = #{filter.websiteId}
+    </if>
+    <if test="filter.title!=null and filter.title!=''">
+      AND tscai.title = #{filter.title}
+    </if>
+    <if test="filter.category!=null and filter.category!=''">
+      AND tscai.category = #{filter.category}
+    </if>
+  </select>
+
+</mapper>
