@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.fieldrepeat.Update;
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import com.zhengqing.system.model.dto.SysDictSaveDTO;
 import com.zhengqing.system.model.vo.SysDictVO;
 import com.zhengqing.system.service.ISysDictService;
@@ -67,7 +67,7 @@ public class SysDictController extends BaseController {
 
     @PutMapping("")
     @ApiOperation("更新")
-    public Integer update(@Validated(Update.class) @RequestBody SysDictSaveDTO params) {
+    public Integer update(@Validated(UpdateGroup.class) @RequestBody SysDictSaveDTO params) {
         return dictService.addOrUpdateData(params);
     }
 

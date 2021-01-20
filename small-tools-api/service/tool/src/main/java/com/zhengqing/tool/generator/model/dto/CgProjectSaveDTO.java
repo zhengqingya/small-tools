@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.zhengqing.common.model.dto.BaseDTO;
 import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
-import com.zhengqing.common.validator.fieldrepeat.Update;
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -36,7 +36,7 @@ import lombok.NoArgsConstructor;
     message = "项目名称重复，请重新输入！")
 public class CgProjectSaveDTO extends BaseDTO {
 
-    @NotNull(groups = {Update.class}, message = "id不能为空!")
+    @NotNull(groups = {UpdateGroup.class}, message = "id不能为空!")
     @ApiModelProperty(value = "项目ID")
     private Integer id;
 

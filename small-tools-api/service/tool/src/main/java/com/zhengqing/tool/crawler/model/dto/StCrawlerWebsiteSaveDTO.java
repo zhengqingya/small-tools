@@ -1,10 +1,12 @@
 package com.zhengqing.tool.crawler.model.dto;
 
+import javax.validation.constraints.NotNull;
+
 import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
-import com.zhengqing.common.validator.fieldrepeat.Update;
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,7 +30,7 @@ import lombok.NoArgsConstructor;
     dbFieldNames = {"name"}, message = "网站名称重复，请重新输入！")
 public class StCrawlerWebsiteSaveDTO {
 
-    @NotNull(message = "网站ID不能为空！", groups = {Update.class})
+    @NotNull(message = "网站ID不能为空！", groups = {UpdateGroup.class})
     @ApiModelProperty(value = "网站ID")
     private Integer websiteId;
 

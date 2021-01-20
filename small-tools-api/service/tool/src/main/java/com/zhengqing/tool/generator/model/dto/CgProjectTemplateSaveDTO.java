@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 import com.zhengqing.common.model.dto.BaseDTO;
 import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
-import com.zhengqing.common.validator.fieldrepeat.Update;
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -37,7 +37,7 @@ public class CgProjectTemplateSaveDTO extends BaseDTO {
 
     // 这里字段改动是注意 对应 `CgProjectTemplateTestDataDTO`
 
-    @NotNull(groups = {Update.class}, message = "id不能为空!")
+    @NotNull(groups = {UpdateGroup.class}, message = "id不能为空!")
     @ApiModelProperty(value = "模板ID")
     private Integer projectTemplateId;
 

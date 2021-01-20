@@ -2,6 +2,9 @@ package com.zhengqing.demo.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.custom.RequestPostSingleParam;
-import com.zhengqing.common.validator.fieldrepeat.Update;
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
+import com.zhengqing.common.validator.fieldrepeat.ValidList;
 import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.model.dto.DemoListDTO;
@@ -26,8 +30,10 @@ import com.zhengqing.demo.model.vo.DemoListVO;
 import com.zhengqing.demo.service.IDemoService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.Data;
 
 /**
  * <p>
@@ -80,7 +86,7 @@ public class DemoController extends BaseController {
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
-    public Integer update(@Validated(Update.class) @RequestBody DemoSaveDTO params) {
+    public Integer update(@Validated(UpdateGroup.class) @RequestBody DemoSaveDTO params) {
         return demoService.addOrUpdateData(params);
     }
 
@@ -95,5 +101,26 @@ public class DemoController extends BaseController {
     public Demo detail(@RequestParam Integer demoId) {
         return demoService.getById(demoId);
     }
+
+    @PostMapping("test/list/")
+    @ApiOperation("list校验测试")
+    public Integer addListValid(@Valid @RequestBody ValidList<TestSaveDTO> params) {
+        return 1;
+    }
+
+}
+
+@Data
+class TestSaveDTO {
+
+    @ApiModelProperty("主键ID")
+    @NotNull(message = "主键ID不能为空!")
+    private Integer id;
+
+    @ApiModelProperty("用户名")
+    private String username;
+
+    @ApiModelProperty("密码")
+    private String password;
 
 }

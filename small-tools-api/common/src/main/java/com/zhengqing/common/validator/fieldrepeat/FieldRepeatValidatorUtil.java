@@ -7,14 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.ValidationException;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
@@ -25,7 +18,6 @@ import com.zhengqing.common.util.ApplicationContextUtil;
 import com.zhengqing.common.util.MyBeanUtil;
 import com.zhengqing.common.util.MyStringUtil;
 
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -214,30 +206,6 @@ public class FieldRepeatValidatorUtil {
             }
         } catch (Exception e) {
             throw new MyException("数据库字段内容验重校验取值失败：" + e.toString());
-        }
-    }
-
-    /**
-     * 手动校验 (把注解@valid放在servevice层上是没有效果的，只有放在Controller上才有效果,因此通过调用ValidatorFactory工厂方法创建一个实例对象来进行手动校验 )
-     * 百度建议： @Validated放到实现上,@NotNull,@Valid等声明放到接口上
-     *
-     * @param obj:
-     *            校验对象
-     * @param groups:
-     *            组校验
-     * @return: void
-     * @author : zhengqing
-     * @date : 2020/10/19 11:27
-     */
-    @SneakyThrows(Exception.class)
-    public static void validate(Object obj, Class<?>... groups) {
-        ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
-        Validator validator = vf.getValidator();
-        Set<ConstraintViolation<Object>> set = validator.validate(obj, groups);
-        for (ConstraintViolation<Object> constraintViolation : set) {
-            String violationMessage = constraintViolation.getMessage();
-            log.error(" 【{}】", constraintViolation.getPropertyPath() + ":" + violationMessage);
-            throw new ValidationException(violationMessage);
         }
     }
 

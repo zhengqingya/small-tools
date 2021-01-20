@@ -1,9 +1,11 @@
 package com.zhengqing.system.model.dto;
 
-import com.zhengqing.common.validator.fieldrepeat.Update;
+import javax.validation.constraints.NotNull;
+
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -19,7 +21,7 @@ import lombok.Data;
 @ApiModel("菜单保存参数")
 public class SysMenuSaveDTO {
 
-    @NotNull(groups = {Update.class}, message = "菜单ID不能为空!")
+    @NotNull(groups = {UpdateGroup.class}, message = "菜单ID不能为空!")
     @ApiModelProperty(value = "菜单ID")
     private Integer menuId;
 

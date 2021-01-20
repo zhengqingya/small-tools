@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.zhengqing.common.model.dto.BaseDTO;
-import com.zhengqing.common.validator.fieldrepeat.Update;
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 @ApiModel("代码生成器 - 项目关联数据库提交参数")
 public class CgProjectReDbSaveDTO extends BaseDTO {
 
-    @NotNull(groups = {Update.class}, message = "主键ID不能为空!")
+    @NotNull(groups = {UpdateGroup.class}, message = "主键ID不能为空!")
     @ApiModelProperty(value = "主键ID")
     private Integer projectReDbDataSourceId;
 

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.fieldrepeat.Update;
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.tool.generator.model.dto.CgProjectReDbListDTO;
 import com.zhengqing.tool.generator.model.dto.CgProjectReDbSaveDTO;
@@ -82,7 +82,7 @@ public class CgProjectReDbController extends BaseController {
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
-    public Integer update(@Validated(Update.class) @RequestBody CgProjectReDbSaveDTO params) {
+    public Integer update(@Validated(UpdateGroup.class) @RequestBody CgProjectReDbSaveDTO params) {
         return codeProjectReDbService.addOrUpdateData(params);
     }
 

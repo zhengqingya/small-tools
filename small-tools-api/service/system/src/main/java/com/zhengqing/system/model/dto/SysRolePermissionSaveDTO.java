@@ -1,11 +1,14 @@
 package com.zhengqing.system.model.dto;
 
-import com.zhengqing.common.validator.fieldrepeat.Update;
+import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import com.zhengqing.system.model.vo.SysMenuTreeVO;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -21,7 +24,7 @@ import lombok.Data;
 @ApiModel("保存角色权限信息传入参数")
 public class SysRolePermissionSaveDTO {
 
-    @NotNull(message = "角色id不能为空！", groups = Update.class)
+    @NotNull(message = "角色id不能为空！", groups = UpdateGroup.class)
     @ApiModelProperty(value = "角色ID")
     private Integer roleId;
 

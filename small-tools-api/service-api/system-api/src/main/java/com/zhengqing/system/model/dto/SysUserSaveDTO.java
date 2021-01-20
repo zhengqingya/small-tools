@@ -1,14 +1,17 @@
 package com.zhengqing.system.model.dto;
 
-import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
-import com.zhengqing.common.validator.fieldrepeat.Update;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import lombok.Data;
+
 import org.hibernate.validator.constraints.Length;
+
+import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 /**
  * <p>
@@ -26,7 +29,7 @@ import org.hibernate.validator.constraints.Length;
 public class SysUserSaveDTO {
 
     @ApiModelProperty(value = "主键ID groups:标识在更新的时候才能验证非空")
-    @NotNull(message = "用户id不能为空", groups = {Update.class})
+    @NotNull(message = "用户id不能为空", groups = {UpdateGroup.class})
     private Integer userId;
 
     @ApiModelProperty(value = "账号")

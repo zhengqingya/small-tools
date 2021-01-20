@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
-import com.zhengqing.common.validator.fieldrepeat.Update;
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
     dbFieldNames = {"name", "dict_type_id"}, message = "字段名称重复，请重新输入！")
 public class SysDictSaveDTO {
 
-    @NotNull(groups = {Update.class}, message = "字典id不能为空!")
+    @NotNull(groups = {UpdateGroup.class}, message = "字典id不能为空!")
     @ApiModelProperty(value = "字典id")
     private Integer id;
 

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.fieldrepeat.Update;
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerWebsiteListDTO;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerWebsiteRefreshDataDTO;
@@ -69,7 +69,7 @@ public class StCrawlerWebsiteController extends BaseController {
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
-    public Integer update(@Validated(Update.class) @RequestBody StCrawlerWebsiteSaveDTO params) {
+    public Integer update(@Validated(UpdateGroup.class) @RequestBody StCrawlerWebsiteSaveDTO params) {
         return stCrawlerWebsiteService.addOrUpdateData(params);
     }
 

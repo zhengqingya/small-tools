@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.fieldrepeat.Update;
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.system.model.dto.SysMenuBtnSaveDTO;
 import com.zhengqing.system.model.dto.SysMenuSaveDTO;
@@ -75,7 +75,7 @@ public class SysMenuController extends BaseController {
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
-    public Integer update(@Validated(Update.class) @RequestBody SysMenuSaveDTO params) {
+    public Integer update(@Validated(UpdateGroup.class) @RequestBody SysMenuSaveDTO params) {
         return menuService.addOrUpdateData(params);
     }
 

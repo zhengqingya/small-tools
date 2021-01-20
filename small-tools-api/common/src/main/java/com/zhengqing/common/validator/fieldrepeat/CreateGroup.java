@@ -16,4 +16,4 @@ import javax.validation.groups.Default;
  * @author : zhengqing
  * @date : 2019/9/9 16:51
  */
-public interface Create extends Default {}
+public interface CreateGroup extends Default {}

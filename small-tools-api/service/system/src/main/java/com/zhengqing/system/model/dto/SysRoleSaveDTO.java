@@ -1,10 +1,12 @@
 package com.zhengqing.system.model.dto;
 
-import com.zhengqing.common.validator.fieldrepeat.Update;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -20,7 +22,7 @@ import lombok.Data;
 @ApiModel("保存角色信息传入参数")
 public class SysRoleSaveDTO {
 
-    @NotNull(message = "角色id不能为空！", groups = Update.class)
+    @NotNull(message = "角色id不能为空！", groups = UpdateGroup.class)
     @ApiModelProperty(value = "主键ID")
     private Integer roleId;
 

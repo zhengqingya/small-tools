@@ -3,7 +3,7 @@ package com.zhengqing.demo.model.dto;
 import javax.validation.constraints.NotNull;
 
 import com.zhengqing.common.model.dto.BaseDTO;
-import com.zhengqing.common.validator.fieldrepeat.Update;
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 public class DemoSaveDTO extends BaseDTO {
 
     @ApiModelProperty("主键ID")
-    @NotNull(groups = {Update.class}, message = "主键ID不能为空!")
+    @NotNull(groups = {UpdateGroup.class}, message = "主键ID不能为空!")
     private Integer id;
 
     @ApiModelProperty("用户名")

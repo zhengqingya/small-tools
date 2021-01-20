@@ -16,4 +16,4 @@ import javax.validation.groups.Default;
  * @author : zhengqing
  * @date : 2019/9/9 16:51
  */
-public interface Update extends Default {}
+public interface UpdateGroup extends Default {}

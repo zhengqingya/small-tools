@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.fieldrepeat.Update;
+import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.tool.generator.entity.CgProjectVelocityContext;
 import com.zhengqing.tool.generator.model.dto.CgProjectTemplateListDTO;
@@ -67,7 +67,7 @@ public class CgProjectTemplateController extends BaseController {
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
-    public Integer update(@Validated(Update.class) @RequestBody CgProjectTemplateSaveDTO params) {
+    public Integer update(@Validated(UpdateGroup.class) @RequestBody CgProjectTemplateSaveDTO params) {
         return templateService.addOrUpdateData(params);
     }
 
