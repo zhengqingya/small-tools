@@ -11,5 +11,6 @@ target/
 *.ipr
 
 # 业务相关
+logs
 tmp
 docker/*.jar

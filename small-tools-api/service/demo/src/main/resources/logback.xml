@@ -4,7 +4,7 @@
   <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
   <!-- 日志文件保存位置 注：前面加/ 表示以盘符为绝对路径  不加则是以项目为相对路径 -->
-  <property name="LOG_HOME" value="/logs"/>
+  <property name="LOG_HOME" value="logs"/>
 
   <!-- 彩色日志 -->
   <!-- 彩色日志依赖的渲染类 -->
@@ -77,7 +77,7 @@
 
   <!-- 减少部分日志 -->
   <!-- 业务日志 -->
-  <logger name="com.zhengqing" level="#logback.loglevel#"/>
+  <logger name="com.zhengqing" level="DEBUG"/>
   <logger name="com.zhengqing.demo.mapper" level="INFO"/>
 
   <!-- other -->
