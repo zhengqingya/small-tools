@@ -1,5 +1,6 @@
 package com.zhengqing.common.util;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -12,7 +13,9 @@ import org.springframework.util.CollectionUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -155,14 +158,37 @@ public class MyBeanUtil {
     /**
      * 将Map转换为对象
      *
-     * @param paramMap:
+     * @param map:
      * @param clz:
      * @return: T
      * @author : zhengqing
      * @date : 2020/11/27 18:39
      */
-    public static <T> T parseMap2Object(Map<String, Object> paramMap, Class<T> clz) {
-        return JSONObject.parseObject(JSONObject.toJSONString(paramMap), clz);
+    public static <T> T mapToObject(Map<String, Object> map, Class<T> clz) {
+        return JSONObject.parseObject(JSONObject.toJSONString(map), clz);
+    }
+
+    /**
+     * 对象 转 map （通过反射获取类里面的值和名称）
+     *
+     * @param obj:
+     *            对象
+     * @return: map
+     * @author : zhengqing
+     * @date : 2021/1/26 16:09
+     */
+    @SneakyThrows(Exception.class)
+    public static Map<String, Object> objectToMap(Object obj) {
+        Map<String, Object> map = Maps.newHashMap();
+        Class<?> clazz = obj.getClass();
+        System.out.println(clazz);
+        for (Field field : clazz.getDeclaredFields()) {
+            field.setAccessible(true);
+            String fieldName = field.getName();
+            Object value = field.get(obj);
+            map.put(fieldName, value);
+        }
+        return map;
     }
 
 }

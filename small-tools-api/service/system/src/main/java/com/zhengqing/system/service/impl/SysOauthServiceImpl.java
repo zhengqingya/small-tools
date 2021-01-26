@@ -99,7 +99,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
         switch (SysOauthTypeEnum.getEnum(oauthType)) {
             case Gitee:
                 SysGiteeUserInfoBO sysGiteeUserInfoBO =
-                    MyBeanUtil.parseMap2Object(authResponseMap, SysGiteeUserInfoBO.class);
+                    MyBeanUtil.mapToObject(authResponseMap, SysGiteeUserInfoBO.class);
                 log.info("《三方授权》 用户信息： {}", sysGiteeUserInfoBO);
                 oauthUserInfoBO.setOauthType(SysOauthTypeEnum.Gitee.getOauthTypeValue());
                 oauthUserInfoBO.setOpenId(sysGiteeUserInfoBO.getUuid());
@@ -112,7 +112,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
                 break;
             case GitHub:
                 SysGitHubUserInfoBO sysGitHubUserInfoBO =
-                    MyBeanUtil.parseMap2Object(authResponseMap, SysGitHubUserInfoBO.class);
+                    MyBeanUtil.mapToObject(authResponseMap, SysGitHubUserInfoBO.class);
                 log.info("《三方授权》 用户信息： {}", sysGitHubUserInfoBO);
                 oauthUserInfoBO.setOauthType(SysOauthTypeEnum.GitHub.getOauthTypeValue());
                 oauthUserInfoBO.setOpenId(sysGitHubUserInfoBO.getUuid());
@@ -124,7 +124,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
                 oauthUserInfoBO.setRemark(sysGitHubUserInfoBO.getRemark());
                 break;
             case QQ:
-                SysQQUserInfoBO sysQqUserInfoBO = MyBeanUtil.parseMap2Object(authResponseMap, SysQQUserInfoBO.class);
+                SysQQUserInfoBO sysQqUserInfoBO = MyBeanUtil.mapToObject(authResponseMap, SysQQUserInfoBO.class);
                 log.info("《三方授权》 用户信息： {}", sysQqUserInfoBO);
                 oauthUserInfoBO.setOauthType(SysOauthTypeEnum.QQ.getOauthTypeValue());
                 oauthUserInfoBO.setOpenId(sysQqUserInfoBO.getUuid());
