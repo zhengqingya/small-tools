@@ -63,7 +63,6 @@
     <commons-fileupload.version>1.4</commons-fileupload.version>
     <spring-mock.version>2.0.8</spring-mock.version>
 
-
     <netty-socketio.version>1.7.18</netty-socketio.version>
     <socket.io-client.version>1.0.0</socket.io-client.version>
 
@@ -76,6 +75,9 @@
     <itext-rtf.version>2.1.7</itext-rtf.version>
 
     <MD2File.version>1.0.2</MD2File.version>
+
+    <httpcore.version>4.4.10</httpcore.version>
+    <httpmime.version>4.5.6</httpmime.version>
 
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <docker.plugin.version>1.1.0</docker.plugin.version>
