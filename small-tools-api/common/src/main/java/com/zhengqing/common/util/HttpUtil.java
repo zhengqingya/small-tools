@@ -55,9 +55,9 @@ import lombok.extern.slf4j.Slf4j;
  * @date : 2021/2/1 14:14
  */
 @Slf4j
-public class HttpUtils {
+public class HttpUtil {
 
-    private HttpUtils() {}
+    private HttpUtil() {}
 
     // 多线程共享实例
     private static CloseableHttpClient httpClient;
@@ -458,7 +458,7 @@ public class HttpUtils {
 
     public static void main(String[] args) throws Exception {
         String url = "http://127.0.0.1:20040/web/api/demo/test";
-        String result = HttpUtils.getUrl(url);
+        String result = HttpUtil.getUrl(url);
         System.out.println(result);
     }
 
