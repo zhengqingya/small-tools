@@ -9,6 +9,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -33,6 +34,12 @@ public class RestTemplateUtil {
 
     @Autowired
     public RestTemplateUtil(RestTemplate restTemplate) {
+        // 复杂构造函数的使用
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        // 设置超时
+        requestFactory.setConnectTimeout(300000);
+        requestFactory.setReadTimeout(300000);
+        restTemplate.setRequestFactory(requestFactory);
         RestTemplateUtil.restTemplate = restTemplate;
     }
 
