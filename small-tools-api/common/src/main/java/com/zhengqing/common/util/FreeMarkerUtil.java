@@ -20,6 +20,17 @@ import freemarker.template.Template;
  */
 public class FreeMarkerUtil {
 
+    /**
+     * 将模板和数据模型合并 --> 输出合并模板内容
+     *
+     * @param templateDataMap:
+     *            数据模型
+     * @param templateContent:
+     *            模板内容
+     * @return 合并模板结果
+     * @author zhengqingya
+     * @date 2021/2/25 11:23
+     */
     public static String generateTemplateData(Map<String, Object> templateDataMap, String templateContent) {
         String templateData = "";
         try {
