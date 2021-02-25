@@ -1,8 +1,6 @@
 package com.zhengqing.tool.generator.service.impl;
 
 import java.io.File;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +18,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.exception.MyException;
+import com.zhengqing.common.util.FreeMarkerUtil;
 import com.zhengqing.common.util.MyDateUtil;
 import com.zhengqing.common.util.MyFileUtil;
 import com.zhengqing.common.util.MyStringUtil;
@@ -47,8 +46,6 @@ import com.zhengqing.tool.generator.service.ICgProjectTemplateService;
 import com.zhengqing.tool.generator.service.ICgTableConfigService;
 
 import cn.hutool.core.date.DateUtil;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -88,18 +85,7 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
 
     @Override
     public String generateTemplateData(Map<String, Object> templateDataMap, String templateContent) {
-        String templateData = "";
-        try {
-            StringWriter stringWriter = new StringWriter();
-            Template template = new Template("template", new StringReader(templateContent),
-                new Configuration(Configuration.VERSION_2_3_28));
-            template.process(templateDataMap, stringWriter);
-            templateData = stringWriter.toString();
-            stringWriter.close();
-        } catch (Exception e) {
-            throw new MyException("《生成代码》 生成freemaker模板数据时异常：" + e.getMessage());
-        }
-        return templateData;
+        return FreeMarkerUtil.generateTemplateData(templateDataMap, templateContent);
     }
 
     @Override

@@ -2,8 +2,6 @@ package com.zhengqing.tool;
 
 import java.io.File;
 import java.io.PrintWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +9,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Maps;
 import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.util.FreeMarkerUtil;
 import com.zhengqing.common.util.MyFileUtil;
 
 import freemarker.template.Configuration;
@@ -61,14 +60,11 @@ public class FreeMarkerTest {
 
     @Test
     public void testGenerate() throws Exception {
-        Map<String, String> map = Maps.newHashMap();
+        Map<String, Object> map = Maps.newHashMap();
         map.put("username", "郑清");
         String templateStr = "${username}测试数据...";
-        StringWriter stringWriter = new StringWriter();
-        Template template =
-            new Template("template", new StringReader(templateStr), new Configuration(Configuration.VERSION_2_3_28));
-        template.process(map, stringWriter);
-        System.out.println(stringWriter.toString());
+        String str = FreeMarkerUtil.generateTemplateData(map, templateStr);
+        System.out.println(str);
     }
 
 }
