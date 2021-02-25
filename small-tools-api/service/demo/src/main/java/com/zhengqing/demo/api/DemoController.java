@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import com.zhengqing.common.validator.fieldrepeat.ValidList;
 import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.demo.entity.Demo;
+import com.zhengqing.demo.mapper.DemoMapper;
 import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.dto.DemoSaveDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
@@ -47,10 +49,14 @@ import lombok.Data;
 @RestController
 @RequestMapping("/web/api/demo/demo")
 @Api(tags = {"测试demo接口"})
+// @Transactional(rollbackFor = Exception.class)
 public class DemoController extends BaseController {
 
     @Autowired
     private IDemoService demoService;
+
+    @Autowired
+    private DemoMapper demoMapper;
 
     @GetMapping("testTransactional")
     @ApiOperation("测试事务")
@@ -106,6 +112,21 @@ public class DemoController extends BaseController {
     @ApiOperation("list校验测试")
     public Integer addListValid(@Valid @RequestBody ValidList<TestSaveDTO> params) {
         return 1;
+    }
+
+    @Transactional(readOnly = true)
+    @GetMapping("testUpdate")
+    @ApiOperation("测试更新")
+    public Demo testUpdate() {
+
+        Demo a = demoMapper.selectById(2);
+        System.out.println(a);
+        a.setUsername("xx");
+
+        Demo b = demoMapper.selectById(2);
+        System.out.println("xx::::::" + b);
+
+        return new Demo();
     }
 
 }
