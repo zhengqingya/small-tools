@@ -41,6 +41,7 @@ import com.zhengqing.tool.crawler.model.vo.StCrawlerArticleInfoListVO;
 import com.zhengqing.tool.crawler.service.IStCrawlerArticleInfoService;
 import com.zhengqing.tool.util.htmlToMd.HtmlToMd;
 
+import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.file.FileWriter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -158,10 +159,14 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
             String content = e.getContent();
             String filePath =
                 AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_SRC + "/" + e.getCategory() + "/" + e.getTitle() + ".html";
-            // 文件写入
-            FileWriter writer = new FileWriter(filePath);
-            writer.write(content);
-            filePathList.add(filePath);
+            try {
+                // 文件写入
+                FileWriter writer = new FileWriter(filePath);
+                writer.write(content);
+                filePathList.add(filePath);
+            } catch (IORuntimeException error) {
+                log.error(String.format("《根据网站id导出数据》 导出文件名：【%s】    失败原因：【%s】", e.getTitle(), error.getMessage()));
+            }
         });
         if (!CollectionUtils.isEmpty(filePathList)) {
             // 这里先导出excel报表数据
