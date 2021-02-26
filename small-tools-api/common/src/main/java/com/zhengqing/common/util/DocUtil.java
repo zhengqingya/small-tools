@@ -32,17 +32,17 @@ public class DocUtil {
     /**
      * 替换word文档内容
      *
-     * @param wordBytes:
-     *            word字节码
+     * @param wordFileBytes:
+     *            word文件字节码
      * @param templateDataMap:
      *            模板数据模型
      * @return 替换后新的word字节码
      * @author zhengqingya
      * @date 2021/2/25 15:57
      */
-    public static byte[] replaceWordContent(byte[] wordBytes, Map<String, String> templateDataMap) {
+    public static byte[] replaceWordContent(byte[] wordFileBytes, Map<String, String> templateDataMap) {
         try {
-            InputStream wordIs = new ByteArrayInputStream(wordBytes);
+            InputStream wordIs = new ByteArrayInputStream(wordFileBytes);
             XWPFDocument document = new XWPFDocument(wordIs);
             // 替换word内容
             handleWord(document, templateDataMap);
