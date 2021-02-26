@@ -309,10 +309,6 @@
           <artifactId>commons-lang3</artifactId>
           <groupId>org.apache.commons</groupId>
         </exclusion>
-        <exclusion>
-          <artifactId>xsoup</artifactId>
-          <groupId>us.codecraft</groupId>
-        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
