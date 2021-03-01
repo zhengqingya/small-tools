@@ -101,5 +101,6 @@
   <logger name="org.mybatis" level="WARN"/>
   <logger name="com.baomidou" level="WARN"/>
   <logger name="org.apache.http" level="WARN"/>
+  <logger name="org.jxls" level="WARN"/>
 
 </configuration>
