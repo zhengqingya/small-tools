@@ -33,6 +33,14 @@
           <artifactId>slf4j-log4j12</artifactId>
           <groupId>org.slf4j</groupId>
         </exclusion>
+        <exclusion>
+          <artifactId>poi-ooxml</artifactId>
+          <groupId>org.apache.poi</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>poi</artifactId>
+          <groupId>org.apache.poi</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -48,6 +56,21 @@
       <groupId>me.zhyd.oauth</groupId>
       <artifactId>JustAuth</artifactId>
       <version>1.15.8</version>
+    </dependency>
+
+
+    <!-- 解决： Caused by: java.lang.NoSuchMethodError: org.apache.poi.ss.usermodel.Cell.getCellType()Lorg/apache/poi/ss/usermodel/CellType;  -->
+    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>4.1.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>4.1.0</version>
     </dependency>
 
   </dependencies>
