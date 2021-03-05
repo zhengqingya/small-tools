@@ -11,6 +11,8 @@ spring:
         register-enabled: true # 是否注册到注册中心上，默认true，若为false则不会注册到注册中心，但是可以从注册中心获取服务列表
         namespace: ${spring.profiles.active}   # 命名空间
         group: small-tools                     # 分组
+        username: nacos
+        password: nacos
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr} # 配置中心地址
         namespace: ${spring.cloud.nacos.discovery.namespace}     # 命名空间
@@ -28,3 +30,5 @@ spring:
           - data-id: common-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
             group: ${spring.cloud.nacos.discovery.group}
             refresh: true
+        username: ${spring.cloud.nacos.discovery.username}
+        password: ${spring.cloud.nacos.discovery.password}
