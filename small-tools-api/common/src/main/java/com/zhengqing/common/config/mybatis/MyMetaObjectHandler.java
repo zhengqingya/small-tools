@@ -6,6 +6,7 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.http.ContextHandler;
 import com.zhengqing.common.util.MyDateUtil;
 
@@ -25,27 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 public class MyMetaObjectHandler implements MetaObjectHandler {
 
     /**
-     * 是否有效(1:有效 0:无效）
-     */
-    private final String IS_VALID = "isValid";
-    /**
-     * 创建人id
-     */
-    private final String CREATE_BY = "createBy";
-    /**
-     * 创建时间
-     */
-    private final String CREATE_TIME = "createTime";
-    /**
-     * 更新人id
-     */
-    private final String UPDATE_BY = "updateBy";
-    /**
-     * 更新时间
-     */
-    private final String UPDATE_TIME = "updateTime";
-
-    /**
      * 创建
      */
     @Override
@@ -57,20 +37,24 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         Date nowDate = new Date();
 
         // 判断对象中是否存在该参数，如果存在则插入数据
-        if (metaObject.hasGetter(IS_VALID)) {
-            setFieldValByName(IS_VALID, 1, metaObject);
+        if (metaObject.hasGetter(AppConstant.IS_VALID)) {
+            this.setFieldValByName(AppConstant.IS_VALID, 1, metaObject);
         }
-        if (metaObject.hasGetter(CREATE_BY)) {
-            setFieldValByName(CREATE_BY, userId, metaObject);
+        if (metaObject.hasGetter(AppConstant.CREATE_BY)) {
+            Object value = metaObject.getValue(AppConstant.CREATE_BY);
+            if (value != null) {
+                userId = (Integer)value;
+            }
+            this.setFieldValByName(AppConstant.CREATE_BY, userId, metaObject);
         }
-        if (metaObject.hasGetter(CREATE_TIME)) {
-            setFieldValByName(CREATE_TIME, nowDate, metaObject);
+        if (metaObject.hasGetter(AppConstant.CREATE_TIME)) {
+            this.setFieldValByName(AppConstant.CREATE_TIME, nowDate, metaObject);
         }
-        if (metaObject.hasGetter(UPDATE_BY)) {
-            setFieldValByName(UPDATE_BY, userId, metaObject);
+        if (metaObject.hasGetter(AppConstant.UPDATE_BY)) {
+            this.setFieldValByName(AppConstant.UPDATE_BY, userId, metaObject);
         }
-        if (metaObject.hasGetter(UPDATE_TIME)) {
-            setFieldValByName(UPDATE_TIME, nowDate, metaObject);
+        if (metaObject.hasGetter(AppConstant.UPDATE_TIME)) {
+            this.setFieldValByName(AppConstant.UPDATE_TIME, nowDate, metaObject);
         }
 
         // 日志输出 ================================================================================================
@@ -91,11 +75,11 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         Date nowDate = new Date();
 
         // 判断对象中是否存在该参数，如果存在则插入数据
-        if (metaObject.hasGetter(UPDATE_BY)) {
-            setFieldValByName(UPDATE_BY, userId, metaObject);
+        if (metaObject.hasGetter(AppConstant.UPDATE_BY)) {
+            this.setFieldValByName(AppConstant.UPDATE_BY, userId, metaObject);
         }
-        if (metaObject.hasGetter(UPDATE_TIME)) {
-            setFieldValByName(UPDATE_TIME, nowDate, metaObject);
+        if (metaObject.hasGetter(AppConstant.UPDATE_TIME)) {
+            this.setFieldValByName(AppConstant.UPDATE_TIME, nowDate, metaObject);
         }
 
         // 日志输出 ================================================================================================

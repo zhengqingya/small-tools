@@ -34,6 +34,27 @@ public interface AppConstant {
     String ENTITY_NAME = "${entity}";
 
     /**
+     * 是否有效(1:有效 0:无效）
+     */
+    String IS_VALID = "isValid";
+    /**
+     * 创建人id
+     */
+    String CREATE_BY = "createBy";
+    /**
+     * 创建时间
+     */
+    String CREATE_TIME = "createTime";
+    /**
+     * 更新人id
+     */
+    String UPDATE_BY = "updateBy";
+    /**
+     * 更新时间
+     */
+    String UPDATE_TIME = "updateTime";
+
+    /**
      * 接口url
      */
     Map<String, String> URL_MAPPING_MAP = new HashMap<>();
@@ -192,10 +213,6 @@ public interface AppConstant {
     String BASE_PACKAGES = "com.zhengqing";
     String APPLICATION_NAME_SYSTEM = "system";
     String APPLICATION_NAME_BASIC = "basic";
-
-    // ===============================================================================
-    // ============================ ↓↓↓↓↓↓ rpc服务 ↓↓↓↓↓↓ ============================
-    // ===============================================================================
 
     /**
      * rpc服务调用不需要封装返回值的api
