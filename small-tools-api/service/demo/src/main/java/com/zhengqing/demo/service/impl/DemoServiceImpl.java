@@ -29,12 +29,14 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
+// @Transactional(rollbackFor = Exception.class)
 public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements IDemoService {
 
     @Autowired
     private DemoMapper demoMapper;
 
+    // @Transactional(rollbackFor = Exception.class)
+    @Transactional
     @Override
     public void testTransactional() {
         Demo demo = Demo.builder().username("admin").password("123456").build();
@@ -55,14 +57,14 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     public IPage<DemoListVO> listPage(DemoListDTO params) {
         IPage<DemoListVO> result = demoMapper.selectDataList(new Page<>(), params);
         List<DemoListVO> list = result.getRecords();
-        handleResultData(list);
+        this.handleResultData(list);
         return result;
     }
 
     @Override
     public List<DemoListVO> list(DemoListDTO params) {
         List<DemoListVO> list = demoMapper.selectDataList(params);
-        handleResultData(list);
+        this.handleResultData(list);
         return list;
     }
 
