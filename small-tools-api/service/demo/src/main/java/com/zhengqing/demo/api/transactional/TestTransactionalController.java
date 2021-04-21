@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping("/web/api/demo/test/transactional/invalid")
+@RequestMapping("/web/api/demo/test/transactional")
 @Api(tags = {"测试事务失效场景"})
 public class TestTransactionalController extends BaseController {
 
