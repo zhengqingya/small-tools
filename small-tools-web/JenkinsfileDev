@@ -24,7 +24,7 @@ pipeline {
                 sh 'docker images | grep $APP_NAME | grep dev|awk \'{print $3}\' | xargs docker rmi'
 
                 echo '****************************** build image... ******************************'
-                sh 'docker build --build-arg PROFILE=$APP_PROFILE -t $APP_IMAGE . --no-cache'
+                sh 'docker build -f small-tools-web/Dockerfile --build-arg PROFILE=$APP_PROFILE -t $APP_IMAGE . --no-cache'
             }
         }
 
