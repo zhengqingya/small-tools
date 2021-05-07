@@ -99,6 +99,7 @@
   <logger name="reactor" level="WARN"/>
   <logger name="ConditionEvaluationReportLoggingListener" level="WARN"/>
   <logger name="org.apache.http.impl.conn.PoolingHttpClientConnectionManager" level="WARN"/>
+  <logger name="jdk.event.security" level="WARN"/>
 
 
 </configuration>

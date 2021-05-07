@@ -102,5 +102,6 @@
   <logger name="com.baomidou" level="WARN"/>
   <logger name="org.apache.http" level="WARN"/>
   <logger name="org.jxls" level="WARN"/>
+  <logger name="jdk.event.security" level="WARN"/>
 
 </configuration>
