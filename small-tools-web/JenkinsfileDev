@@ -5,7 +5,6 @@ pipeline {
         APP_PROFILE = 'dev'
         APP_IMAGE = 'registry.cn-hangzhou.aliyuncs.com/zhengqing/small-tools-web:dev'
         APP_PORT = 88
-        NODE_HOME = tool 'nodejs'
     }
 
     stages {
