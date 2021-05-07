@@ -21,7 +21,7 @@ echo '操作镜像：'${APP_IMAGE}
 echo 'nacos服务地址：'${APP_NACOS_SERVER_ADDR}
 
 
-delete-container(){
+deleteContainer(){
   # 判断是否容器存在
   docker ps -a | grep ${APP_NAME} &> /dev/null
   # 如果存在，关闭并删除该容器
@@ -36,7 +36,7 @@ delete-container(){
 }
 
 
-delete-image(){
+deleteImage(){
   # 判断是否镜像存在
   docker images | grep ${APP_IMAGE_NAME} &> /dev/null
   # 如果存在，删除该镜像
@@ -50,7 +50,7 @@ delete-image(){
 }
 
 
-build-image(){
+buildImage(){
   # 构建Docker镜像
   cd docker
   echo '当前路径：'
@@ -59,7 +59,7 @@ build-image(){
 }
 
 
-push-image(){
+pushImage(){
   # push镜像
   docker push ${APP_IMAGE}
 }
@@ -71,19 +71,17 @@ run(){
   docker run -d -e PROFILE=${APP_PROFILE} \
   -p ${APP_PORT_GATEWAY}:${APP_PORT_GATEWAY} \
   -p ${APP_PORT_SYSTEM}:${APP_PORT_SYSTEM} \
-#  -p ${APP_PORT_BASIC}:${APP_PORT_BASIC} \
   -p ${APP_PORT_TOOL}:${APP_PORT_TOOL} \
   --restart=always --name ${APP_NAME} ${APP_IMAGE}
   echo '启动容器End...'
 }
 
 
-open-port(){
+openPort(){
   # 开启所需端口
   firewall-cmd --zone=public --add-port=80/tcp --permanent
   firewall-cmd --zone=public --add-port=${APP_PORT_GATEWAY}/tcp --permanent
   firewall-cmd --zone=public --add-port=${APP_PORT_SYSTEM}/tcp --permanent
-#  firewall-cmd --zone=public --add-port=${APP_PORT_BASIC}/tcp --permanent
   firewall-cmd --zone=public --add-port=${APP_PORT_TOOL}/tcp --permanent
   #	重启
 	service firewalld restart
@@ -91,9 +89,9 @@ open-port(){
 
 
 # 执行
-delete-container
-delete-image
-build-image
-#push-image
-#open-port
+deleteContainer
+deleteImage
+buildImage
+#pushImage
+#openPort
 run

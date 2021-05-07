@@ -13,6 +13,7 @@ pipeline {
             steps {
                 echo '****************************** vue start... ******************************'
                 sh 'pwd'
+                // 根据jenkins构建时，是否需要cd ...
                 sh 'cd small-tools-web && pwd && cnpm install && cnpm run build:$APP_PROFILE'
             }
         }
@@ -24,7 +25,8 @@ pipeline {
                 sh 'docker images | grep $APP_NAME | grep dev|awk \'{print $3}\' | xargs docker rmi'
 
                 echo '****************************** build image... ******************************'
-                sh 'docker build -f small-tools-web/Dockerfile --build-arg PROFILE=$APP_PROFILE -t $APP_IMAGE . --no-cache'
+                // -f:指定Dockerfile文件路径
+                sh 'docker build -f Dockerfile --build-arg PROFILE=$APP_PROFILE -t $APP_IMAGE . --no-cache'
             }
         }
 

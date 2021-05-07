@@ -15,7 +15,7 @@ echo '操作容器名：'${APP_NAME}
 echo '操作镜像：'${APP_IMAGE}
 
 
-delete-container(){
+deleteContainer(){
   # 判断是否容器存在
   docker ps -a | grep ${APP_NAME} &> /dev/null
   # 如果存在，关闭并删除该容器
@@ -30,7 +30,7 @@ delete-container(){
 }
 
 
-delete-image(){
+deleteImage(){
   # 判断是否镜像存在
   docker images | grep ${APP_IMAGE_NAME} &> /dev/null
   # 如果存在，删除该镜像
@@ -43,8 +43,15 @@ delete-image(){
   fi
 }
 
+initEnv(){
+  # 环境准备
+  echo '当前路径：'
+  pwd
+  cnpm install
+  cnpm run build:${APP_PROFILE}
+}
 
-build-image(){
+buildImage(){
   # 构建Docker镜像
   echo '当前路径：'
   pwd
@@ -52,7 +59,7 @@ build-image(){
 }
 
 
-push-image(){
+pushImage(){
   # push镜像
   docker push ${APP_IMAGE}
 }
@@ -68,7 +75,7 @@ run(){
 }
 
 
-open-port(){
+openPort(){
   # 开启所需端口
   firewall-cmd --zone=public --add-port=${APP_PORT}/tcp --permanent
   #	重启
@@ -76,9 +83,10 @@ open-port(){
 }
 
 
-# 执行
-delete-container
-delete-image
-build-image
-#push-image
+# 执行shell函数
+deleteContainer
+deleteImage
+initEnv
+buildImage
+#pushImage
 run
