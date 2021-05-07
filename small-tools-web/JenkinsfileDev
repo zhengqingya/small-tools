@@ -13,18 +13,18 @@ pipeline {
             steps {
                 echo '****************************** vue start... ******************************'
                 sh 'pwd'
-                sh 'cd small-tools-web && pwd && cnpm install && cnpm run build:dev'
+                sh 'cd small-tools-web && pwd && cnpm install && cnpm run build:$APP_PROFILE'
             }
         }
 
         stage('构建Docker镜像') {
             steps {
                 echo '****************************** delete container and image... ******************************'
-                sh 'docker ps -a|grep $APP_NAME|awk \'{print $1}\'|xargs -i docker stop {}|xargs -i docker rm {}'
-                sh 'docker images|grep $APP_NAME|grep dev|awk \'{print $3}\'|xargs -i docker rmi {}'
+                sh 'docker ps -a | grep $APP_NAME | awk \'{print $1}\' | xargs docker stop {} | xargs docker rm {}'
+                sh 'docker images | grep $APP_NAME | grep dev|awk \'{print $3}\' | xargs docker rmi'
 
                 echo '****************************** build image... ******************************'
-                sh 'docker build -t $APP_IMAGE . --no-cache'
+                sh 'docker build --build-arg PROFILE=$APP_PROFILE -t $APP_IMAGE . --no-cache'
             }
         }
 
