@@ -1,6 +1,6 @@
 # ================================== ↓↓↓↓↓↓ small-tools配置 ↓↓↓↓↓↓ ==================================
 small-tools:
-  ip: 127.0.0.1
+  ip: 192.168.0.88 # 127.0.0.1、192.168.0.88
   swagger:
     groupName: ${spring.application.name}
     pathIncludePattern: /web/api/.*
