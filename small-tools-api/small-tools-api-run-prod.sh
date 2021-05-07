@@ -50,6 +50,14 @@ deleteImage(){
 }
 
 
+initEnv(){
+  echo '初始化环境：'
+  find ./docker -name '*.jar' -type f -print -exec rm -rf {} \;
+  mvn clean
+  mvn install
+}
+
+
 buildImage(){
   # 构建Docker镜像
   cd docker
@@ -91,6 +99,7 @@ openPort(){
 # 执行
 deleteContainer
 deleteImage
+initEnv
 buildImage
 pushImage
 #openPort
