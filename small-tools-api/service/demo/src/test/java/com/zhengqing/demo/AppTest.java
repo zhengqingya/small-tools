@@ -1,11 +1,11 @@
 package com.zhengqing.demo;
 
+import com.google.common.collect.Maps;
+import com.zhengqing.common.model.bo.UserTokenInfo.UserInfo;
 import java.util.Hashtable;
 import java.util.Map;
-
+import java.util.Optional;
 import org.junit.Test;
-
-import com.google.common.collect.Maps;
 
 public class AppTest {
 
@@ -35,4 +35,21 @@ public class AppTest {
         System.out.println(tableMap + "\n\n");
     }
 
+    @Test
+    public void test01() throws Exception {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(1);
+        Optional.ofNullable(userInfo).ifPresent(e -> {
+            System.out.println(1);
+            System.out.println(2);
+        });
+        userInfo = null;
+        Optional.ofNullable(userInfo).ifPresent(userInfo1 -> userInfo1.setUserId(3));
+        Optional.ofNullable(userInfo).orElseThrow(() -> new RuntimeException("xx"));
+        if (1 == 1) {
+            System.out.println(111);
+        } else {
+            System.out.println(222);
+        }
+    }
 }
