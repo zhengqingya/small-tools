@@ -30,7 +30,7 @@ public class SmallToolsThreadPoolConfig {
         threadPoolTaskExecutor.setKeepAliveSeconds(60);
         // 线程名字前缀
         threadPoolTaskExecutor
-                .setThreadNamePrefix(ThreadPoolConstant.SMALL_TOOLS_THREAD_POOL_PREFIX);
+                .setThreadNamePrefix(ThreadPoolConstant.SMALL_TOOLS_THREAD_NAME_PREFIX);
         // 设置在关闭线程池时是否等待任务完成
         threadPoolTaskExecutor.setWaitForTasksToCompleteOnShutdown(true);
         // 允许核心线程超时

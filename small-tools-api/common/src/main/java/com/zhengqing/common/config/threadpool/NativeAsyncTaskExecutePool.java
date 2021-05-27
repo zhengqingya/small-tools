@@ -35,8 +35,8 @@ public class NativeAsyncTaskExecutePool implements AsyncConfigurer {
         // 活跃时间 60s
         threadPoolTaskExecutor.setKeepAliveSeconds(60);
         // 线程名字前缀
-        threadPoolTaskExecutor.setThreadNamePrefix(
-                ThreadPoolConstant.SPRING_DEFAULT_THREAD_POOL_PREFIX);
+        threadPoolTaskExecutor
+                .setThreadNamePrefix(ThreadPoolConstant.SPRING_DEFAULT_THREAD_NAME_PREFIX);
         // 设置在关闭线程池时是否等待任务完成
         threadPoolTaskExecutor.setWaitForTasksToCompleteOnShutdown(true);
         // 允许核心线程超时

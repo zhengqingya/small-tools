@@ -25,10 +25,10 @@ public interface ThreadPoolConstant {
     /**
      * 替换原生Spring默认线程池-线程名前缀
      */
-    String SPRING_DEFAULT_THREAD_POOL_PREFIX = "MyTaskExecutorInit-";
+    String SPRING_DEFAULT_THREAD_NAME_PREFIX = "MyTaskExecutorInit-";
     /**
      * SmallTools线程池-线程名前缀
      */
-    String SMALL_TOOLS_THREAD_POOL_PREFIX = "SmallToolsTaskExecutor-";
+    String SMALL_TOOLS_THREAD_NAME_PREFIX = "SmallToolsTaskExecutor-";
 
 }
