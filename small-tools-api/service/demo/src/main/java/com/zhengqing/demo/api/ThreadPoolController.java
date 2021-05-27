@@ -28,6 +28,8 @@ public class ThreadPoolController {
         Future<Integer> integerFuture1 = asyncTaskThread.task1();
         Future<Integer> integerFuture2 = asyncTaskThread.task2();
         Future<Integer> integerFuture3 = asyncTaskThread.task3();
+        asyncTaskThread.task4();
+        asyncTaskThread.task5();
         //获取异步任务的处理结果，异步任务没有处理完成，会一直阻塞，可以设置超时时间，使用 get 的重载方法
         list.add(integerFuture1.get());
         list.add(integerFuture2.get());

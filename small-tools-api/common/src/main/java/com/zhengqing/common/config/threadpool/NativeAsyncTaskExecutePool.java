@@ -54,7 +54,7 @@ public class NativeAsyncTaskExecutePool implements AsyncConfigurer {
     }
 
     /**
-     * 异步任务中异常处理
+     * 异步任务中异常处理 （注：只能捕获到@Async下无返回值的方法）
      */
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
@@ -62,9 +62,8 @@ public class NativeAsyncTaskExecutePool implements AsyncConfigurer {
             @Override
             public void handleUncaughtException(Throwable throwable, Method method,
                     Object... objects) {
-                log.error("exception method: 【{}】", method.getName());
-                log.error("exception msg: 【{}】 【{}】", throwable.getMessage()
-                        , throwable);
+                log.error("exception method: 【{}】", method);
+                log.error("exception msg: ", throwable);
             }
         };
     }
