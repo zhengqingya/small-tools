@@ -1,22 +1,27 @@
 package com.zhengqing.demo.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
+import com.zhengqing.common.enums.IsValidEnum;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.mapper.DemoMapper;
 import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.dto.DemoSaveDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
 import com.zhengqing.demo.service.IDemoService;
-
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -71,8 +76,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     /**
      * 处理数据
      *
-     * @param list:
-     *            数据
+     * @param list: 数据
      * @return: void
      * @author : zhengqing
      * @date : 2021/01/13 10:11
@@ -98,6 +102,84 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
             demo.updateById();
         }
         return demo.getId();
+    }
+
+    @Override
+    public void addBatchData() {
+        // 测试插入数据量
+        int addSum = 1000000;
+        LocalDateTime saveBeforeDateTime = LocalDateTime.now();
+        this.insertData03(addSum);
+        LocalDateTime saveAfterDateTime = LocalDateTime.now();
+        Duration duration = Duration.between(saveBeforeDateTime, saveAfterDateTime);
+        log.info("测试插入100w数据用时 :【{} s】", duration.toMillis());
+    }
+
+    /**
+     * 方式一：for循环中单条插入 1000条数据耗时:8s
+     */
+    private void insertData01(int addSum) {
+        for (int i = 0; i < addSum; i++) {
+            Demo.builder().username("insertData01 - " + i).password("123456").build().insert();
+        }
+    }
+
+    /**
+     * 方式二：mybatis api 批量插入 1000条数据耗时:5s
+     */
+    private void insertData02(int addSum) {
+        List<Demo> demoList = Lists.newLinkedList();
+        for (int i = 0; i < addSum; i++) {
+            demoList.add(Demo.builder().username("insertData02 - " + i).password("123456").build());
+        }
+        this.saveBatch(demoList);
+    }
+
+    /**
+     * 方式三：手写sql 批量插入 1000条数据耗时:1s
+     */
+    private void insertData03(int addSum) {
+        List<Demo> demoList = Lists.newLinkedList();
+        Date now = new Date();
+        for (int i = 0; i < addSum; i++) {
+            Demo item = new Demo();
+            item.setUsername("insertData03 - " + i);
+            item.setPassword("123456");
+            item.setCreateBy(1);
+            item.setCreateTime(now);
+            item.setUpdateBy(1);
+            item.setUpdateTime(now);
+            item.setIsValid(IsValidEnum.有效.getValue());
+            demoList.add(item);
+        }
+        demoMapper.insertBatch(demoList);
+    }
+
+    @Autowired
+    private SqlSessionFactory sqlSessionFactory;
+
+    /**
+     * 方式四：批处理 1000条数据耗时:5s
+     */
+    private void insertData04(int addSum) {
+        List<Demo> demoList = Lists.newLinkedList();
+        Date now = new Date();
+        for (int i = 0; i < addSum; i++) {
+            Demo item = new Demo();
+            item.setUsername("insertData04 - " + i);
+            item.setPassword("123456");
+            item.setCreateBy(1);
+            item.setCreateTime(now);
+            item.setUpdateBy(1);
+            item.setUpdateTime(now);
+            item.setIsValid(IsValidEnum.有效.getValue());
+            demoList.add(item);
+        }
+        SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
+        DemoMapper demoMapperNew = sqlSession.getMapper(DemoMapper.class);
+        demoList.stream().forEach(demoMapperNew::insert);
+        sqlSession.commit();
+        sqlSession.clearCache();
     }
 
 }

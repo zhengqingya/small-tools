@@ -1,23 +1,5 @@
 package com.zhengqing.demo.api;
 
-import java.util.List;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.custom.RequestPostSingleParam;
@@ -30,12 +12,26 @@ import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.dto.DemoSaveDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
 import com.zhengqing.demo.service.IDemoService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -58,19 +54,25 @@ public class DemoController extends BaseController {
     @Autowired
     private DemoMapper demoMapper;
 
-    @GetMapping("testTransactional")
+    @GetMapping("test/transactional")
     @ApiOperation("测试事务")
     public void testTransactional() {
         demoService.testTransactional();
     }
 
-    @PostMapping("testPostParam")
+    @PostMapping("add/batch/data")
+    @ApiOperation("测试插入100w数据用时")
+    public void addBatchData() {
+        demoService.addBatchData();
+    }
+
+    @PostMapping("test/post/param")
     @ApiOperation("测试post请求接收单个参数")
     public void testPostParam(@ApiParam("id值") @RequestPostSingleParam Integer id) {
         System.out.println(id);
     }
 
-    @GetMapping("listPage")
+    @GetMapping("list/page")
     @ApiOperation("列表分页")
     public IPage<DemoListVO> listPage(@ModelAttribute DemoListDTO params) {
         return demoService.listPage(params);
@@ -115,7 +117,7 @@ public class DemoController extends BaseController {
     }
 
     @Transactional(readOnly = true)
-    @GetMapping("testUpdate")
+    @GetMapping("test/update")
     @ApiOperation("测试更新")
     public Demo testUpdate() {
 
