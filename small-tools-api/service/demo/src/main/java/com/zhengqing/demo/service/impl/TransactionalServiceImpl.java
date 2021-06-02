@@ -1,6 +1,7 @@
 package com.zhengqing.demo.service.impl;
 
 import com.zhengqing.demo.entity.Demo;
+import com.zhengqing.demo.service.IDemoService;
 import com.zhengqing.demo.service.ITransactionalService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 public class TransactionalServiceImpl implements ITransactionalService {
 
     @Autowired
-    private DemoServiceImpl demoService;
+    private IDemoService demoService;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
