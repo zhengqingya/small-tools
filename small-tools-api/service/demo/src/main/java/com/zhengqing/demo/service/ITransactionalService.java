@@ -29,4 +29,13 @@ public interface ITransactionalService {
      */
     void testTransactional03();
 
+    /**
+     * 无事务A方法 调用 有事务B方法 事务生效测试 -> 触发aop
+     *
+     * @return void
+     * @author zhengqingya
+     * @date 2021/6/2 10:19 下午
+     */
+    void testTransactional04();
+
 }

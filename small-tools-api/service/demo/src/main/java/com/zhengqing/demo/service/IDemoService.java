@@ -6,6 +6,7 @@ import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.dto.DemoSaveDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
+
 import java.util.List;
 
 /**
@@ -57,6 +58,15 @@ public interface IDemoService extends IService<Demo> {
      * @date : 2021/01/13 10:11
      */
     Integer addOrUpdateData(DemoSaveDTO params);
+
+    /**
+     * 测试事务回滚部分异常
+     *
+     * @return void
+     * @author zhengqingya
+     * @date 2021/6/2 11:26 下午
+     */
+    void asyncExecuteTransactional();
 
     /**
      * 测试插入100w数据用时

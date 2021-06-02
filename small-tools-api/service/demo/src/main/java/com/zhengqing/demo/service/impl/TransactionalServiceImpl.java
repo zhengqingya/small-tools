@@ -3,6 +3,7 @@ package com.zhengqing.demo.service.impl;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.service.ITransactionalService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,9 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 @Slf4j
 @Service
 public class TransactionalServiceImpl implements ITransactionalService {
+
+    @Autowired
+    private DemoServiceImpl demoService;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -48,6 +52,7 @@ public class TransactionalServiceImpl implements ITransactionalService {
         log.debug("无异常...");
     }
 
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void testTransactional03() {
@@ -55,7 +60,6 @@ public class TransactionalServiceImpl implements ITransactionalService {
         // 异步任务
         this.asyncExecute();
     }
-
 
     public void handleData03() {
         Demo demo = Demo.builder().username("test-03-simple-method").password("123456").build();
@@ -87,6 +91,11 @@ public class TransactionalServiceImpl implements ITransactionalService {
 //            int a2 = 1 / 0;
             return;
         }
+    }
+
+    @Override
+    public void testTransactional04() {
+        this.demoService.asyncExecuteTransactional();
     }
 
 

@@ -46,4 +46,10 @@ public class TestTransactionalController extends BaseController {
         this.transactionalService.testTransactional03();
     }
 
+    @GetMapping("04")
+    @ApiOperation("事务场景04")
+    public void testTransactional04() {
+        this.transactionalService.testTransactional04();
+    }
+
 }

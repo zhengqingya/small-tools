@@ -11,17 +11,20 @@ import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.dto.DemoSaveDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
 import com.zhengqing.demo.service.IDemoService;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -102,6 +105,32 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
             demo.updateById();
         }
         return demo.getId();
+    }
+
+    @Async
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void asyncExecuteTransactional() {
+        Demo demo = Demo.builder().username("test-03-async-method-01").password("123456").build();
+        demo.insert();
+//        int a1 = 1 / 0;
+
+        // 设置回滚点,只回滚以下异常
+        Object savePoint = TransactionAspectSupport.currentTransactionStatus().createSavepoint();
+        try {
+            Demo demo2 = Demo.builder().username("test-03-async-method-02").password("123456").build();
+            demo2.insert();
+            int exception = 1 / 0;
+        } catch (Exception e) {
+            // 手工回滚异常,回滚到savePoint
+            TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savePoint);
+            log.error("异步执行任务失败: {}", e.getMessage());
+
+            Demo demo3 = Demo.builder().username("test-03-async-method-03").password("123456").build();
+            demo3.insert();
+//            int a2 = 1 / 0;
+            return;
+        }
     }
 
     @Override
