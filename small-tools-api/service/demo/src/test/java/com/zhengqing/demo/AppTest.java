@@ -2,10 +2,11 @@ package com.zhengqing.demo;
 
 import com.google.common.collect.Maps;
 import com.zhengqing.common.model.bo.UserTokenInfo.UserInfo;
+import org.junit.Test;
+
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Optional;
-import org.junit.Test;
 
 public class AppTest {
 
@@ -52,4 +53,11 @@ public class AppTest {
             System.out.println(222);
         }
     }
+
+
+    @Test
+    public void test02() throws Exception {
+
+    }
+
 }
