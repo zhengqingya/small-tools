@@ -1,9 +1,11 @@
 package com.zhengqing.demo.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
+import com.zhengqing.common.constant.MybatisConstant;
 import com.zhengqing.common.enums.IsValidEnum;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.mapper.DemoMapper;
@@ -11,6 +13,10 @@ import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.dto.DemoSaveDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
 import com.zhengqing.demo.service.IDemoService;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
@@ -20,11 +26,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 
 /**
  * <p>
@@ -99,6 +100,12 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         demo.setUsername(username);
         demo.setPassword(password);
 
+        // FIXME 临时测试分页
+        Demo demoInfo = this.demoMapper
+                .selectOne(new LambdaQueryWrapper<Demo>().eq(Demo::getUsername, username)
+                        .last(MybatisConstant.LIMIT_ONE));
+        log.info("demoInfo ：{}", demoInfo);
+
         if (id == null) {
             demo.insert();
         } else {
@@ -118,7 +125,8 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         // 设置回滚点,只回滚以下异常
         Object savePoint = TransactionAspectSupport.currentTransactionStatus().createSavepoint();
         try {
-            Demo demo2 = Demo.builder().username("test-03-async-method-02").password("123456").build();
+            Demo demo2 = Demo.builder().username("test-03-async-method-02").password("123456")
+                    .build();
             demo2.insert();
             int exception = 1 / 0;
         } catch (Exception e) {
@@ -126,7 +134,8 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
             TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savePoint);
             log.error("异步执行任务失败: {}", e.getMessage());
 
-            Demo demo3 = Demo.builder().username("test-03-async-method-03").password("123456").build();
+            Demo demo3 = Demo.builder().username("test-03-async-method-03").password("123456")
+                    .build();
             demo3.insert();
 //            int a2 = 1 / 0;
             return;

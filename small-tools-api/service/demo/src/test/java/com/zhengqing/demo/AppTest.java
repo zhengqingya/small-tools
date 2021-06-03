@@ -1,13 +1,23 @@
 package com.zhengqing.demo;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zhengqing.common.model.bo.UserTokenInfo.UserInfo;
-import org.junit.Test;
-
+import com.zhengqing.demo.entity.Demo;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 
+@Slf4j
 public class AppTest {
 
     @Test
@@ -54,10 +64,78 @@ public class AppTest {
         }
     }
 
-
     @Test
     public void test02() throws Exception {
+        // 尾部插入： 10w内LinkedList快    100w上ArrayList快
+        // 头部插入： LinkedList都快
+        int testSum = 1000000;
+        LocalDateTime saveBeforeDateTime = LocalDateTime.now();
+        List<Demo> demoList = Lists.newArrayList();
+        for (int i = 0; i < testSum; i++) {
+            demoList.add(Demo.builder().username("test - " + i).password("123456").build());
+        }
+        LocalDateTime saveAfterDateTime = LocalDateTime.now();
+        Duration duration = Duration.between(saveBeforeDateTime, saveAfterDateTime);
+        log.info("ArrayList 用时 :【{} s】", duration.toMillis());
+
+        // ----------------------------------------------------------
+
+        LocalDateTime saveBeforeDateTime2 = LocalDateTime.now();
+        List<Demo> demoList2 = Lists.newLinkedList();
+        IntStream.range(0, testSum).forEach(i -> {
+            demoList2.add(0, Demo.builder().username("test - " + i).password("123456").build());
+        });
+//        for (int i = 0; i < testSum; i++) {
+//            demoList2.add(0, Demo.builder().username("test - " + i).password("123456").build());
+//        }
+        LocalDateTime saveAfterDateTime2 = LocalDateTime.now();
+        Duration duration2 = Duration.between(saveBeforeDateTime2, saveAfterDateTime2);
+        log.info("LinkedList 用时 :【{} s】", duration2.toMillis());
+    }
+
+    @Test
+    public void test03() throws Exception {
+        int sum = 10000000;
+        this.headInsert(Lists.newArrayList(), sum);
+        this.headInsert2(Lists.newLinkedList(), sum);
 
     }
+
+    private void headInsert(ArrayList arrayList, int size) {
+        long start = System.currentTimeMillis();
+        IntStream.range(0, size).forEach(i -> {
+            arrayList.add(i);
+        });
+        long end = System.currentTimeMillis();
+        System.out.println("ArrayList headInsert cost:" + (end - start) + "ms");
+    }
+
+    private void headInsert2(LinkedList linkedList, int size) {
+        long start = System.currentTimeMillis();
+        IntStream.range(0, size).forEach(i -> {
+            linkedList.add(0, i);
+        });
+        long end = System.currentTimeMillis();
+        System.out.println("LinkedList headInsert cost:" + (end - start) + "ms");
+    }
+
+    @Test
+    public void test04() throws Exception {
+        LocalDateTime handleBeforeTime = LocalDateTime.now();
+        log.debug("处理开始时间：{}", handleBeforeTime);
+        TimeUnit.SECONDS.sleep(2);
+        LocalDateTime handleAfterTime = LocalDateTime.now();
+        log.debug("处理完成时间：{}", handleAfterTime);
+        log.debug("处理时间：{} s", Duration.between(handleBeforeTime, handleAfterTime).toMillis());
+
+//        log.error("handleBeforeTime:{} handleAfterTime:{}", handleBeforeTime, handleAfterTime);
+    }
+
+    @Test
+    public void test05() throws Exception {
+        List<Integer> list = Lists.newArrayList();
+        Optional.ofNullable(list).ifPresent(e -> log.info(e.toString()));
+    }
+
 
 }

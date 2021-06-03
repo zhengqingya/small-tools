@@ -20,6 +20,7 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -42,6 +43,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @description:
  * @date: 2021/01/13 10:11
  */
+@Slf4j
 @RestController
 @RequestMapping("/web/api/demo/demo")
 @Api(tags = {"测试demo接口"})
@@ -57,13 +59,13 @@ public class DemoController extends BaseController {
     @GetMapping("test/transactional")
     @ApiOperation("测试事务")
     public void testTransactional() {
-        demoService.testTransactional();
+        this.demoService.testTransactional();
     }
 
     @PostMapping("add/batch/data")
     @ApiOperation("测试插入100w数据用时")
     public void addBatchData() {
-        demoService.addBatchData();
+        this.demoService.addBatchData();
     }
 
     @PostMapping("test/post/param")
@@ -75,39 +77,39 @@ public class DemoController extends BaseController {
     @GetMapping("list/page")
     @ApiOperation("列表分页")
     public IPage<DemoListVO> listPage(@ModelAttribute DemoListDTO params) {
-        return demoService.listPage(params);
+        return this.demoService.listPage(params);
     }
 
     @GetMapping("list")
     @ApiOperation("列表")
     public List<DemoListVO> list(@ModelAttribute DemoListDTO params) {
-        return demoService.list(params);
+        return this.demoService.list(params);
     }
 
     @NoRepeatSubmit
     @PostMapping("")
     @ApiOperation("新增")
     public Integer add(@Validated @RequestBody DemoSaveDTO params) {
-        return demoService.addOrUpdateData(params);
+        return this.demoService.addOrUpdateData(params);
     }
 
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
     public Integer update(@Validated(UpdateGroup.class) @RequestBody DemoSaveDTO params) {
-        return demoService.addOrUpdateData(params);
+        return this.demoService.addOrUpdateData(params);
     }
 
     @DeleteMapping("")
     @ApiOperation("删除")
     public void delete(@RequestParam Integer demoId) {
-        demoService.removeById(demoId);
+        this.demoService.removeById(demoId);
     }
 
     @GetMapping("detail")
     @ApiOperation("详情")
     public Demo detail(@RequestParam Integer demoId) {
-        return demoService.getById(demoId);
+        return this.demoService.getById(demoId);
     }
 
     @PostMapping("test/list/")

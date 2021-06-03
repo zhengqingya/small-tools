@@ -1,18 +1,16 @@
 package com.zhengqing.demo.api;
 
+import com.zhengqing.common.api.BaseController;
+import com.zhengqing.common.aspect.config.BeanSelfAware;
+import com.zhengqing.common.model.dto.BaseDTO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.aspect.config.BeanSelfAware;
-import com.zhengqing.common.model.dto.BaseDTO;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
@@ -52,7 +50,7 @@ public class TestController extends BaseController implements BeanSelfAware {
 
     @Override
     public void setSelf(Object proxyBean) {
-        this.self = (TestController)proxyBean;
+        this.self = (TestController) proxyBean;
         // 如果输出true标识AOP代理对象注入成功
         log.debug("TestController: 【{}】", AopUtils.isAopProxy(this.self));
     }
