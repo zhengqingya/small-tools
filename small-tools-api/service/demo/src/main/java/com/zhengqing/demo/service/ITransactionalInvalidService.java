@@ -8,4 +8,6 @@ public interface ITransactionalInvalidService {
 
     void testTransactionalInvalid03();
 
+    void testTransactionalInvalid04();
+
 }

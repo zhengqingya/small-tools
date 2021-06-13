@@ -1,12 +1,11 @@
 package com.zhengqing.demo.service.impl;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.service.ITransactionalInvalidService;
-
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -45,8 +44,17 @@ public class TransactionalInvalidServiceImpl implements ITransactionalInvalidSer
         log.debug("无异常...");
     }
 
+
     @Override
+    @SneakyThrows
+    @Transactional(rollbackFor = Exception.class)
     public void testTransactionalInvalid03() {
+
+    }
+
+    @Override
+    @Transactional
+    public void testTransactionalInvalid04() {
 
     }
 

@@ -1,16 +1,14 @@
 package com.zhengqing.demo.api.transactional;
 
+import com.zhengqing.common.api.BaseController;
+import com.zhengqing.demo.service.ITransactionalInvalidService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.zhengqing.common.api.BaseController;
-import com.zhengqing.demo.service.ITransactionalInvalidService;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
@@ -46,6 +44,12 @@ public class TestTransactionalInvalidController extends BaseController {
     @ApiOperation("事务失效场景03")
     public void testTransactional03() {
         this.transactionalInvalidService.testTransactionalInvalid03();
+    }
+
+    @GetMapping("04")
+    @ApiOperation("事务失效场景04")
+    public void testTransactional04() {
+        this.transactionalInvalidService.testTransactionalInvalid04();
     }
 
 }
