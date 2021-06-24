@@ -1,16 +1,14 @@
 package com.zhengqing.common.config.mybatis;
 
-import java.util.Date;
-
-import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.stereotype.Component;
-
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.http.ContextHandler;
 import com.zhengqing.common.util.MyDateUtil;
-
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -30,7 +28,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void insertFill(MetaObject metaObject) {
-        log.debug(" -------------------- start insert fill ...  --------------------");
+        log.debug(" -------------------- [MyBatisPlus自动填充处理] start insert fill ...  --------------------");
         // 用户id
         int userId = ContextHandler.getUserId();
         // 当前时间
@@ -43,7 +41,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         if (metaObject.hasGetter(AppConstant.CREATE_BY)) {
             Object value = metaObject.getValue(AppConstant.CREATE_BY);
             if (value != null) {
-                userId = (Integer)value;
+                userId = (Integer) value;
             }
             this.setFieldValByName(AppConstant.CREATE_BY, userId, metaObject);
         }
@@ -59,8 +57,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
         // 日志输出 ================================================================================================
         // Date createTime = (Date)this.getFieldValByName(CREATE_TIME, metaObject);
-        log.debug("MyBatisPlus自动填充处理 - 时间:{} 操作人id:{}", MyDateUtil.dateToStr(nowDate, MyDateUtil.DATE_TIME_FORMAT),
-            userId);
+        log.debug("[MyBatisPlus自动填充处理] 时间:{} 操作人id:{}", MyDateUtil.dateToStr(nowDate, MyDateUtil.DATE_TIME_FORMAT),
+                userId);
     }
 
     /**
@@ -68,7 +66,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-        log.debug(" -------------------- start update fill ...  --------------------");
+        log.debug(" -------------------- [MyBatisPlus自动填充处理] start update fill ...  --------------------");
         // 用户id
         int userId = ContextHandler.getUserId();
         // 当前时间
@@ -83,8 +81,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         }
 
         // 日志输出 ================================================================================================
-        log.debug("MyBatisPlus自动填充处理 - 时间:{} 操作人id:{}", MyDateUtil.dateToStr(nowDate, MyDateUtil.DATE_TIME_FORMAT),
-            userId);
+        log.debug("[MyBatisPlus自动填充处理] 时间:{} 操作人id:{}", MyDateUtil.dateToStr(nowDate, MyDateUtil.DATE_TIME_FORMAT),
+                userId);
     }
 
 }
