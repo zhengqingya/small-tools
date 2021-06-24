@@ -1,17 +1,16 @@
 package com.zhengqing.common.exception;
 
-import javax.validation.ConstraintViolationException;
-import javax.validation.ValidationException;
-
+import com.zhengqing.common.http.ApiResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import com.zhengqing.common.http.ApiResult;
-
-import lombok.extern.slf4j.Slf4j;
+import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
 
 /**
  * <p>
@@ -19,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  * </p>
  *
  * @description: 在spring 3.2中，新增了@ControllerAdvice
- *               注解，可以用于定义@ExceptionHandler、@InitBinder、@ModelAttribute，并应用到所有@RequestMapping中
+ * 注解，可以用于定义@ExceptionHandler、@InitBinder、@ModelAttribute，并应用到所有@RequestMapping中
  * @author: zhengqing
  * @date: 2019/8/25 0025 18:56
  */
@@ -69,6 +68,15 @@ public class MyGlobalExceptionHandler {
         String message = cause.getMessage();
         log.error("ValidationException:", e);
         return ApiResult.fail(message);
+    }
+
+    /**
+     * jsr303参数校验异常
+     */
+    @ExceptionHandler({BindException.class})
+    public ApiResult<String> exception(BindException e) {
+        log.error("BindException:", e);
+        return ApiResult.fail(e.getBindingResult().getFieldError().getDefaultMessage());
     }
 
     /**

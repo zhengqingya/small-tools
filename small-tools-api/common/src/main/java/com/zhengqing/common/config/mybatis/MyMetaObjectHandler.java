@@ -1,7 +1,7 @@
 package com.zhengqing.common.config.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.constant.MybatisConstant;
 import com.zhengqing.common.http.ContextHandler;
 import com.zhengqing.common.util.MyDateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -35,24 +35,24 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         Date nowDate = new Date();
 
         // 判断对象中是否存在该参数，如果存在则插入数据
-        if (metaObject.hasGetter(AppConstant.IS_VALID)) {
-            this.setFieldValByName(AppConstant.IS_VALID, 1, metaObject);
+        if (metaObject.hasGetter(MybatisConstant.IS_VALID)) {
+            this.setFieldValByName(MybatisConstant.IS_VALID, 1, metaObject);
         }
-        if (metaObject.hasGetter(AppConstant.CREATE_BY)) {
-            Object value = metaObject.getValue(AppConstant.CREATE_BY);
+        if (metaObject.hasGetter(MybatisConstant.CREATE_BY)) {
+            Object value = metaObject.getValue(MybatisConstant.CREATE_BY);
             if (value != null) {
                 userId = (Integer) value;
             }
-            this.setFieldValByName(AppConstant.CREATE_BY, userId, metaObject);
+            this.setFieldValByName(MybatisConstant.CREATE_BY, userId, metaObject);
         }
-        if (metaObject.hasGetter(AppConstant.CREATE_TIME)) {
-            this.setFieldValByName(AppConstant.CREATE_TIME, nowDate, metaObject);
+        if (metaObject.hasGetter(MybatisConstant.CREATE_TIME)) {
+            this.setFieldValByName(MybatisConstant.CREATE_TIME, nowDate, metaObject);
         }
-        if (metaObject.hasGetter(AppConstant.UPDATE_BY)) {
-            this.setFieldValByName(AppConstant.UPDATE_BY, userId, metaObject);
+        if (metaObject.hasGetter(MybatisConstant.UPDATE_BY)) {
+            this.setFieldValByName(MybatisConstant.UPDATE_BY, userId, metaObject);
         }
-        if (metaObject.hasGetter(AppConstant.UPDATE_TIME)) {
-            this.setFieldValByName(AppConstant.UPDATE_TIME, nowDate, metaObject);
+        if (metaObject.hasGetter(MybatisConstant.UPDATE_TIME)) {
+            this.setFieldValByName(MybatisConstant.UPDATE_TIME, nowDate, metaObject);
         }
 
         // 日志输出 ================================================================================================
@@ -73,11 +73,11 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         Date nowDate = new Date();
 
         // 判断对象中是否存在该参数，如果存在则插入数据
-        if (metaObject.hasGetter(AppConstant.UPDATE_BY)) {
-            this.setFieldValByName(AppConstant.UPDATE_BY, userId, metaObject);
+        if (metaObject.hasGetter(MybatisConstant.UPDATE_BY)) {
+            this.setFieldValByName(MybatisConstant.UPDATE_BY, userId, metaObject);
         }
-        if (metaObject.hasGetter(AppConstant.UPDATE_TIME)) {
-            this.setFieldValByName(AppConstant.UPDATE_TIME, nowDate, metaObject);
+        if (metaObject.hasGetter(MybatisConstant.UPDATE_TIME)) {
+            this.setFieldValByName(MybatisConstant.UPDATE_TIME, nowDate, metaObject);
         }
 
         // 日志输出 ================================================================================================

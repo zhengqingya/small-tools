@@ -1,6 +1,7 @@
 package com.zhengqing.common.constant;
 
 import com.google.common.collect.Lists;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,27 +32,6 @@ public interface AppConstant {
      * 实体类名
      */
     String ENTITY_NAME = "${entity}";
-
-    /**
-     * 是否有效(1:有效 0:无效）
-     */
-    String IS_VALID = "isValid";
-    /**
-     * 创建人id
-     */
-    String CREATE_BY = "createBy";
-    /**
-     * 创建时间
-     */
-    String CREATE_TIME = "createTime";
-    /**
-     * 更新人id
-     */
-    String UPDATE_BY = "updateBy";
-    /**
-     * 更新时间
-     */
-    String UPDATE_TIME = "updateTime";
 
     /**
      * 接口url
