@@ -2,7 +2,7 @@ package com.zhengqing.common.config.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.zhengqing.common.constant.MybatisConstant;
-import com.zhengqing.common.http.ContextHandler;
+import com.zhengqing.common.context.ContextHandler;
 import com.zhengqing.common.util.MyDateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;

@@ -1,14 +1,13 @@
 package com.zhengqing.system.feign.fallback;
 
-import java.util.List;
-
-import org.springframework.stereotype.Component;
-
 import com.zhengqing.common.exception.MyException;
 import com.zhengqing.common.http.ApiResult;
 import com.zhengqing.system.feign.ISystemClient;
 import com.zhengqing.system.model.dto.SysUserSaveDTO;
 import com.zhengqing.system.model.vo.SysDictVO;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * <p>
@@ -30,6 +29,11 @@ public class ISystemClientFallback implements ISystemClient {
     @Override
     public ApiResult<Integer> addOrUpdateData(SysUserSaveDTO params) {
         return ApiResult.fail("更新数据失败！");
+    }
+
+    @Override
+    public Integer getRequestHeaderUserId() {
+        return null;
     }
 
 }

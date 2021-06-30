@@ -1,18 +1,16 @@
 package com.zhengqing.common.aspect;
 
+import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.context.ContextHandler;
+import com.zhengqing.common.model.dto.BaseDTO;
+import com.zhengqing.common.parameter.ParameterVerify;
+import com.zhengqing.common.util.ServletUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.http.ContextHandler;
-import com.zhengqing.common.model.dto.BaseDTO;
-import com.zhengqing.common.parameter.ParameterVerify;
-import com.zhengqing.common.util.ServletUtil;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
@@ -32,20 +30,21 @@ public class ControllerAspect {
      * 配置织入点
      */
     @Pointcut("execution(* com.zhengqing.*..*.*Controller.*(..))")
-    public void controllerPointCut() {}
+    public void controllerPointCut() {
+    }
 
     /**
      * Before增强：在目标方法被执行的时候织入增强
-     *
+     * <p>
      * Controller所有方法为切入点
      */
     @Before("controllerPointCut()")
     public void controllerPointCut(JoinPoint joinPoint) {
         // 1、装入当前操作人id&名称
         int userId =
-            ServletUtil.getParameterToInt(AppConstant.CONTEXT_KEY_USER_ID, AppConstant.DEFAULT_CONTEXT_KEY_USER_ID);
+                ServletUtil.getParameterToInt(AppConstant.CONTEXT_KEY_USER_ID, AppConstant.DEFAULT_CONTEXT_KEY_USER_ID);
         String username =
-            ServletUtil.getParameter(AppConstant.CONTEXT_KEY_USERNAME, AppConstant.DEFAULT_CONTEXT_KEY_USERNAME);
+                ServletUtil.getParameter(AppConstant.CONTEXT_KEY_USERNAME, AppConstant.DEFAULT_CONTEXT_KEY_USERNAME);
         ContextHandler.setUserId(userId);
         ContextHandler.setUsername(username);
 
@@ -55,14 +54,14 @@ public class ControllerAspect {
         for (Object paramObj : paramObjArray) {
             // dto参数处理
             if (paramObj instanceof BaseDTO) {
-                BaseDTO baseDTO = (BaseDTO)paramObj;
+                BaseDTO baseDTO = (BaseDTO) paramObj;
                 baseDTO.setCurrentUserId(userId);
                 baseDTO.setCurrentUsername(username);
             }
 
             // 参数校验处理
             if (paramObj instanceof ParameterVerify) {
-                ParameterVerify parameterVerify = (ParameterVerify)paramObj;
+                ParameterVerify parameterVerify = (ParameterVerify) paramObj;
                 parameterVerify.checkParam();
             }
         }

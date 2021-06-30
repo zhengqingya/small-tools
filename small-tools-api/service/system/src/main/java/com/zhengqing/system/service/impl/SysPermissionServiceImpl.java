@@ -1,44 +1,26 @@
 package com.zhengqing.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.context.ContextHandler;
+import com.zhengqing.common.exception.MyException;
+import com.zhengqing.common.util.MyBeanUtil;
+import com.zhengqing.system.entity.SysRole;
+import com.zhengqing.system.entity.SysUserRole;
+import com.zhengqing.system.enums.SysCacheTypeEnum;
+import com.zhengqing.system.enums.SysMenuTypeEnum;
+import com.zhengqing.system.model.vo.*;
+import com.zhengqing.system.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.exception.MyException;
-import com.zhengqing.common.http.ContextHandler;
-import com.zhengqing.common.util.MyBeanUtil;
-import com.zhengqing.system.entity.SysRole;
-import com.zhengqing.system.entity.SysUserRole;
-import com.zhengqing.system.enums.SysCacheTypeEnum;
-import com.zhengqing.system.enums.SysMenuTypeEnum;
-import com.zhengqing.system.model.vo.SysMenuTreeVO;
-import com.zhengqing.system.model.vo.SysPermissionVO;
-import com.zhengqing.system.model.vo.SysRoleListVO;
-import com.zhengqing.system.model.vo.SysRoleMenuBtnListVO;
-import com.zhengqing.system.model.vo.SysUserDetailVO;
-import com.zhengqing.system.model.vo.SysUserVO;
-import com.zhengqing.system.service.ISysMenuService;
-import com.zhengqing.system.service.ISysPermissionService;
-import com.zhengqing.system.service.ISysRoleMenuBtnService;
-import com.zhengqing.system.service.ISysRoleMenuService;
-import com.zhengqing.system.service.ISysRoleService;
-import com.zhengqing.system.service.ISysUserRoleService;
-import com.zhengqing.system.service.ISysUserService;
-
-import lombok.extern.slf4j.Slf4j;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -141,10 +123,8 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     /**
      * 递归子菜单
      *
-     * @param parentMenuId:
-     *            父菜单id
-     * @param allMenuList:
-     *            所有菜单
+     * @param parentMenuId: 父菜单id
+     * @param allMenuList:  所有菜单
      * @return: 菜单树列表
      * @author : zhengqing
      * @date : 2020/9/10 20:56
@@ -184,7 +164,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
             throw new MyException(AppConstant.NO_PERMISSION);
         }
         List<Integer> roleIdList =
-            Arrays.stream(roleIds.split(",")).map(e -> Integer.parseInt(e.trim())).collect(Collectors.toList());
+                Arrays.stream(roleIds.split(",")).map(e -> Integer.parseInt(e.trim())).collect(Collectors.toList());
         List<SysRole> sysRoleList = sysRoleService.listByIds(roleIdList);
         if (CollectionUtils.isEmpty(sysRoleList)) {
             return null;
@@ -192,7 +172,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
 
         SysPermissionVO permissionVO = getRoleAndMenuInfo(sysRoleList, roleIdList);
         List<SysMenuTreeVO> menuBtnPermissionTreeList =
-            this.menuAndBtnPermissionTree(permissionVO.getMenuIdList(), roleIdList, systemSource);
+                this.menuAndBtnPermissionTree(permissionVO.getMenuIdList(), roleIdList, systemSource);
         permissionVO.setMenuAndBtnPermissionTree(menuBtnPermissionTreeList);
         // RedisUtil.set(Constants.CACHE_SYS_PERMISSION_PREFIX + userId, JSON.toJSONString(permissionVO));
         // log.info("更新`{}`菜单+按钮权限缓存成功!", userId);
@@ -202,10 +182,8 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     /**
      * 返回角色+菜单权限信息
      *
-     * @param sysRoleList:
-     *            角色信息
-     * @param roleIdList:
-     *            角色ids
+     * @param sysRoleList: 角色信息
+     * @param roleIdList:  角色ids
      * @return: 权限信息
      */
     private SysPermissionVO getRoleAndMenuInfo(List<SysRole> sysRoleList, List<Integer> roleIdList) {
@@ -237,18 +215,15 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     /**
      * 查询菜单+其拥有的按钮权限
      *
-     * @param menuIdList:
-     *            菜单权限ids
-     * @param roleIdList:
-     *            角色权限ids
-     * @param systemSource:
-     *            系统来源
+     * @param menuIdList:   菜单权限ids
+     * @param roleIdList:   角色权限ids
+     * @param systemSource: 系统来源
      * @return: 带权限的菜单树
      * @author : zhengqing
      * @date : 2020/9/11 14:32
      */
     private List<SysMenuTreeVO> menuAndBtnPermissionTree(List<Integer> menuIdList, List<Integer> roleIdList,
-        Integer systemSource) {
+                                                         Integer systemSource) {
         // 【法一】： 从redis缓存中取数据...
         // List<SysMenuTreeVO> menuTreeList =
         // JSONArray.parseArray(RedisUtil.get(Constants.CACHE_SYS_MENU_TREE), SysMenuTreeVO.class);
@@ -263,20 +238,16 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     /**
      * 过滤用户菜单树
      *
-     * @param menuTreeList:
-     *            菜单树
-     * @param menuIdList:
-     *            用户所拥有的菜单权限ids
-     * @param roleIdList:
-     *            用户所拥有的角色ids
-     * @param btnList:
-     *            用户所拥有的菜单按钮权限
+     * @param menuTreeList: 菜单树
+     * @param menuIdList:   用户所拥有的菜单权限ids
+     * @param roleIdList:   用户所拥有的角色ids
+     * @param btnList:      用户所拥有的菜单按钮权限
      * @return: 过滤后的用户关联的权限菜单树
      * @author : zhengqing
      * @date : 2020/9/11 14:34
      */
     private List<SysMenuTreeVO> filterTree(List<SysMenuTreeVO> menuTreeList, List<Integer> menuIdList,
-        List<Integer> roleIdList, List<SysRoleMenuBtnListVO> btnList) {
+                                           List<Integer> roleIdList, List<SysRoleMenuBtnListVO> btnList) {
         List<SysMenuTreeVO> result = Lists.newArrayList();
         for (SysMenuTreeVO menu : menuTreeList) {
             Integer menuId = menu.getMenuId();
@@ -301,18 +272,15 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     /**
      * 根据角色菜单勾选按钮权限
      *
-     * @param menuId:
-     *            菜单id
-     * @param roleIdList:
-     *            用户所拥有的角色ids
-     * @param btnList:
-     *            按钮权限
+     * @param menuId:     菜单id
+     * @param roleIdList: 用户所拥有的角色ids
+     * @param btnList:    按钮权限
      * @return: 按钮权限
      * @author : zhengqing
      * @date : 2020/9/11 14:36
      */
     private List<String> getBtnsByRoleIdMenuId(Integer menuId, List<Integer> roleIdList,
-        List<SysRoleMenuBtnListVO> btnList) {
+                                               List<SysRoleMenuBtnListVO> btnList) {
         if (CollectionUtils.isEmpty(btnList)) {
             return Lists.newArrayList();
         }

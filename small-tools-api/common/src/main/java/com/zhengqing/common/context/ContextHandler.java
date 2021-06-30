@@ -1,10 +1,11 @@
-package com.zhengqing.common.http;
+package com.zhengqing.common.context;
+
+import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.http.Message;
 
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.zhengqing.common.constant.AppConstant;
 
 /**
  * <p>

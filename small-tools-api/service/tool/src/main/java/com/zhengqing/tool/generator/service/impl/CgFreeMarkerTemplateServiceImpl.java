@@ -1,20 +1,11 @@
 package com.zhengqing.tool.generator.service.impl;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.context.ContextHandler;
 import com.zhengqing.common.exception.MyException;
-import com.zhengqing.common.http.ContextHandler;
 import com.zhengqing.common.util.MyBeanUtil;
 import com.zhengqing.tool.generator.entity.CgFreeMarkerTemplate;
 import com.zhengqing.tool.generator.enums.CgFreeMarkerTemplateCommonTypeEnum;
@@ -25,8 +16,15 @@ import com.zhengqing.tool.generator.model.dto.CgFreeMarkerTemplateTestDataDTO;
 import com.zhengqing.tool.generator.model.vo.CgFreeMarkerTemplateListVO;
 import com.zhengqing.tool.generator.service.ICgFreeMarkerTemplateService;
 import com.zhengqing.tool.generator.service.ICgGeneratorCodeService;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -41,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class CgFreeMarkerTemplateServiceImpl extends ServiceImpl<CgFreeMarkerTemplateMapper, CgFreeMarkerTemplate>
-    implements ICgFreeMarkerTemplateService {
+        implements ICgFreeMarkerTemplateService {
 
     @Autowired
     private CgFreeMarkerTemplateMapper cgFreeMarkerTemplateMapper;
@@ -67,8 +65,7 @@ public class CgFreeMarkerTemplateServiceImpl extends ServiceImpl<CgFreeMarkerTem
     /**
      * 处理数据
      *
-     * @param list:
-     *            数据
+     * @param list: 数据
      * @return: void
      * @author : zhengqing
      * @date : 2020-11-02 19:23:15
@@ -126,7 +123,7 @@ public class CgFreeMarkerTemplateServiceImpl extends ServiceImpl<CgFreeMarkerTem
         List<CgFreeMarkerTemplateListVO> templateList = this.list(templateListDTO);
         if (!CollectionUtils.isEmpty(templateList)) {
             Map<String, Object> templateDataMap = templateList.stream().collect(Collectors
-                .toMap(CgFreeMarkerTemplateListVO::getTemplateKey, CgFreeMarkerTemplateListVO::getTemplateValue));
+                    .toMap(CgFreeMarkerTemplateListVO::getTemplateKey, CgFreeMarkerTemplateListVO::getTemplateValue));
             templateData = cgGeneratorCodeService.generateTemplateData(templateDataMap, templateContent);
         }
         return templateData;

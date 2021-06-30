@@ -1,26 +1,25 @@
 package com.zhengqing.common.http;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
-import org.apache.commons.lang3.StringUtils;
-
+import com.zhengqing.common.context.ContextHandler;
 import com.zhengqing.common.enums.ApiResultCodeEnum;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * <p>
  * API返回参数
  * </p>
  *
- * @description :
  * @author : zhengqing
+ * @description :
  * @date : 2019/7/20 11:09
  */
 @Setter
@@ -77,7 +76,7 @@ public class ApiResult<T> {
         // 支持Controller层直接返回ApiResult
         ApiResult result = new ApiResult(ApiResultCodeEnum.SUCCESS);
         if (obj instanceof ApiResult) {
-            result = ((ApiResult)obj);
+            result = ((ApiResult) obj);
         } else {
             // 其他obj封装进data,保持返回格式统一
             result.setData(obj);

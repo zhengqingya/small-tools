@@ -1,19 +1,18 @@
 package com.zhengqing.system.feign;
 
-import java.util.List;
-
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.http.ApiResult;
 import com.zhengqing.common.rpc.IBaseClient;
 import com.zhengqing.system.feign.fallback.ISystemClientFallback;
 import com.zhengqing.system.model.dto.SysUserSaveDTO;
 import com.zhengqing.system.model.vo.SysDictVO;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * <p>
@@ -33,8 +32,7 @@ public interface ISystemClient extends IBaseClient {
     /**
      * 通过类型code获取数据字典列表数据 - 从缓存中取数据（只有启用的数据）
      *
-     * @param code:
-     *            类型编码
+     * @param code: 类型编码
      * @return: 数据字典列表数据
      * @author : zhengqing
      * @date : 2020/9/12 17:38
@@ -44,5 +42,15 @@ public interface ISystemClient extends IBaseClient {
 
     @PostMapping(API_USER)
     ApiResult<Integer> addOrUpdateData(@RequestBody SysUserSaveDTO params);
+
+    /**
+     * 测试多线程异步+feign传递请求头信息
+     *
+     * @return 用户id
+     * @author zhengqingya
+     * @date 2021/6/30 10:44 下午
+     */
+    @GetMapping(API_USER + "/getRequestHeaderUserId")
+    Integer getRequestHeaderUserId();
 
 }

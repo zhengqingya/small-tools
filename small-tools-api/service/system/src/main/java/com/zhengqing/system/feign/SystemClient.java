@@ -1,19 +1,20 @@
 package com.zhengqing.system.feign;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.zhengqing.common.http.ApiResult;
+import com.zhengqing.common.util.RequestContextUtil;
 import com.zhengqing.system.model.dto.SysUserSaveDTO;
 import com.zhengqing.system.model.vo.SysDictVO;
 import com.zhengqing.system.service.ISysDictService;
 import com.zhengqing.system.service.ISysUserService;
-
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -24,6 +25,7 @@ import springfox.documentation.annotations.ApiIgnore;
  * @description :
  * @date : 2021/1/1 21:45
  */
+@Slf4j
 @ApiIgnore()
 @RestController
 @AllArgsConstructor
@@ -43,6 +45,14 @@ public class SystemClient implements ISystemClient {
     @PostMapping(API_USER)
     public ApiResult<Integer> addOrUpdateData(SysUserSaveDTO params) {
         return ApiResult.build(sysUserService.addOrUpdateData(params));
+    }
+
+    @Override
+    public Integer getRequestHeaderUserId() {
+        Map<String, String> headerMap = RequestContextUtil.getHeaderMap();
+        String userId = headerMap.get("userId");
+        log.info("[system] 获取请求头值: {}", userId);
+        return Integer.valueOf(userId);
     }
 
 }
