@@ -1,31 +1,24 @@
 package com.zhengqing.system.api;
 
-import java.io.File;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.util.QiniuFileUtil;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 
 /**
  * <p>
  * 基础模块 - 上传文件 接口
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/14 20:13
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/14 20:13
  */
 @Slf4j
 @RestController

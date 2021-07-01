@@ -1,9 +1,15 @@
 package com.zhengqing.gateway.filter;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.http.ApiResult;
+import com.zhengqing.common.model.bo.UserTokenInfo;
+import com.zhengqing.common.util.JwtUtil;
+import com.zhengqing.gateway.config.GatewayProperty;
+import com.zhengqing.gateway.config.GatewayProperty.Auth;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -16,29 +22,21 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.http.ApiResult;
-import com.zhengqing.common.model.bo.UserTokenInfo;
-import com.zhengqing.common.util.JwtUtil;
-import com.zhengqing.gateway.config.GatewayProperty;
-import com.zhengqing.gateway.config.GatewayProperty.Auth;
-
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * <p>
  * 全局过滤器 - web
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2021/1/3 18:38
+ * @author zhengqingya
+ * @description
+ * @date 2021/1/3 18:38
  */
 @Slf4j
 @Component
@@ -86,11 +84,10 @@ public class AuthFilter implements GlobalFilter {
     /**
      * 安全认证
      *
-     * @param requestUrl:
-     *            请求url
+     * @param requestUrl: 请求url
      * @return: boolean
-     * @author : zhengqing
-     * @date : 2021/1/13 13:49
+     * @author zhengqingya
+     * @date 2021/1/13 13:49
      */
     private boolean isSkip(String requestUrl) {
         Auth auth = gatewayProperty.getAuth();
@@ -108,13 +105,11 @@ public class AuthFilter implements GlobalFilter {
     /**
      * 未认证处理
      *
-     * @param response:
-     *            响应
-     * @param msg:
-     *            响应消息
+     * @param response: 响应
+     * @param msg:      响应消息
      * @return: reactor.core.publisher.Mono<java.lang.Void>
-     * @author : zhengqing
-     * @date : 2021/1/13 14:23
+     * @author zhengqingya
+     * @date 2021/1/13 14:23
      */
     private Mono<Void> unAuth(ServerHttpResponse response, String msg) {
         response.setStatusCode(HttpStatus.UNAUTHORIZED);

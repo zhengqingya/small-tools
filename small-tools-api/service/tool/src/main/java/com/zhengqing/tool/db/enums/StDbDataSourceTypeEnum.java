@@ -2,19 +2,20 @@ package com.zhengqing.tool.db.enums;
 
 import com.google.common.collect.Lists;
 import com.zhengqing.common.exception.MyException;
-import java.util.Arrays;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
  * 数据源类型枚举类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/9/2 15:52
+ * @author zhengqingya
+ * @description
+ * @date 2020/9/2 15:52
  */
 @Getter
 @AllArgsConstructor

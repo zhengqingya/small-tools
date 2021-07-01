@@ -7,9 +7,9 @@ import lombok.Data;
  * 配置信息
  * </p>
  *
- * @description :
- * @author : zhengqing
- * @date : 2019/8/19 9:07
+ * @author zhengqingya
+ * @description
+ * @date 2019/8/19 9:07
  */
 @Data
 public class CommonProperty {

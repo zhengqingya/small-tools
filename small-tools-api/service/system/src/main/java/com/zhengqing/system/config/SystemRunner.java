@@ -1,21 +1,19 @@
 package com.zhengqing.system.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.zhengqing.common.config.AppCommonRunner;
 import com.zhengqing.system.service.ISysDictService;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>
  * 服务初始化之后，执行方法
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/5/22 19:29
+ * @author zhengqingya
+ * @description
+ * @date 2020/5/22 19:29
  */
 @Slf4j
 @Component

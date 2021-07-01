@@ -7,27 +7,28 @@ import com.zhengqing.system.mapper.SysRoleMenuBtnMapper;
 import com.zhengqing.system.model.dto.SysRoleMenuBtnSaveDTO;
 import com.zhengqing.system.model.vo.SysRoleMenuBtnListVO;
 import com.zhengqing.system.service.ISysRoleMenuBtnService;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.List;
+
 /**
  * <p>
  * 系统管理-菜单按钮权限 服务实现类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 20:31
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 20:31
  */
 @Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class SysRoleMenuBtnServiceImpl extends ServiceImpl<SysRoleMenuBtnMapper, SysRoleMenuBtn>
-    implements ISysRoleMenuBtnService {
+        implements ISysRoleMenuBtnService {
 
     @Autowired
     private SysRoleMenuBtnMapper sysRoleMenuBtnMapper;

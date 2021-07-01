@@ -1,19 +1,19 @@
 package com.zhengqing.system.model.vo;
 
-import java.io.Serializable;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * <p>
  * 数据字典表
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 20:57
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 20:57
  */
 @Data
 @ApiModel("数据字典表")

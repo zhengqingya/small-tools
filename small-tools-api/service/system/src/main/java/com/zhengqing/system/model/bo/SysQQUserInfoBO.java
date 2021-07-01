@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
  * qq用户信息
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/12/2 17:38
+ * @author zhengqingya
+ * @description
+ * @date 2020/12/2 17:38
  */
 @Data
 @Builder

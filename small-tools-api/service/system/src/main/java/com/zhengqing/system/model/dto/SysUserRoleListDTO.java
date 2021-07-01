@@ -9,9 +9,9 @@ import lombok.Data;
  * 用户角色关联表查询参数
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 20:55
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 20:55
  */
 @Data
 @ApiModel("用户角色关联表查询参数")

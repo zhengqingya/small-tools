@@ -14,9 +14,9 @@ import java.util.List;
  * 测试demo 服务类
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2021/01/13 10:11
+ * @author zhengqingya
+ * @description
+ * @date 2021/01/13 10:11
  */
 public interface IDemoService extends IService<Demo> {
 
@@ -24,8 +24,8 @@ public interface IDemoService extends IService<Demo> {
      * 测试事务
      *
      * @return: void
-     * @author : zhengqing
-     * @date : 2021/1/13 10:18
+     * @author zhengqingya
+     * @date 2021/1/13 10:18
      */
     void testTransactional();
 
@@ -34,8 +34,8 @@ public interface IDemoService extends IService<Demo> {
      *
      * @param params: 查询参数
      * @return: 查询结果
-     * @author : zhengqing
-     * @date : 2021/01/13 10:11
+     * @author zhengqingya
+     * @date 2021/01/13 10:11
      */
     IPage<DemoListVO> listPage(DemoListDTO params);
 
@@ -44,8 +44,8 @@ public interface IDemoService extends IService<Demo> {
      *
      * @param params: 查询参数
      * @return: 查询结果
-     * @author : zhengqing
-     * @date : 2021/01/13 10:11
+     * @author zhengqingya
+     * @date 2021/01/13 10:11
      */
     List<DemoListVO> list(DemoListDTO params);
 
@@ -54,8 +54,8 @@ public interface IDemoService extends IService<Demo> {
      *
      * @param params: 保存参数
      * @return: 主键id
-     * @author : zhengqing
-     * @date : 2021/01/13 10:11
+     * @author zhengqingya
+     * @date 2021/01/13 10:11
      */
     Integer addOrUpdateData(DemoSaveDTO params);
 

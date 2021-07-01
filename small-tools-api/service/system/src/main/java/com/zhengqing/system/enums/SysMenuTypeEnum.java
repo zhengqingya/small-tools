@@ -8,9 +8,9 @@ import lombok.Getter;
  * 菜单类型
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 17:16
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 17:16
  */
 @Getter
 @AllArgsConstructor

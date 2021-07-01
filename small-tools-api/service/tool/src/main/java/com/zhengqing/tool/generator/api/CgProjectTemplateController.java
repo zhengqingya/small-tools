@@ -1,19 +1,5 @@
 package com.zhengqing.tool.generator.api;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
@@ -24,18 +10,22 @@ import com.zhengqing.tool.generator.model.dto.CgProjectTemplateSaveDTO;
 import com.zhengqing.tool.generator.model.dto.CgProjectTemplateTestDataDTO;
 import com.zhengqing.tool.generator.model.vo.CgProjectTemplateListVO;
 import com.zhengqing.tool.generator.service.ICgProjectTemplateService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
  * 代码生成器 - 项目代码模板接口
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2019/8/20 15:22
+ * @author zhengqingya
+ * @description
+ * @date 2019/8/20 15:22
  */
 @RestController
 @RequestMapping("/web/api/generator/projectTemplate")
@@ -99,7 +89,7 @@ public class CgProjectTemplateController extends BaseController {
     @GetMapping("listPageCodeProjectVelocityContext")
     @ApiOperation("获取项目代码模板对应数据源模板列表")
     public IPage<CgProjectVelocityContext>
-        listPageCodeProjectVelocityContext(@ModelAttribute CgProjectTemplateListDTO params) {
+    listPageCodeProjectVelocityContext(@ModelAttribute CgProjectTemplateListDTO params) {
         return templateService.listPageCodeProjectVelocityContext(params);
     }
 

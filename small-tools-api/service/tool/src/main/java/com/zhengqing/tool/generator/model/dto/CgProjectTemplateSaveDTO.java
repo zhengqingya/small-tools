@@ -1,28 +1,23 @@
 package com.zhengqing.tool.generator.model.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import com.zhengqing.common.model.dto.BaseDTO;
 import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
  * 项目代码模板保存参数
  * </p>
  *
- * @description :
- * @author : zhengqing
- * @date : 2019/8/22 11:12
+ * @author zhengqingya
+ * @description
+ * @date 2019/8/22 11:12
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -31,8 +26,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @ApiModel("项目代码模板保存参数")
 @FieldRepeatValidator(tableName = "t_cg_project_template", idDbName = "project_template_id",
-    fieldNames = {"projectTemplateId", "currentUserId"}, dbFieldNames = {"project_template_id", "data_re_user_id"},
-    message = "模板类型重复，请重新选择！")
+        fieldNames = {"projectTemplateId", "currentUserId"}, dbFieldNames = {"project_template_id", "data_re_user_id"},
+        message = "模板类型重复，请重新选择！")
 public class CgProjectTemplateSaveDTO extends BaseDTO {
 
     // 这里字段改动是注意 对应 `CgProjectTemplateTestDataDTO`

@@ -1,20 +1,19 @@
 package com.zhengqing.gateway.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
 /**
  * <p>
  * 网关测试api
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/10/7 20:39
+ * @author zhengqingya
+ * @description
+ * @date 2020/10/7 20:39
  */
 @RestController
 @Api(tags = "网关测试api")

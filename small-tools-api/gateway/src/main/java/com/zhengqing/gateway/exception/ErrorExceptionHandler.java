@@ -1,36 +1,31 @@
 package com.zhengqing.gateway.exception;
 
-import java.util.Map;
-
+import com.alibaba.fastjson.JSONObject;
+import com.zhengqing.common.http.ApiResult;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.reactive.function.server.RequestPredicates;
-import org.springframework.web.reactive.function.server.RouterFunction;
-import org.springframework.web.reactive.function.server.RouterFunctions;
-import org.springframework.web.reactive.function.server.ServerRequest;
-import org.springframework.web.reactive.function.server.ServerResponse;
+import org.springframework.web.reactive.function.server.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.alibaba.fastjson.JSONObject;
-import com.zhengqing.common.http.ApiResult;
+import java.util.Map;
 
 /**
  * <p>
  * gateway 自定义异常处理
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2021/1/13 11:36
+ * @author zhengqingya
+ * @description
+ * @date 2021/1/13 11:36
  */
 public class ErrorExceptionHandler extends DefaultErrorWebExceptionHandler {
 
     public ErrorExceptionHandler(ErrorAttributes errorAttributes, ResourceProperties resourceProperties,
-        ErrorProperties errorProperties, ApplicationContext applicationContext) {
+                                 ErrorProperties errorProperties, ApplicationContext applicationContext) {
         super(errorAttributes, resourceProperties, errorProperties, applicationContext);
     }
 
@@ -45,10 +40,10 @@ public class ErrorExceptionHandler extends DefaultErrorWebExceptionHandler {
             code = 404;
         }
         if (error instanceof ResponseStatusException) {
-            code = ((ResponseStatusException)error).getStatus().value();
+            code = ((ResponseStatusException) error).getStatus().value();
         }
         return JSONObject.parseObject(JSONObject.toJSONString(ApiResult.fail(code, this.buildMessage(request, error))),
-            Map.class);
+                Map.class);
     }
 
     /**
@@ -69,7 +64,7 @@ public class ErrorExceptionHandler extends DefaultErrorWebExceptionHandler {
      */
     @Override
     protected int getHttpStatus(Map<String, Object> errorAttributes) {
-        return (int)errorAttributes.get("status");
+        return (int) errorAttributes.get("status");
     }
 
     /**

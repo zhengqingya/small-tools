@@ -1,9 +1,6 @@
 package com.zhengqing.common.util;
 
-import java.io.File;
-import java.util.Iterator;
-import java.util.Map;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
@@ -15,16 +12,18 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import lombok.extern.slf4j.Slf4j;
+import java.io.File;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * <p>
  * RestTemplate工具类 $
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/7/7$ 14:10$
+ * @author zhengqingya
+ * @description
+ * @date 2020/7/7$ 14:10$
  */
 @Slf4j
 @Component
@@ -46,13 +45,11 @@ public class RestTemplateUtil {
     /**
      * get请求
      *
-     * @param url:
-     *            请求地址
-     * @param params:
-     *            请求参数
+     * @param url:    请求地址
+     * @param params: 请求参数
      * @return: 响应数据
-     * @author : zhengqing
-     * @date : 2020/7/7 14:22
+     * @author zhengqingya
+     * @date 2020/7/7 14:22
      */
     public static String getForMap(String url, Map<String, String> params) {
         StringBuffer stringBuffer = new StringBuffer(url);
@@ -62,7 +59,7 @@ public class RestTemplateUtil {
             Object element;
             while (iterator.hasNext()) {
                 element = iterator.next();
-                Map.Entry<String, Object> entry = (Map.Entry)element;
+                Map.Entry<String, Object> entry = (Map.Entry) element;
                 // 过滤value为null，value为null时进行拼接字符串会变成 "null"字符串
                 if (entry.getValue() != null) {
                     stringBuffer.append(element).append("&");
@@ -78,13 +75,11 @@ public class RestTemplateUtil {
     /**
      * post请求
      *
-     * @param url:
-     *            请求地址
-     * @param params:
-     *            请求参数
+     * @param url:    请求地址
+     * @param params: 请求参数
      * @return: 响应数据
-     * @author : zhengqing
-     * @date : 2020/7/7 14:30
+     * @author zhengqingya
+     * @date 2020/7/7 14:30
      */
     public static String postForMap(String url, Map<String, String> params) {
         String dataStr = restTemplate.postForEntity(url, params, String.class).getBody();
@@ -95,13 +90,11 @@ public class RestTemplateUtil {
     /**
      * post请求
      *
-     * @param uploadUrl:
-     *            上传文件url
-     * @param file:
-     *            文件信息
+     * @param uploadUrl: 上传文件url
+     * @param file:      文件信息
      * @return: 响应数据
-     * @author : zhengqing
-     * @date : 2020/12/2 10:24
+     * @author zhengqingya
+     * @date 2020/12/2 10:24
      */
     public static String post(String uploadUrl, File file) {
         // 设置请求头

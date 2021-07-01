@@ -1,12 +1,7 @@
 package com.zhengqing.common.custom;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.Map;
-import java.util.Objects;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.MethodParameter;
@@ -15,18 +10,20 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.alibaba.fastjson.JSONObject;
-
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>
  * 编写参数解析器
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2021/1/13 14:41
+ * @author zhengqingya
+ * @description
+ * @date 2021/1/13 14:41
  */
 @Slf4j
 public class RequestPostSingleParamMethodArgumentResolver implements HandlerMethodArgumentResolver {
@@ -37,8 +34,7 @@ public class RequestPostSingleParamMethodArgumentResolver implements HandlerMeth
     /**
      * 判断是否需要处理该参数
      *
-     * @param parameter
-     *            the method parameter to check
+     * @param parameter the method parameter to check
      * @return {@code true} if this resolver supports the supplied parameter; {@code false} otherwise
      */
     @Override
@@ -49,7 +45,7 @@ public class RequestPostSingleParamMethodArgumentResolver implements HandlerMeth
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-        NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
         String contentType = Objects.requireNonNull(servletRequest).getContentType();
 
@@ -78,7 +74,7 @@ public class RequestPostSingleParamMethodArgumentResolver implements HandlerMeth
         // }
 
         String parameterName = StringUtils.isBlank(requestPostSingleParam.value()) ? parameter.getParameterName()
-            : requestPostSingleParam.value();
+                : requestPostSingleParam.value();
         Object value = paramObj.get(parameterName);
 
         if (requestPostSingleParam.required()) {
@@ -94,8 +90,7 @@ public class RequestPostSingleParamMethodArgumentResolver implements HandlerMeth
     /**
      * 获取请求body
      *
-     * @param servletRequest:
-     *            request
+     * @param servletRequest: request
      * @return: 请求body
      */
     private String getRequestBody(HttpServletRequest servletRequest) {

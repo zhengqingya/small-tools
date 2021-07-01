@@ -8,9 +8,9 @@ import lombok.Getter;
  * 用户关联角色枚举类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/11/28 23:35
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/28 23:35
  */
 @Getter
 @AllArgsConstructor

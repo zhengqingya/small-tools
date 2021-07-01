@@ -1,6 +1,7 @@
-package com.zhengqing.tool.crawler.api;
+package com.zhengqing.demo.api;
 
 import com.zhengqing.common.api.BaseController;
+import com.zhengqing.common.util.RedisUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -9,24 +10,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * 小工具 - 爬虫 - 测试 接口
- * </p>
+ * <p> 测试redis </p>
  *
  * @author zhengqingya
  * @description
- * @date 2020/10/31 20:06
+ * @date 2021/6/29 17:46
  */
 @Slf4j
 @RestController
-@RequestMapping("/web/api/crawler/test")
-@Api(tags = {"小工具 - 爬虫 - 测试 接口"})
-public class StCrawlerTestController extends BaseController {
+@RequestMapping("/web/api/demo/redis")
+@Api(tags = "测试redis")
+public class RedisController extends BaseController {
 
-    @GetMapping("crawl")
-    @ApiOperation("爬虫")
-    public void crawl(String url) {
 
+    @GetMapping("set")
+    @ApiOperation("设置值")
+    public void set() {
+        Long test = RedisUtil.incrBy("test", 1);
+        log.info("incrBy: {}", test);
     }
+
 
 }

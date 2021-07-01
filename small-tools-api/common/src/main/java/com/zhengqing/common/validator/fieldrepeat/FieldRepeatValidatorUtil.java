@@ -1,34 +1,25 @@
 package com.zhengqing.common.validator.fieldrepeat;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.CollectionUtils;
-
 import com.zhengqing.common.exception.MyException;
 import com.zhengqing.common.mapper.MyBaseMapper;
 import com.zhengqing.common.util.ApplicationContextUtil;
 import com.zhengqing.common.util.MyBeanUtil;
 import com.zhengqing.common.util.MyStringUtil;
-
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
+
+import java.lang.reflect.Field;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
- *
  * <p>
  * 数据库字段内容重复判断处理工具类
  * </p>
  *
- * @author： zhengqing <br/>
- * @date： 2019/9/10$ 9:28$ <br/>
- * @version： <br/>
+ * @author zhengqingya <br/>
+ * @date 2019/9/10$ 9:28$ <br/>
  */
 @Slf4j
 public class FieldRepeatValidatorUtil {
@@ -88,10 +79,8 @@ public class FieldRepeatValidatorUtil {
     private String message;
 
     /**
-     * @param tableName：
-     *            数据库表名
-     * @param idDbName：
-     *            数据库主键id字段属性名
+     * @param tableName：                数据库表名
+     * @param idDbName：                 数据库主键id字段属性名
      * @param fieldNames：校验字段组
      * @param dbFieldNames：数据库校验字段组
      * @param fieldFixedValues：校验字段组固定值
@@ -99,7 +88,7 @@ public class FieldRepeatValidatorUtil {
      * @param message：回调到前端提示消息
      */
     public FieldRepeatValidatorUtil(String tableName, String idDbName, String[] fieldNames, String[] dbFieldNames,
-        String[] fieldFixedValues, Object object, String message) {
+                                    String[] fieldFixedValues, Object object, String message) {
         this.TABLE_NAME = tableName;
 
         this.idDbName = idDbName;
@@ -150,7 +139,7 @@ public class FieldRepeatValidatorUtil {
         }
 
         List<Map<String, Object>> list =
-            ApplicationContextUtil.getApplicationContext().getBean(MyBaseMapper.class).selectList(TABLE_NAME, queryMap);
+                ApplicationContextUtil.getApplicationContext().getBean(MyBaseMapper.class).selectList(TABLE_NAME, queryMap);
 
         /// 6、如果数据重复返回false -> 再返回自定义错误消息到前端
         if (!CollectionUtils.isEmpty(list)) {
@@ -158,7 +147,7 @@ public class FieldRepeatValidatorUtil {
                 throw new MyException(message);
             } else {
                 // 获取list中指定字段属性值 - 这里只获取主键id
-                List<Integer> idList = (List<Integer>)MyBeanUtil.getFieldList(list, idDbName);
+                List<Integer> idList = (List<Integer>) MyBeanUtil.getFieldList(list, idDbName);
                 boolean isContainsIdValue = idList.contains(idValue);
                 if (list.size() > 1 || !isContainsIdValue) {
                     throw new MyException(message);
@@ -179,7 +168,7 @@ public class FieldRepeatValidatorUtil {
             Map<String, Field> fieldMap = new HashMap<>();
             while (clz != null && !PACKAGE_NAME.equals(clz.getName().toLowerCase())) {
                 fieldMap.putAll(
-                    Arrays.stream(clz.getDeclaredFields()).collect(Collectors.toMap(Field::getName, field -> field)));
+                        Arrays.stream(clz.getDeclaredFields()).collect(Collectors.toMap(Field::getName, field -> field)));
                 // 得到父类,然后赋给自己
                 clz = clz.getSuperclass();
             }
@@ -202,7 +191,7 @@ public class FieldRepeatValidatorUtil {
             Field fieldId = fieldMap.get(idName);
             if (fieldId != null) {
                 fieldId.setAccessible(true);
-                idValue = (Integer)fieldId.get(object);
+                idValue = (Integer) fieldId.get(object);
             }
         } catch (Exception e) {
             throw new MyException("数据库字段内容验重校验取值失败：" + e.toString());

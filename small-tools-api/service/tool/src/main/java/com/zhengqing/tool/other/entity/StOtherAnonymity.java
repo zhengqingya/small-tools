@@ -1,29 +1,24 @@
 package com.zhengqing.tool.other.entity;
 
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zhengqing.common.entity.BaseEntity;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.Date;
 
 /**
  * <p>
  * 小工具 - 其它 - 匿名事件表
  * </p>
  *
- * @author: zhengqing
- * @description :
- * @date: 2020-10-25 13:27:16
+ * @author zhengqingya
+ * @description
+ * @date 2020-10-25 13:27:16
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

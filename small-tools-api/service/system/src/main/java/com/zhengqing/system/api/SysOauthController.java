@@ -1,38 +1,29 @@
 package com.zhengqing.system.api;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.system.model.dto.SysOauthRemoveBindDTO;
 import com.zhengqing.system.model.dto.SysOauthSaveDTO;
 import com.zhengqing.system.model.vo.SysOauthDataListVO;
 import com.zhengqing.system.service.ISysOauthService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.model.AuthCallback;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * <p>
  * 系统管理 - 用户三方授权 Controller
  * </p>
  *
- * @author: zhengqing
- * @description : 可参考： https://justauth.wiki
- * @date : 2020/6/21 21:18
+ * @author zhengqingya
+ * @description 可参考： https://justauth.wiki
+ * @date 2020/6/21 21:18
  */
 @Slf4j
 @RestController

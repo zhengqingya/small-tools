@@ -1,14 +1,5 @@
 package com.zhengqing.tool.generator.service.impl;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -23,33 +14,36 @@ import com.zhengqing.tool.generator.entity.CgProjectReDb;
 import com.zhengqing.tool.generator.entity.CgTableConfig;
 import com.zhengqing.tool.generator.mapper.CgProjectPackageMapper;
 import com.zhengqing.tool.generator.mapper.CgProjectReDbMapper;
-import com.zhengqing.tool.generator.model.dto.CgProjectReDbListDTO;
-import com.zhengqing.tool.generator.model.dto.CgProjectReDbSaveDTO;
-import com.zhengqing.tool.generator.model.dto.CgProjectReDbTableInfoDTO;
-import com.zhengqing.tool.generator.model.dto.CgProjectReDbTableListDTO;
-import com.zhengqing.tool.generator.model.dto.CgTableConfigListDTO;
+import com.zhengqing.tool.generator.model.dto.*;
 import com.zhengqing.tool.generator.model.vo.CgProjectReDbListVO;
 import com.zhengqing.tool.generator.model.vo.CgTableInfoVO;
 import com.zhengqing.tool.generator.model.vo.CgTableListVO;
 import com.zhengqing.tool.generator.service.ICgProjectReDbService;
 import com.zhengqing.tool.generator.service.ICgTableConfigService;
-
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
  * 代码生成器 - 项目关联数据库表 服务实现类
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-11-14 13:55:47
+ * @author zhengqingya
+ * @description
+ * @date 2020-11-14 13:55:47
  */
 @Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class CgProjectReDbServiceImpl extends ServiceImpl<CgProjectReDbMapper, CgProjectReDb>
-    implements ICgProjectReDbService {
+        implements ICgProjectReDbService {
 
     @Autowired
     private CgProjectReDbMapper cgProjectReDbMapper;
@@ -90,7 +84,7 @@ public class CgProjectReDbServiceImpl extends ServiceImpl<CgProjectReDbMapper, C
         List<CgTableListVO> myTableList = Lists.newArrayList();
 
         List<StDbTableListVO> tableList =
-            stDbJdbcService.getAllTablesByDataSourceIdAndDbName(dbDataSourceId, dbName, tableName);
+                stDbJdbcService.getAllTablesByDataSourceIdAndDbName(dbDataSourceId, dbName, tableName);
         if (!CollectionUtils.isEmpty(tableList)) {
             tableList.forEach(e -> myTableList.add(new CgTableListVO(e.getTableName(), e.getTableComment())));
         }
@@ -111,7 +105,7 @@ public class CgProjectReDbServiceImpl extends ServiceImpl<CgProjectReDbMapper, C
 
         // 1、获取表信息
         StDbTableColumnListVO columnInfo =
-            stDbJdbcService.getAllColumnsByDataSourceIdAndDbNameAndTableName(dbDataSourceId, dbName, tableName);
+                stDbJdbcService.getAllColumnsByDataSourceIdAndDbNameAndTableName(dbDataSourceId, dbName, tableName);
         if (columnInfo != null) {
             myTableInfo.setTableName(tableName);
             myTableInfo.setTableComment(columnInfo.getTableComment());
@@ -120,7 +114,7 @@ public class CgProjectReDbServiceImpl extends ServiceImpl<CgProjectReDbMapper, C
 
         // 2、查询是否存在之前生成代码时的检索字段
         List<CgTableConfig> cgTableConfigList =
-            cgTableConfigService.list(CgTableConfigListDTO.builder().projectId(projectId).tableName(tableName).build());
+                cgTableConfigService.list(CgTableConfigListDTO.builder().projectId(projectId).tableName(tableName).build());
         if (!CollectionUtils.isEmpty(cgTableConfigList)) {
             String queryColumns = cgTableConfigList.get(0).getQueryColumns();
             if (StringUtils.isNotBlank(queryColumns)) {
@@ -130,9 +124,9 @@ public class CgProjectReDbServiceImpl extends ServiceImpl<CgProjectReDbMapper, C
 
         /// 3、获取库的关联项目包信息
         List<CgProjectPackage> cgProjectPackageList =
-            cgProjectPackageMapper.selectList(new LambdaQueryWrapper<CgProjectPackage>()
-                .eq(CgProjectPackage::getParentId, AppConstant.PROJECT_RE_PACKAGE_PARENT_ID)
-                .eq(CgProjectPackage::getProjectId, projectId));
+                cgProjectPackageMapper.selectList(new LambdaQueryWrapper<CgProjectPackage>()
+                        .eq(CgProjectPackage::getParentId, AppConstant.PROJECT_RE_PACKAGE_PARENT_ID)
+                        .eq(CgProjectPackage::getProjectId, projectId));
         myTableInfo.setPackageName(cgProjectPackageList.get(0).getName());
         return myTableInfo;
     }
@@ -140,11 +134,10 @@ public class CgProjectReDbServiceImpl extends ServiceImpl<CgProjectReDbMapper, C
     /**
      * 处理数据
      *
-     * @param list:
-     *            数据
+     * @param list: 数据
      * @return: void
-     * @author : zhengqing
-     * @date : 2020-11-14 13:55:47
+     * @author zhengqingya
+     * @date 2020-11-14 13:55:47
      */
     private void handleResultData(List<CgProjectReDbListVO> list) {
         if (!CollectionUtils.isEmpty(list)) {

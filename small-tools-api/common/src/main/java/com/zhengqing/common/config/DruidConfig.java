@@ -1,10 +1,9 @@
 package com.zhengqing.common.config;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
+import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.WebStatFilter;
+import com.alibaba.druid.support.spring.stat.DruidStatInterceptor;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.JdkRegexpMethodPointcut;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -15,19 +14,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.support.http.StatViewServlet;
-import com.alibaba.druid.support.http.WebStatFilter;
-import com.alibaba.druid.support.spring.stat.DruidStatInterceptor;
+import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
  * Druid核心配置类 - 注册bean
  * </p>
  *
- * @author : zhengqing
- * @description : Druid连接池监控平台 http://127.0.0.1:5000/druid/index.html
- * @date : 2019/12/19 18:20
+ * @author zhengqingya
+ * @description Druid连接池监控平台 http://127.0.0.1:5000/druid/index.html
+ * @date 2019/12/19 18:20
  */
 @Configuration
 public class DruidConfig {
@@ -47,7 +45,7 @@ public class DruidConfig {
     public ServletRegistrationBean druidServlet() {
         // 注册服务
         ServletRegistrationBean servletRegistrationBean =
-            new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
+                new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
         // IP白名单(为空表示,所有的都可以访问,多个IP的时候用逗号隔开)
         servletRegistrationBean.addInitParameter("allow", "127.0.0.1");
         // IP黑名单 (存在共同时，deny优先于allow)
@@ -147,7 +145,7 @@ public class DruidConfig {
      */
     @Bean
     public DefaultPointcutAdvisor druidStatAdvisor(DruidStatInterceptor druidStatInterceptor,
-        JdkRegexpMethodPointcut druidStatPointcut) {
+                                                   JdkRegexpMethodPointcut druidStatPointcut) {
         DefaultPointcutAdvisor defaultPointAdvisor = new DefaultPointcutAdvisor();
         defaultPointAdvisor.setPointcut(druidStatPointcut);
         defaultPointAdvisor.setAdvice(druidStatInterceptor);

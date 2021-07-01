@@ -5,17 +5,18 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
  * 测试demo Mapper 接口
  * </p>
  *
- * @author : zhengqing
- * @description:
- * @date : 2021/01/13 10:11
+ * @author zhengqingya
+ * @description
+ * @date 2021/01/13 10:11
  */
 public interface DemoMapper extends BaseMapper<Demo> {
 
@@ -25,8 +26,8 @@ public interface DemoMapper extends BaseMapper<Demo> {
      * @param page:   分页数据
      * @param filter: 查询过滤参数
      * @return: 查询结果
-     * @author : zhengqing
-     * @date : 2021/01/13 10:11
+     * @author zhengqingya
+     * @date 2021/01/13 10:11
      */
     IPage<DemoListVO> selectDataList(IPage page, @Param("filter") DemoListDTO filter);
 
@@ -35,8 +36,8 @@ public interface DemoMapper extends BaseMapper<Demo> {
      *
      * @param filter: 查询过滤参数
      * @return: 查询结果
-     * @author : zhengqing
-     * @date : 2021/01/13 10:11
+     * @author zhengqingya
+     * @date 2021/01/13 10:11
      */
     List<DemoListVO> selectDataList(@Param("filter") DemoListDTO filter);
 

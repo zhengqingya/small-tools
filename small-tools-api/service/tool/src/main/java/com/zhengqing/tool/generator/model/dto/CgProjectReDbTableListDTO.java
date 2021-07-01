@@ -1,22 +1,21 @@
 package com.zhengqing.tool.generator.model.dto;
 
-import javax.validation.constraints.NotNull;
-
 import com.zhengqing.common.model.dto.BaseDTO;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
  * 项目关联数据库表列表信息查询参数
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/11/14 22:26
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/14 22:26
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

@@ -1,7 +1,6 @@
 package com.zhengqing.common.model.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,9 +10,9 @@ import lombok.Data;
  * 基类查询参数
  * </p>
  *
- * @description:
- * @author: zhengqing
- * @date: 2019/9/13 0013 1:57
+ * @author zhengqingya
+ * @description
+ * @date 2019/9/13 0013 1:57
  */
 @Data
 @ApiModel("基类查询参数")

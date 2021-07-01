@@ -12,9 +12,6 @@
  */
 package com.zhengqing.gateway.exception;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -29,14 +26,17 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.web.reactive.result.view.ViewResolver;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * <p>
  * 异常处理配置类 - 覆盖默认的异常处理
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2021/1/13 11:43
+ * @author zhengqingya
+ * @description
+ * @date 2021/1/13 11:43
  */
 @Configuration
 @EnableConfigurationProperties({ServerProperties.class, ResourceProperties.class})
@@ -53,8 +53,8 @@ public class ErrorHandlerConfiguration {
     private final ServerCodecConfigurer serverCodecConfigurer;
 
     public ErrorHandlerConfiguration(ServerProperties serverProperties, ResourceProperties resourceProperties,
-        ObjectProvider<List<ViewResolver>> viewResolversProvider, ServerCodecConfigurer serverCodecConfigurer,
-        ApplicationContext applicationContext) {
+                                     ObjectProvider<List<ViewResolver>> viewResolversProvider, ServerCodecConfigurer serverCodecConfigurer,
+                                     ApplicationContext applicationContext) {
         this.serverProperties = serverProperties;
         this.applicationContext = applicationContext;
         this.resourceProperties = resourceProperties;
@@ -66,7 +66,7 @@ public class ErrorHandlerConfiguration {
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public ErrorWebExceptionHandler errorWebExceptionHandler(ErrorAttributes errorAttributes) {
         ErrorExceptionHandler exceptionHandler = new ErrorExceptionHandler(errorAttributes, this.resourceProperties,
-            this.serverProperties.getError(), this.applicationContext);
+                this.serverProperties.getError(), this.applicationContext);
         exceptionHandler.setViewResolvers(this.viewResolvers);
         exceptionHandler.setMessageWriters(this.serverCodecConfigurer.getWriters());
         exceptionHandler.setMessageReaders(this.serverCodecConfigurer.getReaders());

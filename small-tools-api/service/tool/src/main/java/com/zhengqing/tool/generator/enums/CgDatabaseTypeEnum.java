@@ -1,21 +1,20 @@
 package com.zhengqing.tool.generator.enums;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
  * 数据库类型
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2019/8/22 11:15
+ * @author zhengqingya
+ * @description
+ * @date 2019/8/22 11:15
  */
 @Getter
 @AllArgsConstructor

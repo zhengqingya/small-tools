@@ -1,19 +1,19 @@
 package com.zhengqing.tool.other.model.vo;
 
-import java.util.Date;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * <p>
  * 小工具 - 其它 - 匿名事件表展示视图
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-10-25 13:27:16
+ * @author zhengqingya
+ * @description
+ * @date 2020-10-25 13:27:16
  */
 @Data
 @ApiModel("小工具 - 其它 - 匿名事件表展示视图")

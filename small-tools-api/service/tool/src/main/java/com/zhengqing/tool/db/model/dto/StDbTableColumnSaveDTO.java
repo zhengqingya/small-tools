@@ -2,23 +2,24 @@ package com.zhengqing.tool.db.model.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>
  * 数据库表字段信息保存参数
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/9/6 20:03
+ * @author zhengqingya
+ * @description
+ * @date 2020/9/6 20:03
  */
 @Data
 @Builder

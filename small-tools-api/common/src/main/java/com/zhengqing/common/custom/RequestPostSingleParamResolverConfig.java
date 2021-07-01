@@ -1,19 +1,19 @@
 package com.zhengqing.common.custom;
 
-import java.util.List;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 /**
  * <p>
  * 注册参数解析器
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2021/1/13 14:41
+ * @author zhengqingya
+ * @description
+ * @date 2021/1/13 14:41
  */
 @Configuration
 public class RequestPostSingleParamResolverConfig implements WebMvcConfigurer {

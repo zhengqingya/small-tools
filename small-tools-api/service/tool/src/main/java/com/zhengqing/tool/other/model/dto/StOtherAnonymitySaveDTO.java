@@ -1,10 +1,6 @@
 package com.zhengqing.tool.other.model.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -12,14 +8,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 小工具 - 其它 - 匿名事件表提交参数
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-10-25 13:27:16
+ * @author zhengqingya
+ * @description
+ * @date 2020-10-25 13:27:16
  */
 @Data
 @Builder

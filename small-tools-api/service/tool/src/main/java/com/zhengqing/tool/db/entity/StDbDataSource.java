@@ -4,23 +4,18 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zhengqing.common.entity.BaseEntity;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * <p>
  * 小工具 - 数据库 - 数据源配置信息表
  * </p>
  *
- * @author: zhengqing
- * @description :
- * @date: 2020-09-02 14:45:55
+ * @author zhengqingya
+ * @description
+ * @date 2020-09-02 14:45:55
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

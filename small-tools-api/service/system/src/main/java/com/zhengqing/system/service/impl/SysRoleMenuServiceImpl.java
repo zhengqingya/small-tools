@@ -10,21 +10,22 @@ import com.zhengqing.system.model.dto.SysRolePermissionSaveDTO;
 import com.zhengqing.system.model.vo.SysMenuTreeVO;
 import com.zhengqing.system.service.ISysRoleMenuBtnService;
 import com.zhengqing.system.service.ISysRoleMenuService;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.List;
+
 /**
  * <p>
  * 系统管理 - 角色菜单关联服务实现类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 20:31
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 20:31
  */
 @Slf4j
 @Service
@@ -89,13 +90,11 @@ public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRo
     /**
      * 递归处理菜单+按钮权限树信息数据 -> 保存按钮权限数据
      *
-     * @param roleId:
-     *            角色id
-     * @param menuAndBtnPermissionTree:
-     *            权限树信息
+     * @param roleId:                   角色id
+     * @param menuAndBtnPermissionTree: 权限树信息
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/9/14 11:24
+     * @author zhengqingya
+     * @date 2020/9/14 11:24
      */
     public void handleMenuAndBtnPermissionTree(Integer roleId, List<SysMenuTreeVO> menuAndBtnPermissionTree) {
         if (!CollectionUtils.isEmpty(menuAndBtnPermissionTree)) {

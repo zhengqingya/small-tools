@@ -10,9 +10,9 @@ import lombok.EqualsAndHashCode;
  * 基础分页检索参数
  * </p>
  *
- * @description:
- * @author: zhengqing
- * @date: 2019/9/13 0013 1:57
+ * @author zhengqingya
+ * @description
+ * @date 2019/9/13 0013 1:57
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

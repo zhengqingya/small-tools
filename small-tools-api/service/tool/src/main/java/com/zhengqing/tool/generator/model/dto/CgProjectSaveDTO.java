@@ -1,30 +1,24 @@
 package com.zhengqing.tool.generator.model.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Length;
-
 import com.zhengqing.common.model.dto.BaseDTO;
 import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
  * 项目管理保存参数
  * </p>
  *
- * @description :
- * @author : zhengqing
- * @date : 2019/8/22 11:12
+ * @author zhengqingya
+ * @description
+ * @date 2019/8/22 11:12
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -33,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @ApiModel("项目管理保存参数")
 @FieldRepeatValidator(tableName = "t_cg_project", fieldNames = {"name"}, dbFieldNames = {"name"},
-    message = "项目名称重复，请重新输入！")
+        message = "项目名称重复，请重新输入！")
 public class CgProjectSaveDTO extends BaseDTO {
 
     @NotNull(groups = {UpdateGroup.class}, message = "id不能为空!")

@@ -2,18 +2,19 @@ package com.zhengqing.system.model.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>
  * 角色关联菜单ids提交参数
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/9/10 18:48
+ * @author zhengqingya
+ * @description
+ * @date 2020/9/10 18:48
  */
 @Data
 @ApiModel("角色关联菜单ids提交参数")

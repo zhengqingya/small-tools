@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
  * 小工具 - 数据库 - 数据源配置信息表查询参数
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-09-02 14:45:55
+ * @author zhengqingya
+ * @description
+ * @date 2020-09-02 14:45:55
  */
 @Data
 @Builder

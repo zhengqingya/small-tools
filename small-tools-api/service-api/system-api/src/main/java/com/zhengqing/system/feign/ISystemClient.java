@@ -19,9 +19,9 @@ import java.util.List;
  * Feign接口类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2021/1/1 21:45
+ * @author zhengqingya
+ * @description
+ * @date 2021/1/1 21:45
  */
 @FeignClient(value = AppConstant.APPLICATION_NAME_SYSTEM, fallback = ISystemClientFallback.class)
 public interface ISystemClient extends IBaseClient {
@@ -34,8 +34,8 @@ public interface ISystemClient extends IBaseClient {
      *
      * @param code: 类型编码
      * @return: 数据字典列表数据
-     * @author : zhengqing
-     * @date : 2020/9/12 17:38
+     * @author zhengqingya
+     * @date 2020/9/12 17:38
      */
     @GetMapping(API_DICT + "/getUpDictListFromCacheByCode")
     List<SysDictVO> getUpDictListFromCacheByCode(@RequestParam String code);

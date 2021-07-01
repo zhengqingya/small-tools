@@ -10,9 +10,9 @@ import lombok.Data;
  * 表列表信息
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/11/14 22:42
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/14 22:42
  */
 @Data
 @AllArgsConstructor

@@ -1,26 +1,25 @@
 package com.zhengqing.gateway.swagger;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.stereotype.Component;
-
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
  * 聚合各个服务的swagger接口
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/12/19 18:06
+ * @author zhengqingya
+ * @description
+ * @date 2020/12/19 18:06
  */
 @Component
 public class MySwaggerResourceProvider implements SwaggerResourcesProvider {
@@ -52,8 +51,8 @@ public class MySwaggerResourceProvider implements SwaggerResourcesProvider {
         List<String> routeHosts = new ArrayList<>();
         // 获取所有可用的host：serviceId
         routeLocator.getRoutes().filter(route -> route.getUri().getHost() != null)
-            .filter(route -> !self.equals(route.getUri().getHost()))
-            .subscribe(route -> routeHosts.add(route.getUri().getHost()));
+                .filter(route -> !self.equals(route.getUri().getHost()))
+                .subscribe(route -> routeHosts.add(route.getUri().getHost()));
 
         // 记录已经添加过的server，存在同一个应用注册了多个服务在nacos上
         Set<String> dealed = new HashSet<>();

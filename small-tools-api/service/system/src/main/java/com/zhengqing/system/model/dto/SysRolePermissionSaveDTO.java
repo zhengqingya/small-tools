@@ -1,24 +1,22 @@
 package com.zhengqing.system.model.dto;
 
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
-
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import com.zhengqing.system.model.vo.SysMenuTreeVO;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>
  * 保存角色权限信息传入参数
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/9/10 15:00
+ * @author zhengqingya
+ * @description
+ * @date 2020/9/10 15:00
  */
 @Data
 @ApiModel("保存角色权限信息传入参数")

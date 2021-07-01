@@ -1,11 +1,5 @@
 package com.zhengqing.tool.generator.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -19,16 +13,20 @@ import com.zhengqing.tool.generator.model.vo.CgProjectListVO;
 import com.zhengqing.tool.generator.service.ICgProjectPackageService;
 import com.zhengqing.tool.generator.service.ICgProjectService;
 import com.zhengqing.tool.generator.service.ICgProjectTemplateService;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * <p>
  * 代码生成器 - 项目管理 服务实现类
  * </p>
  *
- * @author: zhengqing
- * @date: 2019-09-09
+ * @author zhengqingya
+ * @date 2019-09-09
  */
 @Slf4j
 @Service

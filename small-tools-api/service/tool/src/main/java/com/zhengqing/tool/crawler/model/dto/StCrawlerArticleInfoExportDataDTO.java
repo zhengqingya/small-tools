@@ -2,20 +2,21 @@ package com.zhengqing.tool.crawler.model.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
  * 小工具 - 爬虫 - 文章导出参数
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-08-21 22:35:34
+ * @author zhengqingya
+ * @description
+ * @date 2020-08-21 22:35:34
  */
 @Data
 @Builder

@@ -1,12 +1,5 @@
 package com.zhengqing.system.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.util.MyBeanUtil;
@@ -16,17 +9,22 @@ import com.zhengqing.system.mapper.SysDictTypeMapper;
 import com.zhengqing.system.model.dto.SysDictTypeSaveDTO;
 import com.zhengqing.system.service.ISysDictService;
 import com.zhengqing.system.service.ISysDictTypeService;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * <p>
  * 数据字典类型-服务实现类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 20:51
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 20:51
  */
 @Slf4j
 @Service

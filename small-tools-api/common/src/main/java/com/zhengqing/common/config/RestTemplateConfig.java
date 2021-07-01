@@ -1,20 +1,20 @@
 package com.zhengqing.common.config;
 
-import java.nio.charset.StandardCharsets;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * <p>
  * RestTemplate 配置
  * </p>
  *
- * @author : zhengqing
- * @description : RestTemplate是Spring提供的用于访问Rest服务的客户端,RestTemplate提供了多种便捷访问远程Http服务的方法,能够大大提高客户端的编写效率。
- * @date : 2020/1/17 9:05
+ * @author zhengqingya
+ * @description RestTemplate是Spring提供的用于访问Rest服务的客户端, RestTemplate提供了多种便捷访问远程Http服务的方法, 能够大大提高客户端的编写效率。
+ * @date 2020/1/17 9:05
  */
 @Configuration
 public class RestTemplateConfig {

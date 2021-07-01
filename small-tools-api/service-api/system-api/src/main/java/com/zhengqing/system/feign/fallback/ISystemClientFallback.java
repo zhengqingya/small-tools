@@ -14,9 +14,9 @@ import java.util.List;
  * Feign错误处理
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2021/1/4 11:53
+ * @author zhengqingya
+ * @description
+ * @date 2021/1/4 11:53
  */
 @Component
 public class ISystemClientFallback implements ISystemClient {

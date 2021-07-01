@@ -18,9 +18,9 @@ import java.io.StringWriter;
  * API返回参数
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2019/7/20 11:09
+ * @author zhengqingya
+ * @description
+ * @date 2019/7/20 11:09
  */
 @Setter
 @Getter

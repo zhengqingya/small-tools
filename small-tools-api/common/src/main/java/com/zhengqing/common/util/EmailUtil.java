@@ -1,10 +1,6 @@
 package com.zhengqing.common.util;
 
-import java.io.File;
-
-import javax.annotation.PostConstruct;
-import javax.mail.internet.MimeMessage;
-
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,16 +8,18 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
-import lombok.SneakyThrows;
+import javax.annotation.PostConstruct;
+import javax.mail.internet.MimeMessage;
+import java.io.File;
 
 /**
  * <p>
  * Email 邮件工具类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/8/14 17:31
+ * @author zhengqingya
+ * @description
+ * @date 2020/8/14 17:31
  */
 @Component
 public class EmailUtil {
@@ -46,13 +44,11 @@ public class EmailUtil {
      * 发送邮件 - 不带附件
      *
      * @param title：邮件标题
-     * @param content：
-     *            邮件内容
-     * @param sendTo:
-     *            收件人
+     * @param content：   邮件内容
+     * @param sendTo:    收件人
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/8/14 19:28
+     * @author zhengqingya
+     * @date 2020/8/14 19:28
      */
     @SneakyThrows(Exception.class)
     public static void sendMail(String title, String content, String... sendTo) {
@@ -75,15 +71,13 @@ public class EmailUtil {
      * 发送邮件 - 带附件
      *
      * @param title：邮件标题
-     * @param content：
-     *            邮件内容
+     * @param content：                 邮件内容
      * @param attachmentFilename：附件文件名
      * @param file：附件
-     * @param sendTo:
-     *            收件人
+     * @param sendTo:                  收件人
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/8/14 19:28
+     * @author zhengqingya
+     * @date 2020/8/14 19:28
      */
     @SneakyThrows(Exception.class)
     public static void sendMail(String title, String content, String attachmentFilename, File file, String... sendTo) {

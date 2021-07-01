@@ -1,9 +1,11 @@
 package com.zhengqing.common.validator.repeatsubmit;
 
-import java.util.Objects;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.exception.MyException;
+import com.zhengqing.common.util.IpUtil;
+import com.zhengqing.common.util.RedisUtil;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,22 +13,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.exception.MyException;
-import com.zhengqing.common.util.IpUtil;
-import com.zhengqing.common.util.RedisUtil;
-
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 /**
  * <p>
  * aop切面 校验表单重复提交
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2019/11/27 11:26
+ * @author zhengqingya
+ * @description
+ * @date 2019/11/27 11:26
  */
 @Slf4j
 @Aspect
@@ -51,8 +48,8 @@ public class NoRepeatSubmitAop {
     @Around("( execution(* com.zhengqing.*.api.*Controller.*(..)) || execution(* com.zhengqing..*.api.*Controller.*(..)) ) && @annotation(noRepeatSubmit)")
     public Object doAround(ProceedingJoinPoint pjp, NoRepeatSubmit noRepeatSubmit) {
         HttpServletRequest request =
-            ((ServletRequestAttributes)Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
-                .getRequest();
+                ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
+                        .getRequest();
 
         // 拿到ip地址、请求路径、token
         String ip = IpUtil.getIpAdrress(request);

@@ -1,23 +1,22 @@
 package com.zhengqing.common.util;
 
+import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.exception.MyException;
+import org.springframework.util.Base64Utils;
+
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
-
-import org.springframework.util.Base64Utils;
-
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.exception.MyException;
 
 /**
  * <p>
  * DES 加密/解密工具类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/12 0:40
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/12 0:40
  */
 public class DESUtil {
 
@@ -31,10 +30,8 @@ public class DESUtil {
     /**
      * DES解密
      *
-     * @param secretData
-     *            密码字符串
-     * @param secretKey
-     *            解密密钥
+     * @param secretData 密码字符串
+     * @param secretKey  解密密钥
      * @return 原始字符串
      */
     public static String decryption(String secretData, String secretKey) {

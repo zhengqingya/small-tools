@@ -1,25 +1,23 @@
 package com.zhengqing.common.util;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zhengqing.common.http.ApiResult;
-
 import lombok.extern.slf4j.Slf4j;
+
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * <p>
  * 使用response输出JSON
  * </p>
  *
- * @description :
- * @author : zhengqing
- * @date : 2019/10/11 17:27
+ * @author zhengqingya
+ * @description
+ * @date 2019/10/11 17:27
  */
 @Slf4j
 public class ResponseUtil {

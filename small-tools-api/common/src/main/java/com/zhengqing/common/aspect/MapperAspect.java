@@ -1,5 +1,9 @@
 package com.zhengqing.common.aspect;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.exception.ParameterException;
+import com.zhengqing.common.util.ServletUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -7,19 +11,14 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.exception.ParameterException;
-import com.zhengqing.common.util.ServletUtil;
-
 /**
  * <p>
  * Mapper分页参数注入切面
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/8/1 18:18
+ * @author zhengqingya
+ * @description
+ * @date 2020/8/1 18:18
  */
 @Aspect
 @Order(2)
@@ -33,11 +32,12 @@ public class MapperAspect {
      * 配置织入点
      */
     @Pointcut("execution(* com.zhengqing.*..*.*Mapper.*(..))")
-    public void mapperPointCut() {}
+    public void mapperPointCut() {
+    }
 
     /**
      * Before增强：在目标方法被执行的时候织入增强
-     *
+     * <p>
      * Mapper所有方法作为切入点
      */
     @Before("mapperPointCut()")
@@ -51,7 +51,7 @@ public class MapperAspect {
                 if (pageNum < 1 || pageSize < 1) {
                     throw new ParameterException("传递的分页参数有误!");
                 }
-                IPage<?> page = ((IPage<?>)paramObj);
+                IPage<?> page = ((IPage<?>) paramObj);
                 page.setCurrent(pageNum);
                 page.setSize(pageSize);
             }

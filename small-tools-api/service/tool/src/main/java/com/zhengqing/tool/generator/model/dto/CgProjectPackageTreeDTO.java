@@ -1,25 +1,20 @@
 package com.zhengqing.tool.generator.model.dto;
 
-import javax.validation.constraints.NotNull;
-
 import com.zhengqing.common.model.dto.BaseDTO;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
  * 项目关联包树查询参数
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/11/15 12:16
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/15 12:16
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

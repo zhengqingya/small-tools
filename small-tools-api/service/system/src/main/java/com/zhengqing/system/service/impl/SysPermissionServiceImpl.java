@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
  * 系统管理 - 权限系列缓存 服务实现类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 18:51
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 18:51
  */
 @Slf4j
 @Service
@@ -126,8 +126,8 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      * @param parentMenuId: 父菜单id
      * @param allMenuList:  所有菜单
      * @return: 菜单树列表
-     * @author : zhengqing
-     * @date : 2020/9/10 20:56
+     * @author zhengqingya
+     * @date 2020/9/10 20:56
      */
     private List<SysMenuTreeVO> getChildMenu(Integer parentMenuId, List<SysMenuTreeVO> allMenuList) {
         // ⑤、存放子菜单的集合
@@ -219,8 +219,8 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      * @param roleIdList:   角色权限ids
      * @param systemSource: 系统来源
      * @return: 带权限的菜单树
-     * @author : zhengqing
-     * @date : 2020/9/11 14:32
+     * @author zhengqingya
+     * @date 2020/9/11 14:32
      */
     private List<SysMenuTreeVO> menuAndBtnPermissionTree(List<Integer> menuIdList, List<Integer> roleIdList,
                                                          Integer systemSource) {
@@ -243,8 +243,8 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      * @param roleIdList:   用户所拥有的角色ids
      * @param btnList:      用户所拥有的菜单按钮权限
      * @return: 过滤后的用户关联的权限菜单树
-     * @author : zhengqing
-     * @date : 2020/9/11 14:34
+     * @author zhengqingya
+     * @date 2020/9/11 14:34
      */
     private List<SysMenuTreeVO> filterTree(List<SysMenuTreeVO> menuTreeList, List<Integer> menuIdList,
                                            List<Integer> roleIdList, List<SysRoleMenuBtnListVO> btnList) {
@@ -276,8 +276,8 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      * @param roleIdList: 用户所拥有的角色ids
      * @param btnList:    按钮权限
      * @return: 按钮权限
-     * @author : zhengqing
-     * @date : 2020/9/11 14:36
+     * @author zhengqingya
+     * @date 2020/9/11 14:36
      */
     private List<String> getBtnsByRoleIdMenuId(Integer menuId, List<Integer> roleIdList,
                                                List<SysRoleMenuBtnListVO> btnList) {

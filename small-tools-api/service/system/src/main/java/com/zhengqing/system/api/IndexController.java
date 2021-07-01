@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
  * 首页
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2019/8/19 13:49
+ * @author zhengqingya
+ * @description
+ * @date 2019/8/19 13:49
  */
 @RestController
 @RequestMapping("")

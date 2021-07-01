@@ -15,9 +15,9 @@ import java.util.Date;
  * MyBatisPlus自定义字段自动填充处理类 - 实体类中使用 @TableField注解
  * </p>
  *
- * @description: 注意前端传值时要为null
- * @author: zhengqing
- * @date: 2019/8/18 0018 1:46
+ * @author zhengqingya
+ * @description 注意前端传值时要为null
+ * @date 2019/8/18 0018 1:46
  */
 @Slf4j
 @Component

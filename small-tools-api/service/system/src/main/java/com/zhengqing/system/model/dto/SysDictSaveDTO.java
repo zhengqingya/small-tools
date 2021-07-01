@@ -1,11 +1,7 @@
 package com.zhengqing.system.model.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -13,14 +9,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 数据字典保存参数
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 20:55
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 20:55
  */
 @Data
 @Builder
@@ -28,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @ApiModel("数据字典保存参数")
 @FieldRepeatValidator(tableName = "t_sys_dict", fieldNames = {"name", "dictTypeId"},
-    dbFieldNames = {"name", "dict_type_id"}, message = "字段名称重复，请重新输入！")
+        dbFieldNames = {"name", "dict_type_id"}, message = "字段名称重复，请重新输入！")
 public class SysDictSaveDTO {
 
     @NotNull(groups = {UpdateGroup.class}, message = "字典id不能为空!")

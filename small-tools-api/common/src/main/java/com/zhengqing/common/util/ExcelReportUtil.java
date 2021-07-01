@@ -1,20 +1,19 @@
 package com.zhengqing.common.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URLEncoder;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
+import com.google.common.collect.Lists;
+import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.enums.ExcelExportFileTypeEnum;
+import com.zhengqing.common.enums.ExcelImportFileTypeEnum;
+import com.zhengqing.common.exception.MyException;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.jxls.common.Context;
@@ -29,30 +28,23 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.common.collect.Lists;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.enums.ExcelExportFileTypeEnum;
-import com.zhengqing.common.enums.ExcelImportFileTypeEnum;
-import com.zhengqing.common.exception.MyException;
-
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.io.IoUtil;
-import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.ExcelWriter;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 导入导出Excel报表工具类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/9/7 14:00
+ * @author zhengqingya
+ * @description
+ * @date 2020/9/7 14:00
  */
 @Slf4j
 @Component
@@ -64,26 +56,22 @@ public class ExcelReportUtil {
     /**
      * 读取上传文件数据
      *
-     * @param dataList:
-     *            数据
-     * @param excelImportFileTypeEnum:
-     *            导入报表模板类型
-     * @param file:
-     *            上传文件数据
-     * @param isThrowException:
-     *            遇到错误是否抛出异常信息 true:抛出 false：不抛，继续处理数据
+     * @param dataList:                数据
+     * @param excelImportFileTypeEnum: 导入报表模板类型
+     * @param file:                    上传文件数据
+     * @param isThrowException:        遇到错误是否抛出异常信息 true:抛出 false：不抛，继续处理数据
      * @return: 装满数据的dataList
-     * @author : zhengqing
-     * @date : 2020/9/7 13:59
+     * @author zhengqingya
+     * @date 2020/9/7 13:59
      */
     public <E, T> List<T> read(List<T> dataList, ExcelImportFileTypeEnum excelImportFileTypeEnum, MultipartFile file,
-        boolean isThrowException) {
+                               boolean isThrowException) {
         String fileName = file.getName();
         InputStream inputXLS = null;
         InputStream inputXML = null;
         try {
             Resource resource = new ClassPathResource(
-                AppConstant.DEFAULT_REPORT_IMPORT_FOLDER + excelImportFileTypeEnum.getMappingXml());
+                    AppConstant.DEFAULT_REPORT_IMPORT_FOLDER + excelImportFileTypeEnum.getMappingXml());
             // 上传文件流
             inputXLS = file.getInputStream();
             // xml配置文件流
@@ -137,19 +125,16 @@ public class ExcelReportUtil {
     /**
      * 导出EXCEL到指定路径
      *
-     * @param dataList:
-     *            数据
-     * @param excelExportFileTypeEnum:
-     *            导出报表模板类型
-     * @param exportPath:
-     *            导出路径
+     * @param dataList:                数据
+     * @param excelExportFileTypeEnum: 导出报表模板类型
+     * @param exportPath:              导出路径
      * @return: 文件下载地址信息
-     * @author : zhengqing
-     * @date : 2020/9/7 13:59
+     * @author zhengqingya
+     * @date 2020/9/7 13:59
      */
     @SneakyThrows(Exception.class)
     public String export(List<Map<String, Object>> dataList, ExcelExportFileTypeEnum excelExportFileTypeEnum,
-        String exportPath) {
+                         String exportPath) {
         // 处理导出
         File exportFile = handleExport(dataList, excelExportFileTypeEnum, exportPath);
         // 返回文件下载地址
@@ -163,20 +148,17 @@ public class ExcelReportUtil {
     /**
      * 导出EXCEL给前端直接下载
      *
-     * @param dataList:
-     *            数据
-     * @param excelExportFileTypeEnum:
-     *            导出报表模板类型
-     * @param exportPath:
-     *            导出路径
+     * @param dataList:                数据
+     * @param excelExportFileTypeEnum: 导出报表模板类型
+     * @param exportPath:              导出路径
      * @param response:
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/9/8 14:59
+     * @author zhengqingya
+     * @date 2020/9/8 14:59
      */
     @SneakyThrows(Exception.class)
     public void export(List<Map<String, Object>> dataList, ExcelExportFileTypeEnum excelExportFileTypeEnum,
-        String exportPath, HttpServletResponse response) {
+                       String exportPath, HttpServletResponse response) {
         // 处理导出
         handleExport(dataList, excelExportFileTypeEnum, exportPath);
 
@@ -204,8 +186,8 @@ public class ExcelReportUtil {
      *
      * @param response:
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/9/9 10:24
+     * @author zhengqingya
+     * @date 2020/9/9 10:24
      */
     @SneakyThrows(Exception.class)
     public void exportTest(HttpServletResponse response) {
@@ -259,21 +241,18 @@ public class ExcelReportUtil {
     /**
      * 处理导出数据逻辑
      *
-     * @param dataList:
-     *            数据
-     * @param excelExportFileTypeEnum:
-     *            导出报表模板类型
-     * @param exportPath:
-     *            导出路径
+     * @param dataList:                数据
+     * @param excelExportFileTypeEnum: 导出报表模板类型
+     * @param exportPath:              导出路径
      * @return: 导出数据文件
-     * @author : zhengqing
-     * @date : 2020/9/8 15:49
+     * @author zhengqingya
+     * @date 2020/9/8 15:49
      */
     @SneakyThrows(Exception.class)
     public File handleExport(List<Map<String, Object>> dataList, ExcelExportFileTypeEnum excelExportFileTypeEnum,
-        String exportPath) {
+                             String exportPath) {
         Resource resource =
-            new ClassPathResource(AppConstant.DEFAULT_REPORT_EXPORT_FOLDER + excelExportFileTypeEnum.getTemplateFile());
+                new ClassPathResource(AppConstant.DEFAULT_REPORT_EXPORT_FOLDER + excelExportFileTypeEnum.getTemplateFile());
         InputStream templateInputStream = resource.getInputStream();
 
         log.debug("导出文件地址为:{}", exportPath);

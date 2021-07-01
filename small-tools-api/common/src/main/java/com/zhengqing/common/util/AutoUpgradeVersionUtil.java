@@ -1,28 +1,27 @@
 package com.zhengqing.common.util;
 
-import java.util.Arrays;
-
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.Arrays;
 
 /**
  * <p>
  * 自增版本号工具类$
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/10/13$ 14:08$
+ * @author zhengqingya
+ * @description
+ * @date 2020/10/13$ 14:08$
  */
 public class AutoUpgradeVersionUtil {
 
     /**
      * 自动自增版本号 ex:0.0.1 -> 0.0.2
      *
-     * @param version:
-     *            版本号
+     * @param version: 版本号
      * @return: 自增后的版本号
-     * @author : zhengqing
-     * @date : 2020/10/13 14:13
+     * @author zhengqingya
+     * @date 2020/10/13 14:13
      */
     public static String autoUpgradeVersion(String version) {
         if (StringUtils.isBlank(version)) {

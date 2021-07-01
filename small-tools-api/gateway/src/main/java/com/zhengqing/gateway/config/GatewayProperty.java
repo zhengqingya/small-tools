@@ -1,24 +1,22 @@
 package com.zhengqing.gateway.config;
 
-import java.util.List;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-
 import com.zhengqing.common.config.CommonProperty;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 /**
  * <p>
  * 配置信息
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2021/1/13 10:23
+ * @author zhengqingya
+ * @description
+ * @date 2021/1/13 10:23
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

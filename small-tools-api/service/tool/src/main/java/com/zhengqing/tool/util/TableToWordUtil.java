@@ -1,31 +1,25 @@
 package com.zhengqing.tool.util;
 
-import java.awt.Color;
-import java.io.FileOutputStream;
-import java.util.List;
-
-import com.lowagie.text.Cell;
-import com.lowagie.text.Document;
-import com.lowagie.text.Element;
 import com.lowagie.text.Font;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Table;
+import com.lowagie.text.*;
 import com.lowagie.text.rtf.RtfWriter2;
 import com.zhengqing.common.exception.MyException;
 import com.zhengqing.common.util.MyFileUtil;
 import com.zhengqing.tool.db.model.bo.StDbTableColumnBO;
-
 import lombok.extern.slf4j.Slf4j;
+
+import java.awt.*;
+import java.io.FileOutputStream;
+import java.util.List;
 
 /**
  * <p>
  * 创建word文档
  * </p>
  *
- * @author : zhengqing
- * @description : 步骤: 1、建立文档 2、创建一个书写器 3、打开文档 4、向文档中写入数据 5、关闭文档
- * @date : 2019/11/8 15:45
+ * @author zhengqingya
+ * @description 步骤: 1、建立文档 2、创建一个书写器 3、打开文档 4、向文档中写入数据 5、关闭文档
+ * @date 2019/11/8 15:45
  */
 @Slf4j
 public class TableToWordUtil {

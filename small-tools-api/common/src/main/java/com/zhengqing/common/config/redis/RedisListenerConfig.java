@@ -10,9 +10,9 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
  * redis监听事件配置
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/11/13 13:56
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/13 13:56
  */
 @Configuration
 public class RedisListenerConfig {

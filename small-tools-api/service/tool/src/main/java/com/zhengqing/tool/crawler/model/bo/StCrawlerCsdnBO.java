@@ -10,9 +10,9 @@ import lombok.Data;
  * CSDN博客文章信息类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/7/1$ 16:57$
+ * @author zhengqingya
+ * @description
+ * @date 2020/7/1$ 16:57$
  */
 @Data
 @AllArgsConstructor

@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
  * 测试api
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2021/1/9 1:38
+ * @author zhengqingya
+ * @description
+ * @date 2021/1/9 1:38
  */
 @Slf4j
 @RestController

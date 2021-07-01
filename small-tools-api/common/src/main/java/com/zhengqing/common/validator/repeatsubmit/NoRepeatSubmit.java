@@ -10,9 +10,9 @@ import java.lang.annotation.Target;
  * 注解：校验表单重复提交
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2019/11/27 9:59
+ * @author zhengqingya
+ * @description
+ * @date 2019/11/27 9:59
  */
 // 作用到方法上
 @Target(ElementType.METHOD)

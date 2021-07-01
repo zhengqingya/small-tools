@@ -16,9 +16,9 @@ import org.apache.commons.lang3.StringUtils;
  * 小工具 - 爬虫 - 文章信息查询参数
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-08-21 22:35:34
+ * @author zhengqingya
+ * @description
+ * @date 2020-08-21 22:35:34
  */
 @Data
 @Builder
@@ -43,7 +43,7 @@ public class StCrawlerArticleInfoListDTO implements ParameterVerify {
     public void checkParam() throws ParameterException {
         // 校验结束时间是否大于等于开始时间
         if (StringUtils.isNotBlank(this.startTime) && StringUtils.isNotBlank(this.endTime)
-            && !MyDateUtil.verifyTime(this.startTime, this.endTime, MyDateUtil.DATE_TIME_FORMAT)) {
+                && !MyDateUtil.verifyTime(this.startTime, this.endTime, MyDateUtil.DATE_TIME_FORMAT)) {
             throw new ParameterException("结束时间不能小于开始时间!");
         }
     }

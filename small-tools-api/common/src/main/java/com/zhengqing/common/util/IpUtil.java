@@ -1,5 +1,6 @@
 package com.zhengqing.common.util;
 
+import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.UnknownHostException;
@@ -7,16 +8,14 @@ import java.util.Enumeration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * <p>
  * IP工具类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2019/9/18 10:07
+ * @author zhengqingya
+ * @description
+ * @date 2019/9/18 10:07
  */
 public class IpUtil {
 
@@ -61,12 +60,12 @@ public class IpUtil {
         // 10.x.x.x/8
         final byte SECTION_1 = 0x0A;
         // 172.16.x.x/12
-        final byte SECTION_2 = (byte)0xAC;
-        final byte SECTION_3 = (byte)0x10;
-        final byte SECTION_4 = (byte)0x1F;
+        final byte SECTION_2 = (byte) 0xAC;
+        final byte SECTION_3 = (byte) 0x10;
+        final byte SECTION_4 = (byte) 0x1F;
         // 192.168.x.x/16
-        final byte SECTION_5 = (byte)0xC0;
-        final byte SECTION_6 = (byte)0xA8;
+        final byte SECTION_5 = (byte) 0xC0;
+        final byte SECTION_6 = (byte) 0xA8;
         switch (b0) {
             case SECTION_1:
                 return true;
@@ -86,8 +85,7 @@ public class IpUtil {
     /**
      * 将IPv4地址转换成字节
      *
-     * @param text
-     *            IPv4地址
+     * @param text IPv4地址
      * @return byte 字节
      */
     public static byte[] textToNumericFormatV4(String text) {
@@ -106,24 +104,24 @@ public class IpUtil {
                     if ((l < 0L) || (l > 4294967295L)) {
                         return null;
                     }
-                    bytes[0] = (byte)(int)(l >> 24 & 0xFF);
-                    bytes[1] = (byte)(int)((l & 0xFFFFFF) >> 16 & 0xFF);
-                    bytes[2] = (byte)(int)((l & 0xFFFF) >> 8 & 0xFF);
-                    bytes[3] = (byte)(int)(l & 0xFF);
+                    bytes[0] = (byte) (int) (l >> 24 & 0xFF);
+                    bytes[1] = (byte) (int) ((l & 0xFFFFFF) >> 16 & 0xFF);
+                    bytes[2] = (byte) (int) ((l & 0xFFFF) >> 8 & 0xFF);
+                    bytes[3] = (byte) (int) (l & 0xFF);
                     break;
                 case 2:
                     l = Integer.parseInt(elements[0]);
                     if ((l < 0L) || (l > 255L)) {
                         return null;
                     }
-                    bytes[0] = (byte)(int)(l & 0xFF);
+                    bytes[0] = (byte) (int) (l & 0xFF);
                     l = Integer.parseInt(elements[1]);
                     if ((l < 0L) || (l > 16777215L)) {
                         return null;
                     }
-                    bytes[1] = (byte)(int)(l >> 16 & 0xFF);
-                    bytes[2] = (byte)(int)((l & 0xFFFF) >> 8 & 0xFF);
-                    bytes[3] = (byte)(int)(l & 0xFF);
+                    bytes[1] = (byte) (int) (l >> 16 & 0xFF);
+                    bytes[2] = (byte) (int) ((l & 0xFFFF) >> 8 & 0xFF);
+                    bytes[3] = (byte) (int) (l & 0xFF);
                     break;
                 case 3:
                     for (i = 0; i < 2; ++i) {
@@ -131,14 +129,14 @@ public class IpUtil {
                         if ((l < 0L) || (l > 255L)) {
                             return null;
                         }
-                        bytes[i] = (byte)(int)(l & 0xFF);
+                        bytes[i] = (byte) (int) (l & 0xFF);
                     }
                     l = Integer.parseInt(elements[2]);
                     if ((l < 0L) || (l > 65535L)) {
                         return null;
                     }
-                    bytes[2] = (byte)(int)(l >> 8 & 0xFF);
-                    bytes[3] = (byte)(int)(l & 0xFF);
+                    bytes[2] = (byte) (int) (l >> 8 & 0xFF);
+                    bytes[3] = (byte) (int) (l & 0xFF);
                     break;
                 case 4:
                     for (i = 0; i < 4; ++i) {
@@ -146,7 +144,7 @@ public class IpUtil {
                         if ((l < 0L) || (l > 255L)) {
                             return null;
                         }
-                        bytes[i] = (byte)(int)(l & 0xFF);
+                        bytes[i] = (byte) (int) (l & 0xFF);
                     }
                     break;
                 default:
@@ -203,7 +201,7 @@ public class IpUtil {
         try {
             Enumeration netInterfaces = NetworkInterface.getNetworkInterfaces();
             while (netInterfaces.hasMoreElements()) {
-                NetworkInterface ni = (NetworkInterface)netInterfaces.nextElement();
+                NetworkInterface ni = (NetworkInterface) netInterfaces.nextElement();
                 InetAddress ip = ni.getInetAddresses().nextElement();
                 if (!ip.isLoopbackAddress() && ip.getHostAddress().indexOf(":") == -1) {
                     localIP = ip.getHostAddress();

@@ -1,11 +1,5 @@
 package com.zhengqing.tool.crawler.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -20,22 +14,26 @@ import com.zhengqing.tool.crawler.pipeline.StCsdnPipeline;
 import com.zhengqing.tool.crawler.processor.StCsdnPageProcessor;
 import com.zhengqing.tool.crawler.service.IStCrawlerArticleInfoService;
 import com.zhengqing.tool.crawler.service.IStCrawlerWebsiteService;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import us.codecraft.webmagic.Spider;
+
+import java.util.List;
 
 /**
  * <p>
  * 小工具 - 爬虫 - 网站管理 服务实现类
  * </p>
  *
- * @author: zhengqing
- * @date: 2020-08-21 22:19:19
+ * @author zhengqingya
+ * @date 2020-08-21 22:19:19
  */
 // @DS(Constants.DATASOURCE_TEST)
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class StCrawlerWebsiteServiceImpl extends ServiceImpl<StCrawlerWebsiteMapper, StCrawlerWebsite>
-    implements IStCrawlerWebsiteService {
+        implements IStCrawlerWebsiteService {
 
     @Autowired
     private StCrawlerWebsiteMapper stCrawlerWebsiteMapper;
@@ -50,7 +48,7 @@ public class StCrawlerWebsiteServiceImpl extends ServiceImpl<StCrawlerWebsiteMap
     public IPage<StCrawlerWebsiteListVO> listPage(StCrawlerWebsiteListDTO params) {
         IPage<StCrawlerWebsiteListVO> result = stCrawlerWebsiteMapper.selectStCrawlerWebsites(new Page<>(), params);
         result.getRecords()
-            .forEach(e -> e.setArticleSum(stCrawlerArticleInfoService.getArticleSumByWebsiteId(e.getWebsiteId())));
+                .forEach(e -> e.setArticleSum(stCrawlerArticleInfoService.getArticleSumByWebsiteId(e.getWebsiteId())));
         return result;
     }
 
@@ -65,14 +63,14 @@ public class StCrawlerWebsiteServiceImpl extends ServiceImpl<StCrawlerWebsiteMap
     public void refreshData(StCrawlerWebsiteRefreshDataDTO params) {
         String url = params.getUrl();
         Spider.create(new StCsdnPageProcessor())
-            // 使用Pipeline保存结果
-            .addPipeline(stCsdnPipeline)
-            // 从指定的url地址开始抓
-            .addUrl(url)
-            // 开启5个线程抓取
-            .thread(5)
-            // 启动爬虫
-            .run();
+                // 使用Pipeline保存结果
+                .addPipeline(stCsdnPipeline)
+                // 从指定的url地址开始抓
+                .addUrl(url)
+                // 开启5个线程抓取
+                .thread(5)
+                // 启动爬虫
+                .run();
     }
 
     @Override

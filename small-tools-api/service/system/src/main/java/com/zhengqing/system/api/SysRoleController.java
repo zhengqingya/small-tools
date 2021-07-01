@@ -1,28 +1,10 @@
 package com.zhengqing.system.api;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
-import com.zhengqing.system.model.dto.SysRoleListDTO;
-import com.zhengqing.system.model.dto.SysRoleMenuBtnSaveDTO;
-import com.zhengqing.system.model.dto.SysRoleMenuSaveDTO;
-import com.zhengqing.system.model.dto.SysRolePermissionSaveDTO;
-import com.zhengqing.system.model.dto.SysRoleSaveDTO;
+import com.zhengqing.system.model.dto.*;
 import com.zhengqing.system.model.vo.SysMenuBtnListVO;
 import com.zhengqing.system.model.vo.SysRoleAllPermissionDetailVO;
 import com.zhengqing.system.model.vo.SysRoleListVO;
@@ -31,19 +13,23 @@ import com.zhengqing.system.service.ISysMenuBtnService;
 import com.zhengqing.system.service.ISysRoleMenuBtnService;
 import com.zhengqing.system.service.ISysRoleMenuService;
 import com.zhengqing.system.service.ISysRoleService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
  * 系统管理 - 角色管理接口
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/9/10 18:33
+ * @author zhengqingya
+ * @description
+ * @date 2020/9/10 18:33
  */
 @Slf4j
 @RestController
@@ -98,7 +84,7 @@ public class SysRoleController extends BaseController {
     @GetMapping("permissionDetail")
     @ApiOperation("详情(带树+按钮+所拥有的权限)")
     public SysRoleAllPermissionDetailVO permissionDetail(@RequestParam Integer roleId,
-        @RequestParam(required = false) Integer systemSource) {
+                                                         @RequestParam(required = false) Integer systemSource) {
         return roleService.permissionDetail(roleId, systemSource);
     }
 
@@ -119,7 +105,7 @@ public class SysRoleController extends BaseController {
     @GetMapping("getPermissionBtnsByRoleIdAndMenuId")
     @ApiOperation("通过角色id和菜单id查询该菜单所拥有的所有按钮")
     public List<Integer> getPermissionBtnsByRoleIdAndMenuId(@RequestParam Integer roleId,
-        @RequestParam Integer menuId) {
+                                                            @RequestParam Integer menuId) {
         return sysRoleMenuBtnService.getPermissionBtnsByRoleIdAndMenuId(roleId, menuId);
     }
 

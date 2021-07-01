@@ -1,21 +1,21 @@
 package com.zhengqing.system.model.vo;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 菜单树
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 20:54
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 20:54
  */
 @ApiModel("菜单树")
 @Data

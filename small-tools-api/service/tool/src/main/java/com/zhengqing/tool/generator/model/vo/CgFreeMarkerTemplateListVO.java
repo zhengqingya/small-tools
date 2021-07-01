@@ -9,9 +9,9 @@ import lombok.Data;
  * 代码生成器 - FreeMarker模板数据配置表展示视图
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-11-02 19:23:15
+ * @author zhengqingya
+ * @description
+ * @date 2020-11-02 19:23:15
  */
 @Data
 @ApiModel("代码生成器 - FreeMarker模板数据配置表展示视图")

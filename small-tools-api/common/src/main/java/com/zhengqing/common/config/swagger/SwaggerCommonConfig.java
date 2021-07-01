@@ -1,9 +1,12 @@
 package com.zhengqing.common.config.swagger;
 
-import static springfox.documentation.builders.PathSelectors.regex;
-
-import java.util.List;
-
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Lists;
+import com.zhengqing.common.config.CommonProperty;
+import com.zhengqing.common.config.CommonProperty.Swagger;
+import com.zhengqing.common.constant.AppConstant;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,37 +14,28 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StopWatch;
-
-import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
-import com.google.common.base.Predicates;
-import com.google.common.collect.Lists;
-import com.zhengqing.common.config.CommonProperty;
-import com.zhengqing.common.config.CommonProperty.Swagger;
-import com.zhengqing.common.constant.AppConstant;
-
-import lombok.extern.slf4j.Slf4j;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.AuthorizationScope;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.List;
+
+import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
  * <p>
  * swagger配置类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/5/15 17:41
+ * @author zhengqingya
+ * @description
+ * @date 2020/5/15 17:41
  */
 @Slf4j
 @Configuration
@@ -63,14 +57,14 @@ public class SwaggerCommonConfig {
         watch.start();
 
         Docket docket = new Docket(DocumentationType.SWAGGER_2).apiInfo(this.apiInfo(commonProperty))
-            .forCodeGeneration(true).genericModelSubstitutes(ResponseEntity.class)
-            // 对不同的api路径作分组展示
-            .groupName(Docket.DEFAULT_GROUP_NAME).select().apis(RequestHandlerSelectors.any()).paths(regex("/.*"))
-            // 排除错误路径
-            .paths(Predicates.not(PathSelectors.regex("/error")))
-            .paths(Predicates.not(PathSelectors.regex("/actuator")))
-            .paths(Predicates.not(PathSelectors.regex("/actuator/.*"))).build().securitySchemes(this.securitySchemes())
-            .securityContexts(this.securityContexts());
+                .forCodeGeneration(true).genericModelSubstitutes(ResponseEntity.class)
+                // 对不同的api路径作分组展示
+                .groupName(Docket.DEFAULT_GROUP_NAME).select().apis(RequestHandlerSelectors.any()).paths(regex("/.*"))
+                // 排除错误路径
+                .paths(Predicates.not(PathSelectors.regex("/error")))
+                .paths(Predicates.not(PathSelectors.regex("/actuator")))
+                .paths(Predicates.not(PathSelectors.regex("/actuator/.*"))).build().securitySchemes(this.securitySchemes())
+                .securityContexts(this.securityContexts());
 
         watch.stop();
         log.info("************ Swagger DEFAULT_GROUP_NAME Started in {} ms ************", watch.getTotalTimeMillis());
@@ -89,11 +83,11 @@ public class SwaggerCommonConfig {
         watch.start();
 
         Docket docket = new Docket(DocumentationType.SWAGGER_2).apiInfo(this.apiInfo(commonProperty))
-            .forCodeGeneration(true).genericModelSubstitutes(ResponseEntity.class)
-            // 对不同的api路径作分组展示
-            .groupName(groupName).select().apis(RequestHandlerSelectors.any())
-            .paths(regex(swagger.getPathIncludePattern())).build().securitySchemes(this.securitySchemes())
-            .securityContexts(this.securityContexts());
+                .forCodeGeneration(true).genericModelSubstitutes(ResponseEntity.class)
+                // 对不同的api路径作分组展示
+                .groupName(groupName).select().apis(RequestHandlerSelectors.any())
+                .paths(regex(swagger.getPathIncludePattern())).build().securitySchemes(this.securitySchemes())
+                .securityContexts(this.securityContexts());
 
         watch.stop();
         log.info("************ Swagger 【{}】 Started in {} ms ************", groupName, watch.getTotalTimeMillis());
@@ -106,10 +100,10 @@ public class SwaggerCommonConfig {
     private ApiInfo apiInfo(CommonProperty commonProperty) {
         Swagger swagger = commonProperty.getSwagger();
         return new ApiInfoBuilder().title(swagger.getTitle()).description(swagger.getDescription())
-            .version(swagger.getVersion()).termsOfServiceUrl(swagger.getTermsOfServiceUrl())
-            .contact(new Contact(swagger.getContact().getName(), swagger.getContact().getUrl(),
-                swagger.getContact().getEmail()))
-            .license(swagger.getLicense()).licenseUrl(swagger.getLicenseUrl()).build();
+                .version(swagger.getVersion()).termsOfServiceUrl(swagger.getTermsOfServiceUrl())
+                .contact(new Contact(swagger.getContact().getName(), swagger.getContact().getUrl(),
+                        swagger.getContact().getEmail()))
+                .license(swagger.getLicense()).licenseUrl(swagger.getLicenseUrl()).build();
     }
 
     /**
@@ -124,7 +118,7 @@ public class SwaggerCommonConfig {
     private List<SecurityContext> securityContexts() {
         List<SecurityContext> contextList = Lists.newArrayList();
         contextList.add(SecurityContext.builder().securityReferences(defaultAuth())
-            .forPaths(PathSelectors.regex("^(?!auth).*$")).build());
+                .forPaths(PathSelectors.regex("^(?!auth).*$")).build());
         return contextList;
     }
 

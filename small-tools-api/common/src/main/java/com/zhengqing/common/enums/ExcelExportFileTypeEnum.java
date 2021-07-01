@@ -8,9 +8,9 @@ import lombok.Getter;
  * 报表导出模板枚举类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/9/7 13:56
+ * @author zhengqingya
+ * @description
+ * @date 2020/9/7 13:56
  */
 @Getter
 @AllArgsConstructor

@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
  * github用户信息$
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/11/27$ 17:28$
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/27$ 17:28$
  */
 @Data
 @Builder

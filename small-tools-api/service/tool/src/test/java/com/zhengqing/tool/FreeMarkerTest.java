@@ -1,28 +1,26 @@
 package com.zhengqing.tool;
 
-import java.io.File;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.Test;
-
 import com.google.common.collect.Maps;
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.util.FreeMarkerUtil;
 import com.zhengqing.common.util.MyFileUtil;
-
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import org.junit.Test;
+
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
  * 1.创建配置实例 2.获得模板 3.创建数据模型[数据模型可以是List、Map对象 注意:Map类型的key必须是String类型] 4.将模板和数据模型合并
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/11/1 0:53
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/1 0:53
  */
 public class FreeMarkerTest {
 

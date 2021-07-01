@@ -1,15 +1,5 @@
 package com.zhengqing.system.service.impl;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -40,7 +30,6 @@ import com.zhengqing.system.model.vo.SysOauthListVO;
 import com.zhengqing.system.service.ISysDictService;
 import com.zhengqing.system.service.ISysOauthService;
 import com.zhengqing.system.service.ISysUserService;
-
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.model.AuthCallback;
@@ -50,15 +39,23 @@ import me.zhyd.oauth.request.AuthGithubRequest;
 import me.zhyd.oauth.request.AuthQqRequest;
 import me.zhyd.oauth.request.AuthRequest;
 import me.zhyd.oauth.utils.AuthStateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
  * 系统管理 - 用户三方授权表 服务实现类
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020/11/28 22:14
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/28 22:14
  */
 @Slf4j
 @Service
@@ -99,7 +96,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
         switch (SysOauthTypeEnum.getEnum(oauthType)) {
             case Gitee:
                 SysGiteeUserInfoBO sysGiteeUserInfoBO =
-                    MyBeanUtil.mapToObject(authResponseMap, SysGiteeUserInfoBO.class);
+                        MyBeanUtil.mapToObject(authResponseMap, SysGiteeUserInfoBO.class);
                 log.info("《三方授权》 用户信息： {}", sysGiteeUserInfoBO);
                 oauthUserInfoBO.setOauthType(SysOauthTypeEnum.Gitee.getOauthTypeValue());
                 oauthUserInfoBO.setOpenId(sysGiteeUserInfoBO.getUuid());
@@ -112,7 +109,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
                 break;
             case GitHub:
                 SysGitHubUserInfoBO sysGitHubUserInfoBO =
-                    MyBeanUtil.mapToObject(authResponseMap, SysGitHubUserInfoBO.class);
+                        MyBeanUtil.mapToObject(authResponseMap, SysGitHubUserInfoBO.class);
                 log.info("《三方授权》 用户信息： {}", sysGitHubUserInfoBO);
                 oauthUserInfoBO.setOauthType(SysOauthTypeEnum.GitHub.getOauthTypeValue());
                 oauthUserInfoBO.setOpenId(sysGitHubUserInfoBO.getUuid());
@@ -143,7 +140,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
         SysUser sysUser = new SysUser().selectById(userId);
         // 塞个token信息
         UserTokenInfo userTokenInfo =
-            UserTokenInfo.buildUser(JSONObject.parseObject(JSONObject.toJSONString(sysUser), Map.class));
+                UserTokenInfo.buildUser(JSONObject.parseObject(JSONObject.toJSONString(sysUser), Map.class));
         String jwtToken = JwtUtil.buildJWT(userTokenInfo);
         sysUser.setToken(jwtToken);
         sysUser.updateById();
@@ -159,7 +156,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
         Map<String, Object> authResponseMap = this.handleCallbackData(oauthType, callback);
         String openId = String.valueOf(authResponseMap.get("uuid"));
         String redirectUrl = String.format(systemProperty.getThirdpartOauth().getWebBindRedirectUrl(),
-            SysOauthTypeEnum.getEnum(oauthType).getOauthTypeValue(), openId);
+                SysOauthTypeEnum.getEnum(oauthType).getOauthTypeValue(), openId);
         response.sendRedirect(redirectUrl);
         log.info("《三方授权》 绑定回调地址： {}", redirectUrl);
     }
@@ -167,13 +164,11 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
     /**
      * 处理回调数据
      *
-     * @param oauthType:
-     *            授权数据类型
-     * @param callback:
-     *            回调信息
+     * @param oauthType: 授权数据类型
+     * @param callback:  回调信息
      * @return: 回调响应map数据
-     * @author : zhengqing
-     * @date : 2020/12/6 18:48
+     * @author zhengqingya
+     * @date 2020/12/6 18:48
      */
     private Map<String, Object> handleCallbackData(String oauthType, AuthCallback callback) {
         AuthRequest authRequest = this.getAuthRequest(oauthType);
@@ -184,7 +179,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
         }
         Object authResponseData = authResponse.getData();
         Map<String, Object> authResponseMap =
-            JSONObject.parseObject(JSONObject.toJSONString(authResponseData), Map.class);
+                JSONObject.parseObject(JSONObject.toJSONString(authResponseData), Map.class);
         log.debug("《三方授权》 授权信息：{}", authResponseMap);
         return authResponseMap;
     }
@@ -211,8 +206,8 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
      *
      * @param params:
      * @return: java.lang.Integer
-     * @author : zhengqing
-     * @date : 2020/12/6 19:03
+     * @author zhengqingya
+     * @date 2020/12/6 19:03
      */
     private Integer handleOauthThirdPartData(SysThirdpartOauthUserInfoBO params) {
         Integer oauthType = params.getOauthType();
@@ -225,7 +220,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
         String remark = params.getRemark();
 
         SysOauth oauthInfo = sysOauthMapper.selectOne(
-            new LambdaQueryWrapper<SysOauth>().eq(SysOauth::getOpenId, openId).eq(SysOauth::getOauthType, oauthType));
+                new LambdaQueryWrapper<SysOauth>().eq(SysOauth::getOpenId, openId).eq(SysOauth::getOauthType, oauthType));
         if (oauthInfo != null) {
             return oauthInfo.getUserId();
         }
@@ -255,7 +250,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
         String openId = params.getOpenId();
         Integer oauthType = params.getOauthType();
         SysOauth oauthInfo = sysOauthMapper.selectOne(
-            new LambdaQueryWrapper<SysOauth>().eq(SysOauth::getOpenId, openId).eq(SysOauth::getOauthType, oauthType));
+                new LambdaQueryWrapper<SysOauth>().eq(SysOauth::getOpenId, openId).eq(SysOauth::getOauthType, oauthType));
         if (oauthInfo != null) {
             return oauthInfo.getUserId();
         }
@@ -278,9 +273,9 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
         List<SysDictVO> oauthTypeList = dictService.getUpDictListFromCacheByCode(SysDictTypeEnum.第三方帐号授权类型.getCode());
         List<SysOauthListVO> oauthBindList = this.list(SysOauthListDTO.builder().userId(userId).build());
         List<Integer> oauthTypeBindList =
-            oauthBindList.stream().map(SysOauthListVO::getOauthType).collect(Collectors.toList());
+                oauthBindList.stream().map(SysOauthListVO::getOauthType).collect(Collectors.toList());
         Map<Integer, Integer> oauthBindMap = oauthBindList.stream()
-            .collect(Collectors.toMap(SysOauthListVO::getOauthType, SysOauthListVO::getUserReOauthId, (k1, k2) -> k1));
+                .collect(Collectors.toMap(SysOauthListVO::getOauthType, SysOauthListVO::getUserReOauthId, (k1, k2) -> k1));
         oauthTypeList.forEach(oauthTypeItem -> {
             String oauthTypeName = oauthTypeItem.getName();
             Integer oauthTypeValue = Integer.valueOf(oauthTypeItem.getValue());
@@ -290,7 +285,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
             oauthData.setOauthTypeBindName(oauthTypeName + "Bind");
             oauthData.setOauthTypeDesc(SysOauthTypeEnum.getEnum(oauthTypeName).getDesc());
             oauthData.setIfBind(
-                oauthTypeBindList.contains(oauthTypeValue) ? YesNoEnum.是.getValue() : YesNoEnum.否.getValue());
+                    oauthTypeBindList.contains(oauthTypeValue) ? YesNoEnum.是.getValue() : YesNoEnum.否.getValue());
             oauthData.setUserReOauthId(oauthBindMap.get(oauthTypeValue));
             oauthDataList.add(oauthData);
         });

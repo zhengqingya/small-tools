@@ -1,13 +1,9 @@
 package com.zhengqing.tool.crawler.processor;
 
-import java.util.List;
-
-import org.springframework.util.CollectionUtils;
-
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.tool.crawler.model.bo.StCrawlerCsdnBO;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.CollectionUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -15,14 +11,16 @@ import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Html;
 import us.codecraft.webmagic.selector.Selectable;
 
+import java.util.List;
+
 /**
  * <p>
  * 爬虫的配置、页面元素的抽取和链接的发现
  * </p>
  *
- * @author : zhengqing
- * @description : 可参考[WebMagic官网文档](http://webmagic.io/docs/zh/posts/ch4-basic-page-processor/pageprocessor.html)
- * @date : 2020/7/1 12:36
+ * @author zhengqingya
+ * @description 可参考[WebMagic官网文档](http : / / webmagic.io / docs / zh / posts / ch4 - basic - page - processor / pageprocessor.html)
+ * @date 2020/7/1 12:36
  */
 @Slf4j
 public class StCsdnPageProcessor implements PageProcessor {
@@ -41,21 +39,20 @@ public class StCsdnPageProcessor implements PageProcessor {
      * 【部分一】：抓取网站的相关配置，包括编码、抓取间隔、重试次数等
      */
     private Site site = Site.me().
-    // 重试次数
-        setRetryTimes(3).
-        // 抓取间隔
-        setSleepTime(1000).
-        // 超时时间
-        setTimeOut(100 * 1000);
+            // 重试次数
+                    setRetryTimes(3).
+            // 抓取间隔
+                    setSleepTime(1000).
+            // 超时时间
+                    setTimeOut(100 * 1000);
 
     /**
      * process是定制爬虫逻辑的核心接口，在这里编写抽取逻辑
      *
-     * @param page:
-     *            页面数据
+     * @param page: 页面数据
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/7/1 16:43
+     * @author zhengqingya
+     * @date 2020/7/1 16:43
      */
     @Override
     public void process(Page page) {
@@ -88,7 +85,7 @@ public class StCsdnPageProcessor implements PageProcessor {
             String articleContent = html.xpath("//article[@class='baidu_pl']").toString();
             log.debug("文章id：【{}】  文章标题：【{}】 文章所属分类：【{}】", articleId, articleTitle, articleCategory);
             StCrawlerCsdnBO stCrawlerCsdnBO = new StCrawlerCsdnBO(blogAccount, articleId, articleTitle, articleTime,
-                articleCategory, articleContent, url);
+                    articleCategory, articleContent, url);
             // if (articleDetailInfoList.contains(csdn)) {
             // return;
             // }
@@ -101,7 +98,7 @@ public class StCsdnPageProcessor implements PageProcessor {
             // }
             // urlList.add(url);
             List<Selectable> articleList = html
-                .xpath("//div[@class='article-list']//div[@class='article-item-box csdn-tracking-statistics']").nodes();
+                    .xpath("//div[@class='article-list']//div[@class='article-item-box csdn-tracking-statistics']").nodes();
             if (CollectionUtils.isEmpty(articleList)) {
                 // 这里移除最后一条错误元素
                 // urlList.remove(urlList.get(urlList.size() - 1));
@@ -116,8 +113,8 @@ public class StCsdnPageProcessor implements PageProcessor {
                 String articleUrl = article.links().toString();
                 // 文章发布时间
                 String articleTime =
-                    article.xpath("//div[@class='info-box d-flex align-content-center']//span[@class='date']/text()")
-                        .toString();
+                        article.xpath("//div[@class='info-box d-flex align-content-center']//span[@class='date']/text()")
+                                .toString();
 
                 log.debug("文章标题：【{}】 文章地址：【{}】 文章发布时间：【{}】", articleTitle, articleUrl, articleTime);
 
@@ -143,12 +140,12 @@ public class StCsdnPageProcessor implements PageProcessor {
 
     public static void main(String[] args) {
         Spider.create(new StCsdnPageProcessor())
-            // 从指定的url地址开始抓
-            .addUrl("https://blog.csdn.net/qq_38225558/article/list/1")
-            // 开启5个线程抓取
-            .thread(5)
-            // 启动爬虫
-            .run();
+                // 从指定的url地址开始抓
+                .addUrl("https://blog.csdn.net/qq_38225558/article/list/1")
+                // 开启5个线程抓取
+                .thread(5)
+                // 启动爬虫
+                .run();
     }
 
 }

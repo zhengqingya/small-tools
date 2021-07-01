@@ -8,20 +8,16 @@ import com.zhengqing.common.entity.BaseEntity;
 import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * <p>
  * 系统管理-角色管理
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 15:08
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 15:08
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -31,7 +27,7 @@ import lombok.NoArgsConstructor;
 @ApiModel("角色管理")
 @TableName("t_sys_role")
 @FieldRepeatValidator(tableName = "t_sys_role", idDbName = "role_id", fieldNames = "code", dbFieldNames = {"code"},
-    message = "角色编号重复，请重新输入！")
+        message = "角色编号重复，请重新输入！")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SysRole extends BaseEntity<SysRole> {
 

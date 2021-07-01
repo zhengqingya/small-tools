@@ -11,26 +11,27 @@ import com.zhengqing.tool.db.model.dto.StDbDataSourceListDTO;
 import com.zhengqing.tool.db.model.dto.StDbDataSourceSaveDTO;
 import com.zhengqing.tool.db.model.vo.StDbDataSourceListVO;
 import com.zhengqing.tool.db.service.IStDbDataSourceService;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * <p>
  * 小工具 - 数据库 - 数据源配置信息表 服务实现类
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-09-02 14:45:55
+ * @author zhengqingya
+ * @description
+ * @date 2020-09-02 14:45:55
  */
 @Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class StDbDataSourceServiceImpl extends ServiceImpl<StDbDataSourceMapper, StDbDataSource>
-    implements IStDbDataSourceService {
+        implements IStDbDataSourceService {
 
     @Autowired
     private StDbDataSourceMapper stDbDataSourceMapper;
@@ -53,11 +54,10 @@ public class StDbDataSourceServiceImpl extends ServiceImpl<StDbDataSourceMapper,
     /**
      * 处理数据
      *
-     * @param list:
-     *            数据
+     * @param list: 数据
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/9/2 15:22
+     * @author zhengqingya
+     * @date 2020/9/2 15:22
      */
     private void handleResultData(List<StDbDataSourceListVO> list) {
         list.forEach(e -> e.setTypeName(StDbDataSourceTypeEnum.getEnum(e.getType()).getDesc()));
@@ -68,7 +68,7 @@ public class StDbDataSourceServiceImpl extends ServiceImpl<StDbDataSourceMapper,
         Integer stDbDataSourceId = params.getId();
         StDbDataSource stDbDataSource = MyBeanUtil.copyProperties(params, StDbDataSource.class);
         stDbDataSource
-            .setDriverClassName(StDbDataSourceTypeEnum.getEnum(stDbDataSource.getType()).getDriverClassName());
+                .setDriverClassName(StDbDataSourceTypeEnum.getEnum(stDbDataSource.getType()).getDriverClassName());
         if (stDbDataSourceId == null) {
             stDbDataSourceMapper.insert(stDbDataSource);
         } else {

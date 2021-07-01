@@ -1,18 +1,18 @@
 package com.zhengqing.common.util;
 
-import java.io.IOException;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+
+import java.io.IOException;
 
 /**
  * <p>
  * Jsoup工具类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/10/31 20:18
+ * @author zhengqingya
+ * @description
+ * @date 2020/10/31 20:18
  */
 public class JsoupUtil {
 
@@ -25,8 +25,8 @@ public class JsoupUtil {
      */
     public static Document getDocument(String url) throws IOException {
         Document document = Jsoup.connect(url).timeout(100000).ignoreContentType(true).userAgent(
-            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36")
-            .get();
+                "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36")
+                .get();
         return document;
     }
 

@@ -2,19 +2,20 @@ package com.zhengqing.tool.crawler.enums;
 
 import com.google.common.collect.Lists;
 import com.zhengqing.common.exception.MyException;
-import java.util.Arrays;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
  * 文章导出数据类型枚举
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/12 0:01
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/12 0:01
  */
 @Getter
 @AllArgsConstructor
@@ -35,11 +36,10 @@ public enum StCrawlerExportDataTypeEnum {
     /**
      * 根据指定的数据类型查找相应枚举类
      *
-     * @param dataType:
-     *            数据类型
+     * @param dataType: 数据类型
      * @return: com.zhengqing.modules.basic.enums.EnumDictType
-     * @author : zhengqing
-     * @date : 2020/8/30 2:56
+     * @author zhengqingya
+     * @date 2020/8/30 2:56
      */
     public static StCrawlerExportDataTypeEnum getEnum(Integer dataType) {
         for (StCrawlerExportDataTypeEnum itemEnum : LIST) {

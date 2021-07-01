@@ -1,10 +1,7 @@
 package com.zhengqing.common.model.bo;
 
-import java.util.Map;
-
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.util.MyBeanUtil;
-
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,14 +9,16 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.Map;
+
 /**
  * <p>
  * 用户token信息
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/11/28 23:16
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/28 23:16
  */
 @Data
 @Accessors(chain = true)

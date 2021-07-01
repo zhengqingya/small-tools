@@ -1,21 +1,20 @@
 package com.zhengqing.tool.generator.enums;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
  * java字段类型枚举类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/11/15 22:04
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/15 22:04
  */
 @Getter
 @AllArgsConstructor
@@ -42,11 +41,10 @@ public enum CgColumnJavaTypeEnum {
     /**
      * 根据数据库字段类型匹配java字段类型
      *
-     * @param columnTypeDb:
-     *            数据库字段类型
+     * @param columnTypeDb: 数据库字段类型
      * @return: 枚举信息
-     * @author : zhengqing
-     * @date : 2020/11/15 22:09
+     * @author zhengqingya
+     * @date 2020/11/15 22:09
      */
     public static CgColumnJavaTypeEnum getEnum(String columnTypeDb) {
         // 截取数据库字段类型 ex: `int(11)` -> `int`

@@ -2,18 +2,19 @@ package com.zhengqing.system.model.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>
  * 菜单按钮保存参数
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 21:00
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 21:00
  */
 @Data
 @ApiModel("菜单按钮保存参数")

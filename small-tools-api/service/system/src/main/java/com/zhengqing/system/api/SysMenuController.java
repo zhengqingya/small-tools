@@ -1,18 +1,5 @@
 package com.zhengqing.system.api;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
@@ -21,19 +8,23 @@ import com.zhengqing.system.model.dto.SysMenuSaveDTO;
 import com.zhengqing.system.model.vo.SysMenuTreeVO;
 import com.zhengqing.system.service.ISysMenuBtnService;
 import com.zhengqing.system.service.ISysMenuService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
  * 系统管理 - 菜单表接口
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 18:52
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 18:52
  */
 @Slf4j
 @RestController

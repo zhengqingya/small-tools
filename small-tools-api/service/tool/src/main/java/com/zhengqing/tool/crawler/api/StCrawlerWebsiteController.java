@@ -1,19 +1,5 @@
 package com.zhengqing.tool.crawler.api;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
@@ -23,20 +9,23 @@ import com.zhengqing.tool.crawler.model.dto.StCrawlerWebsiteRefreshDataDTO;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerWebsiteSaveDTO;
 import com.zhengqing.tool.crawler.model.vo.StCrawlerWebsiteListVO;
 import com.zhengqing.tool.crawler.service.IStCrawlerWebsiteService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
  * 小工具 - 爬虫 - 网站管理 接口
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-08-21 22:19:19
- *
+ * @author zhengqingya
+ * @description
+ * @date 2020-08-21 22:19:19
  */
 @Slf4j
 @RestController

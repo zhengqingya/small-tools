@@ -8,9 +8,9 @@ import lombok.Getter;
  * 缓存类型
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/5/23 1:35
+ * @author zhengqingya
+ * @description
+ * @date 2020/5/23 1:35
  */
 @Getter
 @AllArgsConstructor

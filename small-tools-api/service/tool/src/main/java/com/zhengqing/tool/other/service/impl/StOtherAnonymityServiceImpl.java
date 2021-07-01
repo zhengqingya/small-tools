@@ -1,13 +1,5 @@
 package com.zhengqing.tool.other.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -20,23 +12,29 @@ import com.zhengqing.tool.other.model.dto.StOtherAnonymityListDTO;
 import com.zhengqing.tool.other.model.dto.StOtherAnonymitySaveDTO;
 import com.zhengqing.tool.other.model.vo.StOtherAnonymityListVO;
 import com.zhengqing.tool.other.service.IStOtherAnonymityService;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
  * 小工具 - 其它 - 匿名事件表 服务实现类
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-10-25 13:27:16
+ * @author zhengqingya
+ * @description
+ * @date 2020-10-25 13:27:16
  */
 @Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class StOtherAnonymityServiceImpl extends ServiceImpl<StOtherAnonymityMapper, StOtherAnonymity>
-    implements IStOtherAnonymityService {
+        implements IStOtherAnonymityService {
 
     @Autowired
     private StOtherAnonymityMapper stOtherAnonymityMapper;
@@ -59,11 +57,10 @@ public class StOtherAnonymityServiceImpl extends ServiceImpl<StOtherAnonymityMap
     /**
      * 处理数据
      *
-     * @param list:
-     *            数据
+     * @param list: 数据
      * @return: void
-     * @author : zhengqing
-     * @date : 2020-10-25 13:27:16
+     * @author zhengqingya
+     * @date 2020-10-25 13:27:16
      */
     private void handleResultData(List<StOtherAnonymityListVO> list) {
         if (!CollectionUtils.isEmpty(list)) {

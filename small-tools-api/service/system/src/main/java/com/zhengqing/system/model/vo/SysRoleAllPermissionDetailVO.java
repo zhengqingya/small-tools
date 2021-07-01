@@ -2,17 +2,18 @@ package com.zhengqing.system.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * <p>
  * 角色具体权限输出内容(带菜单+按钮+所拥有的权限信息)
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/9/11 16:04
+ * @author zhengqingya
+ * @description
+ * @date 2020/9/11 16:04
  */
 @Data
 @ApiModel("角色具体权限输出内容(带菜单+按钮+所拥有的权限信息)")

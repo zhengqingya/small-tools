@@ -8,9 +8,9 @@ import lombok.Getter;
  * 响应码枚举 - 可参考HTTP状态码的语义
  * </p>
  *
- * @description :
- * @author : zhengqing
- * @date : 2019/8/22 11:09
+ * @author zhengqingya
+ * @description
+ * @date 2019/8/22 11:09
  */
 @Getter
 @AllArgsConstructor

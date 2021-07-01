@@ -1,24 +1,23 @@
 package com.zhengqing.common.config;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import com.google.gson.Gson;
 import com.qiniu.common.Zone;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import com.zhengqing.common.exception.MyException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * <p>
  * 七牛云配置类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/14 18:50
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/14 18:50
  */
 @Configuration
 public class QiniuConfig {

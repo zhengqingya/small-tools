@@ -1,27 +1,26 @@
 package com.zhengqing.common.util;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 /**
  * <p>
  * 多次读写BODY用HTTP RESPONSE - 解决流只能读一次问题
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2019/10/12 15:42
+ * @author zhengqingya
+ * @description
+ * @date 2019/10/12 15:42
  */
 public class MultiReadHttpServletResponse extends HttpServletResponseWrapper {
 

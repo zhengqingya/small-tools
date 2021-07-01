@@ -8,9 +8,9 @@ import lombok.Getter;
  * 数据是否有效枚举
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/12 0:01
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/12 0:01
  */
 @Getter
 @AllArgsConstructor

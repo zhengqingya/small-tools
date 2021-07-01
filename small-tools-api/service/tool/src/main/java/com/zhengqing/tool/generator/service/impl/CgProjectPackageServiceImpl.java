@@ -1,14 +1,5 @@
 package com.zhengqing.tool.generator.service.impl;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
@@ -23,19 +14,27 @@ import com.zhengqing.tool.generator.model.dto.CgProjectPackageTreeDTO;
 import com.zhengqing.tool.generator.model.vo.CgProjectPackageListVO;
 import com.zhengqing.tool.generator.model.vo.CgProjectPackageTreeVO;
 import com.zhengqing.tool.generator.service.ICgProjectPackageService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 代码生成器 - 项目关联包管理 服务实现类
  * </p>
  *
- * @author: zhengqing
- * @date: 2019-09-09
+ * @author zhengqingya
+ * @date 2019-09-09
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMapper, CgProjectPackage>
-    implements ICgProjectPackageService {
+        implements ICgProjectPackageService {
 
     @Autowired
     private CgProjectPackageMapper cgProjectPackageMapper;
@@ -95,7 +94,7 @@ public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMap
     public Map<Integer, String> packageNameInfoMap(Integer projectId) {
         Map<Integer, String> packageNameInfoMap = Maps.newHashMap();
         List<CgProjectPackageTreeVO> treeData =
-            this.tree(CgProjectPackageTreeDTO.builder().projectId(projectId).build());
+                this.tree(CgProjectPackageTreeDTO.builder().projectId(projectId).build());
         this.recursionTree(packageNameInfoMap, treeData, "");
         return packageNameInfoMap;
     }
@@ -106,11 +105,11 @@ public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMap
     }
 
     private void recursionTree(Map<Integer, String> packageNameInfoMap, List<CgProjectPackageTreeVO> treeData,
-        String parentPackageName) {
+                               String parentPackageName) {
         if (!CollectionUtils.isEmpty(treeData)) {
             treeData.forEach(e -> {
                 String packageNameNew =
-                    (StringUtils.isBlank(parentPackageName) ? "" : parentPackageName + ".") + e.getName();
+                        (StringUtils.isBlank(parentPackageName) ? "" : parentPackageName + ".") + e.getName();
                 packageNameInfoMap.put(e.getId(), packageNameNew);
                 List<CgProjectPackageTreeVO> children = e.getChildren();
                 this.recursionTree(packageNameInfoMap, children, packageNameNew);
@@ -144,7 +143,7 @@ public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMap
     @Override
     public void deleteData(Integer id) {
         List<CgProjectPackage> cgProjectPackageList = cgProjectPackageMapper
-            .selectList(new LambdaQueryWrapper<CgProjectPackage>().eq(CgProjectPackage::getParentId, id));
+                .selectList(new LambdaQueryWrapper<CgProjectPackage>().eq(CgProjectPackage::getParentId, id));
         if (!CollectionUtils.isEmpty(cgProjectPackageList)) {
             throw new MyException("该包下存在子包，请先删除子包！");
         }
@@ -158,24 +157,21 @@ public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMap
     @Override
     public void deleteDataByProjectId(Integer projectId) {
         cgProjectPackageMapper
-            .delete(new LambdaQueryWrapper<CgProjectPackage>().eq(CgProjectPackage::getProjectId, projectId));
+                .delete(new LambdaQueryWrapper<CgProjectPackage>().eq(CgProjectPackage::getProjectId, projectId));
     }
 
     /**
      * 递归树子包数据
      *
-     * @param id:
-     *            包id
-     * @param parentPackageName:
-     *            包名
-     * @param allPackage:
-     *            包数据
+     * @param id:                包id
+     * @param parentPackageName: 包名
+     * @param allPackage:        包数据
      * @return: 子包数据
-     * @author : zhengqing
-     * @date : 2020/11/15 12:45
+     * @author zhengqingya
+     * @date 2020/11/15 12:45
      */
     private List<CgProjectPackageTreeVO> getChild(Integer id, String parentPackageName,
-        List<CgProjectPackageTreeVO> allPackage) {
+                                                  List<CgProjectPackageTreeVO> allPackage) {
         // ⑤、存放子包的集合
         List<CgProjectPackageTreeVO> listChild = Lists.newArrayList();
         for (CgProjectPackageTreeVO e : allPackage) {

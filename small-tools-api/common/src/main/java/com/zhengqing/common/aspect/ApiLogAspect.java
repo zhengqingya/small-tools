@@ -1,9 +1,10 @@
 package com.zhengqing.common.aspect;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.alibaba.fastjson.JSON;
+import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.util.ServletUtil;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -12,21 +13,17 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-import com.alibaba.fastjson.JSON;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.util.ServletUtil;
-
-import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * <p>
  * 日志切面
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/8/1 19:09
+ * @author zhengqingya
+ * @description
+ * @date 2020/8/1 19:09
  */
 @Slf4j
 @Aspect
@@ -37,22 +34,23 @@ public class ApiLogAspect {
      * 配置织入点
      */
     @Pointcut("execution(* com.zhengqing.*..*.*Controller.*(..))")
-    public void logPointCut() {}
+    public void logPointCut() {
+    }
 
     @Before("logPointCut()")
     public void doAround(JoinPoint joinPoint) throws Throwable {
         HttpServletRequest request = ServletUtil.getRequest();
         if (request != null) {
             int userId =
-                ServletUtil.getParameterToInt(AppConstant.CONTEXT_KEY_USER_ID, AppConstant.DEFAULT_CONTEXT_KEY_USER_ID);
+                    ServletUtil.getParameterToInt(AppConstant.CONTEXT_KEY_USER_ID, AppConstant.DEFAULT_CONTEXT_KEY_USER_ID);
             String username =
-                ServletUtil.getParameter(AppConstant.CONTEXT_KEY_USERNAME, AppConstant.DEFAULT_CONTEXT_KEY_USERNAME);
+                    ServletUtil.getParameter(AppConstant.CONTEXT_KEY_USERNAME, AppConstant.DEFAULT_CONTEXT_KEY_USERNAME);
 
             // 从切面织入点处通过反射机制获取织入点处的方法
-            MethodSignature signature = (MethodSignature)joinPoint.getSignature();
+            MethodSignature signature = (MethodSignature) joinPoint.getSignature();
             log.debug("========================== ↓↓↓↓↓↓ 《ApiLogAspect》 Start... ↓↓↓↓↓↓ ==========================");
             log.debug("《ApiLogAspect》 controller method: {}",
-                signature.getDeclaringTypeName() + "." + signature.getName());
+                    signature.getDeclaringTypeName() + "." + signature.getName());
 
             // 获取切入点所在的方法
             ApiOperation apiOperation = signature.getMethod().getAnnotation(ApiOperation.class);

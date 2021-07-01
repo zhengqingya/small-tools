@@ -1,28 +1,13 @@
 package com.zhengqing.tool.generator.service.impl;
 
-import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.exception.MyException;
-import com.zhengqing.common.util.FreeMarkerUtil;
-import com.zhengqing.common.util.MyDateUtil;
-import com.zhengqing.common.util.MyFileUtil;
-import com.zhengqing.common.util.MyStringUtil;
-import com.zhengqing.common.util.QiniuFileUtil;
+import com.zhengqing.common.util.*;
 import com.zhengqing.tool.db.model.vo.StDbTableColumnListVO;
 import com.zhengqing.tool.db.model.vo.StDbTableColumnListVO.ColumnInfo;
 import com.zhengqing.tool.db.service.IStDbJdbcService;
@@ -38,24 +23,28 @@ import com.zhengqing.tool.generator.model.dto.CgProjectTemplateListDTO;
 import com.zhengqing.tool.generator.model.dto.CgTableConfigSaveDTO;
 import com.zhengqing.tool.generator.model.vo.CgFreeMarkerTemplateListVO;
 import com.zhengqing.tool.generator.model.vo.CgProjectTemplateListVO;
-import com.zhengqing.tool.generator.service.ICgFreeMarkerTemplateService;
-import com.zhengqing.tool.generator.service.ICgGeneratorCodeService;
-import com.zhengqing.tool.generator.service.ICgProjectPackageService;
-import com.zhengqing.tool.generator.service.ICgProjectReDbService;
-import com.zhengqing.tool.generator.service.ICgProjectTemplateService;
-import com.zhengqing.tool.generator.service.ICgTableConfigService;
-
-import cn.hutool.core.date.DateUtil;
+import com.zhengqing.tool.generator.service.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import java.io.File;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 代码生成器 - 生成代码 服务实现类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/11/14 23:59
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/14 23:59
  */
 @Slf4j
 @Service
@@ -174,14 +163,14 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
 
         // 3、获取表字段信息
         StDbTableColumnListVO columnInfo =
-            stDbJdbcService.getAllColumnsByDataSourceIdAndDbNameAndTableName(dbDataSourceId, dbName, tableName);
+                stDbJdbcService.getAllColumnsByDataSourceIdAndDbNameAndTableName(dbDataSourceId, dbName, tableName);
 
         // 4、模板数据处理
         handleTemplateData(templateDataMap, columnInfo, packageNameInfoMap, parentPackageNameFinal, queryColumnList);
 
         // 5、准备生成（模板+数据模型）
         String templateData =
-            this.generateTemplateData(templateFileInfoList, templateDataMap, projectId, ifTestTemplateData);
+                this.generateTemplateData(templateFileInfoList, templateDataMap, projectId, ifTestTemplateData);
 
         // 如果为测试模板数据生成，则返回模板内容
         if (ifTestTemplateData) {
@@ -190,7 +179,7 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
 
         // 6、打包生成的代码
         String codeSrcPath = AppConstant.FILE_PATH_CODE_GENERATOR_SRC_CODE + AppConstant.SEPARATOR_SPRIT
-            + parentPackageNameFinal.replace(".", AppConstant.SEPARATOR_SPRIT);
+                + parentPackageNameFinal.replace(".", AppConstant.SEPARATOR_SPRIT);
         File zipFile = MyFileUtil.zip(codeSrcPath, AppConstant.FILE_PATH_CODE_GENERATOR_ZIP, true, false);
         // 采用七牛云上传并返回地址下载文件
         return qiniuFileUtil.uploadFile(zipFile, "CODE_" + DateUtil.format(new Date(), "yyyy-MM-dd HH-mm-ss") + ".zip");
@@ -199,26 +188,21 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
     /**
      * 处理模板数据
      *
-     * @param templateDataMap:
-     *            模板数据
-     * @param columnInfo:
-     *            表字段信息
-     * @param packageNameInfoMap:
-     *            包信息
-     * @param parentPackageName:
-     *            父包名+模块名
-     * @param queryColumnList:
-     *            可检索字段信息
+     * @param templateDataMap:    模板数据
+     * @param columnInfo:         表字段信息
+     * @param packageNameInfoMap: 包信息
+     * @param parentPackageName:  父包名+模块名
+     * @param queryColumnList:    可检索字段信息
      * @return: 模板数据
-     * @author : zhengqing
-     * @date : 2020/11/15 21:42
+     * @author zhengqingya
+     * @date 2020/11/15 21:42
      */
     private Map<String, Object> handleTemplateData(Map<String, Object> templateDataMap,
-        StDbTableColumnListVO columnInfo, Map<Integer, String> packageNameInfoMap, String parentPackageName,
-        List<String> queryColumnList) {
+                                                   StDbTableColumnListVO columnInfo, Map<Integer, String> packageNameInfoMap, String parentPackageName,
+                                                   List<String> queryColumnList) {
         // 获取用户自己配置的模板数据
         List<CgFreeMarkerTemplateListVO> freeMarkerTemplateDataList =
-            cgFreeMarkerTemplateService.list(CgFreeMarkerTemplateListDTO.builder().build());
+                cgFreeMarkerTemplateService.list(CgFreeMarkerTemplateListDTO.builder().build());
         if (!CollectionUtils.isEmpty(freeMarkerTemplateDataList)) {
             freeMarkerTemplateDataList.forEach(e -> templateDataMap.put(e.getTemplateKey(), e.getTemplateValue()));
         }
@@ -255,7 +239,7 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
                     cgGeneratorCodeColumnInfoBO.setColumnComment(columnComment);
                     cgGeneratorCodeColumnInfoBO.setColumnType(columnType);
                     cgGeneratorCodeColumnInfoBO
-                        .setColumnTypeJava(CgColumnJavaTypeEnum.getEnum(columnType).getColumnTypeJava());
+                            .setColumnTypeJava(CgColumnJavaTypeEnum.getEnum(columnType).getColumnTypeJava());
                     cgGeneratorCodeColumnInfoBO.setIfNullAble(ifNullAble);
                     cgGeneratorCodeColumnInfoBO.setIfPrimaryKey(ifPrimaryKey);
                     cgGeneratorCodeColumnInfoBO.setIfAutoIncrement(ifAutoIncrement);
@@ -289,27 +273,23 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
     /**
      * 模板数据生成 TODO 注：freemaker模板数据模型必须存在，否则会报错！！！ 之后在前端加个模板测试数据是否正确校验处理
      *
-     * @param templateFileInfoList:
-     *            模板文件信息
-     * @param templateDataMap:
-     *            模板数据
-     * @param projectId:
-     *            项目id
-     * @param ifTestTemplateData:
-     *            是否为测试模板生成数据
+     * @param templateFileInfoList: 模板文件信息
+     * @param templateDataMap:      模板数据
+     * @param projectId:            项目id
+     * @param ifTestTemplateData:   是否为测试模板生成数据
      * @return: 如果为测试模板生成数据则返回模板内容，不再生成文件
-     * @author : zhengqing
-     * @date : 2020/11/15 21:05
+     * @author zhengqingya
+     * @date 2020/11/15 21:05
      */
     private String generateTemplateData(List<CgGeneratorCodeTemplateFileBO> templateFileInfoList,
-        Map<String, Object> templateDataMap, Integer projectId, boolean ifTestTemplateData) {
+                                        Map<String, Object> templateDataMap, Integer projectId, boolean ifTestTemplateData) {
         if (!ifTestTemplateData) {
             // 先删除旧数据
             MyFileUtil.deleteFileOrFolder(AppConstant.FILE_PATH_CODE_GENERATOR_DATA_PATH);
 
             // 将模板配置存入数据库提供给前端页面展示使用
             new CgProjectVelocityContext().delete(new LambdaQueryWrapper<CgProjectVelocityContext>()
-                .eq(CgProjectVelocityContext::getProjectId, projectId));
+                    .eq(CgProjectVelocityContext::getProjectId, projectId));
             templateDataMap.forEach((key, value) -> {
                 CgProjectVelocityContext velocityContext = new CgProjectVelocityContext();
                 velocityContext.setProjectId(projectId);
@@ -339,11 +319,11 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
 
             // 包路径
             String templateRePackagePath =
-                templateRePackage.replace(".", AppConstant.SEPARATOR_SPRIT) + AppConstant.SEPARATOR_SPRIT;
+                    templateRePackage.replace(".", AppConstant.SEPARATOR_SPRIT) + AppConstant.SEPARATOR_SPRIT;
 
             // 最终生成文件路径
             String fileFinalPath = AppConstant.FILE_PATH_CODE_GENERATOR_SRC_CODE + AppConstant.SEPARATOR_SPRIT
-                + templateRePackagePath + generateFileNameFinal;
+                    + templateRePackagePath + generateFileNameFinal;
             // 创建文件并写入生成模板数据
             MyFileUtil.writeFileContent(fileContentFinal, fileFinalPath);
         }

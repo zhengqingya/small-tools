@@ -1,19 +1,19 @@
 package com.zhengqing.common.util;
 
+import lombok.SneakyThrows;
+
 import java.lang.management.ManagementFactory;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import lombok.SneakyThrows;
 
 /**
  * <p>
  * 时间工具类
  * </p>
  *
- * @description:
- * @author: zhengqing
- * @date: 2019/8/18 0018 12:57
+ * @author zhengqingya
+ * @description
+ * @date 2019/8/18 0018 12:57
  */
 public class MyDateUtil {
 
@@ -31,8 +31,8 @@ public class MyDateUtil {
      * 获取当前时间的字符串格式时间
      *
      * @return: 字符串格式时间
-     * @author : zhengqing
-     * @date : 2020/8/22 13:07
+     * @author zhengqingya
+     * @date 2020/8/22 13:07
      */
     public static String nowStr() {
         return new SimpleDateFormat(DATE_TIME_FORMAT).format(new Date());
@@ -41,11 +41,10 @@ public class MyDateUtil {
     /**
      * 获取当前时间字符串的指定格式时间
      *
-     * @param format:
-     *            时间格式
+     * @param format: 时间格式
      * @return: 字符串格式时间
-     * @author : zhengqing
-     * @date : 2020/8/22 13:07
+     * @author zhengqingya
+     * @date 2020/8/22 13:07
      */
     public static String nowStr(String format) {
         return new SimpleDateFormat(format).format(new Date());
@@ -54,13 +53,11 @@ public class MyDateUtil {
     /**
      * Date转Str
      *
-     * @param date:
-     *            时间
-     * @param format:
-     *            时间格式
+     * @param date:   时间
+     * @param format: 时间格式
      * @return: 字符串时间类型
-     * @author : zhengqing
-     * @date : 2020/8/22 13:07
+     * @author zhengqingya
+     * @date 2020/8/22 13:07
      */
     public static String dateToStr(Date date, String format) {
         return new SimpleDateFormat(format).format(date);
@@ -69,13 +66,11 @@ public class MyDateUtil {
     /**
      * Str转Date
      *
-     * @param dateStr:
-     *            字符串时间
-     * @param format:
-     *            时间格式
+     * @param dateStr: 字符串时间
+     * @param format:  时间格式
      * @return: Date时间类型
-     * @author : zhengqing
-     * @date : 2020/8/22 13:07
+     * @author zhengqingya
+     * @date 2020/8/22 13:07
      */
     @SneakyThrows
     public static Date strToDate(String dateStr, String format) {
@@ -93,15 +88,12 @@ public class MyDateUtil {
     /**
      * 判断结束时间是否大于等于开始时间
      *
-     * @param startTime:
-     *            开始时间
-     * @param endTime:
-     *            结束时间
-     * @param format:
-     *            时间格式
+     * @param startTime: 开始时间
+     * @param endTime:   结束时间
+     * @param format:    时间格式
      * @return: 判断结果
-     * @author : zhengqing
-     * @date : 2020/8/22 13:21
+     * @author zhengqingya
+     * @date 2020/8/22 13:21
      */
     public static boolean verifyTime(String startTime, String endTime, String format) {
         Date startDate = strToDate(startTime, format);

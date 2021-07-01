@@ -1,17 +1,5 @@
 package com.zhengqing.system.service.impl;
 
-import java.util.List;
-
-import javax.validation.constraints.NotBlank;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-import org.springframework.validation.annotation.Validated;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -27,17 +15,26 @@ import com.zhengqing.system.model.dto.SysDictSaveDTO;
 import com.zhengqing.system.model.vo.SysDictVO;
 import com.zhengqing.system.service.ISysDictService;
 import com.zhengqing.system.service.ISysDictTypeService;
-
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 /**
  * <p>
  * 数据字典-服务实现类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 20:51
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 20:51
  */
 @Slf4j
 @Service

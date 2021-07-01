@@ -1,26 +1,14 @@
 package com.zhengqing.common.util;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.util.Map;
-import java.util.Objects;
-
-import javax.net.ssl.SSLContext;
-
+import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
@@ -40,24 +28,29 @@ import org.apache.http.ssl.SSLContexts;
 import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
 
-import com.alibaba.fastjson.JSONObject;
-
-import lombok.extern.slf4j.Slf4j;
+import javax.net.ssl.SSLContext;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>
  * HttpClient 工具类
  * </p>
  *
- * @author : zhengqing
- * @description : 实现 get、post、put、delete 以及上传、下载请求 (采用单利模式来初始化客户端，并用线程池来管理，同时支持http和https协议，项目启动之后，无需手动关闭httpClient客户端!)
- *              除了上传、下载请求之外，默认封装的请求参数格式都是application/json，其中`sendHttp`是一个支持GET、POST、PUT、DELETE请求的通用方法...
- * @date : 2021/2/1 14:14
+ * @author zhengqingya
+ * @description 实现 get、post、put、delete 以及上传、下载请求 (采用单利模式来初始化客户端，并用线程池来管理，同时支持http和https协议，项目启动之后，无需手动关闭httpClient客户端!)
+ * 除了上传、下载请求之外，默认封装的请求参数格式都是application/json，其中`sendHttp`是一个支持GET、POST、PUT、DELETE请求的通用方法...
+ * @date 2021/2/1 14:14
  */
 @Slf4j
 public class HttpUtil {
 
-    private HttpUtil() {}
+    private HttpUtil() {
+    }
 
     // 多线程共享实例
     private static CloseableHttpClient httpClient;
@@ -67,7 +60,7 @@ public class HttpUtil {
         SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE);
         // 注册http套接字工厂和https套接字工厂
         Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
-            .register("http", PlainConnectionSocketFactory.INSTANCE).register("https", sslsf).build();
+                .register("http", PlainConnectionSocketFactory.INSTANCE).register("https", sslsf).build();
         // 连接池管理器
         PoolingHttpClientConnectionManager connMgr = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
         connMgr.setMaxTotal(300);// 连接池最大连接数
@@ -75,7 +68,7 @@ public class HttpUtil {
         connMgr.setValidateAfterInactivity(5 * 1000); // 在从连接池获取连接时，连接不活跃多长时间后需要进行一次验证
         // 请求参数配置管理器
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(60000).setSocketTimeout(60000)
-            .setConnectionRequestTimeout(60000).build();
+                .setConnectionRequestTimeout(60000).build();
         // 获取httpClient客户端
         httpClient = HttpClients.custom().setConnectionManager(connMgr).setDefaultRequestConfig(requestConfig).build();
     }
@@ -156,7 +149,7 @@ public class HttpUtil {
      * @return
      */
     public static RequestResult postUploadFileStream(String url, Map<String, String> header, Map<String, String> param,
-        String fileName, InputStream inputStream) {
+                                                     String fileName, InputStream inputStream) {
         byte[] stream = inputStream2byte(inputStream);
         return postUploadFileStream(url, header, param, fileName, stream);
     }
@@ -164,23 +157,18 @@ public class HttpUtil {
     /**
      * 上传文件
      *
-     * @param url
-     *            上传地址
-     * @param header
-     *            请求头部
-     * @param param
-     *            请求表单
-     * @param fileName
-     *            文件名称
-     * @param stream
-     *            文件流
+     * @param url      上传地址
+     * @param header   请求头部
+     * @param param    请求表单
+     * @param fileName 文件名称
+     * @param stream   文件流
      * @return
      */
     public static RequestResult postUploadFileStream(String url, Map<String, String> header, Map<String, String> param,
-        String fileName, byte[] stream) {
+                                                     String fileName, byte[] stream) {
         String infoMessage = new StringBuilder().append("request postUploadFileStream，url:").append(url)
-            .append("，header:").append(header.toString()).append("，param:").append(JSONObject.toJSONString(param))
-            .append("，fileName:").append(fileName).toString();
+                .append("，header:").append(header.toString()).append("，param:").append(JSONObject.toJSONString(param))
+                .append("，fileName:").append(fileName).toString();
         log.info(infoMessage);
         RequestResult result = new RequestResult();
         if (StringUtils.isBlank(fileName)) {
@@ -268,20 +256,16 @@ public class HttpUtil {
     /**
      * 发送http请求(通用方法)
      *
-     * @param httpMethod
-     *            请求方式（GET、POST、PUT、DELETE）
-     * @param url
-     *            请求路径
-     * @param header
-     *            请求头
-     * @param params
-     *            请求body（json数据）
+     * @param httpMethod 请求方式（GET、POST、PUT、DELETE）
+     * @param url        请求路径
+     * @param header     请求头
+     * @param params     请求body（json数据）
      * @return 响应文本
      */
     public static String sendHttp(HttpMethod httpMethod, String url, Map<String, String> header, String params) {
         String infoMessage =
-            new StringBuilder().append("request sendHttp，url:").append(url).append("，method:").append(httpMethod.name())
-                .append("，header:").append(JSONObject.toJSONString(header)).append("，param:").append(params).toString();
+                new StringBuilder().append("request sendHttp，url:").append(url).append("，method:").append(httpMethod.name())
+                        .append("，header:").append(JSONObject.toJSONString(header)).append("，param:").append(params).toString();
         log.info(infoMessage);
         // 返回结果
         String result = null;
@@ -300,7 +284,7 @@ public class HttpUtil {
             }
             if (StringUtils.isNotEmpty(params)) {
                 if (HttpMethod.POST.equals(httpMethod) || HttpMethod.PUT.equals(httpMethod)) {
-                    ((HttpEntityEnclosingRequest)request).setEntity(new StringEntity(params, contentType));
+                    ((HttpEntityEnclosingRequest) request).setEntity(new StringEntity(params, contentType));
                 }
             }
             CloseableHttpResponse response = httpClient.execute(request);

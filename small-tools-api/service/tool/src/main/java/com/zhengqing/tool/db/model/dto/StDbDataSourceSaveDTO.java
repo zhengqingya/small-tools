@@ -1,11 +1,7 @@
 package com.zhengqing.tool.db.model.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -13,14 +9,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 小工具 - 数据库 - 数据源配置信息表提交参数
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-09-02 14:45:55
+ * @author zhengqingya
+ * @description
+ * @date 2020-09-02 14:45:55
  */
 @Data
 @Builder
@@ -28,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @ApiModel("小工具 - 数据库 - 数据源配置信息表提交参数")
 @FieldRepeatValidator(tableName = "t_st_db_data_source", fieldNames = {"name"}, dbFieldNames = {"name"},
-    message = "数据库名称重复，请重新输入！")
+        message = "数据库名称重复，请重新输入！")
 public class StDbDataSourceSaveDTO {
 
     @NotNull(groups = {UpdateGroup.class}, message = "id不能为空!")

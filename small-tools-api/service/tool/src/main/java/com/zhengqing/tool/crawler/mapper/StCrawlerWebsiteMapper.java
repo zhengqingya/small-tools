@@ -5,16 +5,17 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.tool.crawler.entity.StCrawlerWebsite;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerWebsiteListDTO;
 import com.zhengqing.tool.crawler.model.vo.StCrawlerWebsiteListVO;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
  * 小工具 - 爬虫 - 网站管理 Mapper 接口
  * </p>
  *
- * @author : zhengqing
- * @date : 2020-08-21 22:19:19
+ * @author zhengqingya
+ * @date 2020-08-21 22:19:19
  */
 public interface StCrawlerWebsiteMapper extends BaseMapper<StCrawlerWebsite> {
 
@@ -24,8 +25,8 @@ public interface StCrawlerWebsiteMapper extends BaseMapper<StCrawlerWebsite> {
      * @param page:
      * @param filter:
      * @return: com.baomidou.mybatisplus.core.metadata.IPage<com.zhengqing.modules.smalltools.crawler.model.vo.StCrawlerWebsiteVO>
-     * @author : zhengqing
-     * @date : 2020/8/22 17:21
+     * @author zhengqingya
+     * @date 2020/8/22 17:21
      */
     IPage<StCrawlerWebsiteListVO> selectStCrawlerWebsites(IPage page, @Param("filter") StCrawlerWebsiteListDTO filter);
 
@@ -34,19 +35,18 @@ public interface StCrawlerWebsiteMapper extends BaseMapper<StCrawlerWebsite> {
      *
      * @param filter:
      * @return: java.util.List<com.zhengqing.modules.smalltools.crawler.model.vo.StCrawlerWebsiteVO>
-     * @author : zhengqing
-     * @date : 2020/8/30 14:38
+     * @author zhengqingya
+     * @date 2020/8/30 14:38
      */
     List<StCrawlerWebsiteListVO> selectStCrawlerWebsites(@Param("filter") StCrawlerWebsiteListDTO filter);
 
     /**
      * 根据网站id设置网站为无效
      *
-     * @param websiteId:
-     *            网站id
+     * @param websiteId: 网站id
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/8/22 17:21
+     * @author zhengqingya
+     * @date 2020/8/22 17:21
      */
     void updateWebsiteInvalid(@Param("websiteId") Integer websiteId);
 

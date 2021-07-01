@@ -1,25 +1,23 @@
 package com.zhengqing.common.entity;
 
-import java.util.Date;
-
-import javax.validation.constraints.Past;
-
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.constraints.Past;
+import java.util.Date;
 
 /**
  * <p>
  * BaseEntity
  * </p>
  *
- * @description:
- * @author: zhengqing
- * @date: 2019/8/18 0018 1:30
+ * @author zhengqingya
+ * @description
+ * @date 2019/8/18 0018 1:30
  */
 @Getter
 @Setter

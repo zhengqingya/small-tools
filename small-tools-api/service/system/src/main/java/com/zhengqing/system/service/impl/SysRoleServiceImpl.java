@@ -1,12 +1,5 @@
 package com.zhengqing.system.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -16,27 +9,24 @@ import com.zhengqing.system.entity.SysRole;
 import com.zhengqing.system.mapper.SysRoleMapper;
 import com.zhengqing.system.model.dto.SysRoleListDTO;
 import com.zhengqing.system.model.dto.SysRoleSaveDTO;
-import com.zhengqing.system.model.vo.SysMenuBtnListVO;
-import com.zhengqing.system.model.vo.SysMenuTreeVO;
-import com.zhengqing.system.model.vo.SysRoleAllPermissionDetailVO;
-import com.zhengqing.system.model.vo.SysRoleListVO;
-import com.zhengqing.system.model.vo.SysRolePermissionDetailVO;
-import com.zhengqing.system.service.ISysMenuBtnService;
-import com.zhengqing.system.service.ISysMenuService;
-import com.zhengqing.system.service.ISysRoleMenuBtnService;
-import com.zhengqing.system.service.ISysRoleMenuService;
-import com.zhengqing.system.service.ISysRoleService;
-
+import com.zhengqing.system.model.vo.*;
+import com.zhengqing.system.service.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 /**
  * <p>
  * 系统管理 - 角色管理 服务实现类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 15:01
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 15:01
  */
 @Slf4j
 @Service
@@ -91,7 +81,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Override
     public SysRoleAllPermissionDetailVO permissionDetail(Integer roleId, Integer systemSource) {
         SysRoleAllPermissionDetailVO permissionDetail =
-            MyBeanUtil.copyProperties(detail(roleId), SysRoleAllPermissionDetailVO.class);
+                MyBeanUtil.copyProperties(detail(roleId), SysRoleAllPermissionDetailVO.class);
         List<SysMenuTreeVO> menTree = sysMenuService.tree(systemSource);
         handleRecursionTree(menTree, roleId);
         permissionDetail.setMenuAndBtnPermissionTree(menTree);
@@ -101,11 +91,10 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     /**
      * 递归树，填充角色菜单对应的菜单+按钮权限信息
      *
-     * @param menTree:
-     *            树数据
+     * @param menTree: 树数据
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/9/11 17:26
+     * @author zhengqingya
+     * @date 2020/9/11 17:26
      */
     public void handleRecursionTree(List<SysMenuTreeVO> menTree, Integer roleId) {
         if (!CollectionUtils.isEmpty(menTree)) {

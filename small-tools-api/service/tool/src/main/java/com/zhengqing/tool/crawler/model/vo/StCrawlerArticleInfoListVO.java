@@ -2,17 +2,18 @@ package com.zhengqing.tool.crawler.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * <p>
  * 小工具 - 爬虫 - 文章信息展示视图
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-08-21 22:35:34
+ * @author zhengqingya
+ * @description
+ * @date 2020-08-21 22:35:34
  */
 @Data
 @ApiModel("小工具 - 爬虫 - 文章信息展示视图")

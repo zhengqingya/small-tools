@@ -5,22 +5,17 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zhengqing.common.entity.BaseEntity;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * <p>
  * 代码生成器 - 项目 - 模板数据源
  * </p>
  *
- * @author: zhengqing
- * @date: 2019-09-17 14:34:18
+ * @author zhengqingya
+ * @date 2019-09-17 14:34:18
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

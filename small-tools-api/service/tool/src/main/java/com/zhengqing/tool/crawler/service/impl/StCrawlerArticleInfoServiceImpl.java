@@ -1,19 +1,7 @@
 package com.zhengqing.tool.crawler.service.impl;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.multipart.MultipartFile;
-
+import cn.hutool.core.io.IORuntimeException;
+import cn.hutool.core.io.file.FileWriter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -40,25 +28,35 @@ import com.zhengqing.tool.crawler.model.dto.StCrawlerArticleInfoQueryDTO;
 import com.zhengqing.tool.crawler.model.vo.StCrawlerArticleInfoListVO;
 import com.zhengqing.tool.crawler.service.IStCrawlerArticleInfoService;
 import com.zhengqing.tool.util.htmlToMd.HtmlToMd;
-
-import cn.hutool.core.io.IORuntimeException;
-import cn.hutool.core.io.file.FileWriter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 小工具 - 爬虫 - 文章信息 服务实现类
  * </p>
  *
- * @author: zhengqing
- * @date: 2020-08-21 22:35:34
+ * @author zhengqingya
+ * @date 2020-08-21 22:35:34
  */
 @Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticleInfoMapper, StCrawlerArticleInfo>
-    implements IStCrawlerArticleInfoService {
+        implements IStCrawlerArticleInfoService {
 
     @Autowired
     private StCrawlerArticleInfoMapper stCrawlerArticleInfoMapper;
@@ -72,7 +70,7 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
     @Override
     public IPage<StCrawlerArticleInfoListVO> listPage(StCrawlerArticleInfoListDTO params) {
         IPage<StCrawlerArticleInfoListVO> result =
-            stCrawlerArticleInfoMapper.selectStCrawlerArticleInfos(new Page<>(), params);
+                stCrawlerArticleInfoMapper.selectStCrawlerArticleInfos(new Page<>(), params);
         return result;
     }
 
@@ -158,7 +156,7 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
             e.setPublishTimeStr(MyDateUtil.dateToStr(e.getPublishTime(), MyDateUtil.DATE_TIME_FORMAT));
             String content = e.getContent();
             String filePath =
-                AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_SRC + "/" + e.getCategory() + "/" + e.getTitle() + ".html";
+                    AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_SRC + "/" + e.getCategory() + "/" + e.getTitle() + ".html";
             try {
                 // 文件写入
                 FileWriter writer = new FileWriter(filePath);
@@ -171,16 +169,17 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
         if (!CollectionUtils.isEmpty(filePathList)) {
             // 这里先导出excel报表数据
             List<Map<String, Object>> dataList =
-                JSON.parseObject(JSON.toJSONString(articleList), new TypeReference<List<Map<String, Object>>>() {});
+                    JSON.parseObject(JSON.toJSONString(articleList), new TypeReference<List<Map<String, Object>>>() {
+                    });
             String exportUploadUrl = excelReportUtil.export(dataList, ExcelExportFileTypeEnum.CSDN文章信息数据,
-                AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_EXCEL);
+                    AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_EXCEL);
 
             File zipFile = MyFileUtil.zip(AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_SRC,
-                AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_ZIP, true, true);
+                    AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_ZIP, true, true);
             String bloggerName = articleList.get(0).getWebsiteName();
             // 采用七牛云上传并返回地址下载文件
             String downloadUrl = qiniuFileUtil.uploadFile(zipFile,
-                "BLOG_(" + bloggerName + ")_" + MyDateUtil.dateToStr(new Date(), "yyyy-MM-dd HH-mm-ss") + ".zip");
+                    "BLOG_(" + bloggerName + ")_" + MyDateUtil.dateToStr(new Date(), "yyyy-MM-dd HH-mm-ss") + ".zip");
             // 删除本地数据
             MyFileUtil.deleteFileOrFolder(AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_ZIP);
             return downloadUrl;
@@ -195,13 +194,14 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
         }
         List<StCrawlerArticleInfoListVO> articleList = getArticlesByWebsiteId(websiteId);
         articleList
-            .forEach(e -> e.setPublishTimeStr(MyDateUtil.dateToStr(e.getPublishTime(), MyDateUtil.DATE_TIME_FORMAT)));
+                .forEach(e -> e.setPublishTimeStr(MyDateUtil.dateToStr(e.getPublishTime(), MyDateUtil.DATE_TIME_FORMAT)));
         if (!CollectionUtils.isEmpty(articleList)) {
             // 这里先导出excel报表数据
             List<Map<String, Object>> dataList =
-                JSON.parseObject(JSON.toJSONString(articleList), new TypeReference<List<Map<String, Object>>>() {});
+                    JSON.parseObject(JSON.toJSONString(articleList), new TypeReference<List<Map<String, Object>>>() {
+                    });
             String downloadUrl = excelReportUtil.export(dataList, ExcelExportFileTypeEnum.CSDN文章信息数据,
-                AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_EXCEL);
+                    AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_EXCEL);
             return downloadUrl;
         }
         return null;
@@ -235,7 +235,7 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
 
             // 解压文件
             File outFile = MyFileUtil.unzip(is, AppConstant.FILE_PATH_CSDN_BLOG_IMPORT_ZIP,
-                AppConstant.FILE_PATH_CSDN_BLOG_IMPORT_SRC, true);
+                    AppConstant.FILE_PATH_CSDN_BLOG_IMPORT_SRC, true);
             String fileFullPath = outFile.getAbsolutePath();
 
             // 存储读取的文件信息
@@ -248,8 +248,8 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
                 e.setWebsiteId(websiteId);
                 // 保存数据
                 StCrawlerArticleInfoListVO articleInfo =
-                    stCrawlerArticleInfoMapper.selectArticleDetail(StCrawlerArticleInfoQueryDTO.builder()
-                        .websiteId(e.getWebsiteId()).title(e.getTitle()).category(e.getCategory()).build());
+                        stCrawlerArticleInfoMapper.selectArticleDetail(StCrawlerArticleInfoQueryDTO.builder()
+                                .websiteId(e.getWebsiteId()).title(e.getTitle()).category(e.getCategory()).build());
                 if (articleInfo == null) {
                     // 情况① : 新增数据
                     stCrawlerArticleInfoMapper.insert(e);
@@ -276,12 +276,12 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
      * @param fileFullPath:
      * @param csdnBlogExportExcelFilePath:
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/9/5 21:30
+     * @author zhengqingya
+     * @date 2020/9/5 21:30
      */
     @SneakyThrows(Exception.class)
     public void recursionReadFile(List<StCrawlerArticleInfo> articleInfoList, String fileFullPath,
-        String csdnBlogExportExcelFilePath) {
+                                  String csdnBlogExportExcelFilePath) {
         File file = new File(fileFullPath);
         // 如果该目录存在
         if (file.exists()) {
@@ -324,7 +324,7 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
                     String fileName = file.getName().split("\\.")[0];
                     // 文件相对路径作为文章地址
                     String fileRelativePathUrl =
-                        filePath.substring(AppConstant.FILE_PATH_CSDN_BLOG_IMPORT_SRC.length());
+                            filePath.substring(AppConstant.FILE_PATH_CSDN_BLOG_IMPORT_SRC.length());
                     // 文件内容
                     String fileContent = MyFileUtil.readFileContent(file);
 

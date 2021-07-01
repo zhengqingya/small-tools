@@ -1,22 +1,21 @@
 package com.zhengqing.common.config.mybatis;
 
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.zhengqing.common.config.mybatis.plugins.SqlLogInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.zhengqing.common.config.mybatis.plugins.SqlLogInterceptor;
-
 /**
  * <p>
  * MybatisPlus配置类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2019/8/23 9:46
+ * @author zhengqingya
+ * @description
+ * @date 2019/8/23 9:46
  */
 @Configuration
 @EnableTransactionManagement

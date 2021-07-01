@@ -1,23 +1,21 @@
 package com.zhengqing.system.model.dto;
 
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
-
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>
  * 保存角色菜单权限信息传入参数
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/9/14 11:15
+ * @author zhengqingya
+ * @description
+ * @date 2020/9/14 11:15
  */
 @Data
 @ApiModel("保存角色菜单权限信息传入参数")

@@ -7,9 +7,9 @@ import com.zhengqing.common.enums.ApiResultCodeEnum;
  * 自定义异常类
  * </p>
  *
- * @description :
- * @author : zhengqing
- * @date : 2019/8/26 15:11
+ * @author zhengqingya
+ * @description
+ * @date 2019/8/26 15:11
  */
 public class MyException extends RuntimeException {
 

@@ -9,9 +9,9 @@ import lombok.Data;
  * 角色关联菜单按钮输出参数
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 20:58
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 20:58
  */
 @Data
 @ApiModel("角色关联菜单按钮输出参数")

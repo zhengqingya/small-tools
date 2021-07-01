@@ -9,9 +9,9 @@ import lombok.Data;
  * 表字段信息
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/11/15 21:54
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/15 21:54
  */
 @Data
 @ApiModel("表字段信息")

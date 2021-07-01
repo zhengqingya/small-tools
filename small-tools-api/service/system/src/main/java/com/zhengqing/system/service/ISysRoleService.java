@@ -1,7 +1,5 @@
 package com.zhengqing.system.service;
 
-import java.util.List;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhengqing.system.entity.SysRole;
@@ -11,14 +9,16 @@ import com.zhengqing.system.model.vo.SysRoleAllPermissionDetailVO;
 import com.zhengqing.system.model.vo.SysRoleListVO;
 import com.zhengqing.system.model.vo.SysRolePermissionDetailVO;
 
+import java.util.List;
+
 /**
  * <p>
  * 系统管理 - 角色管理 服务类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 15:01
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 15:01
  */
 public interface ISysRoleService extends IService<SysRole> {
 
@@ -27,65 +27,59 @@ public interface ISysRoleService extends IService<SysRole> {
      *
      * @param params:
      * @return: 角色信息
-     * @author : zhengqing
-     * @date : 2020/9/10 14:44
+     * @author zhengqingya
+     * @date 2020/9/10 14:44
      */
     IPage<SysRoleListVO> listPage(SysRoleListDTO params);
 
     /**
      * 列表
      *
-     * @param params:
-     *            查询参数
+     * @param params: 查询参数
      * @return: 角色信息
-     * @author : zhengqing
-     * @date : 2020/9/10 14:45
+     * @author zhengqingya
+     * @date 2020/9/10 14:45
      */
     List<SysRoleListVO> list(SysRoleListDTO params);
 
     /**
      * 新增或更新
      *
-     * @param params:
-     *            提交参数
+     * @param params: 提交参数
      * @return: 角色id
-     * @author : zhengqing
-     * @date : 2020/9/10 14:45
+     * @author zhengqingya
+     * @date 2020/9/10 14:45
      */
     Integer addOrUpdateData(SysRoleSaveDTO params);
 
     /**
      * 根据角色ID获取角色信息详情（包含角色可访问的菜单ids）
      *
-     * @param roleId:
-     *            角色id
+     * @param roleId: 角色id
      * @return: 角色信息+菜单ids
-     * @author : zhengqing
-     * @date : 2020/9/10 14:50
+     * @author zhengqingya
+     * @date 2020/9/10 14:50
      */
     SysRolePermissionDetailVO detail(Integer roleId);
 
     /**
      * 根据角色ID获取角色信息详情（含角色基本信息+菜单信息+按钮信息）
      *
-     * @param roleId:
-     *            角色id
-     * @param systemSource:
-     *            系统来源
+     * @param roleId:       角色id
+     * @param systemSource: 系统来源
      * @return: 角色权限具体详情信息
-     * @author : zhengqing
-     * @date : 2020/9/11 16:16
+     * @author zhengqingya
+     * @date 2020/9/11 16:16
      */
     SysRoleAllPermissionDetailVO permissionDetail(Integer roleId, Integer systemSource);
 
     /**
      * 根据角色id删除角色与关联菜单权限
      *
-     * @param roleId:
-     *            角色id
+     * @param roleId: 角色id
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/9/10 18:03
+     * @author zhengqingya
+     * @date 2020/9/10 18:03
      */
     void deleteRoleAndRoleMenu(Integer roleId);
 

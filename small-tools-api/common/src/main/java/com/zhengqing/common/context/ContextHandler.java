@@ -12,9 +12,9 @@ import java.util.Map;
  * 上下文基类
  * </p>
  *
- * @author : zhengqing
- * @description : 请务必在请求结束时,调用 @Method remove()
- * @date : 2020/8/1 19:07
+ * @author zhengqingya
+ * @description 请务必在请求结束时, 调用 @Method remove()
+ * @date 2020/8/1 19:07
  */
 public class ContextHandler {
 
@@ -68,7 +68,7 @@ public class ContextHandler {
     }
 
     public static void putMessage(String msgStr) {
-        Message msg = (Message)get(AppConstant.CONTEXT_KEY_MESSAGE_LIST);
+        Message msg = (Message) get(AppConstant.CONTEXT_KEY_MESSAGE_LIST);
         msg.putMsg(msgStr);
     }
 
@@ -78,7 +78,7 @@ public class ContextHandler {
     }
 
     public static Message getMessage() {
-        return (Message)get(AppConstant.CONTEXT_KEY_MESSAGE_LIST);
+        return (Message) get(AppConstant.CONTEXT_KEY_MESSAGE_LIST);
     }
 
     public static void remove() {

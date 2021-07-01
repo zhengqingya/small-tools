@@ -1,20 +1,19 @@
 package com.zhengqing.demotest.api;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
  * 测试api
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2021/1/9 1:38
+ * @author zhengqingya
+ * @description
+ * @date 2021/1/9 1:38
  */
 @Slf4j
 @RestController

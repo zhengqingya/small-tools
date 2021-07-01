@@ -1,20 +1,18 @@
 package com.zhengqing.common.schedule;
 
+import com.zhengqing.common.util.MyDateUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import com.zhengqing.common.util.MyDateUtil;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
  * 数据定时任务
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/12 0:48
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/12 0:48
  */
 @Slf4j
 @Component

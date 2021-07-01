@@ -1,26 +1,24 @@
 package com.zhengqing.tool.generator.model.dto;
 
-import java.util.List;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import com.alibaba.fastjson.annotation.JSONField;
 import com.zhengqing.common.model.dto.BaseDTO;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>
  * 代码生成传入参数
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/11/8 19:19
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/8 19:19
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

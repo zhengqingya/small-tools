@@ -1,26 +1,21 @@
 package com.zhengqing.demo.model.dto;
 
-import javax.validation.constraints.NotNull;
-
 import com.zhengqing.common.model.dto.BaseDTO;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
  * 测试demo保存提交参数
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2021/01/13 10:11
+ * @author zhengqingya
+ * @description
+ * @date 2021/01/13 10:11
  */
 @Data
 @Builder

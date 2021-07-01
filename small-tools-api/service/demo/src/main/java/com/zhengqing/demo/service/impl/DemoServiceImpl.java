@@ -13,10 +13,6 @@ import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.dto.DemoSaveDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
 import com.zhengqing.demo.service.IDemoService;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
@@ -27,14 +23,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+
 /**
  * <p>
  * 测试demo 服务实现类
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2021/01/13 10:11
+ * @author zhengqingya
+ * @description
+ * @date 2021/01/13 10:11
  */
 @Slf4j
 @Service
@@ -82,8 +83,8 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
      *
      * @param list: 数据
      * @return: void
-     * @author : zhengqing
-     * @date : 2021/01/13 10:11
+     * @author zhengqingya
+     * @date 2021/01/13 10:11
      */
     private void handleResultData(List<DemoListVO> list) {
 

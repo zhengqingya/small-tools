@@ -1,21 +1,5 @@
 package com.zhengqing.tool.crawler.api;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
@@ -23,20 +7,28 @@ import com.zhengqing.tool.crawler.model.dto.StCrawlerArticleInfoExportDataDTO;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerArticleInfoListDTO;
 import com.zhengqing.tool.crawler.model.vo.StCrawlerArticleInfoListVO;
 import com.zhengqing.tool.crawler.service.IStCrawlerArticleInfoService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
  * 小工具 - 爬虫 - 文章信息 接口
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-08-21 22:35:34
- *
+ * @author zhengqingya
+ * @description
+ * @date 2020-08-21 22:35:34
  */
 @Slf4j
 @RestController
@@ -78,7 +70,7 @@ public class StCrawlerArticleInfoController extends BaseController {
     @PostMapping("importData")
     @ApiOperation("导入数据")
     public String importData(@RequestParam(value = "file", required = false) MultipartFile file,
-        @RequestParam(value = "websiteId", required = false) Integer websiteId, HttpServletRequest request) {
+                             @RequestParam(value = "websiteId", required = false) Integer websiteId, HttpServletRequest request) {
         MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
         MultipartHttpServletRequest multipartRequest = resolver.resolveMultipart(request);
         MultipartFile fileNew = multipartRequest.getFile("file");

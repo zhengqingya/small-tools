@@ -1,16 +1,6 @@
 package com.zhengqing.tool.db.service.impl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import cn.hutool.core.io.FileUtil;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.exception.MyException;
@@ -26,19 +16,27 @@ import com.zhengqing.tool.db.model.vo.StDbTableListVO;
 import com.zhengqing.tool.db.service.IStDbDataSourceService;
 import com.zhengqing.tool.db.service.IStDbJdbcService;
 import com.zhengqing.tool.util.TableToWordUtil;
-
-import cn.hutool.core.io.FileUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.List;
 
 /**
  * <p>
  * JDBC方式服务实现类
  * </p>
  *
- * @description : TODO 注：后面加上事务回滚
- * @author : zhengqing
- * @date : 2019/7/22 20:48
+ * @author zhengqingya
+ * @description TODO 注：后面加上事务回滚
+ * @date 2019/7/22 20:48
  */
 @Slf4j
 @Service
@@ -80,7 +78,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
     @Override
     @SneakyThrows(Exception.class)
     public List<StDbTableListVO> getAllTablesByDataSourceIdAndDbName(Integer dataSourceId, String dbName,
-        String tableName) {
+                                                                     String tableName) {
         // 1、连接数据库
         Connection conn = getConnection(dataSourceId);
         List<StDbTableListVO> tableInfoList = Lists.newArrayList();
@@ -120,7 +118,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
     @Override
     @SneakyThrows(Exception.class)
     public StDbTableColumnListVO getAllColumnsByDataSourceIdAndDbNameAndTableName(Integer dataSourceId, String dbName,
-        String tableName) {
+                                                                                  String tableName) {
         // 1、连接数据库
         Connection conn = getConnection(dataSourceId);
 
@@ -193,7 +191,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
             // 4、更新数据
             // 4.1、更新表注释
             String updateTableCommentSql =
-                String.format(StDbOperateSqlEnum.修改指定库下指定表注释.getSql(), dbName, tableName, tableComment);
+                    String.format(StDbOperateSqlEnum.修改指定库下指定表注释.getSql(), dbName, tableName, tableComment);
             log.debug("更新表注释sql语句: 【{}】", updateTableCommentSql);
             stmt.executeUpdate(updateTableCommentSql);
 
@@ -215,8 +213,8 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
                     columnDefaultValue = "";
                 }
                 String updateTableColumnInfoSql =
-                    String.format(StDbOperateSqlEnum.修改指定库下指定表字段信息.getSql(), dbName, tableName, item.getColumnName(),
-                        item.getColumnType(), isNullable, columnDefaultValue, item.getColumnComment());
+                        String.format(StDbOperateSqlEnum.修改指定库下指定表字段信息.getSql(), dbName, tableName, item.getColumnName(),
+                                item.getColumnType(), isNullable, columnDefaultValue, item.getColumnComment());
 
                 // 更新表字段信息
                 log.debug("更新表字段信息sql语句: 【{}】", updateTableColumnInfoSql);
@@ -251,18 +249,16 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
     /**
      * 根据数据源id+库名获取所有表+字段信息
      *
-     * @param tableInfoList:
-     *            需装数据的表+字段信息
-     * @param dataSourceId:
-     *            数据源id
+     * @param tableInfoList: 需装数据的表+字段信息
+     * @param dataSourceId:  数据源id
      * @param dbName:库名
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/9/8 19:06
+     * @author zhengqingya
+     * @date 2020/9/8 19:06
      */
     @SneakyThrows(Exception.class)
     public void getAllTableAndColumnInfoList(List<StDbTableColumnBO> tableInfoList, Integer dataSourceId,
-        String dbName) {
+                                             String dbName) {
         // 1、连接数据库
         Connection conn = getConnection(dataSourceId);
         // 2、获取sql预编译对象
@@ -283,7 +279,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
         for (StDbTableColumnBO e : tableInfoList) {
             List<StDbTableColumnBO.ColumnInfo> columnInfoList = Lists.newArrayList();
             ResultSet rsTable =
-                stmt.executeQuery(String.format(StDbOperateSqlEnum.查看指定库和表下所有字段信息.getSql(), dbName, e.getTableName()));
+                    stmt.executeQuery(String.format(StDbOperateSqlEnum.查看指定库和表下所有字段信息.getSql(), dbName, e.getTableName()));
             // 3.2.1、展开结果集数据库
             while (rsTable.next()) {
                 // 封装表字段信息
@@ -315,8 +311,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
     /**
      * 连接数据库
      *
-     * @param dataSourceId:
-     *            数据源id
+     * @param dataSourceId: 数据源id
      * @return: java.sql.Connection
      */
     private Connection getConnection(Integer dataSourceId) {
@@ -326,10 +321,8 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
     /**
      * 连接数据库
      *
-     * @param dataSourceId:
-     *            数据源id
-     * @param dbName:
-     *            数据库名称
+     * @param dataSourceId: 数据源id
+     * @param dbName:       数据库名称
      * @return: java.sql.Connection
      */
     private Connection getConnection(Integer dataSourceId, String dbName) {
@@ -355,12 +348,12 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
             switch (StDbDataSourceTypeEnum.getEnum(dbConfig.getType())) {
                 case MySQL:
                     con = DriverManager.getConnection(
-                        String.format(StDbOperateSqlEnum.连接MySQL数据库.getSql(), ipAddress, port, dbName), username,
-                        password);
+                            String.format(StDbOperateSqlEnum.连接MySQL数据库.getSql(), ipAddress, port, dbName), username,
+                            password);
                     break;
                 case Oracle:
                     con = DriverManager.getConnection(
-                        String.format(StDbOperateSqlEnum.连接Oracle数据库.getSql(), ipAddress, port), username, password);
+                            String.format(StDbOperateSqlEnum.连接Oracle数据库.getSql(), ipAddress, port), username, password);
                     break;
                 default:
                     break;

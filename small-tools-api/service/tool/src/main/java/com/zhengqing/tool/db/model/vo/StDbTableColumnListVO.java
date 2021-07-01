@@ -2,20 +2,21 @@ package com.zhengqing.tool.db.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * <p>
  * 数据库表字段信息
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/9/6 13:21
+ * @author zhengqingya
+ * @description
+ * @date 2020/9/6 13:21
  */
 @Data
 @Builder

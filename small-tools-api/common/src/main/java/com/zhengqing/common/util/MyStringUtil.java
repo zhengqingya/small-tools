@@ -1,13 +1,11 @@
 package com.zhengqing.common.util;
 
-import java.util.StringJoiner;
-
+import com.google.common.base.CaseFormat;
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.common.base.CaseFormat;
+import java.util.StringJoiner;
 
 /**
- *
  * <p>
  * 字符串工具类
  * </p>
@@ -22,8 +20,7 @@ public class MyStringUtil {
      * 将驼峰式命名的字符串转换为下划线大写方式。如果转换前的驼峰式命名的字符串为空，则返回空字符串。</br>
      * 例如：HelloWorld->HELLO_WORLD
      *
-     * @param name
-     *            转换前的驼峰式命名的字符串
+     * @param name 转换前的驼峰式命名的字符串
      * @return 转换后下划线大写方式命名的字符串
      */
     public static String humpToMark(String name) {
@@ -48,19 +45,17 @@ public class MyStringUtil {
     /**
      * 将字符串转换为驼峰式 </br>
      * 例如：HELLO.WORLD -> HelloWorld
-     *
+     * <p>
      * System.out.println(CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_CAMEL, "test-data"));//testData
      * System.out.println(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "test_data"));//testData
      * System.out.println(CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, "test_data"));//TestData
-     *
+     * <p>
      * System.out.println(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, "testdata"));//testdata
      * System.out.println(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, "TestData"));//test_data
      * System.out.println(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, "testData"));//test-data
      *
-     * @param str
-     *            转换前的字符串
-     * @param mark
-     *            以xx符号分割 ex: `,` `_` `-` `.`
+     * @param str  转换前的字符串
+     * @param mark 以xx符号分割 ex: `,` `_` `-` `.`
      * @return 转换后的驼峰式命名的字符串
      */
     public static String strToHumpByMark(String str, String mark) {
@@ -74,11 +69,10 @@ public class MyStringUtil {
     /**
      * 数据库表名/表字段 转 首字母小写驼峰命名 ex:test_data -> testData
      *
-     * @param dbStr:
-     *            数据库表名/表字段
+     * @param dbStr: 数据库表名/表字段
      * @return: 驼峰命名字符串
-     * @author : zhengqing
-     * @date : 2020/11/15 17:38
+     * @author zhengqingya
+     * @date 2020/11/15 17:38
      */
     public static String dbStrToHumpLower(String dbStr) {
         // 使用谷歌开发工具包转驼峰命名
@@ -88,11 +82,10 @@ public class MyStringUtil {
     /**
      * 数据库表名/表字段 转 首字母大写驼峰命名 ex:test_data -> TestData
      *
-     * @param dbStr:
-     *            数据库表名/表字段
+     * @param dbStr: 数据库表名/表字段
      * @return: 驼峰命名字符串
-     * @author : zhengqing
-     * @date : 2020/11/15 17:38
+     * @author zhengqingya
+     * @date 2020/11/15 17:38
      */
     public static String dbStrToHumpUpper(String dbStr) {
         // 使用谷歌开发工具包转驼峰命名
@@ -102,11 +95,10 @@ public class MyStringUtil {
     /**
      * 获取表名缩写
      *
-     * @param tableName:
-     *            表名
+     * @param tableName: 表名
      * @return: 缩写
-     * @author : zhengqing
-     * @date : 2020/12/12 15:29
+     * @author zhengqingya
+     * @date 2020/12/12 15:29
      */
     public static String tableNameToAbbr(String tableName) {
         StringJoiner sj = new StringJoiner("");

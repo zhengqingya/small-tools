@@ -5,9 +5,9 @@ package com.zhengqing.common.rpc;
  * rpc 基类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2021/1/1 22:05
+ * @author zhengqingya
+ * @description
+ * @date 2021/1/1 22:05
  */
 public interface IBaseClient {
 

@@ -1,19 +1,5 @@
 package com.zhengqing.tool.generator.api;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
@@ -24,19 +10,22 @@ import com.zhengqing.tool.generator.model.dto.CgFreeMarkerTemplateSaveDTO;
 import com.zhengqing.tool.generator.model.dto.CgFreeMarkerTemplateTestDataDTO;
 import com.zhengqing.tool.generator.model.vo.CgFreeMarkerTemplateListVO;
 import com.zhengqing.tool.generator.service.ICgFreeMarkerTemplateService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
  * 代码生成器 - FreeMarker模板数据配置表 接口
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-11-02 19:23:15
- *
+ * @author zhengqingya
+ * @description
+ * @date 2020-11-02 19:23:15
  */
 @RestController
 @RequestMapping("/web/api/generator/freeMarkerTemplate")

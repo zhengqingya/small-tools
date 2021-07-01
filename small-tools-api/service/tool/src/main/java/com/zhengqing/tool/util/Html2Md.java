@@ -11,15 +11,16 @@ import org.jsoup.select.Elements;
  * html转md工具类
  * </p>
  *
- * @author : zhengqing
- * @description : 利用jsoup解析HTML元素，思路如下：
- *              1、首先遍历HTML文档的直接子节点，直接子节点只包括p、pre、ul和ol四类元素，其中pre对应的是md中的代码片，ul对应md中的无序列表，ol对应md中的有序列表。实现见handleNode方法。
- *              2、其次解析每个一级子节点中的内部的HTML元素，包括strong、em、img，其中strong对应md中的粗体，em对应md中的斜体，img对应md中的图片。实现见handleInnerHTML方法。
- * @date : 2020/10/31 22:11
+ * @author zhengqingya
+ * @description 利用jsoup解析HTML元素，思路如下：
+ * 1、首先遍历HTML文档的直接子节点，直接子节点只包括p、pre、ul和ol四类元素，其中pre对应的是md中的代码片，ul对应md中的无序列表，ol对应md中的有序列表。实现见handleNode方法。
+ * 2、其次解析每个一级子节点中的内部的HTML元素，包括strong、em、img，其中strong对应md中的粗体，em对应md中的斜体，img对应md中的图片。实现见handleInnerHTML方法。
+ * @date 2020/10/31 22:11
  */
 public class Html2Md {
 
-    private Html2Md() {}
+    private Html2Md() {
+    }
 
     public static String getMarkDownText(String html) {
         StringBuilder result = new StringBuilder();

@@ -1,8 +1,5 @@
 package com.zhengqing.system.model.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -10,14 +7,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 系统管理 - 用户三方授权表提交参数
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020/11/28 22:14
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/28 22:14
  */
 @Data
 @Builder

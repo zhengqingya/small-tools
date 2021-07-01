@@ -1,33 +1,31 @@
 package com.zhengqing.common.util;
 
-import java.io.File;
-import java.io.InputStream;
-import java.net.URLEncoder;
-
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
-
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.InputStream;
+import java.net.URLEncoder;
 
 /**
  * <p>
  * 七牛云上传文件工具类$
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2021/1/4$ 14:21$
+ * @author zhengqingya
+ * @description
+ * @date 2021/1/4$ 14:21$
  */
 @Slf4j
 @Component
@@ -59,10 +57,8 @@ public class QiniuFileUtil implements InitializingBean {
     /**
      * 上传前台传过来的文件
      *
-     * @param file:
-     *            文件
-     * @param fileName:
-     *            文件名
+     * @param file:     文件
+     * @param fileName: 文件名
      * @return: 成功则返回下载地址url
      */
     @SneakyThrows(Exception.class)
@@ -83,10 +79,8 @@ public class QiniuFileUtil implements InitializingBean {
     /**
      * 以文件的形式上传
      *
-     * @param file:
-     *            文件
-     * @param fileName:
-     *            文件名
+     * @param file:     文件
+     * @param fileName: 文件名
      * @return: 成功则返回下载地址url
      */
     @SneakyThrows(Exception.class)
@@ -111,10 +105,8 @@ public class QiniuFileUtil implements InitializingBean {
     /**
      * 以流的形式上传
      *
-     * @param inputStream:
-     *            流
-     * @param fileName:
-     *            文件名
+     * @param inputStream: 流
+     * @param fileName:    文件名
      * @return: 成功则返回下载地址url
      */
     @SneakyThrows(Exception.class)
@@ -135,13 +127,11 @@ public class QiniuFileUtil implements InitializingBean {
     /**
      * 下载文件 (参考私有空间下载：https://developer.qiniu.com/kodo/sdk/1239/java#private-get)
      *
-     * @param fileName:
-     *            文件名
-     * @param expireInSeconds:
-     *            过期时间(默认1小时)
+     * @param fileName:        文件名
+     * @param expireInSeconds: 过期时间(默认1小时)
      * @return: 返回下载地址url
-     * @author : zhengqing
-     * @date : 2020/10/25 18:37
+     * @author zhengqingya
+     * @date 2020/10/25 18:37
      */
     @SneakyThrows(Exception.class)
     public String downloadFile(String fileName, long expireInSeconds) {
@@ -158,8 +148,7 @@ public class QiniuFileUtil implements InitializingBean {
     /**
      * 删除文件
      *
-     * @param key:
-     *            即上传文件时的fileName
+     * @param key: 即上传文件时的fileName
      * @return: 操作结果
      */
     public String delete(String key) {
@@ -180,7 +169,7 @@ public class QiniuFileUtil implements InitializingBean {
     public void afterPropertiesSet() {
         this.putPolicy = new StringMap();
         putPolicy.put("returnBody",
-            "{\"key\":\"$(key)\",\"hash\":\"$(etag)\",\"bucket\":\"$(bucket)\",\"width\":$(imageInfo.width), \"height\":${imageInfo.height}}");
+                "{\"key\":\"$(key)\",\"hash\":\"$(etag)\",\"bucket\":\"$(bucket)\",\"width\":$(imageInfo.width), \"height\":${imageInfo.height}}");
     }
 
     /**

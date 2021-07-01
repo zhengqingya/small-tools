@@ -1,22 +1,17 @@
 package com.zhengqing.common.validator.fieldrepeat;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
+import java.lang.annotation.*;
 
 /**
  * <p>
  * 自定义字段对应数据库内容重复校验 注解
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2019/9/10 9:32
+ * @author zhengqingya
+ * @description
+ * @date 2019/9/10 9:32
  */
 // 元注解: 给其他普通的标签进行解释说明 【@Retention、@Documented、@Target、@Inherited、@Repeatable】
 @Documented

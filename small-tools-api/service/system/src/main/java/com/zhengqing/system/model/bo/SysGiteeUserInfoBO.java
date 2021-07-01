@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
  * gitee用户信息
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/11/29 15:05
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/29 15:05
  */
 @Data
 @Builder

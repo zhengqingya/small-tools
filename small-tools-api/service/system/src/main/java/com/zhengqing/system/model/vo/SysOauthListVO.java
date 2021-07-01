@@ -9,9 +9,9 @@ import lombok.Data;
  * 系统管理 - 用户三方授权表展示视图
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020/11/28 22:14
+ * @author zhengqingya
+ * @description
+ * @date 2020/11/28 22:14
  */
 @Data
 @ApiModel("系统管理 - 用户三方授权表展示视图")

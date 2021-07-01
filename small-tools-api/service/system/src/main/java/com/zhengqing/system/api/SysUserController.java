@@ -1,50 +1,35 @@
 package com.zhengqing.system.api;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Maps;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
-import com.zhengqing.system.model.dto.SysUserListDTO;
-import com.zhengqing.system.model.dto.SysUserLoginDTO;
-import com.zhengqing.system.model.dto.SysUserRoleSaveDTO;
-import com.zhengqing.system.model.dto.SysUserSaveDTO;
-import com.zhengqing.system.model.dto.SysUserUpdatePasswordDTO;
+import com.zhengqing.system.model.dto.*;
 import com.zhengqing.system.model.vo.SysUserDetailVO;
 import com.zhengqing.system.model.vo.SysUserVO;
 import com.zhengqing.system.service.ISysPermissionService;
 import com.zhengqing.system.service.ISysUserRoleService;
 import com.zhengqing.system.service.ISysUserService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 系统管理 - 用户管理接口
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 11:43
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 11:43
  */
 @Slf4j
 @RestController

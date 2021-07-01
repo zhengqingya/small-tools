@@ -1,27 +1,22 @@
 package com.zhengqing.tool.generator.model.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import com.zhengqing.common.model.dto.BaseDTO;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
  * 代码生成器 - 项目关联数据库提交参数
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-11-14 13:55:47
+ * @author zhengqingya
+ * @description
+ * @date 2020-11-14 13:55:47
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

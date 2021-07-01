@@ -1,17 +1,5 @@
 package com.zhengqing.system.service.impl;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -26,11 +14,7 @@ import com.zhengqing.system.entity.SysRole;
 import com.zhengqing.system.entity.SysUser;
 import com.zhengqing.system.enums.SysUserReRoleEnum;
 import com.zhengqing.system.mapper.SysUserMapper;
-import com.zhengqing.system.model.dto.SysUserListDTO;
-import com.zhengqing.system.model.dto.SysUserLoginDTO;
-import com.zhengqing.system.model.dto.SysUserRoleSaveDTO;
-import com.zhengqing.system.model.dto.SysUserSaveDTO;
-import com.zhengqing.system.model.dto.SysUserUpdatePasswordDTO;
+import com.zhengqing.system.model.dto.*;
 import com.zhengqing.system.model.vo.SysPermissionVO;
 import com.zhengqing.system.model.vo.SysUserDetailVO;
 import com.zhengqing.system.model.vo.SysUserVO;
@@ -39,17 +23,27 @@ import com.zhengqing.system.service.ISysRoleService;
 import com.zhengqing.system.service.ISysUserRoleService;
 import com.zhengqing.system.service.ISysUserService;
 import com.zhengqing.system.util.PasswordUtil;
-
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>
  * 用户管理 服务实现类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 11:33
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 11:33
  */
 @Slf4j
 @Service
@@ -91,7 +85,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             String roleIds = userInfo.getRoleIds();
             if (StringUtils.isNotBlank(roleIds)) {
                 List<Integer> roleIdsX =
-                    Arrays.stream(roleIds.split(",")).map(e -> Integer.parseInt(e.trim())).collect(Collectors.toList());
+                        Arrays.stream(roleIds.split(",")).map(e -> Integer.parseInt(e.trim())).collect(Collectors.toList());
                 StringBuilder roleNames = new StringBuilder();
                 if (!CollectionUtils.isEmpty(roleIdsX)) {
                     List<SysRole> sysRoleList = sysRoleService.listByIds(roleIdsX);
@@ -132,7 +126,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
             // 塞个token信息
             UserTokenInfo userTokenInfo =
-                UserTokenInfo.buildUser(JSONObject.parseObject(JSONObject.toJSONString(user), Map.class));
+                    UserTokenInfo.buildUser(JSONObject.parseObject(JSONObject.toJSONString(user), Map.class));
             String jwtToken = JwtUtil.buildJWT(userTokenInfo);
             user.setToken(jwtToken);
             user.updateById();
@@ -204,13 +198,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
         // 验证密码
         boolean isValid =
-            PasswordUtil.isValidPassword(password, currentUserInfo.getPassword(), currentUserInfo.getSalt());
+                PasswordUtil.isValidPassword(password, currentUserInfo.getPassword(), currentUserInfo.getSalt());
         if (!isValid) {
             throw new MyException(AppConstant.WRONG_PASSWORD);
         }
 
         UserTokenInfo userTokenInfo =
-            UserTokenInfo.buildUser(JSONObject.parseObject(JSONObject.toJSONString(currentUserInfo), Map.class));
+                UserTokenInfo.buildUser(JSONObject.parseObject(JSONObject.toJSONString(currentUserInfo), Map.class));
         String jwtToken = JwtUtil.buildJWT(userTokenInfo);
         // currentUserInfo.setToken(jwtToken);
         return jwtToken;

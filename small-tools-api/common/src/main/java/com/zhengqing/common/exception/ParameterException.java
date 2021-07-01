@@ -5,9 +5,9 @@ package com.zhengqing.common.exception;
  * 参数异常
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/8/1 18:07
+ * @author zhengqingya
+ * @description
+ * @date 2020/8/1 18:07
  */
 public class ParameterException extends MyException {
 

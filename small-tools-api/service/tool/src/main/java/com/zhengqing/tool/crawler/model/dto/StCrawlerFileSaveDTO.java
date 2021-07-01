@@ -13,9 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
  * 文件提交参数
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/9/4 21:21
+ * @author zhengqingya
+ * @description
+ * @date 2020/9/4 21:21
  */
 @Data
 @Builder

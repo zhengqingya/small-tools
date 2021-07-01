@@ -1,36 +1,27 @@
 package com.zhengqing.common.util;
 
-import java.util.Map;
-
-import org.apache.commons.beanutils.BeanUtils;
-
 import com.alibaba.fastjson.JSON;
-import com.nimbusds.jose.JOSEException;
-import com.nimbusds.jose.JOSEObjectType;
-import com.nimbusds.jose.JWSAlgorithm;
-import com.nimbusds.jose.JWSHeader;
-import com.nimbusds.jose.JWSObject;
-import com.nimbusds.jose.JWSSigner;
-import com.nimbusds.jose.JWSVerifier;
-import com.nimbusds.jose.Payload;
+import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.exception.MyException;
 import com.zhengqing.common.exception.ParameterException;
 import com.zhengqing.common.model.bo.UserTokenInfo;
-
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
+import org.apache.commons.beanutils.BeanUtils;
+
+import java.util.Map;
 
 /**
  * <p>
  * jwt工具类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/8/1 21:52
+ * @author zhengqingya
+ * @description
+ * @date 2020/8/1 21:52
  */
 @Slf4j
 public class JwtUtil {
@@ -116,7 +107,7 @@ public class JwtUtil {
 
     public static void main(String[] args) {
         UserTokenInfo userTokenInfo = new UserTokenInfo(1, "zhengqingya", "zhengqingya",
-            System.currentTimeMillis() + AppConstant.DEFAULT_EXPIRES_TIME);
+                System.currentTimeMillis() + AppConstant.DEFAULT_EXPIRES_TIME);
         try {
             String jwt = buildJWT(userTokenInfo);
             log.debug("生成的jwt：【{}】", jwt);

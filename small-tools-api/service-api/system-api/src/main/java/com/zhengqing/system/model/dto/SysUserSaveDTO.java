@@ -1,31 +1,29 @@
 package com.zhengqing.system.model.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
-import org.hibernate.validator.constraints.Length;
-
 import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * <p>
  * 保存用户参数
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/9/10 11:15
+ * @author zhengqingya
+ * @description
+ * @date 2020/9/10 11:15
  */
 @Data
 @ApiModel("保存用户参数")
 @FieldRepeatValidator(tableName = "t_sys_user", idDbName = "user_id", fieldNames = "username",
-    dbFieldNames = {"username"}, message = "账号重复，请重新输入账号！")
+        dbFieldNames = {"username"}, message = "账号重复，请重新输入账号！")
 public class SysUserSaveDTO {
 
     @ApiModelProperty(value = "主键ID groups:标识在更新的时候才能验证非空")

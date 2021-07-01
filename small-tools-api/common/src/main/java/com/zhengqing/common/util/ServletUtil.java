@@ -1,27 +1,25 @@
 package com.zhengqing.common.util;
 
-import java.io.IOException;
-import java.net.URLDecoder;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import cn.hutool.core.convert.Convert;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import cn.hutool.core.convert.Convert;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.net.URLDecoder;
 
 /**
  * <p>
  * 客户端工具类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/8/1 18:22
+ * @author zhengqingya
+ * @description
+ * @date 2020/8/1 18:22
  */
 public class ServletUtil {
 
@@ -89,16 +87,14 @@ public class ServletUtil {
 
     public static ServletRequestAttributes getRequestAttributes() {
         RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
-        return (ServletRequestAttributes)attributes;
+        return (ServletRequestAttributes) attributes;
     }
 
     /**
      * 将字符串渲染到客户端
      *
-     * @param response
-     *            渲染对象
-     * @param string
-     *            待渲染的字符串
+     * @param response 渲染对象
+     * @param string   待渲染的字符串
      * @return null
      */
     public static String renderString(HttpServletResponse response, String string) {

@@ -21,9 +21,9 @@ import java.util.Map;
  * Feign接口类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2021/1/1 21:45
+ * @author zhengqingya
+ * @description
+ * @date 2021/1/1 21:45
  */
 @Slf4j
 @ApiIgnore()

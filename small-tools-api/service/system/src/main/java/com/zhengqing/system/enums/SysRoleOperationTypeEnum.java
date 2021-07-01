@@ -1,19 +1,20 @@
 package com.zhengqing.system.enums;
 
 import com.google.common.collect.Lists;
-import java.util.Arrays;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
  * 角色操作类型
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 17:14
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 17:14
  */
 @Getter
 @AllArgsConstructor

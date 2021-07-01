@@ -6,20 +6,16 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.zhengqing.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * <p>
  * 角色关联菜单按钮权限表
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 20:33
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 20:33
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

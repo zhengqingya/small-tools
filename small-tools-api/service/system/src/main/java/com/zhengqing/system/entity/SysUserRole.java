@@ -6,20 +6,16 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.zhengqing.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * <p>
  * 系统管理-用户角色关联表
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 18:24
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 18:24
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

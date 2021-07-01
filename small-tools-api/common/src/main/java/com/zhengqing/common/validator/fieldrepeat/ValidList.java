@@ -1,21 +1,16 @@
 package com.zhengqing.common.validator.fieldrepeat;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-
 import javax.validation.Valid;
+import java.util.*;
 
 /**
  * <p>
  * 自定义list
  * </p>
  *
- * @author : zhengqing
- * @description : 解决`@Validated`只能验证单个实体类，在验证List集合时不生效问题
- * @date : 2021/1/20 15:16
+ * @author zhengqingya
+ * @description 解决`@Validated`只能验证单个实体类，在验证List集合时不生效问题
+ * @date 2021/1/20 15:16
  */
 public class ValidList<E> implements List<E> {
 

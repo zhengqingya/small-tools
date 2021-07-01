@@ -1,18 +1,12 @@
 package com.zhengqing.common.util;
 
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.ValidationException;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.validation.*;
+import java.util.Set;
+
 /**
- *
  * <p>
  * 校验工具类
  * </p>
@@ -28,13 +22,11 @@ public class MyValidatorUtil {
      * 手动校验 (把注解@valid放在servevice层上是没有效果的，只有放在Controller上才有效果,因此通过调用ValidatorFactory工厂方法创建一个实例对象来进行手动校验 )
      * 百度建议： @Validated放到实现上,@NotNull,@Valid等声明放到接口上
      *
-     * @param obj:
-     *            校验对象
-     * @param groups:
-     *            组校验
+     * @param obj:    校验对象
+     * @param groups: 组校验
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/10/19 11:27
+     * @author zhengqingya
+     * @date 2020/10/19 11:27
      */
     @SneakyThrows(Exception.class)
     public static void validate(Object obj, Class<?>... groups) {

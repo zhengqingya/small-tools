@@ -7,9 +7,9 @@ import com.zhengqing.common.exception.ParameterException;
  * 参数校验
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/8/1 18:08
+ * @author zhengqingya
+ * @description
+ * @date 2020/8/1 18:08
  */
 public interface ParameterVerify {
 

@@ -16,9 +16,9 @@ import org.springframework.stereotype.Component;
  * Service 切面
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2021/1/8 22:44
+ * @author zhengqingya
+ * @description
+ * @date 2021/1/8 22:44
  */
 @Slf4j
 @Aspect

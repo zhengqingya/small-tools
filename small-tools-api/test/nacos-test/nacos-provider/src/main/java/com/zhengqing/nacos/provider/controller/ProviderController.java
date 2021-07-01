@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
  * 生产者$
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/10/7$ 3:14$
+ * @author zhengqingya
+ * @description
+ * @date 2020/10/7$ 3:14$
  */
 @RefreshScope // 实现配置自动更新
 @RestController

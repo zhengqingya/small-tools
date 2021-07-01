@@ -1,25 +1,22 @@
 package com.zhengqing.common.util;
 
+import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeansException;
+import org.springframework.util.CollectionUtils;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeansException;
-import org.springframework.util.CollectionUtils;
-
-import com.alibaba.fastjson.JSONObject;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-
 /**
- *
  * <p>
  * bean 工具类
  * </p>
@@ -34,13 +31,11 @@ public class MyBeanUtil {
     /**
      * 对象属性拷贝
      *
-     * @param source:
-     *            源对象
-     * @param target:
-     *            目标对象
+     * @param source: 源对象
+     * @param target: 目标对象
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/9/5 23:22
+     * @author zhengqingya
+     * @date 2020/9/5 23:22
      */
     public static void copyProperties(Object source, Object target) {
         BeanUtils.copyProperties(source, target);
@@ -49,10 +44,8 @@ public class MyBeanUtil {
     /**
      * 对象属性拷贝 : 将源对象的属性拷贝到目标对象
      *
-     * @param source:
-     *            源对象
-     * @param clzz:
-     *            目标对象class
+     * @param source: 源对象
+     * @param clzz:   目标对象class
      */
     public static <T> T copyProperties(Object source, Class<T> clzz) {
         if (source == null) {
@@ -72,14 +65,10 @@ public class MyBeanUtil {
     /**
      * 拷贝list
      *
-     * @param input:
-     *            输入集合
-     * @param clzz:
-     *            输出集合类型
-     * @param <E>:
-     *            输入集合类型
-     * @param <T>:
-     *            输出集合类型
+     * @param input: 输入集合
+     * @param clzz:  输出集合类型
+     * @param <E>:   输入集合类型
+     * @param <T>:   输出集合类型
      * @return 返回集合
      */
     public static <E, T> List<T> copyList(List<E> input, Class<T> clzz) {
@@ -97,12 +86,9 @@ public class MyBeanUtil {
     /**
      * 获取任意泛型类的指定属性值（暂只支持同时访问父类和子类属性，如果有多继承的话，还需要再修改）
      *
-     * @param tList:
-     *            list对象数据
-     * @param field:
-     *            要获取指定字段属性值对应的字段名
-     * @param isSuperfield:
-     *            true：父类 false：子类
+     * @param tList:        list对象数据
+     * @param field:        要获取指定字段属性值对应的字段名
+     * @param isSuperfield: true：父类 false：子类
      * @return: java.util.List<?>
      */
     public static <T> List<?> getFieldList(List<T> tList, String field, Boolean isSuperfield) {
@@ -112,7 +98,7 @@ public class MyBeanUtil {
 
         // 拼接方法
         field =
-            new StringBuffer("get").append(field.substring(0, 1).toUpperCase()).append(field.substring(1)).toString();
+                new StringBuffer("get").append(field.substring(0, 1).toUpperCase()).append(field.substring(1)).toString();
         List<Object> idList = Lists.newArrayList();
         Method method = null;
         try {
@@ -138,10 +124,8 @@ public class MyBeanUtil {
     /**
      * 获取任意泛型类的指定属性值（暂只支持同时访问父类和子类属性，如果有多继承的话，还需要再修改）
      *
-     * @param tList:
-     *            list对象数据
-     * @param field:
-     *            要获取指定字段属性值对应的字段名
+     * @param tList: list对象数据
+     * @param field: 要获取指定字段属性值对应的字段名
      * @return: java.util.List<?>
      */
     public static <T> List<?> getFieldList(List<Map<String, Object>> tList, String field) {
@@ -161,8 +145,8 @@ public class MyBeanUtil {
      * @param map:
      * @param clz:
      * @return: T
-     * @author : zhengqing
-     * @date : 2020/11/27 18:39
+     * @author zhengqingya
+     * @date 2020/11/27 18:39
      */
     public static <T> T mapToObject(Map<String, Object> map, Class<T> clz) {
         return JSONObject.parseObject(JSONObject.toJSONString(map), clz);
@@ -171,11 +155,10 @@ public class MyBeanUtil {
     /**
      * 对象 转 map （通过反射获取类里面的值和名称）
      *
-     * @param obj:
-     *            对象
+     * @param obj: 对象
      * @return: map
-     * @author : zhengqing
-     * @date : 2021/1/26 16:09
+     * @author zhengqingya
+     * @date 2021/1/26 16:09
      */
     @SneakyThrows(Exception.class)
     public static Map<String, Object> objectToMap(Object obj) {

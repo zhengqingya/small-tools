@@ -2,17 +2,18 @@ package com.zhengqing.system.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * <p>
  * 用户个人中心
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2020/4/15 11:18
+ * @author zhengqingya
+ * @description
+ * @date 2020/4/15 11:18
  */
 @Data
 @ApiModel("用户个人中心")

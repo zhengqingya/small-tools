@@ -1,7 +1,6 @@
 package com.zhengqing.gateway.filter;
 
-import java.nio.charset.StandardCharsets;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.annotation.Order;
@@ -13,19 +12,19 @@ import org.springframework.http.server.reactive.ServerHttpRequestDecorator;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ServerWebExchange;
-
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * <p>
  * 全局过滤器 - 拦截http请求做逻辑处理
  * </p>
  *
- * @author : zhengqing
- * @description : 这里主要解决post/put请求获取不到Body内容问题
- * @date : 2021/1/3 18:38
+ * @author zhengqingya
+ * @description 这里主要解决post/put请求获取不到Body内容问题
+ * @date 2021/1/3 18:38
  */
 @Slf4j
 @Component
@@ -67,9 +66,7 @@ public class HttpRequestGlobalFilter implements GlobalFilter {
                 return chain.filter(exchange.mutate().request(mutatedRequest).build());
             });
         } else if (HttpMethod.GET.toString().equals(requestMethod)
-            || HttpMethod.DELETE.toString().equals(requestMethod))
-
-        {
+                || HttpMethod.DELETE.toString().equals(requestMethod)) {
             MultiValueMap<String, String> getRequestParams = request.getQueryParams();
             log.debug("\n 请求url:`{}` \n 请求类型：{} \n 请求参数：{}", requestUrl, requestMethod, getRequestParams);
             return chain.filter(exchange);

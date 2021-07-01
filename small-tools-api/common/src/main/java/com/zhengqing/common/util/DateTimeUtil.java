@@ -1,21 +1,21 @@
 package com.zhengqing.common.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.lang.management.ManagementFactory;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * <p>
  * 时间工具类
  * </p>
  *
- * @description:
- * @author: zhengqing
- * @date: 2019/8/18 0018 12:57
+ * @author zhengqingya
+ * @description
+ * @date 2019/8/18 0018 12:57
  */
 public class DateTimeUtil {
 
@@ -29,8 +29,8 @@ public class DateTimeUtil {
     public static final String HOUR_ONLY_PATTERN = "HH";
 
     private static String[] parsePatterns =
-        {"yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy-MM", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss",
-            "yyyy/MM/dd HH:mm", "yyyy/MM", "yyyy.MM.dd", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm", "yyyy.MM"};
+            {"yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy-MM", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss",
+                    "yyyy/MM/dd HH:mm", "yyyy/MM", "yyyy.MM.dd", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm", "yyyy.MM"};
 
     /**
      * 将Date日期时间格式转成指定字符串格式 yyyy-MM-dd HH:mm:ss
@@ -80,12 +80,9 @@ public class DateTimeUtil {
     /**
      * 日期相加减天数
      *
-     * @param date
-     *            如果为Null，则为当前时间
-     * @param days
-     *            加减天数
-     * @param includeTime
-     *            是否包括时分秒,true表示包含
+     * @param date        如果为Null，则为当前时间
+     * @param days        加减天数
+     * @param includeTime 是否包括时分秒,true表示包含
      * @return
      * @throws ParseException
      */
@@ -106,10 +103,8 @@ public class DateTimeUtil {
     /**
      * 时间格式化成字符串
      *
-     * @param date
-     *            Date
-     * @param pattern
-     *            StringUtils.DATE_TIME_PATTERN || StringUtils.DATE_PATTERN， 如果为空，则为yyyy-MM-dd
+     * @param date    Date
+     * @param pattern StringUtils.DATE_TIME_PATTERN || StringUtils.DATE_PATTERN， 如果为空，则为yyyy-MM-dd
      * @return
      * @throws ParseException
      */
@@ -124,10 +119,8 @@ public class DateTimeUtil {
     /**
      * 字符串解析成时间对象
      *
-     * @param dateTimeString
-     *            String
-     * @param pattern
-     *            StringUtils.DATE_TIME_PATTERN || StringUtils.DATE_PATTERN，如果为空，则为yyyy-MM-dd
+     * @param dateTimeString String
+     * @param pattern        StringUtils.DATE_TIME_PATTERN || StringUtils.DATE_PATTERN，如果为空，则为yyyy-MM-dd
      * @return
      * @throws ParseException
      */
@@ -142,8 +135,7 @@ public class DateTimeUtil {
     /**
      * 将日期时间格式成只有日期的字符串（可以直接使用dateFormat，Pattern为Null进行格式化）
      *
-     * @param dateTime
-     *            Date
+     * @param dateTime Date
      * @return
      * @throws ParseException
      */
@@ -155,8 +147,7 @@ public class DateTimeUtil {
     /**
      * 当时、分、秒为00:00:00时，将日期时间格式成只有日期的字符串， 当时、分、秒不为00:00:00时，直接返回
      *
-     * @param dateTime
-     *            Date
+     * @param dateTime Date
      * @return
      * @throws ParseException
      */
@@ -172,8 +163,7 @@ public class DateTimeUtil {
     /**
      * 将日期时间格式成日期对象，和dateParse互用
      *
-     * @param dateTime
-     *            Date
+     * @param dateTime Date
      * @return Date
      * @throws ParseException
      */
@@ -190,10 +180,8 @@ public class DateTimeUtil {
     /**
      * 时间加减小时
      *
-     * @param startDate
-     *            要处理的时间，Null则为当前时间
-     * @param hours
-     *            加减的小时
+     * @param startDate 要处理的时间，Null则为当前时间
+     * @param hours     加减的小时
      * @return Date
      */
     public static Date dateAddHours(Date startDate, int hours) {
@@ -209,10 +197,8 @@ public class DateTimeUtil {
     /**
      * 时间加减分钟
      *
-     * @param startDate
-     *            要处理的时间，Null则为当前时间
-     * @param minutes
-     *            加减的分钟
+     * @param startDate 要处理的时间，Null则为当前时间
+     * @param minutes   加减的分钟
      * @return
      */
     public static Date dateAddMinutes(Date startDate, int minutes) {
@@ -228,10 +214,8 @@ public class DateTimeUtil {
     /**
      * 时间加减秒数
      *
-     * @param startDate
-     *            要处理的时间，Null则为当前时间
-     * @param seconds
-     *            加减的秒数
+     * @param startDate 要处理的时间，Null则为当前时间
+     * @param seconds   加减的秒数
      * @return
      */
     public static Date dateAddSeconds(Date startDate, int seconds) {
@@ -247,10 +231,8 @@ public class DateTimeUtil {
     /**
      * 时间加减天数
      *
-     * @param startDate
-     *            要处理的时间，Null则为当前时间
-     * @param days
-     *            加减的天数
+     * @param startDate 要处理的时间，Null则为当前时间
+     * @param days      加减的天数
      * @return Date
      */
     public static Date dateAddDays(Date startDate, int days) {
@@ -266,10 +248,8 @@ public class DateTimeUtil {
     /**
      * 时间加减月数
      *
-     * @param startDate
-     *            要处理的时间，Null则为当前时间
-     * @param months
-     *            加减的月数
+     * @param startDate 要处理的时间，Null则为当前时间
+     * @param months    加减的月数
      * @return Date
      */
     public static Date dateAddMonths(Date startDate, int months) {
@@ -285,10 +265,8 @@ public class DateTimeUtil {
     /**
      * 时间加减年数
      *
-     * @param startDate
-     *            要处理的时间，Null则为当前时间
-     * @param years
-     *            加减的年数
+     * @param startDate 要处理的时间，Null则为当前时间
+     * @param years     加减的年数
      * @return Date
      */
     public static Date dateAddYears(Date startDate, int years) {
@@ -304,10 +282,8 @@ public class DateTimeUtil {
     /**
      * 时间比较（如果myDate>compareDate返回1，<返回-1，相等返回0）
      *
-     * @param myDate
-     *            时间
-     * @param compareDate
-     *            要比较的时间
+     * @param myDate      时间
+     * @param compareDate 要比较的时间
      * @return int
      */
     public static int dateCompare(Date myDate, Date compareDate) {
@@ -373,7 +349,7 @@ public class DateTimeUtil {
     public static int dateBetween(Date startDate, Date endDate) throws ParseException {
         Date dateStart = dateParse(dateFormat(startDate, DATE_PATTERN), DATE_PATTERN);
         Date dateEnd = dateParse(dateFormat(endDate, DATE_PATTERN), DATE_PATTERN);
-        return (int)((dateEnd.getTime() - dateStart.getTime()) / 1000 / 60 / 60 / 24);
+        return (int) ((dateEnd.getTime() - dateStart.getTime()) / 1000 / 60 / 60 / 24);
     }
 
     /**
@@ -454,8 +430,7 @@ public class DateTimeUtil {
      * <li>2016-02-13，返回2016-02-29</li>
      * <li>2016-01-11，返回2016-01-31</li>
      *
-     * @param date
-     *            Date
+     * @param date Date
      * @return
      * @throws Exception
      */
@@ -469,8 +444,7 @@ public class DateTimeUtil {
     /**
      * 根据时间获取当月最小的日期，也就是返回当月的1号日期对象
      *
-     * @param date
-     *            Date
+     * @param date Date
      * @return
      * @throws Exception
      */

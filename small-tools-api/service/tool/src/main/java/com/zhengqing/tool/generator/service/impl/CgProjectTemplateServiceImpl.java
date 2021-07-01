@@ -1,13 +1,5 @@
 package com.zhengqing.tool.generator.service.impl;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -26,30 +18,33 @@ import com.zhengqing.tool.generator.enums.CgGenerateTemplateDataTypeEnum;
 import com.zhengqing.tool.generator.enums.CgProjectTemplateDataTypeEnum;
 import com.zhengqing.tool.generator.mapper.CgProjectTemplateMapper;
 import com.zhengqing.tool.generator.mapper.CgProjectVelocityContextMapper;
-import com.zhengqing.tool.generator.model.dto.CgGenerateCodeDTO;
-import com.zhengqing.tool.generator.model.dto.CgProjectTemplateListDTO;
-import com.zhengqing.tool.generator.model.dto.CgProjectTemplateSaveDTO;
-import com.zhengqing.tool.generator.model.dto.CgProjectTemplateTestDataDTO;
-import com.zhengqing.tool.generator.model.dto.CgTableConfigListDTO;
+import com.zhengqing.tool.generator.model.dto.*;
 import com.zhengqing.tool.generator.model.vo.CgProjectTemplateListVO;
 import com.zhengqing.tool.generator.service.ICgGeneratorCodeService;
 import com.zhengqing.tool.generator.service.ICgProjectPackageService;
 import com.zhengqing.tool.generator.service.ICgProjectTemplateService;
 import com.zhengqing.tool.generator.service.ICgTableConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
  * 项目代码模板表 服务实现类
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2019/8/20 15:22
+ * @author zhengqingya
+ * @description
+ * @date 2019/8/20 15:22
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class CgProjectTemplateServiceImpl extends ServiceImpl<CgProjectTemplateMapper, CgProjectTemplate>
-    implements ICgProjectTemplateService {
+        implements ICgProjectTemplateService {
 
     @Autowired
     private CgProjectTemplateMapper cgProjectTemplateMapper;
@@ -85,13 +80,13 @@ public class CgProjectTemplateServiceImpl extends ServiceImpl<CgProjectTemplateM
     /**
      * 处理数据
      *
-     * @param list:
-     *            数据
+     * @param list: 数据
      * @return: void
-     * @author : zhengqing
-     * @date : 2020/11/15 15:59
+     * @author zhengqingya
+     * @date 2020/11/15 15:59
      */
-    private void handleResultData(List<CgProjectTemplateListVO> list) {}
+    private void handleResultData(List<CgProjectTemplateListVO> list) {
+    }
 
     @Override
     public Integer addOrUpdateData(CgProjectTemplateSaveDTO params) {
@@ -157,20 +152,21 @@ public class CgProjectTemplateServiceImpl extends ServiceImpl<CgProjectTemplateM
     @Override
     public void deleteDataByProjectId(Integer projectId) {
         cgProjectTemplateMapper
-            .delete(new LambdaQueryWrapper<CgProjectTemplate>().eq(CgProjectTemplate::getProjectId, projectId));
+                .delete(new LambdaQueryWrapper<CgProjectTemplate>().eq(CgProjectTemplate::getProjectId, projectId));
     }
 
     @Override
-    public void checkTemplateData(Integer projectTemplateId) {}
+    public void checkTemplateData(Integer projectTemplateId) {
+    }
 
     @Override
     public void generateTemplate(Integer projectId) {
         // 查询指定项目ID的包
         List<CgProjectPackage> packageList = cgProjectPackageService
-            .list(new LambdaQueryWrapper<CgProjectPackage>().eq(CgProjectPackage::getProjectId, projectId));
+                .list(new LambdaQueryWrapper<CgProjectPackage>().eq(CgProjectPackage::getProjectId, projectId));
 
         List<CgProjectTemplate> bsTemplateList = this.list(new LambdaQueryWrapper<CgProjectTemplate>()
-            .eq(CgProjectTemplate::getIsBasic, CgProjectTemplateDataTypeEnum.基础模板.getDataType()));
+                .eq(CgProjectTemplate::getIsBasic, CgProjectTemplateDataTypeEnum.基础模板.getDataType()));
         if (!CollectionUtils.isEmpty(bsTemplateList)) {
             bsTemplateList.forEach(bsTemplate -> packageList.forEach(p -> {
                 // TODO (暂不能直接根据id去判断 后期要做的话 根据名称去判断！！！) 如果初始模板的类型id 与 项目包id 一致 则生成项目模板

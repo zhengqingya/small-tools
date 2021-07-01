@@ -7,9 +7,9 @@ import java.util.Scanner;
  * 解决for循环中加入has判断跳不出来问题： https://ask.csdn.net/questions/7395564
  * </p>
  *
- * @author : zhengqing
- * @description : 通过`input.nextLine();`解决; TODO 注意异常控制！ ex: input.nextInt()
- * @date : 2021/1/15 13:48
+ * @author zhengqingya
+ * @description 通过`input.nextLine();`解决; TODO 注意异常控制！ ex: input.nextInt()
+ * @date 2021/1/15 13:48
  */
 public class Problem_01 {
 
@@ -36,7 +36,7 @@ public class Problem_01 {
                 result = input.nextInt();
                 switch (result) {
                     case 1:
-                        for (;;) {
+                        for (; ; ) {
                             System.out.println("请输入账号：");
                             String usernameByInput = input.next();
                             System.out.println("请输入密码：");

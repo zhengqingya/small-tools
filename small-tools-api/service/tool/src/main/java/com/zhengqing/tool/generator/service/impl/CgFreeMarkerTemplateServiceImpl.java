@@ -31,9 +31,9 @@ import java.util.stream.Collectors;
  * 代码生成器 - FreeMarker模板数据配置表 服务实现类
  * </p>
  *
- * @author: zhengqing
- * @description:
- * @date: 2020-11-02 19:23:15
+ * @author zhengqingya
+ * @description
+ * @date 2020-11-02 19:23:15
  */
 @Slf4j
 @Service
@@ -67,8 +67,8 @@ public class CgFreeMarkerTemplateServiceImpl extends ServiceImpl<CgFreeMarkerTem
      *
      * @param list: 数据
      * @return: void
-     * @author : zhengqing
-     * @date : 2020-11-02 19:23:15
+     * @author zhengqingya
+     * @date 2020-11-02 19:23:15
      */
     private void handleResultData(List<CgFreeMarkerTemplateListVO> list) {
         list.forEach(e -> e.setIsCommonName(CgFreeMarkerTemplateCommonTypeEnum.getEnum(e.getIsCommon()).getDesc()));

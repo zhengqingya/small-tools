@@ -1,5 +1,13 @@
 package com.zhengqing.common.util;
 
+import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StreamUtils;
+
+import javax.servlet.ReadListener;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -8,25 +16,14 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ReadListener;
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-
-import org.springframework.util.StreamUtils;
-
-import com.alibaba.fastjson.JSONObject;
-
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * <p>
  * 多次读写BODY用HTTP REQUEST - 解决流只能读一次问题
  * </p>
  *
- * @author : zhengqing
- * @description :
- * @date : 2019/10/12 15:42
+ * @author zhengqingya
+ * @description
+ * @date 2019/10/12 15:42
  */
 @Slf4j
 public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
@@ -70,7 +67,8 @@ public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
             }
 
             @Override
-            public void setReadListener(ReadListener readListener) {}
+            public void setReadListener(ReadListener readListener) {
+            }
         };
     }
 
