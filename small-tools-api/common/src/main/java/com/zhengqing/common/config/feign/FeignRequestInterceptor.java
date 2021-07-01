@@ -28,6 +28,7 @@ public class FeignRequestInterceptor implements RequestInterceptor {
     @SneakyThrows
     public void apply(RequestTemplate requestTemplate) {
         log.debug("========================== ↓↓↓↓↓↓ 《FeignRequestInterceptor》 Start... ↓↓↓↓↓↓ ==========================");
+        // 新增手动设置的请求头值 （主要解决多线程异步+feign调用时请求头丢失问题）
         Map<String, String> threadHeaderNameMap = RequestHeaderHandler.getHeaderMap();
         if (!CollectionUtils.isEmpty(threadHeaderNameMap)) {
             threadHeaderNameMap.forEach((headerName, headerValue) -> {
