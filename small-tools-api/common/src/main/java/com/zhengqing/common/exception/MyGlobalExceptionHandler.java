@@ -88,6 +88,12 @@ public class MyGlobalExceptionHandler {
         return ApiResult.fail(e.getMessage());
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ApiResult<String> handleRuntimeException(IllegalArgumentException e) {
+        log.error("参数不合法:", e);
+        return ApiResult.fail(e.getMessage());
+    }
+
     @ExceptionHandler(NoHandlerFoundException.class)
     public ApiResult handlerNoFoundException(Exception e) {
         return ApiResult.fail(404, "路径不存在，请检查路径是否正确");
