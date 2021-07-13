@@ -23,7 +23,7 @@ public interface IDemoService extends IService<Demo> {
     /**
      * 测试事务
      *
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2021/1/13 10:18
      */
@@ -33,7 +33,7 @@ public interface IDemoService extends IService<Demo> {
      * 列表分页
      *
      * @param params: 查询参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2021/01/13 10:11
      */
@@ -43,7 +43,7 @@ public interface IDemoService extends IService<Demo> {
      * 列表
      *
      * @param params: 查询参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2021/01/13 10:11
      */
@@ -53,7 +53,7 @@ public interface IDemoService extends IService<Demo> {
      * 新增或更新
      *
      * @param params: 保存参数
-     * @return: 主键id
+     * @return 主键id
      * @author zhengqingya
      * @date 2021/01/13 10:11
      */

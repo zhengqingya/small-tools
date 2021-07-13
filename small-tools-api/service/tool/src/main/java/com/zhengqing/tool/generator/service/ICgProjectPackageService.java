@@ -25,7 +25,7 @@ public interface ICgProjectPackageService extends IService<CgProjectPackage> {
      * 列表分页
      *
      * @param params: 查询参数
-     * @return: 列表数据
+     * @return 列表数据
      * @author zhengqingya
      * @date 2020/11/15 11:52
      */
@@ -35,7 +35,7 @@ public interface ICgProjectPackageService extends IService<CgProjectPackage> {
      * 项目包架构树
      *
      * @param params: 查询参数
-     * @return: 树
+     * @return 树
      * @author zhengqingya
      * @date 2020/11/15 12:17
      */
@@ -45,7 +45,7 @@ public interface ICgProjectPackageService extends IService<CgProjectPackage> {
      * 根据项目id获取其下所有的 包id -> 包名
      *
      * @param projectId: 项目id
-     * @return: map: 包id -> 包名
+     * @return map: 包id -> 包名
      * @author zhengqingya
      * @date 2020/11/15 17:13
      */
@@ -55,7 +55,7 @@ public interface ICgProjectPackageService extends IService<CgProjectPackage> {
      * 获取项目父包名
      *
      * @param projectId: 项目id
-     * @return: 父包名
+     * @return 父包名
      * @author zhengqingya
      * @date 2020/11/15 19:04
      */
@@ -65,7 +65,7 @@ public interface ICgProjectPackageService extends IService<CgProjectPackage> {
      * 新增或更新
      *
      * @param params: 提交参数
-     * @return: 主键id
+     * @return 主键id
      * @author zhengqingya
      * @date 2020/11/15 12:44
      */
@@ -75,7 +75,7 @@ public interface ICgProjectPackageService extends IService<CgProjectPackage> {
      * 删除数据
      *
      * @param id: 主键id
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/11/15 12:54
      */
@@ -85,7 +85,7 @@ public interface ICgProjectPackageService extends IService<CgProjectPackage> {
      * 根据项目id删除数据
      *
      * @param projectId: 项目id
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/11/15 13:43
      */

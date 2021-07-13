@@ -22,7 +22,7 @@ public interface ISysMenuBtnService extends IService<SysMenuBtn> {
      * 通过菜单ID获取已经配置的按钮ids
      *
      * @param menuId: 菜单id
-     * @return: 按钮ids
+     * @return 按钮ids
      * @author zhengqingya
      * @date 2020/9/10 21:19
      */
@@ -32,7 +32,7 @@ public interface ISysMenuBtnService extends IService<SysMenuBtn> {
      * 保存菜单按钮ids
      *
      * @param params: 提交参数
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/10 21:10
      */
@@ -42,7 +42,7 @@ public interface ISysMenuBtnService extends IService<SysMenuBtn> {
      * 通过菜单id查询菜单按钮权限信息
      *
      * @param menuId: 菜单id
-     * @return: 菜单按钮权限信息
+     * @return 菜单按钮权限信息
      * @author zhengqingya
      * @date 2020/9/10 22:06
      */

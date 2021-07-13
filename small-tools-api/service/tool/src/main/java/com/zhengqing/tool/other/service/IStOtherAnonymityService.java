@@ -25,7 +25,7 @@ public interface IStOtherAnonymityService extends IService<StOtherAnonymity> {
      * 列表分页
      *
      * @param params: 查询参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2020-10-25 13:27:16
      */
@@ -35,7 +35,7 @@ public interface IStOtherAnonymityService extends IService<StOtherAnonymity> {
      * 列表分页
      *
      * @param params: 查询参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2020-10-25 13:27:16
      */
@@ -45,7 +45,7 @@ public interface IStOtherAnonymityService extends IService<StOtherAnonymity> {
      * 新增或更新
      *
      * @param params: 保存参数
-     * @return: 主键id
+     * @return 主键id
      * @author zhengqingya
      * @date 2020-10-25 13:27:16
      */
@@ -55,7 +55,7 @@ public interface IStOtherAnonymityService extends IService<StOtherAnonymity> {
      * 匿名处理
      *
      * @param params: 处理提交参数
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/10/25 13:56
      */

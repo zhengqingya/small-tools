@@ -24,7 +24,7 @@ public interface StCrawlerWebsiteMapper extends BaseMapper<StCrawlerWebsite> {
      *
      * @param page:
      * @param filter:
-     * @return: com.baomidou.mybatisplus.core.metadata.IPage<com.zhengqing.modules.smalltools.crawler.model.vo.StCrawlerWebsiteVO>
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.zhengqing.modules.smalltools.crawler.model.vo.StCrawlerWebsiteVO>
      * @author zhengqingya
      * @date 2020/8/22 17:21
      */
@@ -34,7 +34,7 @@ public interface StCrawlerWebsiteMapper extends BaseMapper<StCrawlerWebsite> {
      * 列表
      *
      * @param filter:
-     * @return: java.util.List<com.zhengqing.modules.smalltools.crawler.model.vo.StCrawlerWebsiteVO>
+     * @return java.util.List<com.zhengqing.modules.smalltools.crawler.model.vo.StCrawlerWebsiteVO>
      * @author zhengqingya
      * @date 2020/8/30 14:38
      */
@@ -44,7 +44,7 @@ public interface StCrawlerWebsiteMapper extends BaseMapper<StCrawlerWebsite> {
      * 根据网站id设置网站为无效
      *
      * @param websiteId: 网站id
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/8/22 17:21
      */

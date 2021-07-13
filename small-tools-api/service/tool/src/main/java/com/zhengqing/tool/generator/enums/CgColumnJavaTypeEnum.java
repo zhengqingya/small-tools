@@ -42,7 +42,7 @@ public enum CgColumnJavaTypeEnum {
      * 根据数据库字段类型匹配java字段类型
      *
      * @param columnTypeDb: 数据库字段类型
-     * @return: 枚举信息
+     * @return 枚举信息
      * @author zhengqingya
      * @date 2020/11/15 22:09
      */

@@ -23,7 +23,7 @@ public interface ISysPermissionService {
      *
      * @param cacheType: 缓存类型
      * @param userId:    用户id
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2021/1/13 21:21
      */
@@ -33,7 +33,7 @@ public interface ISysPermissionService {
      * 获取菜单树
      *
      * @param systemSource: 系统来源
-     * @return: 菜单树信息
+     * @return 菜单树信息
      * @author zhengqingya
      * @date 2021/1/13 20:44
      */
@@ -44,7 +44,7 @@ public interface ISysPermissionService {
      *
      * @param userId:       用户id
      * @param systemSource: 系统来源
-     * @return: 权限信息
+     * @return 权限信息
      * @author zhengqingya
      * @date 2021/1/13 21:21
      */
@@ -55,7 +55,7 @@ public interface ISysPermissionService {
      *
      * @param userId:       用户id
      * @param systemSource: 系统来源
-     * @return: 用户信息
+     * @return 用户信息
      * @author zhengqingya
      * @date 2020/8/30 15:31
      */
@@ -65,7 +65,7 @@ public interface ISysPermissionService {
      * 获取当前登录人基本信息+角色+权限...
      *
      * @param systemSource: 系统来源
-     * @return: 用户权限信息
+     * @return 用户权限信息
      * @author zhengqingya
      * @date 2020/8/30 15:39
      */

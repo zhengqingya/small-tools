@@ -85,7 +85,7 @@ public class AuthFilter implements GlobalFilter {
      * 安全认证
      *
      * @param requestUrl: 请求url
-     * @return: boolean
+     * @return boolean
      * @author zhengqingya
      * @date 2021/1/13 13:49
      */
@@ -107,7 +107,7 @@ public class AuthFilter implements GlobalFilter {
      *
      * @param response: 响应
      * @param msg:      响应消息
-     * @return: reactor.core.publisher.Mono<java.lang.Void>
+     * @return reactor.core.publisher.Mono<java.lang.Void>
      * @author zhengqingya
      * @date 2021/1/13 14:23
      */

@@ -28,7 +28,7 @@ public class RedisKeyExpirationListener extends KeyExpirationEventMessageListene
      *
      * @param message: message.toString()获取失效事件key
      * @param pattern:
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/11/13 14:12
      */

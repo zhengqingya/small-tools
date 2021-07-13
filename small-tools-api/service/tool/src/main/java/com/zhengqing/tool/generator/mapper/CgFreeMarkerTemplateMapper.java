@@ -25,7 +25,7 @@ public interface CgFreeMarkerTemplateMapper extends BaseMapper<CgFreeMarkerTempl
      *
      * @param page:   分页数据
      * @param filter: 查询过滤参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2020-11-02 19:23:15
      */
@@ -35,7 +35,7 @@ public interface CgFreeMarkerTemplateMapper extends BaseMapper<CgFreeMarkerTempl
      * 列表
      *
      * @param filter: 查询过滤参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2020-11-02 19:23:15
      */

@@ -58,7 +58,7 @@ public class StOtherAnonymityServiceImpl extends ServiceImpl<StOtherAnonymityMap
      * 处理数据
      *
      * @param list: 数据
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020-10-25 13:27:16
      */

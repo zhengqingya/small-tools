@@ -23,7 +23,7 @@ public interface IStDbJdbcService {
      *
      * @param dataSourceId: 数据源id
      * @param dbName:       数据库名称
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/4 15:01
      */
@@ -33,7 +33,7 @@ public interface IStDbJdbcService {
      * 根据数据源id查询所有数据库信息
      *
      * @param dataSourceId: 数据源id
-     * @return: 所有数据库名列表
+     * @return 所有数据库名列表
      * @author zhengqingya
      * @date 2020/9/4 14:07
      */
@@ -45,7 +45,7 @@ public interface IStDbJdbcService {
      * @param dataSourceId: 数据源id
      * @param dbName:       数据库名
      * @param tableName:    表名
-     * @return: 所有表名列表
+     * @return 所有表名列表
      * @author zhengqingya
      * @date 2020/9/6 3:21
      */
@@ -57,7 +57,7 @@ public interface IStDbJdbcService {
      * @param dataSourceId: 数据源id
      * @param dbName:       数据库名
      * @param tableName:    表名
-     * @return: 表字段列表
+     * @return 表字段列表
      * @author zhengqingya
      * @date 2020/9/6 13:21
      */
@@ -68,7 +68,7 @@ public interface IStDbJdbcService {
      * 根据数据源id+库名+表名更新具体表字段信息
      *
      * @param params: 保存参数
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/6 20:01
      */
@@ -79,7 +79,7 @@ public interface IStDbJdbcService {
      *
      * @param dataSourceId: 数据源id
      * @param dbName:       数据库名
-     * @return: word下载地址
+     * @return word下载地址
      * @author zhengqingya
      * @date 2020/9/8 16:40
      */

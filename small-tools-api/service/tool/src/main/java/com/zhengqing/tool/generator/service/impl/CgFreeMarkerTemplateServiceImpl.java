@@ -66,7 +66,7 @@ public class CgFreeMarkerTemplateServiceImpl extends ServiceImpl<CgFreeMarkerTem
      * 处理数据
      *
      * @param list: 数据
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020-11-02 19:23:15
      */

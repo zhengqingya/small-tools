@@ -37,7 +37,7 @@ public enum StCrawlerExportDataTypeEnum {
      * 根据指定的数据类型查找相应枚举类
      *
      * @param dataType: 数据类型
-     * @return: com.zhengqing.modules.basic.enums.EnumDictType
+     * @return com.zhengqing.modules.basic.enums.EnumDictType
      * @author zhengqingya
      * @date 2020/8/30 2:56
      */

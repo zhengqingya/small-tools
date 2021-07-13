@@ -28,7 +28,7 @@ public interface ISysOauthService extends IService<SysOauth> {
      *
      * @param oauthType: 授权数据类型
      * @param response:  响应数据
-     * @return: 重定向url
+     * @return 重定向url
      * @author zhengqingya
      * @date 2020/11/27 17:37
      */
@@ -40,7 +40,7 @@ public interface ISysOauthService extends IService<SysOauth> {
      * @param oauthType: 授权数据类型
      * @param callback:  回调信息
      * @param response:  响应
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/11/27 17:39
      */
@@ -52,7 +52,7 @@ public interface ISysOauthService extends IService<SysOauth> {
      * @param oauthType: 授权数据类型
      * @param callback:  回调信息
      * @param response:  响应
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/12/6 18:44
      */
@@ -62,7 +62,7 @@ public interface ISysOauthService extends IService<SysOauth> {
      * 新增或更新
      *
      * @param params: 授权用户信息
-     * @return: 授权id
+     * @return 授权id
      * @author zhengqingya
      * @date 2020/11/28 22:14
      */
@@ -72,7 +72,7 @@ public interface ISysOauthService extends IService<SysOauth> {
      * 列表
      *
      * @param params: 查询参数
-     * @return: 列表数据
+     * @return 列表数据
      * @author zhengqingya
      * @date 2020/12/6 13:59
      */
@@ -82,7 +82,7 @@ public interface ISysOauthService extends IService<SysOauth> {
      * 获取指定用户的三方账号绑定数据信息
      *
      * @param userId: 用户id
-     * @return: 三方账号绑定数据信息
+     * @return 三方账号绑定数据信息
      * @author zhengqingya
      * @date 2020/12/6 13:54
      */
@@ -92,7 +92,7 @@ public interface ISysOauthService extends IService<SysOauth> {
      * 解除绑定
      *
      * @param params: 提交参数
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/12/6 14:55
      */

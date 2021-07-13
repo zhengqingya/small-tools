@@ -20,7 +20,7 @@ public interface SysDictTypeMapper extends BaseMapper<SysDictType> {
     /**
      * 查询已启用的数据字典类型列表信息
      *
-     * @return: 数据字典类型列表信息
+     * @return 数据字典类型列表信息
      * @author zhengqingya
      * @date 2020/9/12 18:51
      */

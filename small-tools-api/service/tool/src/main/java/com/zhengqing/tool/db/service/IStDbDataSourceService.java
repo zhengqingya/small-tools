@@ -47,7 +47,7 @@ public interface IStDbDataSourceService extends IService<StDbDataSource> {
      * 详情
      *
      * @param id:
-     * @return: com.zhengqing.modules.smalltools.db.model.vo.StDbDataSourceVO
+     * @return com.zhengqing.modules.smalltools.db.model.vo.StDbDataSourceVO
      * @author zhengqingya
      * @date 2020/9/4 13:59
      */

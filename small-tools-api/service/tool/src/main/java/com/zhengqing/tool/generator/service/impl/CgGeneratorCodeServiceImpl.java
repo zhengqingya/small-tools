@@ -193,7 +193,7 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
      * @param packageNameInfoMap: 包信息
      * @param parentPackageName:  父包名+模块名
      * @param queryColumnList:    可检索字段信息
-     * @return: 模板数据
+     * @return 模板数据
      * @author zhengqingya
      * @date 2020/11/15 21:42
      */
@@ -277,7 +277,7 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
      * @param templateDataMap:      模板数据
      * @param projectId:            项目id
      * @param ifTestTemplateData:   是否为测试模板生成数据
-     * @return: 如果为测试模板生成数据则返回模板内容，不再生成文件
+     * @return 如果为测试模板生成数据则返回模板内容，不再生成文件
      * @author zhengqingya
      * @date 2020/11/15 21:05
      */

@@ -92,7 +92,7 @@ public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRo
      *
      * @param roleId:                   角色id
      * @param menuAndBtnPermissionTree: 权限树信息
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/14 11:24
      */

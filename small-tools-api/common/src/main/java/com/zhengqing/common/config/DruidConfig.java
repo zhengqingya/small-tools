@@ -39,7 +39,7 @@ public class DruidConfig {
     /**
      * 配置Druid监控
      *
-     * @return: org.springframework.boot.web.servlet.ServletRegistrationBean
+     * @return org.springframework.boot.web.servlet.ServletRegistrationBean
      */
     @Bean
     public ServletRegistrationBean druidServlet() {
@@ -61,7 +61,7 @@ public class DruidConfig {
     /**
      * 配置web监控的filter
      *
-     * @return: org.springframework.boot.web.servlet.FilterRegistrationBean
+     * @return org.springframework.boot.web.servlet.FilterRegistrationBean
      */
     @Bean
     public FilterRegistrationBean webStatFilter() {
@@ -83,7 +83,7 @@ public class DruidConfig {
     /**
      * 配置数据源 【 将所有前缀为spring.datasource下的配置项都加载到DataSource中 】
      *
-     * @return: javax.sql.DataSource
+     * @return javax.sql.DataSource
      */
     @Bean(name = "dataSource")
     @ConfigurationProperties(prefix = "spring.datasource.dynamic.datasource.master")
@@ -100,7 +100,7 @@ public class DruidConfig {
     /**
      * 配置事物管理器
      *
-     * @return: org.springframework.jdbc.datasource.DataSourceTransactionManager
+     * @return org.springframework.jdbc.datasource.DataSourceTransactionManager
      */
     @Bean(name = "transactionManager")
     public DataSourceTransactionManager transactionManager() {
@@ -115,7 +115,7 @@ public class DruidConfig {
     /**
      * ↓↓↓↓↓↓ 配置spring监控 ↓↓↓↓↓↓ DruidStatInterceptor: druid提供的拦截器
      *
-     * @return: com.alibaba.druid.support.spring.stat.DruidStatInterceptor
+     * @return com.alibaba.druid.support.spring.stat.DruidStatInterceptor
      */
     @Bean
     public DruidStatInterceptor druidStatInterceptor() {
@@ -126,7 +126,7 @@ public class DruidConfig {
     /**
      * 使用正则表达式配置切点
      *
-     * @return: org.springframework.aop.support.JdkRegexpMethodPointcut
+     * @return org.springframework.aop.support.JdkRegexpMethodPointcut
      */
     @Bean
     @Scope("prototype")
@@ -141,7 +141,7 @@ public class DruidConfig {
      *
      * @param druidStatInterceptor:
      * @param druidStatPointcut:
-     * @return: org.springframework.aop.support.DefaultPointcutAdvisor
+     * @return org.springframework.aop.support.DefaultPointcutAdvisor
      */
     @Bean
     public DefaultPointcutAdvisor druidStatAdvisor(DruidStatInterceptor druidStatInterceptor,

@@ -275,7 +275,7 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
      * @param articleInfoList:
      * @param fileFullPath:
      * @param csdnBlogExportExcelFilePath:
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/5 21:30
      */

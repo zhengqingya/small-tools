@@ -33,7 +33,7 @@ public interface ISystemClient extends IBaseClient {
      * 通过类型code获取数据字典列表数据 - 从缓存中取数据（只有启用的数据）
      *
      * @param code: 类型编码
-     * @return: 数据字典列表数据
+     * @return 数据字典列表数据
      * @author zhengqingya
      * @date 2020/9/12 17:38
      */

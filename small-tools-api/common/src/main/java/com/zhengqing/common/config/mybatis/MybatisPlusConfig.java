@@ -49,7 +49,7 @@ public class MybatisPlusConfig {
      * sql 日志
      *
      * @param :
-     * @return: com.zhengqing.config.mybatis.plugins.SqlLogInterceptor
+     * @return com.zhengqing.config.mybatis.plugins.SqlLogInterceptor
      */
     @Bean
     @ConditionalOnProperty(value = "on-off.mybatis-plus-sql-log", havingValue = "true")

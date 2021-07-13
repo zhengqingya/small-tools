@@ -42,7 +42,7 @@ public class NoRepeatSubmitAop {
      *
      * @param pjp：切入点对象
      * @param noRepeatSubmit:自定义的注解对象
-     * @return: java.lang.Object
+     * @return java.lang.Object
      */
     @SneakyThrows
     @Around("( execution(* com.zhengqing.*.api.*Controller.*(..)) || execution(* com.zhengqing..*.api.*Controller.*(..)) ) && @annotation(noRepeatSubmit)")

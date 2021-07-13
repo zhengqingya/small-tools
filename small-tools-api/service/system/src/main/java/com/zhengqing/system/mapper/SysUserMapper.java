@@ -26,7 +26,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      *
      * @param page:
      * @param filter:
-     * @return: 用户信息
+     * @return 用户信息
      * @author zhengqingya
      * @date 2020/9/10 10:28
      */
@@ -36,7 +36,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * 列表
      *
      * @param filter:
-     * @return: 用户信息
+     * @return 用户信息
      * @author zhengqingya
      * @date 2020/9/10 10:34
      */
@@ -46,7 +46,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * 根据用户id查询用户信息
      *
      * @param userId: 用户id
-     * @return: 用户信息
+     * @return 用户信息
      * @author zhengqingya
      * @date 2020/9/10 10:49
      */
@@ -56,7 +56,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * 根据用户名查询用户信息
      *
      * @param username: 用户名
-     * @return: 用户信息
+     * @return 用户信息
      * @author zhengqingya
      * @date 2020/9/10 13:39
      */
@@ -66,7 +66,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * 根据用户ids批量查询用户信息
      *
      * @param userIdList: 用户ids
-     * @return: 用户信息
+     * @return 用户信息
      * @author zhengqingya
      * @date 2020/9/21 16:18
      */

@@ -82,7 +82,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
      * 处理数据
      *
      * @param list: 数据
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2021/01/13 10:11
      */

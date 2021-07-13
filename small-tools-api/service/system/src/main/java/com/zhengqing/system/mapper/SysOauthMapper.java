@@ -23,7 +23,7 @@ public interface SysOauthMapper extends BaseMapper<SysOauth> {
      * 列表
      *
      * @param filter: 过滤参数
-     * @return: 列表数据
+     * @return 列表数据
      * @author zhengqingya
      * @date 2020/12/6 13:59
      */
@@ -34,7 +34,7 @@ public interface SysOauthMapper extends BaseMapper<SysOauth> {
      *
      * @param oauthType: 授权类型
      * @param openId:    三方id
-     * @return: 授权信息
+     * @return 授权信息
      * @author zhengqingya
      * @date 2020/11/28 22:24
      */

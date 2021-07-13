@@ -36,7 +36,7 @@ public class DateTimeUtil {
      * 将Date日期时间格式转成指定字符串格式 yyyy-MM-dd HH:mm:ss
      *
      * @param date:
-     * @return: java.lang.String
+     * @return java.lang.String
      */
     public static String dateToDateTimeString(Date date) throws ParseException {
         return DateTimeUtil.dateFormat(date, DateTimeUtil.DATE_TIME_PATTERN);

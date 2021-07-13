@@ -22,7 +22,7 @@ public class BaseController {
     /**
      * 获取当前登录人ID
      *
-     * @return: 当前登录人ID
+     * @return 当前登录人ID
      * @author zhengqingya
      * @date 2020/8/30 15:41
      */

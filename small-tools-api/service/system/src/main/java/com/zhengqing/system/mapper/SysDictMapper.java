@@ -24,7 +24,7 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
      *
      * @param code:   数据字典编码
      * @param status: 状态 1：启用 0：禁用
-     * @return: 数据字典列表信息
+     * @return 数据字典列表信息
      * @author zhengqingya
      * @date 2020/9/12 17:58
      */
@@ -34,7 +34,7 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
      * 根据类型id删除数据字典类型下的所有数据字典
      *
      * @param dictTypeId:
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/12 17:41
      */

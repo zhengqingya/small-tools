@@ -24,7 +24,7 @@ public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
      *
      * @param roleId:     角色id
      * @param menuIdList: 菜单ids
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/10 18:08
      */
@@ -34,7 +34,7 @@ public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
      * 根据角色id删除角色对应的所有关联菜单
      *
      * @param roleId: 角色id
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/10 18:08
      */
@@ -45,7 +45,7 @@ public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
      * 获取角色id可访问的菜单ids
      *
      * @param roleId: 角色id
-     * @return: 可访问的菜单ids
+     * @return 可访问的菜单ids
      * @author zhengqingya
      * @date 2020/9/10 18:09
      */
@@ -56,7 +56,7 @@ public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
      * 获取角色ids可访问的菜单ids
      *
      * @param roleIdList: 角色ids
-     * @return: 可访问的菜单ids
+     * @return 可访问的菜单ids
      * @author zhengqingya
      * @date 2020/9/10 18:09
      */

@@ -59,7 +59,7 @@ public class QiniuFileUtil implements InitializingBean {
      *
      * @param file:     文件
      * @param fileName: 文件名
-     * @return: 成功则返回下载地址url
+     * @return 成功则返回下载地址url
      */
     @SneakyThrows(Exception.class)
     public String uploadFile(MultipartFile file, String fileName) {
@@ -81,7 +81,7 @@ public class QiniuFileUtil implements InitializingBean {
      *
      * @param file:     文件
      * @param fileName: 文件名
-     * @return: 成功则返回下载地址url
+     * @return 成功则返回下载地址url
      */
     @SneakyThrows(Exception.class)
     public String uploadFile(File file, String fileName) {
@@ -107,7 +107,7 @@ public class QiniuFileUtil implements InitializingBean {
      *
      * @param inputStream: 流
      * @param fileName:    文件名
-     * @return: 成功则返回下载地址url
+     * @return 成功则返回下载地址url
      */
     @SneakyThrows(Exception.class)
     public String uploadFile(InputStream inputStream, String fileName) {
@@ -129,7 +129,7 @@ public class QiniuFileUtil implements InitializingBean {
      *
      * @param fileName:        文件名
      * @param expireInSeconds: 过期时间(默认1小时)
-     * @return: 返回下载地址url
+     * @return 返回下载地址url
      * @author zhengqingya
      * @date 2020/10/25 18:37
      */
@@ -149,7 +149,7 @@ public class QiniuFileUtil implements InitializingBean {
      * 删除文件
      *
      * @param key: 即上传文件时的fileName
-     * @return: 操作结果
+     * @return 操作结果
      */
     public String delete(String key) {
         try {

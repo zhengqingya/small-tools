@@ -47,7 +47,7 @@ public class RestTemplateUtil {
      *
      * @param url:    请求地址
      * @param params: 请求参数
-     * @return: 响应数据
+     * @return 响应数据
      * @author zhengqingya
      * @date 2020/7/7 14:22
      */
@@ -77,7 +77,7 @@ public class RestTemplateUtil {
      *
      * @param url:    请求地址
      * @param params: 请求参数
-     * @return: 响应数据
+     * @return 响应数据
      * @author zhengqingya
      * @date 2020/7/7 14:30
      */
@@ -92,7 +92,7 @@ public class RestTemplateUtil {
      *
      * @param uploadUrl: 上传文件url
      * @param file:      文件信息
-     * @return: 响应数据
+     * @return 响应数据
      * @author zhengqingya
      * @date 2020/12/2 10:24
      */

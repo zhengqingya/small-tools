@@ -29,7 +29,7 @@ public class MyFileUtil {
      * @param zipPath:        打包后的路径+文件后缀名
      * @param isWithSrcDir:   是否带目录显示 （true:表示带目录显示）
      * @param isDeleteSrcZip: 是否删除源目录
-     * @return: java.lang.String
+     * @return java.lang.String
      * @author zhengqingya
      * @date 2020/8/27 19:25
      */
@@ -47,7 +47,7 @@ public class MyFileUtil {
      * 根据路径删除指定的目录或文件，无论存在与否
      *
      * @param fullFileOrDirPath: 要删除的目录或文件
-     * @return: 删除成功返回 true，否则返回 false
+     * @return 删除成功返回 true，否则返回 false
      * @author zhengqingya
      * @date 2020/9/5 20:56
      */
@@ -59,7 +59,7 @@ public class MyFileUtil {
      * 根据路径创建文件
      *
      * @param fullFilePath: 文件生成路径
-     * @return: 文件信息
+     * @return 文件信息
      * @author zhengqingya
      * @date 2020/9/8 21:41
      */
@@ -74,7 +74,7 @@ public class MyFileUtil {
      * @param zipFilePath: zip文件路径
      * @param outFileDir:  解压后的目录路径
      * @param isDeleteZip: 是否删除源zip文件
-     * @return: 解压后的文件File信息
+     * @return 解压后的文件File信息
      * @author zhengqingya
      * @date 2020/9/5 20:50
      */
@@ -98,7 +98,7 @@ public class MyFileUtil {
      * 读取文件内容
      *
      * @param file: 文件数据
-     * @return: 文件内容
+     * @return 文件内容
      * @author zhengqingya
      * @date 2020/9/5 23:00
      */
@@ -110,7 +110,7 @@ public class MyFileUtil {
      * 读取文件内容
      *
      * @param filePath: 文件路径
-     * @return: 文件内容
+     * @return 文件内容
      * @author zhengqingya
      * @date 2020/9/5 23:00
      */
@@ -122,7 +122,7 @@ public class MyFileUtil {
      * 读取文件数据
      *
      * @param filePath: 文件路径
-     * @return: 文件字节码
+     * @return 文件字节码
      * @author zhengqingya
      * @date 2020/9/5 23:00
      */
@@ -135,7 +135,7 @@ public class MyFileUtil {
      *
      * @param fileContent: 文件内容
      * @param filePath:    文件路径
-     * @return: 文件信息
+     * @return 文件信息
      * @author zhengqingya
      * @date 2020/11/17 21:38
      */
@@ -149,7 +149,7 @@ public class MyFileUtil {
      *
      * @param data:     字节码
      * @param filePath: 文件路径
-     * @return: 文件信息
+     * @return 文件信息
      * @author zhengqingya
      * @date 2020/11/24 14:36
      */

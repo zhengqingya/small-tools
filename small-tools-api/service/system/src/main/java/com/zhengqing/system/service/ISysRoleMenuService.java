@@ -22,7 +22,7 @@ public interface ISysRoleMenuService extends IService<SysRoleMenu> {
      * 获取角色id可访问的菜单ids
      *
      * @param roleId: 角色id
-     * @return: 可访问的菜单ids
+     * @return 可访问的菜单ids
      * @author zhengqingya
      * @date 2020/9/10 18:09
      */
@@ -32,7 +32,7 @@ public interface ISysRoleMenuService extends IService<SysRoleMenu> {
      * 获取角色ids可访问的菜单ids
      *
      * @param roleIdList: 角色ids
-     * @return: 可访问的菜单ids
+     * @return 可访问的菜单ids
      * @author zhengqingya
      * @date 2020/9/10 18:09
      */
@@ -42,7 +42,7 @@ public interface ISysRoleMenuService extends IService<SysRoleMenu> {
      * 保存角色关联菜单ids
      *
      * @param params: 提交参数
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/14 11:15
      */
@@ -52,7 +52,7 @@ public interface ISysRoleMenuService extends IService<SysRoleMenu> {
      * 保存角色权限（菜单权限+按钮权限）
      *
      * @param params: 提交参数
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/10 15:01
      */
@@ -62,7 +62,7 @@ public interface ISysRoleMenuService extends IService<SysRoleMenu> {
      * 根据角色id删除角色对应的所有关联菜单
      *
      * @param roleId: 角色id
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/10 18:08
      */

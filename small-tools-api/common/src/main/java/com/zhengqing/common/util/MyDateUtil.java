@@ -30,7 +30,7 @@ public class MyDateUtil {
     /**
      * 获取当前时间的字符串格式时间
      *
-     * @return: 字符串格式时间
+     * @return 字符串格式时间
      * @author zhengqingya
      * @date 2020/8/22 13:07
      */
@@ -42,7 +42,7 @@ public class MyDateUtil {
      * 获取当前时间字符串的指定格式时间
      *
      * @param format: 时间格式
-     * @return: 字符串格式时间
+     * @return 字符串格式时间
      * @author zhengqingya
      * @date 2020/8/22 13:07
      */
@@ -55,7 +55,7 @@ public class MyDateUtil {
      *
      * @param date:   时间
      * @param format: 时间格式
-     * @return: 字符串时间类型
+     * @return 字符串时间类型
      * @author zhengqingya
      * @date 2020/8/22 13:07
      */
@@ -68,7 +68,7 @@ public class MyDateUtil {
      *
      * @param dateStr: 字符串时间
      * @param format:  时间格式
-     * @return: Date时间类型
+     * @return Date时间类型
      * @author zhengqingya
      * @date 2020/8/22 13:07
      */
@@ -91,7 +91,7 @@ public class MyDateUtil {
      * @param startTime: 开始时间
      * @param endTime:   结束时间
      * @param format:    时间格式
-     * @return: 判断结果
+     * @return 判断结果
      * @author zhengqingya
      * @date 2020/8/22 13:21
      */

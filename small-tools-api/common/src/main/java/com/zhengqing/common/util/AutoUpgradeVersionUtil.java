@@ -19,7 +19,7 @@ public class AutoUpgradeVersionUtil {
      * 自动自增版本号 ex:0.0.1 -> 0.0.2
      *
      * @param version: 版本号
-     * @return: 自增后的版本号
+     * @return 自增后的版本号
      * @author zhengqingya
      * @date 2020/10/13 14:13
      */

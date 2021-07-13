@@ -106,7 +106,7 @@ public class FieldRepeatValidatorUtil {
     /**
      * 校验数据
      *
-     * @return: boolean
+     * @return boolean
      */
     public boolean fieldRepeat() {
         // 4、 校验字段内容是否重复

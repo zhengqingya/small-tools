@@ -75,7 +75,7 @@ public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
     /**
      * 将前端请求的表单数据转换成json字符串
      *
-     * @return: java.lang.String
+     * @return java.lang.String
      */
     public String getBodyJsonStrByForm() {
         Map<String, Object> bodyMap = new HashMap<>(16);
@@ -97,7 +97,7 @@ public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
     /**
      * 将前端传递的json数据转换成json字符串
      *
-     * @return: java.lang.String
+     * @return java.lang.String
      */
     public String getBodyJsonStrByJson() {
         StringBuilder json = new StringBuilder();

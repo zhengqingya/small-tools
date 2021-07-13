@@ -166,7 +166,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
      *
      * @param oauthType: 授权数据类型
      * @param callback:  回调信息
-     * @return: 回调响应map数据
+     * @return 回调响应map数据
      * @author zhengqingya
      * @date 2020/12/6 18:48
      */
@@ -205,7 +205,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
      * 处理授权数据
      *
      * @param params:
-     * @return: java.lang.Integer
+     * @return java.lang.Integer
      * @author zhengqingya
      * @date 2020/12/6 19:03
      */

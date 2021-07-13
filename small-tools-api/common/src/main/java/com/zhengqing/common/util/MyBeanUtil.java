@@ -33,7 +33,7 @@ public class MyBeanUtil {
      *
      * @param source: 源对象
      * @param target: 目标对象
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/5 23:22
      */
@@ -89,7 +89,7 @@ public class MyBeanUtil {
      * @param tList:        list对象数据
      * @param field:        要获取指定字段属性值对应的字段名
      * @param isSuperfield: true：父类 false：子类
-     * @return: java.util.List<?>
+     * @return java.util.List<?>
      */
     public static <T> List<?> getFieldList(List<T> tList, String field, Boolean isSuperfield) {
         if (StringUtils.isBlank(field)) {
@@ -126,7 +126,7 @@ public class MyBeanUtil {
      *
      * @param tList: list对象数据
      * @param field: 要获取指定字段属性值对应的字段名
-     * @return: java.util.List<?>
+     * @return java.util.List<?>
      */
     public static <T> List<?> getFieldList(List<Map<String, Object>> tList, String field) {
         if (StringUtils.isBlank(field)) {
@@ -144,7 +144,7 @@ public class MyBeanUtil {
      *
      * @param map:
      * @param clz:
-     * @return: T
+     * @return T
      * @author zhengqingya
      * @date 2020/11/27 18:39
      */
@@ -156,7 +156,7 @@ public class MyBeanUtil {
      * 对象 转 map （通过反射获取类里面的值和名称）
      *
      * @param obj: 对象
-     * @return: map
+     * @return map
      * @author zhengqingya
      * @date 2021/1/26 16:09
      */

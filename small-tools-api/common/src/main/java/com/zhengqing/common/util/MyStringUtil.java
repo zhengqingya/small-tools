@@ -70,7 +70,7 @@ public class MyStringUtil {
      * 数据库表名/表字段 转 首字母小写驼峰命名 ex:test_data -> testData
      *
      * @param dbStr: 数据库表名/表字段
-     * @return: 驼峰命名字符串
+     * @return 驼峰命名字符串
      * @author zhengqingya
      * @date 2020/11/15 17:38
      */
@@ -83,7 +83,7 @@ public class MyStringUtil {
      * 数据库表名/表字段 转 首字母大写驼峰命名 ex:test_data -> TestData
      *
      * @param dbStr: 数据库表名/表字段
-     * @return: 驼峰命名字符串
+     * @return 驼峰命名字符串
      * @author zhengqingya
      * @date 2020/11/15 17:38
      */
@@ -96,7 +96,7 @@ public class MyStringUtil {
      * 获取表名缩写
      *
      * @param tableName: 表名
-     * @return: 缩写
+     * @return 缩写
      * @author zhengqingya
      * @date 2020/12/12 15:29
      */

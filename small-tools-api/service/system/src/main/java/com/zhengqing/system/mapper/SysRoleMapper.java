@@ -25,7 +25,7 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      *
      * @param page:
      * @param filter: 过滤参数
-     * @return: 角色信息
+     * @return 角色信息
      * @author zhengqingya
      * @date 2020/9/10 18:07
      */
@@ -38,7 +38,7 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      * 列表
      *
      * @param filter: 过滤参数
-     * @return: 角色信息
+     * @return 角色信息
      * @author zhengqingya
      * @date 2020/9/10 18:08
      */

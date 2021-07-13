@@ -38,7 +38,7 @@ public enum SysDictTypeEnum {
      * 根据指定的数据字典编码查找相应枚举类
      *
      * @param code: 数据字典编码
-     * @return: 数据字典枚举信息
+     * @return 数据字典枚举信息
      * @author zhengqingya
      * @date 2020/8/30 2:56
      */

@@ -30,7 +30,7 @@ public class TableToWordUtil {
      * @param tableInfoList：该数据库下所有表+字段信息
      * @param filePath：生成文件地址
      * @param title:文件内容标题
-     * @return: void
+     * @return void
      */
     public static void toWord(List<StDbTableColumnBO> tableInfoList, String filePath, String title) {
         log.debug("生成word文档地址：【{}】", filePath);

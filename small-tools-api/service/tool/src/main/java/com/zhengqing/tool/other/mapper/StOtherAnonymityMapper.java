@@ -25,7 +25,7 @@ public interface StOtherAnonymityMapper extends BaseMapper<StOtherAnonymity> {
      *
      * @param page:   分页数据
      * @param filter: 查询过滤参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2020-10-25 13:27:16
      */
@@ -35,7 +35,7 @@ public interface StOtherAnonymityMapper extends BaseMapper<StOtherAnonymity> {
      * 列表
      *
      * @param filter: 查询过滤参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2020-10-25 13:27:16
      */

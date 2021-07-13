@@ -25,7 +25,7 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
      *
      * @param page:
      * @param filter: 过滤参数
-     * @return: 菜单信息
+     * @return 菜单信息
      * @author zhengqingya
      * @date 2020/9/10 20:29
      */
@@ -35,7 +35,7 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
      * 列表
      *
      * @param filter: 过滤参数
-     * @return: 菜单信息
+     * @return 菜单信息
      * @author zhengqingya
      * @date 2020/9/10 20:29
      */
@@ -45,7 +45,7 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
      * 获取所有菜单 - 仅菜单树使用
      *
      * @param systemSource: 系统来源
-     * @return: 菜单信息
+     * @return 菜单信息
      * @author zhengqingya
      * @date 2020/9/10 20:30
      */

@@ -91,7 +91,7 @@ public class RequestPostSingleParamMethodArgumentResolver implements HandlerMeth
      * 获取请求body
      *
      * @param servletRequest: request
-     * @return: 请求body
+     * @return 请求body
      */
     private String getRequestBody(HttpServletRequest servletRequest) {
         StringBuilder stringBuilder = new StringBuilder();

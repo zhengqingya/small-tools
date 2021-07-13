@@ -96,7 +96,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     /**
      * 菜单权限
      *
-     * @return: 菜单树列表
+     * @return 菜单树列表
      */
     @Override
     public List<SysMenuTreeVO> menuTree(Integer systemSource) {
@@ -125,7 +125,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      *
      * @param parentMenuId: 父菜单id
      * @param allMenuList:  所有菜单
-     * @return: 菜单树列表
+     * @return 菜单树列表
      * @author zhengqingya
      * @date 2020/9/10 20:56
      */
@@ -184,7 +184,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      *
      * @param sysRoleList: 角色信息
      * @param roleIdList:  角色ids
-     * @return: 权限信息
+     * @return 权限信息
      */
     private SysPermissionVO getRoleAndMenuInfo(List<SysRole> sysRoleList, List<Integer> roleIdList) {
         StringBuilder roleNames = new StringBuilder();
@@ -218,7 +218,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      * @param menuIdList:   菜单权限ids
      * @param roleIdList:   角色权限ids
      * @param systemSource: 系统来源
-     * @return: 带权限的菜单树
+     * @return 带权限的菜单树
      * @author zhengqingya
      * @date 2020/9/11 14:32
      */
@@ -242,7 +242,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      * @param menuIdList:   用户所拥有的菜单权限ids
      * @param roleIdList:   用户所拥有的角色ids
      * @param btnList:      用户所拥有的菜单按钮权限
-     * @return: 过滤后的用户关联的权限菜单树
+     * @return 过滤后的用户关联的权限菜单树
      * @author zhengqingya
      * @date 2020/9/11 14:34
      */
@@ -275,7 +275,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      * @param menuId:     菜单id
      * @param roleIdList: 用户所拥有的角色ids
      * @param btnList:    按钮权限
-     * @return: 按钮权限
+     * @return 按钮权限
      * @author zhengqingya
      * @date 2020/9/11 14:36
      */

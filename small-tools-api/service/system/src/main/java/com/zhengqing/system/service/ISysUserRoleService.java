@@ -19,7 +19,7 @@ public interface ISysUserRoleService extends IService<SysUserRole> {
      * 新增或更新
      *
      * @param params: 提交参数
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/10 14:29
      */

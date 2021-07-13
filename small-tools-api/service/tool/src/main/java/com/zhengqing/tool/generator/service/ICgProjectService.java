@@ -23,7 +23,7 @@ public interface ICgProjectService extends IService<CgProject> {
      * 列表分页
      *
      * @param params: 查询参数
-     * @return: 分页列表
+     * @return 分页列表
      * @author zhengqingya
      * @date 2020/11/15 13:17
      */
@@ -33,7 +33,7 @@ public interface ICgProjectService extends IService<CgProject> {
      * 列表
      *
      * @param params: 查询参数
-     * @return: 列表
+     * @return 列表
      * @author zhengqingya
      * @date 2020/11/15 13:17
      */
@@ -43,7 +43,7 @@ public interface ICgProjectService extends IService<CgProject> {
      * 新增或更新数据
      *
      * @param params: 提交参数
-     * @return: 主键
+     * @return 主键
      * @author zhengqingya
      * @date 2020/11/15 14:14
      */
@@ -53,7 +53,7 @@ public interface ICgProjectService extends IService<CgProject> {
      * 根据项目id删除项目以及关联模板等
      *
      * @param projectId: 项目id
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/11/15 13:12
      */
@@ -63,7 +63,7 @@ public interface ICgProjectService extends IService<CgProject> {
      * 根据用户id删除项目以及关联模板等
      *
      * @param userId: 用户id
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/11/15 13:11
      */

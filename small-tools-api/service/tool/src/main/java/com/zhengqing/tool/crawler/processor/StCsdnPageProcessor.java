@@ -50,7 +50,7 @@ public class StCsdnPageProcessor implements PageProcessor {
      * process是定制爬虫逻辑的核心接口，在这里编写抽取逻辑
      *
      * @param page: 页面数据
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/7/1 16:43
      */

@@ -25,7 +25,7 @@ public interface CgProjectReDbMapper extends BaseMapper<CgProjectReDb> {
      *
      * @param page:   分页数据
      * @param filter: 查询过滤参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2020-11-14 13:55:47
      */
@@ -35,7 +35,7 @@ public interface CgProjectReDbMapper extends BaseMapper<CgProjectReDb> {
      * 列表
      *
      * @param filter: 查询过滤参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2020-11-14 13:55:47
      */

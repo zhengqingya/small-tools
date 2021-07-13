@@ -28,7 +28,7 @@ public interface ICgProjectReDbService extends IService<CgProjectReDb> {
      * 列表分页
      *
      * @param params: 查询参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2020-11-14 13:55:47
      */
@@ -38,7 +38,7 @@ public interface ICgProjectReDbService extends IService<CgProjectReDb> {
      * 列表分页
      *
      * @param params: 查询参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2020-11-14 13:55:47
      */
@@ -48,7 +48,7 @@ public interface ICgProjectReDbService extends IService<CgProjectReDb> {
      * 查询表列表信息
      *
      * @param params: 查询参数
-     * @return: 表列表信息
+     * @return 表列表信息
      * @author zhengqingya
      * @date 2020/11/14 22:43
      */
@@ -58,7 +58,7 @@ public interface ICgProjectReDbService extends IService<CgProjectReDb> {
      * 查询表具体信息
      *
      * @param params: 查询参数
-     * @return: 表具体信息
+     * @return 表具体信息
      * @author zhengqingya
      * @date 2020/11/14 22:35
      */
@@ -68,7 +68,7 @@ public interface ICgProjectReDbService extends IService<CgProjectReDb> {
      * 新增或更新
      *
      * @param params: 保存参数
-     * @return: 主键id
+     * @return 主键id
      * @author zhengqingya
      * @date 2020-11-14 13:55:47
      */

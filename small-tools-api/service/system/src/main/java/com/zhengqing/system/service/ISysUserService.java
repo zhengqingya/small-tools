@@ -27,7 +27,7 @@ public interface ISysUserService extends IService<SysUser> {
      * 列表分页
      *
      * @param params: 查询参数
-     * @return: 用戶信息
+     * @return 用戶信息
      * @author zhengqingya
      * @date 2020/9/10 10:11
      */
@@ -37,7 +37,7 @@ public interface ISysUserService extends IService<SysUser> {
      * 列表
      *
      * @param params: 查询参数
-     * @return: 用戶信息
+     * @return 用戶信息
      * @author zhengqingya
      * @date 2020/9/10 10:11
      */
@@ -47,7 +47,7 @@ public interface ISysUserService extends IService<SysUser> {
      * 新增或更新
      *
      * @param params: 提交参数
-     * @return: 用户id
+     * @return 用户id
      * @author zhengqingya
      * @date 2020/9/10 10:12
      */
@@ -57,7 +57,7 @@ public interface ISysUserService extends IService<SysUser> {
      * 删除用户
      *
      * @param userId: 用户id
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/10 13:49
      */
@@ -67,7 +67,7 @@ public interface ISysUserService extends IService<SysUser> {
      * 修改用户密码
      *
      * @param params: 提交参数
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/10 11:03
      */
@@ -77,7 +77,7 @@ public interface ISysUserService extends IService<SysUser> {
      * 重置用户密码
      *
      * @param userId:
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/10 11:03
      */
@@ -87,7 +87,7 @@ public interface ISysUserService extends IService<SysUser> {
      * 登录
      *
      * @param params: 登录参数
-     * @return: token
+     * @return token
      * @author zhengqingya
      * @date 2021/1/1 23:59
      */
@@ -97,7 +97,7 @@ public interface ISysUserService extends IService<SysUser> {
      * 根据用户id查询用户信息
      *
      * @param userId: 用户id
-     * @return: 用户信息
+     * @return 用户信息
      * @author zhengqingya
      * @date 2020/9/10 10:53
      */
@@ -107,7 +107,7 @@ public interface ISysUserService extends IService<SysUser> {
      * 根据用户名查询用户信息
      *
      * @param username: 用户名
-     * @return: 用户信息
+     * @return 用户信息
      * @author zhengqingya
      * @date 2020/9/10 13:48
      */
@@ -117,7 +117,7 @@ public interface ISysUserService extends IService<SysUser> {
      * 根据用户ids批量查询用户信息
      *
      * @param userIdList: 用户ids
-     * @return: 用户信息
+     * @return 用户信息
      * @author zhengqingya
      * @date 2020/9/21 16:18
      */

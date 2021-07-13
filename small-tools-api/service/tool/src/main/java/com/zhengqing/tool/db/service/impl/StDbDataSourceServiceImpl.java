@@ -55,7 +55,7 @@ public class StDbDataSourceServiceImpl extends ServiceImpl<StDbDataSourceMapper,
      * 处理数据
      *
      * @param list: 数据
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/2 15:22
      */

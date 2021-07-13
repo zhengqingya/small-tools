@@ -186,7 +186,7 @@ public class SqlLogInterceptor implements Interceptor {
      * 匹配sql
      *
      * @param sql:
-     * @return: java.lang.String
+     * @return java.lang.String
      * @author zhengqingya
      * @date 2020/12/2 17:14
      */

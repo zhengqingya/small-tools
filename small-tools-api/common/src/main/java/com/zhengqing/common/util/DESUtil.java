@@ -49,7 +49,7 @@ public class DESUtil {
      * 获取秘密密钥
      *
      * @param secretKey:
-     * @return: javax.crypto.SecretKey
+     * @return javax.crypto.SecretKey
      */
     private static SecretKey generateKey(String secretKey) {
         try {

@@ -25,7 +25,7 @@ public interface DemoMapper extends BaseMapper<Demo> {
      *
      * @param page:   分页数据
      * @param filter: 查询过滤参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2021/01/13 10:11
      */
@@ -35,7 +35,7 @@ public interface DemoMapper extends BaseMapper<Demo> {
      * 列表
      *
      * @param filter: 查询过滤参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2021/01/13 10:11
      */

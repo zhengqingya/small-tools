@@ -23,7 +23,7 @@ public interface MyBaseMapper<T> extends BaseMapper<T> {
      *
      * @param tableName: 表名
      * @param columnMap: 查询校验字段组值
-     * @return: 总记录数
+     * @return 总记录数
      * @author zhengqingya
      * @date 2020/8/3 18:41
      */
@@ -38,7 +38,7 @@ public interface MyBaseMapper<T> extends BaseMapper<T> {
      *
      * @param tableName: 表名
      * @param columnMap: 查询校验字段组值
-     * @return: 全部记录
+     * @return 全部记录
      * @author zhengqingya
      * @date 2020/8/3 18:41
      */

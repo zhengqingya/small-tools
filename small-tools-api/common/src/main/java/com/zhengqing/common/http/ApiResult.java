@@ -43,7 +43,7 @@ public class ApiResult<T> {
      *
      * @param msg:
      *            消息内容
-     * @return: com.zhengqing.modules.common.dto.output.ApiResult
+     * @return com.zhengqing.modules.common.dto.output.ApiResult
      */
     public static ApiResult expired(String msg) {
         return new ApiResult(ApiResultCodeEnum.TOKEN_EXPIRED.getCode(), msg, null);
@@ -60,7 +60,7 @@ public class ApiResult<T> {
      *            验证码
      * @param msg:
      *            消息内容
-     * @return: com.zhengqing.modules.common.dto.output.ApiResult
+     * @return com.zhengqing.modules.common.dto.output.ApiResult
      */
     public static ApiResult fail(Integer code, String msg) {
         return new ApiResult(code, msg, null);
@@ -122,7 +122,7 @@ public class ApiResult<T> {
      * @param code：验证码
      * @param msg：返回消息内容
      * @param data：返回数据
-     * @return: com.zhengqing.modules.common.dto.output.ApiResult
+     * @return com.zhengqing.modules.common.dto.output.ApiResult
      */
     public static ApiResult ok(Integer code, String msg, Object data) {
         return new ApiResult(code, msg, data);

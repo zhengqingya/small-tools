@@ -19,7 +19,7 @@ public class AutoUpgradeUtil {
      * 自增编号 ex:0001 -> 0002
      *
      * @param code: 编号
-     * @return: 自增后的编号
+     * @return 自增后的编号
      * @author zhengqingya
      * @date 2020/10/13 14:13
      */

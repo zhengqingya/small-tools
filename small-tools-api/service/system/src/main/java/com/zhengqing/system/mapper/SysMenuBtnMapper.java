@@ -24,7 +24,7 @@ public interface SysMenuBtnMapper extends BaseMapper<SysMenuBtn> {
      * 根据菜单ID查询已经配置的按钮ids
      *
      * @param menuId: 菜单id
-     * @return: 按钮ids
+     * @return 按钮ids
      * @author zhengqingya
      * @date 2020/9/10 21:21
      */
@@ -35,7 +35,7 @@ public interface SysMenuBtnMapper extends BaseMapper<SysMenuBtn> {
      * 根据菜单id删除所属的按钮ids
      *
      * @param menuId: 菜单id
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/10 21:36
      */
@@ -46,7 +46,7 @@ public interface SysMenuBtnMapper extends BaseMapper<SysMenuBtn> {
      * 批量保存菜单按钮ids
      *
      * @param btnIdList: 菜单按钮ids
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/10 21:36
      */
@@ -56,7 +56,7 @@ public interface SysMenuBtnMapper extends BaseMapper<SysMenuBtn> {
      * 通过菜单id查询菜单按钮权限信息
      *
      * @param menuId: 菜单id
-     * @return: 菜单按钮权限信息
+     * @return 菜单按钮权限信息
      * @author zhengqingya
      * @date 2020/9/10 22:18
      */

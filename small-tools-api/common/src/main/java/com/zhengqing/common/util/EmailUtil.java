@@ -46,7 +46,7 @@ public class EmailUtil {
      * @param title：邮件标题
      * @param content：   邮件内容
      * @param sendTo:    收件人
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/8/14 19:28
      */
@@ -75,7 +75,7 @@ public class EmailUtil {
      * @param attachmentFilename：附件文件名
      * @param file：附件
      * @param sendTo:                  收件人
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/8/14 19:28
      */

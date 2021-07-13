@@ -25,7 +25,7 @@ public interface CgProjectTemplateMapper extends BaseMapper<CgProjectTemplate> {
      *
      * @param page:   分页参数
      * @param filter: 过滤参数
-     * @return: 分页列表
+     * @return 分页列表
      * @author zhengqingya
      * @date 2020/11/15 15:28
      */
@@ -35,7 +35,7 @@ public interface CgProjectTemplateMapper extends BaseMapper<CgProjectTemplate> {
      * 列表
      *
      * @param filter: 过滤参数
-     * @return: 列表
+     * @return 列表
      * @author zhengqingya
      * @date 2020/11/15 15:28
      */

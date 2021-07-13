@@ -21,7 +21,7 @@ public interface ISysRoleMenuBtnService extends IService<SysRoleMenuBtn> {
     /**
      * 获取所有角色菜单按钮权限信息
      *
-     * @return: 所有角色关联的菜单按钮信息
+     * @return 所有角色关联的菜单按钮信息
      * @author zhengqingya
      * @date 2020/9/10 17:54
      */
@@ -30,7 +30,7 @@ public interface ISysRoleMenuBtnService extends IService<SysRoleMenuBtn> {
     /**
      * 获取所有角色菜单按钮权限信息
      *
-     * @return: 所有角色关联的菜单按钮信息
+     * @return 所有角色关联的菜单按钮信息
      * @author zhengqingya
      * @date 2020/9/10 17:54
      */
@@ -41,7 +41,7 @@ public interface ISysRoleMenuBtnService extends IService<SysRoleMenuBtn> {
      *
      * @param roleId: 角色ID
      * @param menuId: 菜单ID
-     * @return: 菜单所拥有的所有按钮ids
+     * @return 菜单所拥有的所有按钮ids
      * @author zhengqingya
      * @date 2020/9/10 17:58
      */
@@ -51,7 +51,7 @@ public interface ISysRoleMenuBtnService extends IService<SysRoleMenuBtn> {
      * 根据角色id删除关联所有按钮权限
      *
      * @param roleId: 角色id
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/10 17:50
      */
@@ -62,7 +62,7 @@ public interface ISysRoleMenuBtnService extends IService<SysRoleMenuBtn> {
      *
      * @param roleId: 角色ID
      * @param menuId: 菜单ID
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/10 17:57
      */
@@ -72,7 +72,7 @@ public interface ISysRoleMenuBtnService extends IService<SysRoleMenuBtn> {
      * 保存角色关联菜单按钮ids
      *
      * @param params: 提交参数
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/10 18:34
      */

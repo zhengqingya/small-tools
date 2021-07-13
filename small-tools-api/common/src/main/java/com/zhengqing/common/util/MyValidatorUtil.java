@@ -24,7 +24,7 @@ public class MyValidatorUtil {
      *
      * @param obj:    校验对象
      * @param groups: 组校验
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/10/19 11:27
      */

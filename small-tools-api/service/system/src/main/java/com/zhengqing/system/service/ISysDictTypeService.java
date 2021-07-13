@@ -20,7 +20,7 @@ public interface ISysDictTypeService extends IService<SysDictType> {
     /**
      * 查询已启用的数据字典类型列表信息
      *
-     * @return: 数据字典类型列表信息
+     * @return 数据字典类型列表信息
      * @author zhengqingya
      * @date 2020/9/12 18:51
      */
@@ -30,7 +30,7 @@ public interface ISysDictTypeService extends IService<SysDictType> {
      * 新增或更新
      *
      * @param params:
-     * @return: java.lang.Integer
+     * @return java.lang.Integer
      * @author zhengqingya
      * @date 2020/9/12 17:28
      */
@@ -40,7 +40,7 @@ public interface ISysDictTypeService extends IService<SysDictType> {
      * 根据id删除数据字典类型及其数据字典
      *
      * @param id: 数据字典id
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/12 17:26
      */

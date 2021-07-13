@@ -22,7 +22,7 @@ public interface ICgTableConfigService extends IService<CgTableConfig> {
      * 列表分页
      *
      * @param params: 查询参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2020/11/14 23:12
      */
@@ -32,7 +32,7 @@ public interface ICgTableConfigService extends IService<CgTableConfig> {
      * 新增或更新数据
      *
      * @param params: 提交参数
-     * @return: 保存后的数据信息
+     * @return 保存后的数据信息
      * @author zhengqingya
      * @date 2020/11/15 14:14
      */

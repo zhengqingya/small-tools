@@ -36,7 +36,7 @@ public enum StOtherAnonymityStatusEnum {
      * 根据状态查询相应枚举类信息
      *
      * @param status: 匿名状态
-     * @return: 对应枚举信息
+     * @return 对应枚举信息
      * @author zhengqingya
      * @date 2020/10/25 13:53
      */

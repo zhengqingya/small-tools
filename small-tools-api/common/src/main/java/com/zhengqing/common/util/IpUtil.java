@@ -23,7 +23,7 @@ public class IpUtil {
      * 获取客户机ip地址
      *
      * @param request:
-     * @return: java.lang.String
+     * @return java.lang.String
      */
     public static String getIpAdrress(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
@@ -194,7 +194,7 @@ public class IpUtil {
      * 获取本地ip 适合windows与linux
      *
      * @param :
-     * @return: java.lang.String
+     * @return java.lang.String
      */
     public static String getLocalIP() {
         String localIP = "127.0.0.1";

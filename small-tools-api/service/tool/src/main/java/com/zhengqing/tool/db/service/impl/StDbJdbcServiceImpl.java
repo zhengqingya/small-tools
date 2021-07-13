@@ -252,7 +252,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
      * @param tableInfoList: 需装数据的表+字段信息
      * @param dataSourceId:  数据源id
      * @param dbName:库名
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/8 19:06
      */
@@ -312,7 +312,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
      * 连接数据库
      *
      * @param dataSourceId: 数据源id
-     * @return: java.sql.Connection
+     * @return java.sql.Connection
      */
     private Connection getConnection(Integer dataSourceId) {
         return getConnection(dataSourceId, null);
@@ -323,7 +323,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
      *
      * @param dataSourceId: 数据源id
      * @param dbName:       数据库名称
-     * @return: java.sql.Connection
+     * @return java.sql.Connection
      */
     private Connection getConnection(Integer dataSourceId, String dbName) {
         try {

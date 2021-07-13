@@ -166,7 +166,7 @@ public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMap
      * @param id:                包id
      * @param parentPackageName: 包名
      * @param allPackage:        包数据
-     * @return: 子包数据
+     * @return 子包数据
      * @author zhengqingya
      * @date 2020/11/15 12:45
      */

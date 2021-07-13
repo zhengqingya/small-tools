@@ -24,7 +24,7 @@ public interface CgProjectPackageMapper extends BaseMapper<CgProjectPackage> {
      *
      * @param page:   分页参数
      * @param filter: 过滤参数
-     * @return: 列表
+     * @return 列表
      * @author zhengqingya
      * @date 2020/11/15 12:02
      */
@@ -34,7 +34,7 @@ public interface CgProjectPackageMapper extends BaseMapper<CgProjectPackage> {
      * 列表
      *
      * @param filter: 过滤参数
-     * @return: 列表
+     * @return 列表
      * @author zhengqingya
      * @date 2020/11/15 12:02
      */
@@ -44,7 +44,7 @@ public interface CgProjectPackageMapper extends BaseMapper<CgProjectPackage> {
      * 获取项目父包名
      *
      * @param projectId: 项目id
-     * @return: 父包名
+     * @return 父包名
      * @author zhengqingya
      * @date 2020/11/15 19:04
      */

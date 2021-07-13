@@ -24,7 +24,7 @@ public interface IStCrawlerWebsiteService extends IService<StCrawlerWebsite> {
      * 列表分页
      *
      * @param params: 查询参数
-     * @return: com.baomidou.mybatisplus.core.metadata.IPage<com.zhengqing.modules.smalltools.crawler.model.vo.StCrawlerWebsiteVO>
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.zhengqing.modules.smalltools.crawler.model.vo.StCrawlerWebsiteVO>
      * @author zhengqingya
      * @date 2020/8/21 22:48
      */
@@ -34,7 +34,7 @@ public interface IStCrawlerWebsiteService extends IService<StCrawlerWebsite> {
      * 列表
      *
      * @param params: 查询参数
-     * @return: java.util.List<com.zhengqing.modules.smalltools.crawler.model.vo.StCrawlerWebsiteVO>
+     * @return java.util.List<com.zhengqing.modules.smalltools.crawler.model.vo.StCrawlerWebsiteVO>
      * @author zhengqingya
      * @date 2020/8/30 14:37
      */
@@ -44,7 +44,7 @@ public interface IStCrawlerWebsiteService extends IService<StCrawlerWebsite> {
      * 更新网站爬虫数据
      *
      * @param params:
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/8/21 23:26
      */
@@ -54,7 +54,7 @@ public interface IStCrawlerWebsiteService extends IService<StCrawlerWebsite> {
      * 新增或修改网站
      *
      * @param params: 提交参数
-     * @return: 网站id
+     * @return 网站id
      * @author zhengqingya
      * @date 2020/8/22 17:12
      */
@@ -64,7 +64,7 @@ public interface IStCrawlerWebsiteService extends IService<StCrawlerWebsite> {
      * 根据网站id设置网站为无效
      *
      * @param websiteId: 网站id
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/8/22 17:20
      */

@@ -92,7 +92,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
      * 递归树，填充角色菜单对应的菜单+按钮权限信息
      *
      * @param menTree: 树数据
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/11 17:26
      */

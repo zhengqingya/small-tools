@@ -60,7 +60,7 @@ public class ExcelReportUtil {
      * @param excelImportFileTypeEnum: 导入报表模板类型
      * @param file:                    上传文件数据
      * @param isThrowException:        遇到错误是否抛出异常信息 true:抛出 false：不抛，继续处理数据
-     * @return: 装满数据的dataList
+     * @return 装满数据的dataList
      * @author zhengqingya
      * @date 2020/9/7 13:59
      */
@@ -128,7 +128,7 @@ public class ExcelReportUtil {
      * @param dataList:                数据
      * @param excelExportFileTypeEnum: 导出报表模板类型
      * @param exportPath:              导出路径
-     * @return: 文件下载地址信息
+     * @return 文件下载地址信息
      * @author zhengqingya
      * @date 2020/9/7 13:59
      */
@@ -152,7 +152,7 @@ public class ExcelReportUtil {
      * @param excelExportFileTypeEnum: 导出报表模板类型
      * @param exportPath:              导出路径
      * @param response:
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/8 14:59
      */
@@ -185,7 +185,7 @@ public class ExcelReportUtil {
      * Hutool Java工具类库导出Excel测试
      *
      * @param response:
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/9/9 10:24
      */
@@ -244,7 +244,7 @@ public class ExcelReportUtil {
      * @param dataList:                数据
      * @param excelExportFileTypeEnum: 导出报表模板类型
      * @param exportPath:              导出路径
-     * @return: 导出数据文件
+     * @return 导出数据文件
      * @author zhengqingya
      * @date 2020/9/8 15:49
      */

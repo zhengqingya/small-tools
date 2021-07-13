@@ -25,7 +25,7 @@ public interface ICgFreeMarkerTemplateService extends IService<CgFreeMarkerTempl
      * 列表分页
      *
      * @param params: 查询参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2020-11-02 19:23:15
      */
@@ -35,7 +35,7 @@ public interface ICgFreeMarkerTemplateService extends IService<CgFreeMarkerTempl
      * 列表分页
      *
      * @param params: 查询参数
-     * @return: 查询结果
+     * @return 查询结果
      * @author zhengqingya
      * @date 2020-11-02 19:23:15
      */
@@ -45,7 +45,7 @@ public interface ICgFreeMarkerTemplateService extends IService<CgFreeMarkerTempl
      * 新增或更新
      *
      * @param params: 保存参数
-     * @return: 主键id
+     * @return 主键id
      * @author zhengqingya
      * @date 2020-11-02 19:23:15
      */
@@ -55,7 +55,7 @@ public interface ICgFreeMarkerTemplateService extends IService<CgFreeMarkerTempl
      * 删除数据
      *
      * @param freeMarkerTemplateId: 主键id
-     * @return: void
+     * @return void
      * @author zhengqingya
      * @date 2020/11/8 16:50
      */
@@ -65,7 +65,7 @@ public interface ICgFreeMarkerTemplateService extends IService<CgFreeMarkerTempl
      * 测试模板数据
      *
      * @param params: 提交参数
-     * @return: 根据模板生成的数据
+     * @return 根据模板生成的数据
      * @author zhengqingya
      * @date 2020/11/17 22:08
      */
