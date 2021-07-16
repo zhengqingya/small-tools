@@ -35,4 +35,7 @@ public class DemoSaveDTO extends BaseDTO {
     @ApiModelProperty("密码")
     private String password;
 
+    @ApiModelProperty("性别")
+    private Integer sex;
+
 }

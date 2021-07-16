@@ -1,8 +1,6 @@
 package com.zhengqing.demo.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.zhengqing.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -35,5 +33,9 @@ public class Demo extends BaseEntity<Demo> {
 
     @ApiModelProperty("密码")
     private String password;
+
+    @TableField(value = "sex", updateStrategy = FieldStrategy.IGNORED)
+    @ApiModelProperty("性别")
+    private Integer sex;
 
 }
