@@ -1,304 +1,308 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.zhengqing</groupId>
-  <artifactId>small-tools-api</artifactId>
-  <version>0.0.1</version>
-  <packaging>pom</packaging>
+    <groupId>com.zhengqing</groupId>
+    <artifactId>small-tools-api</artifactId>
+    <version>0.0.1</version>
+    <packaging>pom</packaging>
 
-  <name>small-tools-api</name>
-  <url>http://www.zhengqingya.com</url>
-  <description>小工具服务系统</description>
+    <name>small-tools-api</name>
+    <url>http://www.zhengqingya.com</url>
+    <description>小工具服务系统</description>
 
-  <properties>
-    <small-tools-api.project.version>0.0.1</small-tools-api.project.version>
+    <properties>
+        <small-tools-api.project.version>0.0.1</small-tools-api.project.version>
 
-    <java.version>1.8</java.version>
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>${project.build.sourceEncoding}
-    </project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${project.build.sourceEncoding}
+        </project.reporting.outputEncoding>
+        <!-- 项目根目录 => 【 ${session.executionRootDirectory} 最新版获取不到根目录值 】 -->
+        <!--        &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;-->
+        <!--        <small-tools.basedir>${session.executionRootDirectory}</small-tools.basedir>-->
 
-    <protostuff.version>1.6.0</protostuff.version>
-    <captcha.version>1.6.2</captcha.version>
-    <easyexcel.version>2.2.6</easyexcel.version>
-    <mica.auto.version>1.1.0</mica.auto.version>
-    <spring.boot.admin.version>2.3.0</spring.boot.admin.version>
+        <protostuff.version>1.6.0</protostuff.version>
+        <captcha.version>1.6.2</captcha.version>
+        <easyexcel.version>2.2.6</easyexcel.version>
+        <mica.auto.version>1.1.0</mica.auto.version>
+        <spring.boot.admin.version>2.3.0</spring.boot.admin.version>
 
-    <!-- 版本参考：https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E -->
-    <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
-    <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
-    <alibaba.cloud.version>2.2.3.RELEASE</alibaba.cloud.version>
+        <!-- 版本参考：https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E -->
+        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
+        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+        <alibaba.cloud.version>2.2.3.RELEASE</alibaba.cloud.version>
 
-    <spring.platform.version>Cairo-SR8</spring.platform.version>
+        <spring.platform.version>Cairo-SR8</spring.platform.version>
 
-    <mybatis-plus-boot-starter.version>3.3.1</mybatis-plus-boot-starter.version>
-    <dynamic-datasource-spring-boot-starter.version>3.2.0
-    </dynamic-datasource-spring-boot-starter.version>
-    <mysql.version>5.1.40</mysql.version>
-    <!--    <mysql.version>8.0.11</mysql.version>-->
-    <druid.version>1.1.10</druid.version>
-    <commons-lang3.version>3.6</commons-lang3.version>
-    <hutool-all.version>5.5.1</hutool-all.version>
-    <guava.version>29.0-jre</guava.version>
-    <springfox.version>2.9.2</springfox.version>
-    <fastjson.version>1.2.73</fastjson.version>
-    <velocity.version>1.7</velocity.version>
-    <freemarker.version>2.3.30</freemarker.version>
-    <jjwt.version>0.9.1</jjwt.version>
-    <nimbus-jose-jwt.version>8.19</nimbus-jose-jwt.version>
-    <knife4j.version>2.0.4</knife4j.version>
-    <hibernate-validator.version>6.1.2.Final</hibernate-validator.version>
-    <shiro-core.version>1.3.2</shiro-core.version>
-    <cos_api.version>5.4.4</cos_api.version>
-    <qiniu-java-sdk.version>7.2.28</qiniu-java-sdk.version>
-    <gson.version>2.8.5</gson.version>
-    <webmagic.version>0.7.3</webmagic.version>
-    <forest.version>1.4.0</forest.version>
-    <commons-io.version>2.7</commons-io.version>
-    <commons-fileupload.version>1.4</commons-fileupload.version>
-    <spring-mock.version>2.0.8</spring-mock.version>
+        <mybatis-plus-boot-starter.version>3.3.1</mybatis-plus-boot-starter.version>
+        <dynamic-datasource-spring-boot-starter.version>3.2.0
+        </dynamic-datasource-spring-boot-starter.version>
+        <mysql.version>5.1.40</mysql.version>
+        <!--    <mysql.version>8.0.11</mysql.version>-->
+        <druid.version>1.1.10</druid.version>
+        <commons-lang3.version>3.6</commons-lang3.version>
+        <hutool-all.version>5.5.1</hutool-all.version>
+        <guava.version>29.0-jre</guava.version>
+        <springfox.version>2.9.2</springfox.version>
+        <fastjson.version>1.2.73</fastjson.version>
+        <velocity.version>1.7</velocity.version>
+        <freemarker.version>2.3.30</freemarker.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <nimbus-jose-jwt.version>8.19</nimbus-jose-jwt.version>
+        <knife4j.version>2.0.4</knife4j.version>
+        <hibernate-validator.version>6.1.2.Final</hibernate-validator.version>
+        <shiro-core.version>1.3.2</shiro-core.version>
+        <cos_api.version>5.4.4</cos_api.version>
+        <qiniu-java-sdk.version>7.2.28</qiniu-java-sdk.version>
+        <gson.version>2.8.5</gson.version>
+        <webmagic.version>0.7.3</webmagic.version>
+        <forest.version>1.4.0</forest.version>
+        <commons-io.version>2.7</commons-io.version>
+        <commons-fileupload.version>1.4</commons-fileupload.version>
+        <spring-mock.version>2.0.8</spring-mock.version>
 
-    <netty-socketio.version>1.7.18</netty-socketio.version>
-    <socket.io-client.version>1.0.0</socket.io-client.version>
+        <netty-socketio.version>1.7.18</netty-socketio.version>
+        <socket.io-client.version>1.0.0</socket.io-client.version>
 
-    <jxls.version>2.8.1</jxls.version>
-    <jxls-jexcel.version>1.0.9</jxls-jexcel.version>
-    <jxls-reader.version>2.0.6</jxls-reader.version>
+        <jxls.version>2.8.1</jxls.version>
+        <jxls-jexcel.version>1.0.9</jxls-jexcel.version>
+        <jxls-reader.version>2.0.6</jxls-reader.version>
 
-    <itext.version>2.1.7</itext.version>
-    <itext-asian.version>5.2.0</itext-asian.version>
-    <itext-rtf.version>2.1.7</itext-rtf.version>
+        <itext.version>2.1.7</itext.version>
+        <itext-asian.version>5.2.0</itext-asian.version>
+        <itext-rtf.version>2.1.7</itext-rtf.version>
 
-    <MD2File.version>1.0.2</MD2File.version>
+        <MD2File.version>1.0.2</MD2File.version>
 
-    <httpcore.version>4.4.10</httpcore.version>
-    <httpmime.version>4.5.6</httpmime.version>
+        <httpcore.version>4.4.10</httpcore.version>
+        <httpmime.version>4.5.6</httpmime.version>
 
-    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-    <docker.plugin.version>1.1.0</docker.plugin.version>
-    <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
-    <docker.repostory>registry.cn-hangzhou.aliyuncs.com</docker.repostory>
-    <docker.registry.name>zhengqing</docker.registry.name>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <docker.plugin.version>1.1.0</docker.plugin.version>
+        <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
+        <docker.repostory>registry.cn-hangzhou.aliyuncs.com</docker.repostory>
+        <docker.registry.name>zhengqing</docker.registry.name>
 
-    <!-- 打包时跳过测试 (maven.test.skip:不生成test的所有.class， skipTests；会编译测试类，即生成.class文件，只是不运行测试类) -->
-    <!-- <maven.test.skip>true</maven.test.skip> -->
-    <skipTests>true</skipTests>
-  </properties>
+        <!-- 打包时跳过测试 (maven.test.skip:不生成test的所有.class， skipTests；会编译测试类，即生成.class文件，只是不运行测试类) -->
+        <!-- <maven.test.skip>true</maven.test.skip> -->
+        <skipTests>true</skipTests>
+    </properties>
 
-  <modules>
-    <module>gateway</module>
-    <module>common</module>
-    <module>service</module>
-    <module>service-api</module>
-    <module>test</module>
-  </modules>
+    <modules>
+        <module>gateway</module>
+        <module>common</module>
+        <module>service</module>
+        <module>service-api</module>
+        <module>test</module>
+    </modules>
 
-  <!-- 管理springboot和springcloud版本 -->
-  <dependencyManagement>
+    <!-- 管理springboot和springcloud版本 -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- SpringBoot 依赖配置 -->
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- SpringCloud 微服务 -->
+            <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- SpringCloud Alibaba 微服务 -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${alibaba.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- 解决jar包依赖：只需要在使用的地方引入需要的依赖即可，不用填写版本号！ -->
+            <!-- https://mvnrepository.com/artifact/io.spring.platform/platform-bom -->
+            <dependency>
+                <groupId>io.spring.platform</groupId>
+                <artifactId>platform-bom</artifactId>
+                <version>${spring.platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
-      <!-- SpringBoot 依赖配置 -->
-      <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies -->
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${spring-boot.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
-      <!-- SpringCloud 微服务 -->
-      <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <version>${spring-cloud.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
-      <!-- SpringCloud Alibaba 微服务 -->
-      <dependency>
-        <groupId>com.alibaba.cloud</groupId>
-        <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-        <version>${alibaba.cloud.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
-      <!-- 解决jar包依赖：只需要在使用的地方引入需要的依赖即可，不用填写版本号！ -->
-      <!-- https://mvnrepository.com/artifact/io.spring.platform/platform-bom -->
-      <dependency>
-        <groupId>io.spring.platform</groupId>
-        <artifactId>platform-bom</artifactId>
-        <version>${spring.platform.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
+        <!-- lombok -->
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
-  </dependencyManagement>
-
-  <dependencies>
-    <!-- lombok -->
-    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
 
 
-  <build>
-    <finalName>${project.name}</finalName>
+    <build>
+        <finalName>${project.name}</finalName>
 
-    <!-- =============== ↓↓↓↓↓↓ 注：maven默认是不编译，因此加上如下resources才会生产对应的xml文件 目的：解决mybatis映射关系不对应问题  start ↓↓↓↓↓↓ =============== -->
-    <resources>
-      <resource>
-        <directory>src/main/java</directory>
-        <includes>
-          <include>**/*.xml</include>
-        </includes>
-        <filtering>false</filtering>
-      </resource>
-      <resource>
-        <directory>src/main/resources</directory>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>src/main/java</directory>
-        <includes>
-          <include>**/*.xml</include>
-        </includes>
-        <filtering>false</filtering>
-      </testResource>
-    </testResources>
-    <!-- =============== ↑↑↑↑↑↑ 注：maven默认是不编译，因此加上如上resources才会生产对应的xml文件 目的：解决mybatis映射关系不对应问题  end ↑↑↑↑↑↑ =============== -->
+        <!-- =============== ↓↓↓↓↓↓ 注：maven默认是不编译，因此加上如下resources才会生产对应的xml文件 目的：解决mybatis映射关系不对应问题  start ↓↓↓↓↓↓ =============== -->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </testResource>
+        </testResources>
+        <!-- =============== ↑↑↑↑↑↑ 注：maven默认是不编译，因此加上如上resources才会生产对应的xml文件 目的：解决mybatis映射关系不对应问题  end ↑↑↑↑↑↑ =============== -->
 
 
-    <!-- pluginManagement：仅仅是一种声明，子项目中可以对 pluginManagement 下的 plugin 进行信息的选择、继承、覆盖等 -->
-    <pluginManagement>
-      <plugins>
-        <!-- maven打包插件：将整个工程打成一个 fatjar （注：默认集成`maven-surefire-plugin`插件） -->
-        <plugin>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-maven-plugin</artifactId>
-          <version>${spring-boot.version}</version>
-          <configuration>
-            <finalName>${project.build.finalName}</finalName>
-            <!-- 作用:项目打成jar，同时把本地jar包也引入进去 -->
-            <includeSystemScope>true</includeSystemScope>
-          </configuration>
-          <executions>
-            <execution>
-              <goals>
-                <!-- 可以把依赖的包都打包到生成的Jar包中 -->
-                <goal>repackage</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
+        <!-- pluginManagement：仅仅是一种声明，子项目中可以对 pluginManagement 下的 plugin 进行信息的选择、继承、覆盖等 -->
+        <pluginManagement>
+            <plugins>
+                <!-- maven打包插件：将整个工程打成一个 fatjar （注：默认集成`maven-surefire-plugin`插件） -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <configuration>
+                        <finalName>${project.build.finalName}</finalName>
+                        <!-- 作用:项目打成jar，同时把本地jar包也引入进去 -->
+                        <includeSystemScope>true</includeSystemScope>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <!-- 可以把依赖的包都打包到生成的Jar包中 -->
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
 
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>${maven-compiler-plugin.version}</version>
-          <configuration>
-            <source>${java.version}</source>
-            <target>${java.version}</target>
-            <encoding>${project.build.sourceEncoding}</encoding>
-            <!-- 过期的方法的警告
-              <compilerArgs>
-                  <arg>-Xlint:deprecation</arg>
-              </compilerArgs> -->
-            <compilerArguments>
-              <!-- 是否输出所有的编译信息（包括类的加载等）-->
-              <!--<verbose />-->
-              <!-- 解决maven命令编译报错，因为rt.jar 和jce.jar在jre的lib下面，不在jdk的lib下面，
-              导致maven找不到（java7以后会出现这个问题），将这2个jar包拷贝到jdk的lib下面估计也好使-->
-              <!--            <bootclasspath>${java.home}\lib\rt.jar;${java.home}\lib\jce.jar</bootclasspath>-->
-            </compilerArguments>
-            <compilerArgs>
-              <arg>-parameters</arg>
-            </compilerArgs>
-          </configuration>
-        </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <!-- 过期的方法的警告
+                          <compilerArgs>
+                              <arg>-Xlint:deprecation</arg>
+                          </compilerArgs> -->
+                        <compilerArguments>
+                            <!-- 是否输出所有的编译信息（包括类的加载等）-->
+                            <!--<verbose />-->
+                            <!-- 解决maven命令编译报错，因为rt.jar 和jce.jar在jre的lib下面，不在jdk的lib下面，
+                            导致maven找不到（java7以后会出现这个问题），将这2个jar包拷贝到jdk的lib下面估计也好使-->
+                            <!--            <bootclasspath>${java.home}\lib\rt.jar;${java.home}\lib\jce.jar</bootclasspath>-->
+                        </compilerArguments>
+                        <compilerArgs>
+                            <arg>-parameters</arg>
+                        </compilerArgs>
+                    </configuration>
+                </plugin>
 
-        <!-- 复制，删除，打包，重命名文件等... -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-antrun-plugin</artifactId>
-          <executions>
-            <execution>
-              <!-- maven生命周期阶段 -->
-              <phase>package</phase>
-              <goals>
-                <goal>run</goal>
-              </goals>
-              <configuration>
-                <!-- 任务 -->
-                <tasks>
-                  <!-- 复制jar包到指定目录 -->
-                  <!--suppress UnresolvedMavenProperty -->
-                  <copy overwrite="true"
-                    tofile="${session.executionRootDirectory}/docker/${artifactId}.jar"
-                    file="${project.build.directory}/${artifactId}.jar"/>
-                </tasks>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+                <!-- 复制，删除，打包，重命名文件等... -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.8</version>
+                    <executions>
+                        <execution>
+                            <!-- maven生命周期阶段 -->
+                            <phase>package</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <!-- 任务 -->
+                                <tasks>
+                                    <!-- 复制jar包到指定目录 -->
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <copy overwrite="true"
+                                          tofile="${project.build.directory}/${artifactId}.jar"
+                                          file="${project.build.directory}/${artifactId}.jar"/>
+                                </tasks>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
 
-    <!-- plugins：子pom文件中，省去了版本、配置细节等信息，只需要指定groupId和artifactId，其他信息均从父pom文件继承。当然，如果子pom文件想定制自己的特定内容，可以另行设置，并会覆盖从父pom文件继承到的内容。 -->
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
+        <!-- plugins：子pom文件中，省去了版本、配置细节等信息，只需要指定groupId和artifactId，其他信息均从父pom文件继承。当然，如果子pom文件想定制自己的特定内容，可以另行设置，并会覆盖从父pom文件继承到的内容。 -->
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
-  <!-- 配置maven项目的远程仓库 -->
-  <repositories>
-    <repository>
-      <id>aliyun-repos</id>
-      <name>aliyun-repos</name>
-      <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
-      <!-- 是否开启发布版构件下载 -->
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <!-- 是否开启快照版构件下载 -->
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
+    <!-- 配置maven项目的远程仓库 -->
+    <repositories>
+        <repository>
+            <id>aliyun-repos</id>
+            <name>aliyun-repos</name>
+            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+            <!-- 是否开启发布版构件下载 -->
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <!-- 是否开启快照版构件下载 -->
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
-  <!-- 配置maven插件的远程仓库 -->
-  <pluginRepositories>
-    <pluginRepository>
-      <id>aliyun-plugin</id>
-      <name>aliyun-plugin</name>
-      <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
+    <!-- 配置maven插件的远程仓库 -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyun-plugin</id>
+            <name>aliyun-plugin</name>
+            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>
