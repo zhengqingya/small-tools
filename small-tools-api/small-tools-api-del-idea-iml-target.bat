@@ -1,4 +1,9 @@
-@REM 《批处理》递归删除指定文件夹
+@REM####################################
+@REM @description 《批处理》递归删除指定`target` + `*.iml` + `.idea`
+@REM @use 双击
+@REM @author zhengqingya
+@REM @date 2021/7/20 16:42
+@REM####################################
 
 @REM `@echo on`:显示每一步执行命令的返回结果 `@echo off`:不显示
 @echo off
