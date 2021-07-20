@@ -4,6 +4,7 @@ import com.zhengqing.common.model.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.hibernate.validator.constraints.Range;
 
 /**
  * <p>
@@ -30,5 +31,9 @@ public class DemoListDTO extends BaseDTO {
 
     @ApiModelProperty("密码")
     private String password;
+
+    @Range(min = 1, max = 3, message = "range: 1-3")
+    @ApiModelProperty("类型")
+    private Integer type;
 
 }

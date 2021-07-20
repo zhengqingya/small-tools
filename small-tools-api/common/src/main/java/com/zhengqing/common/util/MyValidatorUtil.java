@@ -11,9 +11,8 @@ import java.util.Set;
  * 校验工具类
  * </p>
  *
- * @author： zhengqing <br/>
- * @date： 2019/9/10$ 9:28$ <br/>
- * @version： <br/>
+ * @author zhengqingya
+ * @date 2019/9/10 9:28
  */
 @Slf4j
 public class MyValidatorUtil {

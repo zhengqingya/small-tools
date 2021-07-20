@@ -10,9 +10,8 @@ import java.util.StringJoiner;
  * 字符串工具类
  * </p>
  *
- * @author： zhengqing <br/>
- * @date： 2019/9/14 0014$ 19:49$ <br/>
- * @version： <br/>
+ * @author zhengqingya <br/>
+ * @date 2019/9/14 0014$ 19:49$ <br/>
  */
 public class MyStringUtil {
 

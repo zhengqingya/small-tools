@@ -21,9 +21,8 @@ import java.util.Map;
  * bean 工具类
  * </p>
  *
- * @author： zhengqing <br/>
- * @date： 2019/11/6$ 18:34$ <br/>
- * @version： <br/>
+ * @author zhengqingya <br/>
+ * @date 2019/11/6$ 18:34$ <br/>
  */
 @Slf4j
 public class MyBeanUtil {
