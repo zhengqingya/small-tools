@@ -33,21 +33,49 @@ public class DateTimeUtil {
                     "yyyy/MM/dd HH:mm", "yyyy/MM", "yyyy.MM.dd", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm", "yyyy.MM"};
 
     /**
+     * 时间格式化成字符串
+     *
+     * @param date:    Date时间
+     * @param pattern: DATE_TIME_PATTERN || DATE_PATTERN， 如果为空，则为 DATE_PATTERN（yyyy-MM-dd）
+     * @return 字符串时间
+     */
+    public static String dateFormat(Date date, String pattern) {
+        if (StringUtils.isBlank(pattern)) {
+            pattern = DateTimeUtil.DATE_PATTERN;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        return sdf.format(date);
+    }
+
+    /**
      * 将Date日期时间格式转成指定字符串格式 yyyy-MM-dd HH:mm:ss
      *
-     * @param date:
-     * @return java.lang.String
+     * @param date: Date时间
+     * @return yyyy-MM-dd HH:mm:ss
      */
-    public static String dateToDateTimeString(Date date) throws ParseException {
+    public static String dateToDateTimeStr(Date date) {
         return DateTimeUtil.dateFormat(date, DateTimeUtil.DATE_TIME_PATTERN);
     }
 
-    public static final String parseDateToStr(final String format, final Date date) {
+    /**
+     * Date类型转字符串时间
+     *
+     * @param date:   Date时间
+     * @param format: 时间格式
+     * @return 字符串时间
+     * @author zhengqingya
+     * @date 2021/7/23 10:14
+     */
+    public static String parseDateToStr(final Date date, final String format) {
         return new SimpleDateFormat(format).format(date);
     }
 
     /**
      * 获取服务器启动时间
+     *
+     * @return 服务器启动时间
+     * @author zhengqingya
+     * @date 2021/7/23 10:18
      */
     public static Date getServerStartDate() {
         long time = ManagementFactory.getRuntimeMXBean().getStartTime();
@@ -56,14 +84,20 @@ public class DateTimeUtil {
 
     /**
      * 计算两个时间差
+     *
+     * @param startDate: 开始时间
+     * @param endDate:   结束时间
+     * @return 时间差
+     * @author zhengqingya
+     * @date 2021/7/23 10:17
      */
-    public static String getDatePoor(Date endDate, Date nowDate) {
+    public static String getDatePoor(Date startDate, Date endDate) {
         long nd = 1000 * 24 * 60 * 60;
         long nh = 1000 * 60 * 60;
         long nm = 1000 * 60;
         // long ns = 1000;
         // 获得两个时间的毫秒时间差异
-        long diff = endDate.getTime() - nowDate.getTime();
+        long diff = endDate.getTime() - startDate.getTime();
         // 计算差多少天
         long day = diff / nd;
         // 计算差多少小时
@@ -74,6 +108,7 @@ public class DateTimeUtil {
         // long sec = diff % nd % nh % nm / ns;
         return day + "天" + hour + "小时" + min + "分钟";
     }
+
 
     // 下面暂未实践 ----------------------------------------------------------------
 
@@ -98,22 +133,6 @@ public class DateTimeUtil {
         cal.setTime(date);
         cal.add(Calendar.DATE, days);
         return cal.getTime();
-    }
-
-    /**
-     * 时间格式化成字符串
-     *
-     * @param date    Date
-     * @param pattern StringUtils.DATE_TIME_PATTERN || StringUtils.DATE_PATTERN， 如果为空，则为yyyy-MM-dd
-     * @return
-     * @throws ParseException
-     */
-    public static String dateFormat(Date date, String pattern) throws ParseException {
-        if (StringUtils.isBlank(pattern)) {
-            pattern = DateTimeUtil.DATE_PATTERN;
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        return sdf.format(date);
     }
 
     /**
