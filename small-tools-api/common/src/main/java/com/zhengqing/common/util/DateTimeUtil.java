@@ -1,5 +1,6 @@
 package com.zhengqing.common.util;
 
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.management.ManagementFactory;
@@ -45,6 +46,15 @@ public class DateTimeUtil {
         }
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         return sdf.format(date);
+    }
+
+    /**
+     * 获取当前字符串时间
+     *
+     * @return yyyy-MM-dd HH:mm:ss
+     */
+    public static String nowDateTimeStr() {
+        return DateTimeUtil.dateFormat(new Date(), DateTimeUtil.DATE_TIME_PATTERN);
     }
 
     /**
@@ -109,19 +119,46 @@ public class DateTimeUtil {
         return day + "天" + hour + "小时" + min + "分钟";
     }
 
+    /**
+     * 当前日期相加减天数
+     *
+     * @param days: 加减天数
+     * @return 时间 yyyy-MM-dd HH:mm:ss
+     * @author zhengqingya
+     * @date 2021/7/23 10:23
+     */
+    @SneakyThrows(Exception.class)
+    public static String nowDateStrAdd(int days) {
+        Date date = dateAdd(new Date(), days, true);
+        return parseDateToStr(date, DateTimeUtil.DATE_TIME_PATTERN);
+    }
 
-    // 下面暂未实践 ----------------------------------------------------------------
+    /**
+     * 当前日期相加减天数
+     *
+     * @param days:        加减天数
+     * @param includeTime: 是否包括时分秒,true表示包含
+     * @return 时间
+     * @author zhengqingya
+     * @date 2021/7/23 10:23
+     */
+    @SneakyThrows(Exception.class)
+    public static Date nowDateAdd(int days, boolean includeTime) {
+        return dateAdd(new Date(), days, includeTime);
+    }
 
     /**
      * 日期相加减天数
      *
-     * @param date        如果为Null，则为当前时间
-     * @param days        加减天数
-     * @param includeTime 是否包括时分秒,true表示包含
-     * @return
-     * @throws ParseException
+     * @param date:        如果为Null，则为当前时间
+     * @param days:        加减天数
+     * @param includeTime: 是否包括时分秒,true表示包含
+     * @return 时间
+     * @author zhengqingya
+     * @date 2021/7/23 10:23
      */
-    public static Date dateAdd(Date date, int days, boolean includeTime) throws ParseException {
+    @SneakyThrows(Exception.class)
+    public static Date dateAdd(Date date, int days, boolean includeTime) {
         if (date == null) {
             date = new Date();
         }
@@ -134,6 +171,9 @@ public class DateTimeUtil {
         cal.add(Calendar.DATE, days);
         return cal.getTime();
     }
+
+
+    // 下面暂未实践 ----------------------------------------------------------------
 
     /**
      * 字符串解析成时间对象
