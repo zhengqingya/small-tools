@@ -63,12 +63,12 @@ spring:
           username: root
           password: root
           platform: mysql
-          driver-class-name: com.mysql.jdbc.Driver
+          driver-class-name: com.mysql.cj.jdbc.Driver
         db-test:
           url: jdbc:mysql://${small-tools.ip}:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false
           username: root
           password: root
-          driver-class-name: com.mysql.jdbc.Driver
+          driver-class-name: com.mysql.cj.jdbc.Driver
       #  ===================== ↓↓↓↓↓↓  使用druid数据源【dynamic - 公共配置】  ↓↓↓↓↓↓ =====================
       druid:
         initialSize: 5   # 连接池初始化连接数量

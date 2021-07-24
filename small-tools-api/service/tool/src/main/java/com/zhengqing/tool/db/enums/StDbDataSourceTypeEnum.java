@@ -21,7 +21,12 @@ import java.util.List;
 @AllArgsConstructor
 public enum StDbDataSourceTypeEnum {
 
-    MySQL("1", "com.mysql.jdbc.Driver", "MySQL"), Oracle("2", "oracle.jdbc.driver.OracleDriver", "Oracle");
+    /**
+     * mysql8: com.mysql.cj.jdbc.Driver
+     * mysql5.7: com.mysql.jdbc.Driver
+     */
+    MySQL("1", "com.mysql.cj.jdbc.Driver", "MySQL"),
+    Oracle("2", "oracle.jdbc.driver.OracleDriver", "Oracle");
 
     private final String type;
     private final String driverClassName;

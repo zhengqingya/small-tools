@@ -42,8 +42,7 @@
         <mybatis-plus-boot-starter.version>3.3.1</mybatis-plus-boot-starter.version>
         <dynamic-datasource-spring-boot-starter.version>3.2.0
         </dynamic-datasource-spring-boot-starter.version>
-        <mysql.version>5.1.40</mysql.version>
-        <!--    <mysql.version>8.0.11</mysql.version>-->
+        <mysql.version>8.0.25</mysql.version>
         <druid.version>1.1.10</druid.version>
         <commons-lang3.version>3.6</commons-lang3.version>
         <hutool-all.version>5.5.1</hutool-all.version>

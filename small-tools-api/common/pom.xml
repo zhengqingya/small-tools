@@ -1,408 +1,410 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <parent>
-    <artifactId>small-tools-api</artifactId>
-    <groupId>com.zhengqing</groupId>
-    <version>0.0.1</version>
-  </parent>
-  <modelVersion>4.0.0</modelVersion>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>small-tools-api</artifactId>
+        <groupId>com.zhengqing</groupId>
+        <version>0.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>common</artifactId>
-  <name>${project.artifactId}</name>
-  <version>${small-tools-api.project.version}</version>
-  <packaging>jar</packaging>
+    <artifactId>common</artifactId>
+    <name>${project.artifactId}</name>
+    <version>${small-tools-api.project.version}</version>
+    <packaging>jar</packaging>
 
-  <dependencies>
-    <!-- SpringCloud Ailibaba Nacos Discovery -->
-    <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery -->
-    <dependency>
-      <groupId>com.alibaba.cloud</groupId>
-      <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>commons-lang3</artifactId>
-          <groupId>org.apache.commons</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <!-- SpringCloud Ailibaba Nacos Config -->
-    <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config -->
-    <dependency>
-      <groupId>com.alibaba.cloud</groupId>
-      <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-    </dependency>
+    <dependencies>
+        <!-- SpringCloud Ailibaba Nacos Discovery -->
+        <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-lang3</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- SpringCloud Ailibaba Nacos Config -->
+        <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
 
-    <!-- Sentinel -->
-    <dependency>
-      <groupId>com.alibaba.cloud</groupId>
-      <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>fastjson</artifactId>
-          <groupId>com.alibaba</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+        <!-- Sentinel -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>fastjson</artifactId>
+                    <groupId>com.alibaba</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-    <!-- Feign:远程调用服务 -->
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-openfeign</artifactId>
-    </dependency>
+        <!-- Feign:远程调用服务 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
 
-    <!-- redis (注：reactive具有限流功能) -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
-    </dependency>
-    <!-- 对象池，使用redis时必须引入 -->
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-pool2</artifactId>
-    </dependency>
+        <!-- redis (注：reactive具有限流功能) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+        </dependency>
+        <!-- 对象池，使用redis时必须引入 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
 
-    <!-- Netflix Hystrix -->
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
-        </exclusion>
-        <exclusion>
-          <artifactId>commons-lang3</artifactId>
-          <groupId>org.apache.commons</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+        <!-- Netflix Hystrix -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-lang3</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-    <dependency>
-      <groupId>de.codecentric</groupId>
-      <artifactId>spring-boot-admin-starter-client</artifactId>
-      <version>${spring.boot.admin.version}</version>
-    </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring.boot.admin.version}</version>
+        </dependency>
 
-    <!-- ========================================================= -->
+        <!-- ========================================================= -->
 
-    <!-- SpringBoot使用Undertow代替tomcat -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-undertow</artifactId>
-    </dependency>
+        <!-- SpringBoot使用Undertow代替tomcat -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
 
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
-    <!-- 添加适用于生产环境的功能，如性能指标和监测等功能 -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>HdrHistogram</artifactId>
-          <groupId>org.hdrhistogram</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+        <!-- 添加适用于生产环境的功能，如性能指标和监测等功能 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>HdrHistogram</artifactId>
+                    <groupId>org.hdrhistogram</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-    <!-- ========================= 常用库依赖 ========================== -->
+        <!-- ========================= 常用库依赖 ========================== -->
 
-    <!-- lombok插件 -->
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <optional>true</optional>
-    </dependency>
+        <!-- lombok插件 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
 
-    <!-- Hutool工具类 -->
-    <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
-    <dependency>
-      <groupId>cn.hutool</groupId>
-      <artifactId>hutool-all</artifactId>
-      <version>${hutool-all.version}</version>
-    </dependency>
+        <!-- Hutool工具类 -->
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool-all.version}</version>
+        </dependency>
 
-    <!-- google-guava工具包 -->
-    <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>${guava.version}</version>
-    </dependency>
+        <!-- google-guava工具包 -->
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
 
-    <!-- 作参数校验使用 -->
-    <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
-    <dependency>
-      <groupId>org.hibernate.validator</groupId>
-      <artifactId>hibernate-validator</artifactId>
-      <version>${hibernate-validator.version}</version>
-    </dependency>
+        <!-- 作参数校验使用 -->
+        <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
 
-    <!-- StringUtils工具类 -->
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>${commons-lang3.version}</version>
-    </dependency>
+        <!-- StringUtils工具类 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
 
-    <!-- commons-beanutil -->
-    <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>1.9.3</version>
-    </dependency>
+        <!-- commons-beanutil -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.3</version>
+        </dependency>
 
-    <!-- 阿里FastJson转换工具依赖 -->
-    <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-    <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>fastjson</artifactId>
-      <version>${fastjson.version}</version>
-    </dependency>
+        <!-- 阿里FastJson转换工具依赖 -->
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
 
-    <!-- File转MultipartFile所需 -->
-    <!-- https://mvnrepository.com/artifact/org.springframework/spring-mock -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-mock</artifactId>
-      <version>${spring-mock.version}</version>
-    </dependency>
+        <!-- File转MultipartFile所需 -->
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-mock -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-mock</artifactId>
+            <version>${spring-mock.version}</version>
+        </dependency>
 
-    <!-- 解决文件上传报错：org.springframework.web.util.NestedServletException: Handler dispatch failed; nested exception is java.lang.NoClassDefFoundError: org/apache/commons/fileupload/disk/DiskFileItemFactory -->
-    <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>${commons-io.version}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
-    <dependency>
-      <groupId>commons-fileupload</groupId>
-      <artifactId>commons-fileupload</artifactId>
-      <version>${commons-fileupload.version}</version>
-    </dependency>
+        <!-- 解决文件上传报错：org.springframework.web.util.NestedServletException: Handler dispatch failed; nested exception is java.lang.NoClassDefFoundError: org/apache/commons/fileupload/disk/DiskFileItemFactory -->
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons-fileupload.version}</version>
+        </dependency>
 
-    <!-- ========================= 业务相关依赖 ========================== -->
+        <!-- ========================= 业务相关依赖 ========================== -->
 
-    <!-- knife4j -->
-    <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
-    <dependency>
-      <groupId>com.github.xiaoymin</groupId>
-      <artifactId>knife4j-spring-boot-starter</artifactId>
-      <version>${knife4j.version}</version>
-    </dependency>
+        <!-- knife4j -->
+        <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>${knife4j.version}</version>
+        </dependency>
 
-    <!-- 数据库相关 -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-jdbc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>${mysql.version}</version>
-    </dependency>
-    <!-- 阿里数据库连接池 -->
-    <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>druid</artifactId>
-      <version>${druid.version}</version>
-    </dependency>
-    <!-- 动态数据源 -->
-    <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
-    <dependency>
-      <groupId>com.baomidou</groupId>
-      <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-      <version>${dynamic-datasource-spring-boot-starter.version}</version>
-    </dependency>
+        <!-- 数据库相关 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <!-- mysql -->
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+        <!-- 阿里数据库连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+        <!-- 动态数据源 -->
+        <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>${dynamic-datasource-spring-boot-starter.version}</version>
+        </dependency>
 
-    <!-- mybatis-plus -->
-    <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
-    <dependency>
-      <groupId>com.baomidou</groupId>
-      <artifactId>mybatis-plus-boot-starter</artifactId>
-      <version>${mybatis-plus-boot-starter.version}</version>
-    </dependency>
-    <!-- freemarker:代码生成模板引擎 -->
-    <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
-    <dependency>
-      <groupId>org.freemarker</groupId>
-      <artifactId>freemarker</artifactId>
-      <version>${freemarker.version}</version>
-    </dependency>
-
-
-    <!-- jwt依赖: https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
-    <!--    <dependency>-->
-    <!--      <groupId>io.jsonwebtoken</groupId>-->
-    <!--      <artifactId>jjwt</artifactId>-->
-    <!--      <version>${jjwt.version}</version>-->
-    <!--    </dependency>-->
-    <!-- JWT -->
-    <!-- https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt -->
-    <dependency>
-      <groupId>com.nimbusds</groupId>
-      <artifactId>nimbus-jose-jwt</artifactId>
-      <version>${nimbus-jose-jwt.version}</version>
-    </dependency>
-
-    <!-- AOP依赖 【注：系统日记需要此依赖】 -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-aop</artifactId>
-    </dependency>
+        <!-- mybatis-plus -->
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus-boot-starter.version}</version>
+        </dependency>
+        <!-- freemarker:代码生成模板引擎 -->
+        <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>${freemarker.version}</version>
+        </dependency>
 
 
-    <!-- 发送邮件 -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-mail</artifactId>
-    </dependency>
+        <!-- jwt依赖: https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+        <!--    <dependency>-->
+        <!--      <groupId>io.jsonwebtoken</groupId>-->
+        <!--      <artifactId>jjwt</artifactId>-->
+        <!--      <version>${jjwt.version}</version>-->
+        <!--    </dependency>-->
+        <!-- JWT -->
+        <!-- https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt -->
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>${nimbus-jose-jwt.version}</version>
+        </dependency>
 
-    <!-- 七牛云 -->
-    <!-- https://mvnrepository.com/artifact/com.qiniu/qiniu-java-sdk -->
-    <dependency>
-      <groupId>com.qiniu</groupId>
-      <artifactId>qiniu-java-sdk</artifactId>
-      <version>${qiniu-java-sdk.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>gson</artifactId>
-          <groupId>com.google.code.gson</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-    <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>${gson.version}</version>
-    </dependency>
-
-    <!-- WebMagic：爬虫 -->
-    <dependency>
-      <groupId>us.codecraft</groupId>
-      <artifactId>webmagic-core</artifactId>
-      <version>${webmagic.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>fastjson</artifactId>
-          <groupId>com.alibaba</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>commons-lang3</artifactId>
-          <groupId>org.apache.commons</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>us.codecraft</groupId>
-      <artifactId>webmagic-extension</artifactId>
-      <version>${webmagic.version}</version>
-    </dependency>
-
-    <!-- jxls导出导入读取excel报表 -->
-    <!-- https://mvnrepository.com/artifact/org.jxls/jxls -->
-    <dependency>
-      <groupId>org.jxls</groupId>
-      <artifactId>jxls</artifactId>
-      <version>${jxls.version}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.jxls/jxls-poi -->
-    <dependency>
-      <groupId>org.jxls</groupId>
-      <artifactId>jxls-poi</artifactId>
-      <version>${jxls.version}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.jxls/jxls-jexcel -->
-    <dependency>
-      <groupId>org.jxls</groupId>
-      <artifactId>jxls-jexcel</artifactId>
-      <version>${jxls-jexcel.version}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.jxls/jxls-reader -->
-    <dependency>
-      <groupId>org.jxls</groupId>
-      <artifactId>jxls-reader</artifactId>
-      <version>${jxls-reader.version}</version>
-    </dependency>
-
-    <!-- ================== 将数据库表信息生成word文档信息所需 ====================== -->
-    <!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
-    <dependency>
-      <groupId>com.lowagie</groupId>
-      <artifactId>itext</artifactId>
-      <version>${itext.version}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/com.itextpdf/itext-asian -->
-    <dependency>
-      <groupId>com.itextpdf</groupId>
-      <artifactId>itext-asian</artifactId>
-      <version>${itext-asian.version}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/com.lowagie/itext-rtf -->
-    <dependency>
-      <groupId>com.lowagie</groupId>
-      <artifactId>itext-rtf</artifactId>
-      <version>${itext-rtf.version}</version>
-    </dependency>
-
-    <!-- md转html https://gitee.com/cevin15/MD2File -->
-    <dependency>
-      <groupId>com.youbenzi</groupId>
-      <artifactId>MD2File</artifactId>
-      <version>${MD2File.version}</version>
-    </dependency>
+        <!-- AOP依赖 【注：系统日记需要此依赖】 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
 
 
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpcore</artifactId>
-      <version>${httpcore.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpmime</artifactId>
-      <version>${httpmime.version}</version>
-    </dependency>
+        <!-- 发送邮件 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
 
-  </dependencies>
+        <!-- 七牛云 -->
+        <!-- https://mvnrepository.com/artifact/com.qiniu/qiniu-java-sdk -->
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>${qiniu-java-sdk.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>gson</artifactId>
+                    <groupId>com.google.code.gson</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
 
-  <build>
-    <plugins>
-      <!-- 复制，删除，打包，重命名文件等...（详情见父pom） -->
-      <!--      <plugin>-->
-      <!--        <groupId>org.apache.maven.plugins</groupId>-->
-      <!--        <artifactId>maven-antrun-plugin</artifactId>-->
-      <!--      </plugin>-->
+        <!-- WebMagic：爬虫 -->
+        <dependency>
+            <groupId>us.codecraft</groupId>
+            <artifactId>webmagic-core</artifactId>
+            <version>${webmagic.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>fastjson</artifactId>
+                    <groupId>com.alibaba</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-lang3</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>us.codecraft</groupId>
+            <artifactId>webmagic-extension</artifactId>
+            <version>${webmagic.version}</version>
+        </dependency>
 
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <!-- 跳过父模块的此打包插件 -->
-          <skip>true</skip>
-          <finalName>${project.name}</finalName>
-        </configuration>
-      </plugin>
+        <!-- jxls导出导入读取excel报表 -->
+        <!-- https://mvnrepository.com/artifact/org.jxls/jxls -->
+        <dependency>
+            <groupId>org.jxls</groupId>
+            <artifactId>jxls</artifactId>
+            <version>${jxls.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jxls/jxls-poi -->
+        <dependency>
+            <groupId>org.jxls</groupId>
+            <artifactId>jxls-poi</artifactId>
+            <version>${jxls.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jxls/jxls-jexcel -->
+        <dependency>
+            <groupId>org.jxls</groupId>
+            <artifactId>jxls-jexcel</artifactId>
+            <version>${jxls-jexcel.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jxls/jxls-reader -->
+        <dependency>
+            <groupId>org.jxls</groupId>
+            <artifactId>jxls-reader</artifactId>
+            <version>${jxls-reader.version}</version>
+        </dependency>
 
-    </plugins>
-  </build>
+        <!-- ================== 将数据库表信息生成word文档信息所需 ====================== -->
+        <!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>${itext.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.itextpdf/itext-asian -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itext-asian</artifactId>
+            <version>${itext-asian.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.lowagie/itext-rtf -->
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext-rtf</artifactId>
+            <version>${itext-rtf.version}</version>
+        </dependency>
+
+        <!-- md转html https://gitee.com/cevin15/MD2File -->
+        <dependency>
+            <groupId>com.youbenzi</groupId>
+            <artifactId>MD2File</artifactId>
+            <version>${MD2File.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${httpcore.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>${httpmime.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 复制，删除，打包，重命名文件等...（详情见父pom） -->
+            <!--      <plugin>-->
+            <!--        <groupId>org.apache.maven.plugins</groupId>-->
+            <!--        <artifactId>maven-antrun-plugin</artifactId>-->
+            <!--      </plugin>-->
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 跳过父模块的此打包插件 -->
+                    <skip>true</skip>
+                    <finalName>${project.name}</finalName>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>
