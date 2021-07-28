@@ -5,6 +5,7 @@ import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
 
@@ -37,5 +38,10 @@ public class DemoSaveDTO extends BaseDTO {
 
     @ApiModelProperty("性别")
     private Integer sex;
+
+    @Range(min = 1, max = 1, message = "range: 1-3")
+    @ApiModelProperty("类型")
+    private Integer type;
+
 
 }
