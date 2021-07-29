@@ -170,6 +170,22 @@ public class RestTemplateUtil {
     /**
      * post请求
      *
+     * @param url:          请求地址
+     * @param params:       请求参数
+     * @param responseType: 响应类型
+     * @return 响应数据
+     * @author zhengqingya
+     * @date 2020/7/7 14:30
+     */
+    public static <T> T postForMap(String url, Map<String, String> params, Class<T> responseType) {
+        T result = restTemplate.postForEntity(url, params, responseType).getBody();
+        log.debug("url请求: 【{}】 响应数据：【{}】", url, result);
+        return result;
+    }
+
+    /**
+     * post请求
+     *
      * @param url:    请求地址
      * @param params: 请求参数
      * @return 响应数据
