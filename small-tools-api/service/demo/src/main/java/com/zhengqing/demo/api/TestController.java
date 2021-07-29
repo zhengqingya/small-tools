@@ -3,6 +3,7 @@ package com.zhengqing.demo.api;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.aspect.config.BeanSelfAware;
 import com.zhengqing.common.model.dto.BaseDTO;
+import com.zhengqing.common.util.RestTemplateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -53,6 +54,12 @@ public class TestController extends BaseController implements BeanSelfAware {
         this.self = (TestController) proxyBean;
         // 如果输出true标识AOP代理对象注入成功
         log.debug("TestController: 【{}】", AopUtils.isAopProxy(this.self));
+    }
+
+    @GetMapping("restTemplate")
+    @ApiOperation("restTemplate")
+    public String restTemplate() {
+        return RestTemplateUtil.get("http://127.0.0.1:20040/web/api/demo/test", String.class).getBody();
     }
 
 }
