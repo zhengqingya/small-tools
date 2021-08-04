@@ -18,8 +18,7 @@ import java.util.concurrent.TimeUnit;
  * </p>
  *
  * @author zhengqingya
- * @description (GitHub文档 : https : / / github.com / whvcse / RedisUtil 码云 ：
- *https : / / gitee.com / whvse / RedisUtil / blob / master / RedisUtil.java #)
+ * @description
  * @date 2019/11/27 14:38
  */
 @Component
