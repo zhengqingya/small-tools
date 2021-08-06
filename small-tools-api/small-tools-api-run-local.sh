@@ -51,9 +51,17 @@ function divide_app_name() {
   echo "分割后操作服务名:"
   # 以逗号分隔
   APP_NAME_ARRAY=(${APP//\,/ })
-  for((i=0;i<${#APP_NAME_ARRAY[@]};i++)); do
+  service_num=${#APP_NAME_ARRAY[@]}
+  for((i=0;i<${service_num};i++)); do
     echo "                  [$i=>${APP_NAME_ARRAY[i]}]"
   done
+  # 限制服务操作数量
+  if [ ${service_num} -gt 3 ]; then
+    echo "服务操作数：${service_num} ，不能超过3个，操作终止..."
+    exit
+  else
+    echo "服务操作数：${service_num}"
+  fi
 }
 
 divide_app_name
