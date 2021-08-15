@@ -27,7 +27,7 @@ public interface MyBaseMapper<T> extends BaseMapper<T> {
      * @author zhengqingya
      * @date 2020/8/3 18:41
      */
-    @Select({"<script>", "SELECT", "COUNT(*)", "FROM ${table_name}", "<where>", " AND is_valid=1 ",
+    @Select({"<script>", "SELECT", "COUNT(*)", "FROM ${table_name}", "<where>", " AND is_deleted = 0 ",
             "<if test=\"columnMap != null and columnMap.size() != 0\">", " AND ",
             "<foreach collection='columnMap.keys' item='key' separator=' AND '>", "${key} = #{columnMap[${key}]}",
             "</foreach>", "</if>", "</where>", "</script>"})
@@ -42,7 +42,7 @@ public interface MyBaseMapper<T> extends BaseMapper<T> {
      * @author zhengqingya
      * @date 2020/8/3 18:41
      */
-    @Select({"<script>", "SELECT", "*", "FROM ${table_name}", "<where>", " AND is_valid=1 ",
+    @Select({"<script>", "SELECT", "*", "FROM ${table_name}", "<where>", " AND is_deleted = 0 ",
             "<if test=\"columnMap != null and columnMap.size() != 0\">", " AND ",
             "<foreach collection='columnMap.keys' item='key' separator=' AND '>", "${key} = #{columnMap[${key}]}",
             "</foreach>", "</if>", "</where>", "</script>"})

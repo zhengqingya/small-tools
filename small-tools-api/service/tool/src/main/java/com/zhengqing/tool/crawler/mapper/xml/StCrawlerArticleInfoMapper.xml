@@ -19,7 +19,7 @@
     FROM t_st_crawler_article_info tscai
     LEFT JOIN t_st_crawler_website tscw ON tscai.website_id = tscw.website_id
     WHERE
-    tscw.is_valid=1
+    tscw.is_deleted = 0
     <if test="filter.title!=null and filter.title!=''">
       AND tscai.title LIKE CONCAT( '%', #{filter.title}, '%' )
     </if>
@@ -43,7 +43,7 @@
     FROM
       t_st_crawler_article_info tscai
     WHERE
-      tscai.is_valid=1 AND tscai.article_id = #{articleId}
+      tscai.is_deleted = 0 AND tscai.article_id = #{articleId}
   </select>
 
   <select
@@ -54,7 +54,7 @@
     FROM
       t_st_crawler_article_info tscai
     WHERE
-      tscai.is_valid=1 AND tscai.website_id = #{websiteId}
+      tscai.is_deleted = 0 AND tscai.website_id = #{websiteId}
   </select>
 
   <select
@@ -73,7 +73,7 @@
     FROM t_st_crawler_article_info tscai
     LEFT JOIN t_st_crawler_website tscw ON tscai.website_id = tscw.website_id
     WHERE
-    tscw.is_valid = 1 AND tscai.website_id = #{websiteId}
+    tscw.is_deleted = 0 AND tscai.website_id = #{websiteId}
     ORDER BY tscai.publish_time DESC
   </select>
 
@@ -90,7 +90,7 @@
     tscai.url url,
     tscai.publish_time publishTime
     FROM t_st_crawler_article_info tscai
-    WHERE tscai.is_valid=1
+    WHERE tscai.is_deleted = 0
     <if test="filter.websiteId!=null">
       AND tscai.website_id = #{filter.websiteId}
     </if>

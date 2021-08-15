@@ -9,7 +9,7 @@
     SELECT
     *
     FROM t_sys_role
-    WHERE is_valid=1
+    WHERE is_deleted = 0
     <if test="filter.name != null and filter.name != ''">
       AND name LIKE CONCAT( '%', #{filter.name} , '%' )
     </if>

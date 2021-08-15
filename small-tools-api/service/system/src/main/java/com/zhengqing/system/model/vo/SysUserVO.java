@@ -43,8 +43,8 @@ public class SysUserVO {
     @ApiModelProperty(value = "头像")
     private String avatar;
 
-    @ApiModelProperty(value = "是否有效(1:有效 0:无效）")
-    private Integer isValid;
+    @ApiModelProperty(value = "是否删除：true->删除，false->未删除")
+    private Boolean isDeleted;
 
     @ApiModelProperty(value = "盐值")
     private String salt;

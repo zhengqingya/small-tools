@@ -16,7 +16,7 @@
     FROM t_sys_dict sd
     LEFT JOIN t_sys_dict_type sdt on sd.dict_type_id = sdt.id
     WHERE
-    sd.is_valid=1 AND sdt.code= #{code}
+    sd.is_deleted = 0 AND sdt.code= #{code}
     <if test="status!=null">
       AND sdt.status = #{status}
     </if>

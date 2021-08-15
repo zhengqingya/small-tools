@@ -9,7 +9,7 @@
     td.username username,
     td.password password
     FROM t_demo td
-    WHERE td.is_valid = 1
+    WHERE td.is_deleted = 0
     <if test="filter.id!=null">
       AND td.id = #{filter.id}
     </if>

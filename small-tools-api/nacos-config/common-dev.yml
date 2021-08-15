@@ -175,9 +175,9 @@ mybatis-plus:
       # 驼峰下划线转换
       table-underline: true
       # 逻辑删除配置
-      logic-delete-field: isValid    # 全局逻辑删除的实体字段名
-      logic-delete-value: 0          # 逻辑删除全局值（0表示已删除，默认为 1）
-      logic-not-delete-value: 1      # 逻辑未删除全局值（1表示未删除，默认为 0）
+      logic-delete-field: isDeleted  # 全局逻辑删除的实体字段名
+      logic-delete-value: 1          # 逻辑删除全局值（0表示已删除，默认为 1）
+      logic-not-delete-value: 0      # 逻辑未删除全局值（1表示未删除，默认为 0）
   configuration:
     # 是否开启自动驼峰命名规则映射:从数据库列名到Java属性驼峰命名的类似映射
     map-underscore-to-camel-case: true

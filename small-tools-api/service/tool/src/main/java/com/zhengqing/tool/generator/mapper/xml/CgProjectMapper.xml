@@ -13,7 +13,7 @@
     u.nickname username
     FROM t_cg_project tcp
     LEFT JOIN t_sys_user u ON tcp.data_re_user_id = u.user_id
-    WHERE tcp.is_valid=1
+    WHERE tcp.is_deleted = 0
     <if test="filter.id!=null">
       AND tcp.id = #{filter.id}
     </if>

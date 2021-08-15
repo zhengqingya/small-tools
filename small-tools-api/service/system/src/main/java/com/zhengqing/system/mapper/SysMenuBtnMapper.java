@@ -28,7 +28,7 @@ public interface SysMenuBtnMapper extends BaseMapper<SysMenuBtn> {
      * @author zhengqingya
      * @date 2020/9/10 21:21
      */
-    @Select("SELECT sd.id FROM t_sys_menu_btn mb INNER JOIN t_sys_dict sd on sd.id = mb.btn_id WHERE mb.is_valid=1 AND mb.menu_id = #{menuId}")
+    @Select("SELECT sd.id FROM t_sys_menu_btn mb INNER JOIN t_sys_dict sd on sd.id = mb.btn_id WHERE mb.is_deleted = 0 AND mb.menu_id = #{menuId}")
     List<Integer> getBtnIdsByMenuId(@Param("menuId") Integer menuId);
 
     /**
@@ -61,7 +61,7 @@ public interface SysMenuBtnMapper extends BaseMapper<SysMenuBtn> {
      * @date 2020/9/10 22:18
      */
     // @Select("SELECT mb.id, mb.menu_id, mb.btn_id btnId, ( SELECT sd.name FROM t_sys_dict sd WHERE sd.id = mb.btn_id )
-    // btnName FROM t_sys_menu_btn mb WHERE mb.is_valid=1 AND mb.menu_id = #{menuId}")
+    // btnName FROM t_sys_menu_btn mb WHERE mb.is_deleted = 0 AND mb.menu_id = #{menuId}")
     List<SysMenuBtnListVO> selectBtnInfoListByMenuId(@Param("menuId") Integer menuId);
 
 }

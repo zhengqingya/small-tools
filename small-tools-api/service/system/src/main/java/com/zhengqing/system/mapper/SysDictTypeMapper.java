@@ -24,7 +24,7 @@ public interface SysDictTypeMapper extends BaseMapper<SysDictType> {
      * @author zhengqingya
      * @date 2020/9/12 18:51
      */
-    @Select("SELECT id,code,name,status FROM t_sys_dict_type WHERE status=1 AND is_valid=1")
+    @Select("SELECT id,code,name,status FROM t_sys_dict_type WHERE status=1 AND is_deleted = 0")
     List<SysDictType> upDictTypeList();
 
 }

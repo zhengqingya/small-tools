@@ -18,7 +18,7 @@
     FROM t_sys_user u
     LEFT JOIN t_sys_user_role ur ON u.user_id=ur.user_id
     WHERE
-    u.is_valid=1
+    u.is_deleted = 0
     <if test="filter.username!=null and filter.username!=''">
       AND u.username LIKE CONCAT( '%', #{filter.username} , '%' )
     </if>
@@ -41,7 +41,7 @@
     ) sexName
     FROM t_sys_user u
     LEFT JOIN t_sys_user_role ur ON u.user_id = ur.user_id
-    WHERE u.is_valid = 1
+    WHERE u.is_deleted = 0
     AND u.user_id = #{userId}
   </select>
 
@@ -58,7 +58,7 @@
     ) sexName
     FROM t_sys_user u
     LEFT JOIN t_sys_user_role ur ON u.user_id = ur.user_id
-    WHERE u.is_valid = 1
+    WHERE u.is_deleted = 0
     AND u.username = #{username}
   </select>
 
@@ -75,7 +75,7 @@
     ) sexName
     FROM t_sys_user u
     LEFT JOIN t_sys_user_role ur ON u.user_id=ur.user_id
-    WHERE u.is_valid=1 AND u.user_id IN
+    WHERE u.is_deleted = 0 AND u.user_id IN
     <foreach collection="userIdList" item="userId" open="(" close=")" separator=",">
       #{userId}
     </foreach>

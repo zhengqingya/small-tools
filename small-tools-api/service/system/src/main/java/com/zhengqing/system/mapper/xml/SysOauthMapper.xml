@@ -11,7 +11,7 @@
     tso.oauth_type oauthType
     FROM t_sys_user_re_oauth tso
     <where>
-      AND tso.is_valid = 1
+      AND tso.is_deleted = 0
       <if test="oauthType!=null">
         AND tso.oauth_type = #{oauthType}
       </if>
@@ -32,7 +32,7 @@
     tso.oauth_type oauthType
     FROM t_sys_user_re_oauth tso
     <where>
-      AND tso.is_valid = 1
+      AND tso.is_deleted = 0
       <if test="filter.userId!=null">
         AND tso.user_id = #{filter.userId}
       </if>

@@ -35,8 +35,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         Date nowDate = new Date();
 
         // 判断对象中是否存在该参数，如果存在则插入数据
-        if (metaObject.hasGetter(MybatisConstant.IS_VALID)) {
-            this.setFieldValByName(MybatisConstant.IS_VALID, 1, metaObject);
+        if (metaObject.hasGetter(MybatisConstant.IS_DELETED)) {
+            this.setFieldValByName(MybatisConstant.IS_DELETED, 0, metaObject);
         }
         if (metaObject.hasGetter(MybatisConstant.CREATE_BY)) {
             Object value = metaObject.getValue(MybatisConstant.CREATE_BY);

@@ -12,7 +12,7 @@
     tscw.name
     FROM t_st_crawler_website tscw
     <where>
-      AND tscw.is_valid = 1
+      AND tscw.is_deleted = 0
       <if test="filter.name!=null and filter.name!=''">
         AND tscw.name LIKE CONCAT( '%', #{filter.name} , '%' )
       </if>

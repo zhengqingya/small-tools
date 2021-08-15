@@ -2,6 +2,7 @@ package com.zhengqing.common.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -23,9 +24,10 @@ import java.util.Date;
 @Setter
 public abstract class BaseEntity<T extends Model<T>> extends Model<T> {
 
-    @ApiModelProperty(value = "是否有效(1:有效 0:无效）")
-    @TableField(value = "is_valid", fill = FieldFill.INSERT)
-    private Integer isValid;
+    @TableLogic
+    @ApiModelProperty(value = "是否删除：true->删除，false->未删除")
+    @TableField(value = "is_deleted", fill = FieldFill.INSERT)
+    private Boolean isDeleted;
 
     @ApiModelProperty(value = "创建人id")
     @TableField(value = "create_by", fill = FieldFill.INSERT)
