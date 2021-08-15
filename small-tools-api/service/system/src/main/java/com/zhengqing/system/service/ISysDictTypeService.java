@@ -3,6 +3,7 @@ package com.zhengqing.system.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhengqing.system.entity.SysDictType;
 import com.zhengqing.system.model.dto.SysDictTypeSaveDTO;
+import com.zhengqing.system.model.vo.SysDictTypeListVO;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public interface ISysDictTypeService extends IService<SysDictType> {
      * @author zhengqingya
      * @date 2020/9/12 18:51
      */
-    List<SysDictType> upDictTypeList();
+    List<SysDictTypeListVO> listByOpen();
 
     /**
      * 新增或更新
@@ -39,7 +40,7 @@ public interface ISysDictTypeService extends IService<SysDictType> {
     /**
      * 根据id删除数据字典类型及其数据字典
      *
-     * @param id: 数据字典id
+     * @param id 数据字典id
      * @return void
      * @author zhengqingya
      * @date 2020/9/12 17:26

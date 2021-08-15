@@ -9,9 +9,9 @@ import com.zhengqing.common.exception.MyException;
 import com.zhengqing.common.util.MyBeanUtil;
 import com.zhengqing.common.util.RedisUtil;
 import com.zhengqing.system.entity.SysDict;
-import com.zhengqing.system.entity.SysDictType;
 import com.zhengqing.system.mapper.SysDictMapper;
 import com.zhengqing.system.model.dto.SysDictSaveDTO;
+import com.zhengqing.system.model.vo.SysDictTypeListVO;
 import com.zhengqing.system.model.vo.SysDictVO;
 import com.zhengqing.system.service.ISysDictService;
 import com.zhengqing.system.service.ISysDictTypeService;
@@ -39,7 +39,6 @@ import java.util.List;
 @Slf4j
 @Service
 @Validated
-@Transactional(rollbackFor = Exception.class)
 public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> implements ISysDictService {
 
     @Autowired
@@ -54,7 +53,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         if (StringUtils.isBlank(code)) {
             throw new MyException("查询编码不能为空!");
         }
-        return sysDictMapper.selectDictListByCode(null, code);
+        return this.sysDictMapper.selectDictListByCode(null, code);
     }
 
     @Override
@@ -62,7 +61,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         if (StringUtils.isBlank(code)) {
             throw new MyException("查询编码不能为空!");
         }
-        return sysDictMapper.selectDictListByCode(YesNoEnum.是.getValue(), code);
+        return this.sysDictMapper.selectDictListByCode(YesNoEnum.是.getValue(), code);
     }
 
     @Override
@@ -71,27 +70,30 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Integer addOrUpdateData(SysDictSaveDTO params) {
         SysDict sysDict = MyBeanUtil.copyProperties(params, SysDict.class);
         if (params.getId() == null) {
-            sysDictMapper.insert(sysDict);
+            this.sysDictMapper.insert(sysDict);
         } else {
-            sysDictMapper.updateById(sysDict);
+            this.sysDictMapper.updateById(sysDict);
         }
-        updateCache(dictTypeService.getById(sysDict.getDictTypeId()).getCode());
+        this.updateCache(this.dictTypeService.getById(sysDict.getDictTypeId()).getCode());
         return sysDict.getId();
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteDictById(Integer id) {
-        SysDict sysDict = sysDictMapper.selectById(id);
-        sysDictMapper.deleteById(id);
-        updateCache(dictTypeService.getById(sysDict.getDictTypeId()).getCode());
+        SysDict sysDict = this.sysDictMapper.selectById(id);
+        this.sysDictMapper.deleteById(id);
+        this.updateCache(this.dictTypeService.getById(sysDict.getDictTypeId()).getCode());
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteDictByDictTypeId(Integer dictTypeId) {
-        sysDictMapper.deleteByDictTypeId(dictTypeId);
+        this.sysDictMapper.deleteByDictTypeId(dictTypeId);
     }
 
     @Override
@@ -102,7 +104,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
             RedisUtil.delete(key);
             log.info("更新数据字典之前删除缓存`{}`" + key);
         }
-        List<SysDictVO> dictList = getUpDictListFromDbByCode(code);
+        List<SysDictVO> dictList = this.getUpDictListFromDbByCode(code);
         if (!CollectionUtils.isEmpty(dictList)) {
             RedisUtil.set(key, JSON.toJSONString(dictList));
             log.info("加入数据字典缓存`{}`" + key);
@@ -111,10 +113,10 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
 
     @Override
     public void initCache() {
-        List<SysDictType> sysDictTypeList = dictTypeService.upDictTypeList();
+        List<SysDictTypeListVO> sysDictTypeList = this.dictTypeService.listByOpen();
         sysDictTypeList.forEach(e -> {
             String code = e.getCode();
-            RedisUtil.set(AppConstant.CACHE_SYS_DICT_PREFIX + code, JSON.toJSONString(getUpDictListFromDbByCode(code)));
+            RedisUtil.set(AppConstant.CACHE_SYS_DICT_PREFIX + code, JSON.toJSONString(this.getUpDictListFromDbByCode(code)));
         });
         log.info("初始化数据字典缓存成功!");
     }

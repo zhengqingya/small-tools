@@ -35,37 +35,37 @@ public class SysDictController extends BaseController {
     @GetMapping("/listByCode")
     @ApiOperation("通过编码获取数据字典列表信息（启用+禁用数据）")
     public List<SysDictVO> listByCode(@RequestParam String code) {
-        return dictService.getAllDictListByCode(code);
+        return this.dictService.getAllDictListByCode(code);
     }
 
     @GetMapping("/listFromDbByCode")
     @ApiOperation("通过编码获取数据字典列表信息 - 数据库方式（只含启用数据）")
     public List<SysDictVO> listFromDbByCode(@RequestParam String code) {
-        return dictService.getUpDictListFromDbByCode(code);
+        return this.dictService.getUpDictListFromDbByCode(code);
     }
 
     @GetMapping("/listFromCacheByCode")
     @ApiOperation("通过编码获取数据字典列表信息 - 缓存方式（只含启用数据）")
     public List<SysDictVO> listFromCacheByCode(@RequestParam String code) {
-        return dictService.getUpDictListFromCacheByCode(code);
+        return this.dictService.getUpDictListFromCacheByCode(code);
     }
 
     @PostMapping("")
     @ApiOperation("新增")
     public Integer add(@Validated @RequestBody SysDictSaveDTO params) {
-        return dictService.addOrUpdateData(params);
+        return this.dictService.addOrUpdateData(params);
     }
 
     @PutMapping("")
     @ApiOperation("更新")
     public Integer update(@Validated(UpdateGroup.class) @RequestBody SysDictSaveDTO params) {
-        return dictService.addOrUpdateData(params);
+        return this.dictService.addOrUpdateData(params);
     }
 
     @DeleteMapping("")
     @ApiOperation("删除")
     public void delete(@RequestParam Integer id) {
-        dictService.deleteDictById(id);
+        this.dictService.deleteDictById(id);
     }
 
 }

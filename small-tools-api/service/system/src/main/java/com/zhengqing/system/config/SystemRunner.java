@@ -29,7 +29,7 @@ public class SystemRunner extends AppCommonRunner {
         log.info("服务初始化之后，执行方法 start...");
 
         // 数据字典
-        dictService.initCache();
+        this.dictService.initCache();
 
         log.info("服务初始化之后，执行方法 end...");
     }

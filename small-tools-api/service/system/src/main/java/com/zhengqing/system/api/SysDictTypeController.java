@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -35,25 +37,25 @@ public class SysDictTypeController extends BaseController {
     @GetMapping("/list")
     @ApiOperation("列表")
     public List<SysDictType> list() {
-        return dictTypeService.list();
+        return this.dictTypeService.list().stream().sorted(Comparator.comparing(SysDictType::getSort)).collect(Collectors.toList());
     }
 
     @PostMapping("")
     @ApiOperation("新增")
     public Integer add(@Validated @RequestBody SysDictTypeSaveDTO params) {
-        return dictTypeService.addOrUpdateData(params);
+        return this.dictTypeService.addOrUpdateData(params);
     }
 
     @PutMapping("")
     @ApiOperation("更新")
     public Integer update(@Validated(UpdateGroup.class) @RequestBody SysDictTypeSaveDTO params) {
-        return dictTypeService.addOrUpdateData(params);
+        return this.dictTypeService.addOrUpdateData(params);
     }
 
     @DeleteMapping("")
     @ApiOperation("删除")
     public void delete(@RequestParam Integer id) {
-        dictTypeService.deleteType(id);
+        this.dictTypeService.deleteType(id);
     }
 
 }

@@ -7,6 +7,7 @@ import com.zhengqing.common.util.RedisUtil;
 import com.zhengqing.system.entity.SysDictType;
 import com.zhengqing.system.mapper.SysDictTypeMapper;
 import com.zhengqing.system.model.dto.SysDictTypeSaveDTO;
+import com.zhengqing.system.model.vo.SysDictTypeListVO;
 import com.zhengqing.system.service.ISysDictService;
 import com.zhengqing.system.service.ISysDictTypeService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,6 @@ import java.util.List;
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDictType> implements ISysDictTypeService {
 
     @Lazy
@@ -39,33 +39,35 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
     private SysDictTypeMapper sysDictTypeMapper;
 
     @Override
-    public List<SysDictType> upDictTypeList() {
-        return sysDictTypeMapper.upDictTypeList();
+    public List<SysDictTypeListVO> listByOpen() {
+        return this.sysDictTypeMapper.selectDictTypeListByOpen();
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Integer addOrUpdateData(SysDictTypeSaveDTO params) {
         SysDictType sysDictType = MyBeanUtil.copyProperties(params, SysDictType.class);
         if (params.getId() == null) {
-            sysDictTypeMapper.insert(sysDictType);
+            this.sysDictTypeMapper.insert(sysDictType);
         } else {
-            sysDictTypeMapper.updateById(sysDictType);
+            this.sysDictTypeMapper.updateById(sysDictType);
         }
-        dictService.updateCache(sysDictType.getCode());
+        this.dictService.updateCache(sysDictType.getCode());
         return sysDictType.getId();
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteType(Integer id) {
-        SysDictType sysDictType = sysDictTypeMapper.selectById(id);
-        // ① 先删除数据字典
-        dictService.deleteDictByDictTypeId(id);
-        // ② 再删除数据字典类型
-        sysDictTypeMapper.deleteById(id);
-        // ③ 最后删除缓存
+        SysDictType sysDictType = this.sysDictTypeMapper.selectById(id);
         String key = sysDictType.getCode();
+        // 1、 先删除数据字典
+        this.dictService.deleteDictByDictTypeId(id);
+        // 2、 再删除数据字典类型
+        this.sysDictTypeMapper.deleteById(id);
+        // 3、 最后删除缓存
         RedisUtil.delete(AppConstant.CACHE_SYS_DICT_PREFIX + key);
-        log.info("删除数据字典`{}`缓存成功", key);
+        log.info("删除数据字典[{}] & 删除缓存成功", key);
     }
 
 }

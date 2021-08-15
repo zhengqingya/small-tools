@@ -2,6 +2,7 @@ package com.zhengqing.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zhengqing.system.entity.SysDictType;
+import com.zhengqing.system.model.vo.SysDictTypeListVO;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public interface SysDictTypeMapper extends BaseMapper<SysDictType> {
      * @author zhengqingya
      * @date 2020/9/12 18:51
      */
-    @Select("SELECT id,code,name,status FROM t_sys_dict_type WHERE status=1 AND is_deleted = 0")
-    List<SysDictType> upDictTypeList();
+    @Select("SELECT id,code,name,sort FROM t_sys_dict_type WHERE status=1 AND is_deleted = 0")
+    List<SysDictTypeListVO> selectDictTypeListByOpen();
 
 }

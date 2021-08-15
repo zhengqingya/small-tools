@@ -14,7 +14,7 @@ public interface MybatisConstant {
      */
     String LIMIT_ONE = "LIMIT 1";
     /**
-     * 是否删除：1->删除，0->未删除
+     * 是否删除：true->删除，false->未删除
      */
     String IS_DELETED = "isDeleted";
     /**

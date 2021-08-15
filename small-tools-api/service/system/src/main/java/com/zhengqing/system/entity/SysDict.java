@@ -30,14 +30,17 @@ public class SysDict extends BaseEntity<SysDict> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "字典类型id(关联`t_sys_dict_type`表`id`字段)")
+    @ApiModelProperty(value = "字典类型id")
     private Integer dictTypeId;
 
-    @ApiModelProperty(value = "名称")
+    @ApiModelProperty(value = "字典名")
     private String name;
 
-    @ApiModelProperty(value = "值")
+    @ApiModelProperty(value = "字典值")
     private String value;
+
+    @ApiModelProperty(value = "状态(0->停用 1->正常)")
+    private Integer status;
 
     @ApiModelProperty(value = "排序")
     private Integer sort;

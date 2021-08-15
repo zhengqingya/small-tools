@@ -43,7 +43,7 @@ public class SysDictTypeSaveDTO {
     private String name;
 
     @NotNull(message = "请选择状态!")
-    @ApiModelProperty(value = "状态 1启用 0禁用")
+    @ApiModelProperty(value = "状态(0->停用 1->正常)")
     private Integer status;
 
 }

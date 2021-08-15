@@ -141,15 +141,24 @@ public class FieldRepeatValidatorUtil {
         List<Map<String, Object>> list =
                 ApplicationContextUtil.getApplicationContext().getBean(MyBaseMapper.class).selectList(TABLE_NAME, queryMap);
 
-        /// 6、如果数据重复返回false -> 再返回自定义错误消息到前端
+        // 6、如果数据重复返回false -> 再返回自定义错误消息到前端
         if (!CollectionUtils.isEmpty(list)) {
             if (idValue == null) {
                 throw new MyException(message);
             } else {
+                if (list.size() > 1) {
+                    throw new MyException(message);
+                }
                 // 获取list中指定字段属性值 - 这里只获取主键id
-                List<Integer> idList = (List<Integer>) MyBeanUtil.getFieldList(list, idDbName);
-                boolean isContainsIdValue = idList.contains(idValue);
-                if (list.size() > 1 || !isContainsIdValue) {
+                List<Object> idList = (List<Object>) MyBeanUtil.getFieldList(list, idDbName);
+                boolean isContainsIdValue = false;
+                for (Object itemId : idList) {
+                    if (itemId.toString().equals(idValue.toString())) {
+                        isContainsIdValue = true;
+                        break;
+                    }
+                }
+                if (!isContainsIdValue) {
                     throw new MyException(message);
                 }
             }
