@@ -27,7 +27,7 @@ public interface ISysDictService extends IService<SysDict> {
      * @author zhengqingya
      * @date 2020/9/12 17:38
      */
-    List<SysDictVO> getAllDictListByCode(String code);
+    List<SysDictVO> getAllDictListByCode(@NotBlank(message = "查询编码不能为空!") String code);
 
     /**
      * 通过类型code获取数据字典列表数据 - 数据库方式（只有启用的数据）
@@ -37,7 +37,7 @@ public interface ISysDictService extends IService<SysDict> {
      * @author zhengqingya
      * @date 2020/9/12 17:38
      */
-    List<SysDictVO> getUpDictListFromDbByCode(String code);
+    List<SysDictVO> getUpDictListFromDbByCode(@NotBlank(message = "查询编码不能为空!") String code);
 
     /**
      * 通过类型code获取数据字典列表数据 - 从缓存中取数据（只有启用的数据）

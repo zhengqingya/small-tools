@@ -32,6 +32,12 @@ public class SysDictController extends BaseController {
     @Autowired
     private ISysDictService dictService;
 
+    @PostMapping("/initCache")
+    @ApiOperation("初始化缓存数据")
+    public void initCache() {
+        this.dictService.initCache();
+    }
+
     @GetMapping("/listByCode")
     @ApiOperation("通过编码获取数据字典列表信息（启用+禁用数据）")
     public List<SysDictVO> listByCode(@RequestParam String code) {

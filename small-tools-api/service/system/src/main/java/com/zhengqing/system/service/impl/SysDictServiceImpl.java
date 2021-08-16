@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.enums.YesNoEnum;
-import com.zhengqing.common.exception.MyException;
 import com.zhengqing.common.util.MyBeanUtil;
 import com.zhengqing.common.util.RedisUtil;
 import com.zhengqing.system.entity.SysDict;
@@ -16,7 +15,6 @@ import com.zhengqing.system.model.vo.SysDictVO;
 import com.zhengqing.system.service.ISysDictService;
 import com.zhengqing.system.service.ISysDictTypeService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -24,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -50,22 +47,16 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
 
     @Override
     public List<SysDictVO> getAllDictListByCode(String code) {
-        if (StringUtils.isBlank(code)) {
-            throw new MyException("查询编码不能为空!");
-        }
         return this.sysDictMapper.selectDictListByCode(null, code);
     }
 
     @Override
     public List<SysDictVO> getUpDictListFromDbByCode(String code) {
-        if (StringUtils.isBlank(code)) {
-            throw new MyException("查询编码不能为空!");
-        }
         return this.sysDictMapper.selectDictListByCode(YesNoEnum.是.getValue(), code);
     }
 
     @Override
-    public List<SysDictVO> getUpDictListFromCacheByCode(@NotBlank(message = "查询编码不能为空!") String code) {
+    public List<SysDictVO> getUpDictListFromCacheByCode(String code) {
         return JSONArray.parseArray(RedisUtil.get(AppConstant.CACHE_SYS_DICT_PREFIX + code), SysDictVO.class);
     }
 
