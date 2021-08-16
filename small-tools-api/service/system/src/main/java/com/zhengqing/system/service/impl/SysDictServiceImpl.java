@@ -77,6 +77,9 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     @Transactional(rollbackFor = Exception.class)
     public void deleteDictById(Integer id) {
         SysDict sysDict = this.sysDictMapper.selectById(id);
+        if (sysDict == null) {
+            return;
+        }
         this.sysDictMapper.deleteById(id);
         this.updateCache(this.dictTypeService.getById(sysDict.getDictTypeId()).getCode());
     }
