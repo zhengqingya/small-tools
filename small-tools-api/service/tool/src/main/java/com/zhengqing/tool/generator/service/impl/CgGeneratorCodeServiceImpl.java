@@ -166,7 +166,7 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
                 stDbJdbcService.getAllColumnsByDataSourceIdAndDbNameAndTableName(dbDataSourceId, dbName, tableName);
 
         // 4、模板数据处理
-        handleTemplateData(templateDataMap, columnInfo, packageNameInfoMap, parentPackageNameFinal, queryColumnList);
+        this.handleTemplateData(templateDataMap, columnInfo, packageNameInfoMap, parentPackageNameFinal, queryColumnList);
 
         // 5、准备生成（模板+数据模型）
         String templateData =
