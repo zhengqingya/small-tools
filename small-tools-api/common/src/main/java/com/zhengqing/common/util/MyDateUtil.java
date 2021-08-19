@@ -1,9 +1,14 @@
 package com.zhengqing.common.util;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.management.ManagementFactory;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -15,6 +20,7 @@ import java.util.Date;
  * @description
  * @date 2019/8/18 0018 12:57
  */
+@Slf4j
 public class MyDateUtil {
 
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -101,11 +107,40 @@ public class MyDateUtil {
         return endDate.getTime() >= startDate.getTime();
     }
 
+    /**
+     * 获取今日开始时间
+     *
+     * @return 今日开始时间
+     * @author zhengqingya
+     * @date 2021/8/18 18:58
+     */
+    public static Date todayStartTime() {
+        LocalDateTime todayStartTime = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);
+        return Date.from(todayStartTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    /**
+     * 获取今日结束时间
+     *
+     * @return 今日结束时间
+     * @author zhengqingya
+     * @date 2021/8/18 18:58
+     */
+    public static Date todayEndTime() {
+        LocalDateTime todayStartTime = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
+        return Date.from(todayStartTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
     public static void main(String[] args) {
         String dateStr = dateToStr(new Date(), DATE_TIME_FORMAT);
         System.out.println(nowStr(YEAR_FORMAT));
         boolean result = verifyTime("2020-08-18 00:00:00", "2020-08-17 23:59:59", DATE_TIME_FORMAT);
         System.out.println(result);
+
+        Date todayStartTime = todayStartTime();
+        Date todayEndTime = todayEndTime();
+
+        log.info("--------------------------------");
     }
 
 }
