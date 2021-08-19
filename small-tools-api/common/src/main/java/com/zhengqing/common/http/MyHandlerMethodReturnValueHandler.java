@@ -33,8 +33,13 @@ public class MyHandlerMethodReturnValueHandler implements HandlerMethodReturnVal
     @Override
     public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer, NativeWebRequest webRequest) throws Exception {
         HttpServletRequest nativeRequest = webRequest.getNativeRequest(HttpServletRequest.class);
+        // 判断外层是否由ApiResult包裹
+        if (returnValue instanceof ApiResult) {
+            returnValueHandler.handleReturnValue(returnValue, returnType, mavContainer, webRequest);
+            return;
+        }
+        // 判断该api是否需要是否处理返回值
         String servletPath = nativeRequest.getServletPath();
-        // 是否处理返回值
         boolean ifHandleReturnValue = true;
         for (String api : AppConstant.RETURN_VALUE_HANDLER_EXCLUDE_API_LIST) {
             if (servletPath.contains(api)) {
