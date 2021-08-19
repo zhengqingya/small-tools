@@ -198,7 +198,7 @@ public interface AppConstant {
     /**
      * rpc服务调用不需要封装返回值的api
      */
-    List<String> RPC_CLIENT_URL_LIST = Lists.newArrayList("/hello", "/index", "/rpc/client");
+    List<String> RETURN_VALUE_HANDLER_EXCLUDE_API_LIST = Lists.newArrayList("/hello", "/index", "/rpc/client");
 
     // ===============================================================================
     // ============================ ↓↓↓↓↓↓ 其它 ↓↓↓↓↓↓ ============================

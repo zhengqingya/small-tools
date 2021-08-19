@@ -1,7 +1,9 @@
 package com.zhengqing.demo.api;
 
+import com.google.common.collect.Lists;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.aspect.config.BeanSelfAware;
+import com.zhengqing.common.http.ApiResult;
 import com.zhengqing.common.model.dto.BaseDTO;
 import com.zhengqing.common.util.EmailUtil;
 import com.zhengqing.common.util.RestTemplateUtil;
@@ -10,6 +12,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -65,6 +69,12 @@ public class TestController extends BaseController implements BeanSelfAware {
     public String sendMail(@RequestParam String sendTo) {
         EmailUtil.sendMail("test", "content", sendTo);
         return "SUCCESS";
+    }
+
+    @ApiOperation("testHandleReturnValue")
+    @GetMapping("testHandleReturnValue")
+    public ApiResult<List<String>> testHandleReturnValue() {
+        return ApiResult.ok("SUCCESS", Lists.newArrayList("hello world"));
     }
 
 }
