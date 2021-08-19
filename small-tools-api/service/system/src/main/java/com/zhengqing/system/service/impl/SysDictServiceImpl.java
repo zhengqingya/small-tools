@@ -1,5 +1,6 @@
 package com.zhengqing.system.service.impl;
 
+import cn.hutool.core.lang.Assert;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -61,6 +62,13 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     }
 
     @Override
+    public SysDict detail(Integer dictId) {
+        SysDict sysDict = this.sysDictMapper.selectById(dictId);
+        Assert.notNull(sysDict, "字典不存在！");
+        return sysDict;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public Integer addOrUpdateData(SysDictSaveDTO params) {
         Integer dictTypeId = params.getDictTypeId();
@@ -81,6 +89,8 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         if (params.getId() == null) {
             this.sysDictMapper.insert(sysDict);
         } else {
+            // 校验该数据是否存在
+            this.detail(id);
             this.sysDictMapper.updateById(sysDict);
         }
         // 更新缓存

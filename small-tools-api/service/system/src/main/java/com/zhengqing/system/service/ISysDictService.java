@@ -50,6 +50,16 @@ public interface ISysDictService extends IService<SysDict> {
     List<SysDictVO> getUpDictListFromCacheByCode(@NotBlank(message = "查询编码不能为空!") String code);
 
     /**
+     * 详情
+     *
+     * @param dictId 字典id
+     * @return 字典
+     * @author zhengqingya
+     * @date 2021/8/19 11:11
+     */
+    SysDict detail(Integer dictId);
+
+    /**
      * 新增或更新
      *
      * @param params: 提交参数

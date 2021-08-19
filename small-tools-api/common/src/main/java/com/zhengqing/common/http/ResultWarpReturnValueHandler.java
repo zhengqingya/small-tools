@@ -42,8 +42,7 @@ public class ResultWarpReturnValueHandler implements HandlerMethodReturnValueHan
                 break;
             }
         }
-        delegate.handleReturnValue(ifHandleReturnValue ? ApiResult.ok(returnValue) : returnValue, returnType,
-                mavContainer, webRequest);
+        delegate.handleReturnValue(ifHandleReturnValue ? ApiResult.ok(returnValue) : returnValue, returnType, mavContainer, webRequest);
     }
 
 }

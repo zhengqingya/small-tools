@@ -67,6 +67,8 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         if (params.getId() == null) {
             this.sysDictTypeMapper.insert(sysDictType);
         } else {
+            // 校验该数据是否存在
+            this.detail(id);
             this.sysDictTypeMapper.updateById(sysDictType);
         }
         // 更新缓存
