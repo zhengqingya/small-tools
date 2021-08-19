@@ -3,7 +3,6 @@ package com.zhengqing.system.service.impl;
 import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.util.MyBeanUtil;
 import com.zhengqing.common.util.RedisUtil;
 import com.zhengqing.system.entity.SysDictType;
 import com.zhengqing.system.mapper.SysDictTypeMapper;
@@ -54,12 +53,23 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Integer addOrUpdateData(SysDictTypeSaveDTO params) {
-        SysDictType sysDictType = MyBeanUtil.copyProperties(params, SysDictType.class);
+        Integer id = params.getId();
+        String code = params.getCode();
+        String name = params.getName();
+        Integer status = params.getStatus();
+        // 保存数据
+        SysDictType sysDictType = SysDictType.builder()
+                .id(id)
+                .code(code)
+                .name(name)
+                .status(status)
+                .build();
         if (params.getId() == null) {
             this.sysDictTypeMapper.insert(sysDictType);
         } else {
             this.sysDictTypeMapper.updateById(sysDictType);
         }
+        // 更新缓存
         this.dictService.updateCache(sysDictType.getCode());
         return sysDictType.getId();
     }

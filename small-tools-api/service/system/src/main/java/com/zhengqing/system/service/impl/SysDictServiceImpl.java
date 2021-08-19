@@ -69,6 +69,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         String name = params.getName();
         String value = params.getValue();
         Integer sort = params.getSort();
+        // 保存数据
         SysDict sysDict = SysDict.builder()
                 .id(id)
                 .dictTypeId(dictTypeId)
@@ -82,6 +83,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         } else {
             this.sysDictMapper.updateById(sysDict);
         }
+        // 更新缓存
         this.updateCache(dictTypeData.getCode());
         return sysDict.getId();
     }
@@ -95,6 +97,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         }
         this.sysDictMapper.deleteById(id);
         SysDictType dictTypeData = this.dictTypeService.detail(sysDict.getDictTypeId());
+        // 更新缓存
         this.updateCache(dictTypeData.getCode());
     }
 
