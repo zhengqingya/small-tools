@@ -1,5 +1,6 @@
 package com.zhengqing.system.service.impl;
 
+import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.util.MyBeanUtil;
@@ -41,6 +42,13 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
     @Override
     public List<SysDictTypeListVO> listByOpen() {
         return this.sysDictTypeMapper.selectDictTypeListByOpen();
+    }
+
+    @Override
+    public SysDictType detail(Integer dictTypeId) {
+        SysDictType sysDictType = this.sysDictTypeMapper.selectById(dictTypeId);
+        Assert.notNull(sysDictType, "字典类型不存在！");
+        return sysDictType;
     }
 
     @Override

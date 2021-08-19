@@ -5,9 +5,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.enums.YesNoEnum;
-import com.zhengqing.common.util.MyBeanUtil;
 import com.zhengqing.common.util.RedisUtil;
 import com.zhengqing.system.entity.SysDict;
+import com.zhengqing.system.entity.SysDictType;
 import com.zhengqing.system.mapper.SysDictMapper;
 import com.zhengqing.system.model.dto.SysDictSaveDTO;
 import com.zhengqing.system.model.vo.SysDictTypeListVO;
@@ -63,13 +63,26 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Integer addOrUpdateData(SysDictSaveDTO params) {
-        SysDict sysDict = MyBeanUtil.copyProperties(params, SysDict.class);
+        Integer dictTypeId = params.getDictTypeId();
+        SysDictType dictTypeData = this.dictTypeService.detail(dictTypeId);
+        Integer id = params.getId();
+        String name = params.getName();
+        String value = params.getValue();
+        Integer sort = params.getSort();
+        SysDict sysDict = SysDict.builder()
+                .id(id)
+                .dictTypeId(dictTypeId)
+                .name(name)
+                .value(value)
+                .status(YesNoEnum.是.getValue())
+                .sort(sort)
+                .build();
         if (params.getId() == null) {
             this.sysDictMapper.insert(sysDict);
         } else {
             this.sysDictMapper.updateById(sysDict);
         }
-        this.updateCache(this.dictTypeService.getById(sysDict.getDictTypeId()).getCode());
+        this.updateCache(dictTypeData.getCode());
         return sysDict.getId();
     }
 
@@ -81,7 +94,8 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
             return;
         }
         this.sysDictMapper.deleteById(id);
-        this.updateCache(this.dictTypeService.getById(sysDict.getDictTypeId()).getCode());
+        SysDictType dictTypeData = this.dictTypeService.detail(sysDict.getDictTypeId());
+        this.updateCache(dictTypeData.getCode());
     }
 
     @Override

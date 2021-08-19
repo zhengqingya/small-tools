@@ -28,6 +28,16 @@ public interface ISysDictTypeService extends IService<SysDictType> {
     List<SysDictTypeListVO> listByOpen();
 
     /**
+     * 详情
+     *
+     * @param dictTypeId 字典类型id
+     * @return 字典类型数据
+     * @author zhengqingya
+     * @date 2021/8/19 10:22
+     */
+    SysDictType detail(Integer dictTypeId);
+
+    /**
      * 新增或更新
      *
      * @param params:
