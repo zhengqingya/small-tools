@@ -96,11 +96,12 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         String password = params.getPassword();
         Integer sex = params.getSex();
 
-        Demo demo = new Demo();
-        demo.setId(id);
-        demo.setUsername(username);
-        demo.setPassword(password);
-        demo.setSex(sex);
+        Demo demo = Demo.builder()
+                .id(id)
+                .username(username)
+                .password(password)
+                .sex(sex)
+                .build();
 
         // FIXME 临时测试分页
         Demo demoInfo = this.demoMapper
@@ -110,10 +111,11 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
 
         if (id == null) {
             demo.insert();
+            id = demo.getId();
         } else {
             demo.updateById();
         }
-        return demo.getId();
+        return id;
     }
 
     @Async

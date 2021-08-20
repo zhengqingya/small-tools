@@ -70,6 +70,19 @@ public class MyDateUtil {
     }
 
     /**
+     * Str(yyyy-MM-dd HH:mm:ss)转DateTime
+     *
+     * @param dateStr 字符串时间
+     * @return Date时间类型
+     * @author zhengqingya
+     * @date 2021/8/20 9:41
+     */
+    @SneakyThrows
+    public static Date strToDateTime(String dateStr) {
+        return new SimpleDateFormat(DATE_TIME_FORMAT).parse(dateStr);
+    }
+
+    /**
      * Str转Date
      *
      * @param dateStr: 字符串时间
@@ -139,6 +152,8 @@ public class MyDateUtil {
 
         Date todayStartTime = todayStartTime();
         Date todayEndTime = todayEndTime();
+
+        Date date = strToDateTime("2020-08-18 00:00:10");
 
         log.info("--------------------------------");
     }
