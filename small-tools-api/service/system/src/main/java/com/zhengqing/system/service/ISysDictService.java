@@ -6,7 +6,9 @@ import com.zhengqing.system.model.dto.SysDictSaveDTO;
 import com.zhengqing.system.model.vo.SysDictVO;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -22,32 +24,42 @@ public interface ISysDictService extends IService<SysDict> {
     /**
      * 通过类型code获取数据字典列表数据(启用+禁用的数据一起)
      *
-     * @param code: 类型编码
+     * @param code 类型编码
      * @return 数据字典列表数据
      * @author zhengqingya
      * @date 2020/9/12 17:38
      */
-    List<SysDictVO> getAllDictListByCode(@NotBlank(message = "查询编码不能为空!") String code);
+    List<SysDictVO> listByCode(@NotBlank(message = "查询编码不能为空!") String code);
+
+    /**
+     * 通过类型code获取数据字典列表数据(启用数据)
+     *
+     * @param codeList 类型编码
+     * @return 字典类型 -> 字典列表数据
+     * @author zhengqingya
+     * @date 2020/9/12 17:38
+     */
+    Map<String, List<SysDictVO>> listByOpenCode(@NotEmpty(message = "查询编码不能为空!") List<String> codeList);
 
     /**
      * 通过类型code获取数据字典列表数据 - 数据库方式（只有启用的数据）
      *
-     * @param code: 类型编码
-     * @return 数据字典列表数据
+     * @param codeList 类型编码
+     * @return 字典类型 -> 字典列表数据
      * @author zhengqingya
      * @date 2020/9/12 17:38
      */
-    List<SysDictVO> getUpDictListFromDbByCode(@NotBlank(message = "查询编码不能为空!") String code);
+    Map<String, List<SysDictVO>> listFromDbByOpenCode(@NotEmpty(message = "查询编码不能为空!") List<String> codeList);
 
     /**
      * 通过类型code获取数据字典列表数据 - 从缓存中取数据（只有启用的数据）
      *
-     * @param code: 类型编码
-     * @return 数据字典列表数据
+     * @param codeList 类型编码
+     * @return 字典类型 -> 字典列表数据
      * @author zhengqingya
      * @date 2020/9/12 17:38
      */
-    List<SysDictVO> getUpDictListFromCacheByCode(@NotBlank(message = "查询编码不能为空!") String code);
+    Map<String, List<SysDictVO>> listFromCacheByCode(@NotEmpty(message = "查询编码不能为空!") List<String> codeList);
 
     /**
      * 详情

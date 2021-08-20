@@ -1,5 +1,6 @@
 package com.zhengqing.system.api;
 
+import com.google.common.collect.Lists;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import com.zhengqing.system.model.dto.SysDictSaveDTO;
@@ -13,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -30,48 +32,54 @@ import java.util.List;
 public class SysDictController extends BaseController {
 
     @Autowired
-    private ISysDictService dictService;
+    private ISysDictService sysDictService;
 
     @PostMapping("/initCache")
     @ApiOperation("初始化缓存数据")
     public void initCache() {
-        this.dictService.initCache();
+        this.sysDictService.initCache();
     }
 
     @GetMapping("/listByCode")
     @ApiOperation("通过编码获取数据字典列表信息（启用+禁用数据）")
     public List<SysDictVO> listByCode(@RequestParam String code) {
-        return this.dictService.getAllDictListByCode(code);
+        return this.sysDictService.listByCode(code);
+    }
+
+    @GetMapping("/listByOpenCode")
+    @ApiOperation("通过编码获取数据字典列表（只含启用数据）")
+    public Map<String, List<SysDictVO>> listByOpenCode(@RequestParam List<String> codeList) {
+        return this.sysDictService.listByOpenCode(codeList);
     }
 
     @GetMapping("/listFromDbByCode")
     @ApiOperation("通过编码获取数据字典列表信息 - 数据库方式（只含启用数据）")
     public List<SysDictVO> listFromDbByCode(@RequestParam String code) {
-        return this.dictService.getUpDictListFromDbByCode(code);
+        return this.sysDictService.listFromDbByOpenCode(Lists.newArrayList(code)).get(code);
     }
 
     @GetMapping("/listFromCacheByCode")
     @ApiOperation("通过编码获取数据字典列表信息 - 缓存方式（只含启用数据）")
     public List<SysDictVO> listFromCacheByCode(@RequestParam String code) {
-        return this.dictService.getUpDictListFromCacheByCode(code);
+        return this.sysDictService.listFromCacheByCode(Lists.newArrayList(code)).get(code);
     }
 
     @PostMapping("")
     @ApiOperation("新增")
     public Integer add(@Validated @RequestBody SysDictSaveDTO params) {
-        return this.dictService.addOrUpdateData(params);
+        return this.sysDictService.addOrUpdateData(params);
     }
 
     @PutMapping("")
     @ApiOperation("更新")
     public Integer update(@Validated(UpdateGroup.class) @RequestBody SysDictSaveDTO params) {
-        return this.dictService.addOrUpdateData(params);
+        return this.sysDictService.addOrUpdateData(params);
     }
 
     @DeleteMapping("")
     @ApiOperation("删除")
     public void delete(@RequestParam Integer id) {
-        this.dictService.deleteDictById(id);
+        this.sysDictService.deleteDictById(id);
     }
 
 }

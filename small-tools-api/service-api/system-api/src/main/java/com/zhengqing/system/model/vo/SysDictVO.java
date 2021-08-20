@@ -39,4 +39,7 @@ public class SysDictVO implements Serializable {
     @ApiModelProperty(value = "展示排序")
     private Integer sort;
 
+    @ApiModelProperty(value = "备注")
+    private String remark;
+
 }

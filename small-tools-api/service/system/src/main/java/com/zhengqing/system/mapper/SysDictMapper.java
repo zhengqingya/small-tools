@@ -22,13 +22,13 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
     /**
      * 根据数据字典编码获取数据字典列表
      *
-     * @param code:   数据字典编码
-     * @param status: 状态 1：启用 0：禁用
+     * @param status   状态 1：启用 0：禁用
+     * @param codeList 数据字典编码
      * @return 数据字典列表信息
      * @author zhengqingya
      * @date 2020/9/12 17:58
      */
-    List<SysDictVO> selectDictListByCode(@Param("status") Integer status, @Param("code") String code);
+    List<SysDictVO> selectDictListByCode(@Param("status") Integer status, @Param("codeList") List<String> codeList);
 
     /**
      * 根据类型id删除数据字典类型下的所有数据字典

@@ -45,4 +45,7 @@ public class SysDict extends BaseEntity<SysDict> {
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
+    @ApiModelProperty(value = "备注")
+    private String remark;
+
 }

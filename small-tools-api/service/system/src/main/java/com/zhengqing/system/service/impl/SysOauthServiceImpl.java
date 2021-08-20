@@ -270,7 +270,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
     @Override
     public List<SysOauthDataListVO> getOauthDataList(Integer userId) {
         List<SysOauthDataListVO> oauthDataList = Lists.newArrayList();
-        List<SysDictVO> oauthTypeList = dictService.getUpDictListFromCacheByCode(SysDictTypeEnum.第三方帐号授权类型.getCode());
+        List<SysDictVO> oauthTypeList = dictService.listFromCacheByCode(Lists.newArrayList(SysDictTypeEnum.第三方帐号授权类型.getCode())).get(SysDictTypeEnum.第三方帐号授权类型.getCode());
         List<SysOauthListVO> oauthBindList = this.list(SysOauthListDTO.builder().userId(userId).build());
         List<Integer> oauthTypeBindList =
                 oauthBindList.stream().map(SysOauthListVO::getOauthType).collect(Collectors.toList());

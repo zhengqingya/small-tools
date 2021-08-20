@@ -4,9 +4,11 @@ import cn.hutool.core.lang.Assert;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhengqing.common.constant.AppConstant;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.zhengqing.common.enums.YesNoEnum;
 import com.zhengqing.common.util.RedisUtil;
+import com.zhengqing.system.constant.SystemConstant;
 import com.zhengqing.system.entity.SysDict;
 import com.zhengqing.system.entity.SysDictType;
 import com.zhengqing.system.mapper.SysDictMapper;
@@ -16,6 +18,7 @@ import com.zhengqing.system.model.vo.SysDictVO;
 import com.zhengqing.system.service.ISysDictService;
 import com.zhengqing.system.service.ISysDictTypeService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -23,7 +26,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -44,21 +50,46 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
 
     @Lazy
     @Autowired
-    private ISysDictTypeService dictTypeService;
+    private ISysDictTypeService sysDictTypeService;
 
     @Override
-    public List<SysDictVO> getAllDictListByCode(String code) {
-        return this.sysDictMapper.selectDictListByCode(null, code);
+    public List<SysDictVO> listByCode(String code) {
+        return this.sysDictMapper.selectDictListByCode(null, Lists.newArrayList(code));
     }
 
     @Override
-    public List<SysDictVO> getUpDictListFromDbByCode(String code) {
-        return this.sysDictMapper.selectDictListByCode(YesNoEnum.是.getValue(), code);
+    public Map<String, List<SysDictVO>> listByOpenCode(List<String> codeList) {
+        Map<String, List<SysDictVO>> dictDataMap = this.listFromCacheByCode(codeList);
+        if (CollectionUtils.isEmpty(dictDataMap)) {
+            // 如果缓存数据为空，则从db获取
+            return this.listFromDbByOpenCode(codeList);
+        }
+        return dictDataMap;
     }
 
     @Override
-    public List<SysDictVO> getUpDictListFromCacheByCode(String code) {
-        return JSONArray.parseArray(RedisUtil.get(AppConstant.CACHE_SYS_DICT_PREFIX + code), SysDictVO.class);
+    public Map<String, List<SysDictVO>> listFromDbByOpenCode(List<String> codeList) {
+        Map<String, List<SysDictVO>> dictDataMap = Maps.newHashMap();
+        List<SysDictVO> dictDataList = this.sysDictMapper.selectDictListByCode(YesNoEnum.是.getValue(), codeList);
+        if (CollectionUtils.isEmpty(dictDataList)) {
+            return dictDataMap;
+        }
+        for (SysDictVO dictItem : dictDataList) {
+            dictDataMap.computeIfAbsent(dictItem.getCode(), k -> new LinkedList<>()).add(dictItem);
+        }
+        return dictDataMap;
+    }
+
+    @Override
+    public Map<String, List<SysDictVO>> listFromCacheByCode(List<String> codeList) {
+        Map<String, List<SysDictVO>> dictDataMap = Maps.newHashMap();
+        codeList.forEach(codeItem -> {
+            String dictListStr = RedisUtil.get(SystemConstant.CACHE_SYS_DICT_PREFIX + codeItem);
+            if (StringUtils.isNotBlank(dictListStr)) {
+                dictDataMap.put(codeItem, JSONArray.parseArray(dictListStr, SysDictVO.class));
+            }
+        });
+        return dictDataMap;
     }
 
     @Override
@@ -72,7 +103,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     @Transactional(rollbackFor = Exception.class)
     public Integer addOrUpdateData(SysDictSaveDTO params) {
         Integer dictTypeId = params.getDictTypeId();
-        SysDictType dictTypeData = this.dictTypeService.detail(dictTypeId);
+        SysDictType dictTypeData = this.sysDictTypeService.detail(dictTypeId);
         Integer id = params.getId();
         String name = params.getName();
         String value = params.getValue();
@@ -106,7 +137,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
             return;
         }
         this.sysDictMapper.deleteById(id);
-        SysDictType dictTypeData = this.dictTypeService.detail(sysDict.getDictTypeId());
+        SysDictType dictTypeData = this.sysDictTypeService.detail(sysDict.getDictTypeId());
         // 更新缓存
         this.updateCache(dictTypeData.getCode());
     }
@@ -119,26 +150,27 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
 
     @Override
     public void updateCache(String code) {
-        String key = AppConstant.CACHE_SYS_DICT_PREFIX + code;
+        String key = SystemConstant.CACHE_SYS_DICT_PREFIX + code;
         // 加入||更新 缓存
         if (RedisUtil.hasKey(key)) {
             RedisUtil.delete(key);
-            log.info("更新数据字典之前删除缓存`{}`" + key);
+            log.info("数据字典[{}] 更新之前删除缓存" + key);
         }
-        List<SysDictVO> dictList = this.getUpDictListFromDbByCode(code);
+        List<SysDictVO> dictList = this.listFromDbByOpenCode(Lists.newArrayList(code)).get(code);
         if (!CollectionUtils.isEmpty(dictList)) {
             RedisUtil.set(key, JSON.toJSONString(dictList));
-            log.info("加入数据字典缓存`{}`" + key);
+            log.info("数据字典[{}] 加入缓存" + key);
         }
     }
 
     @Override
     public void initCache() {
-        List<SysDictTypeListVO> sysDictTypeList = this.dictTypeService.listByOpen();
-        sysDictTypeList.forEach(e -> {
-            String code = e.getCode();
-            RedisUtil.set(AppConstant.CACHE_SYS_DICT_PREFIX + code, JSON.toJSONString(this.getUpDictListFromDbByCode(code)));
-        });
+        List<SysDictTypeListVO> sysDictTypeList = this.sysDictTypeService.listByOpen();
+        if (!CollectionUtils.isEmpty(sysDictTypeList)) {
+            List<String> codeList = sysDictTypeList.stream().map(SysDictTypeListVO::getCode).collect(Collectors.toList());
+            Map<String, List<SysDictVO>> dictDataMap = this.listFromDbByOpenCode(codeList);
+            dictDataMap.forEach((code, dictDataList) -> RedisUtil.set(SystemConstant.CACHE_SYS_DICT_PREFIX + code, JSON.toJSONString(dictDataList)));
+        }
         log.info("初始化数据字典缓存成功!");
     }
 

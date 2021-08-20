@@ -2,8 +2,8 @@ package com.zhengqing.system.service.impl;
 
 import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.util.RedisUtil;
+import com.zhengqing.system.constant.SystemConstant;
 import com.zhengqing.system.entity.SysDictType;
 import com.zhengqing.system.mapper.SysDictTypeMapper;
 import com.zhengqing.system.model.dto.SysDictTypeSaveDTO;
@@ -33,7 +33,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
 
     @Lazy
     @Autowired
-    private ISysDictService dictService;
+    private ISysDictService sysDictService;
 
     @Autowired
     private SysDictTypeMapper sysDictTypeMapper;
@@ -72,7 +72,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
             this.sysDictTypeMapper.updateById(sysDictType);
         }
         // 更新缓存
-        this.dictService.updateCache(sysDictType.getCode());
+        this.sysDictService.updateCache(sysDictType.getCode());
         return sysDictType.getId();
     }
 
@@ -82,11 +82,11 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         SysDictType sysDictType = this.sysDictTypeMapper.selectById(id);
         String key = sysDictType.getCode();
         // 1、 先删除数据字典
-        this.dictService.deleteDictByDictTypeId(id);
+        this.sysDictService.deleteDictByDictTypeId(id);
         // 2、 再删除数据字典类型
         this.sysDictTypeMapper.deleteById(id);
         // 3、 最后删除缓存
-        RedisUtil.delete(AppConstant.CACHE_SYS_DICT_PREFIX + key);
+        RedisUtil.delete(SystemConstant.CACHE_SYS_DICT_PREFIX + key);
         log.info("删除数据字典[{}] & 删除缓存成功", key);
     }
 

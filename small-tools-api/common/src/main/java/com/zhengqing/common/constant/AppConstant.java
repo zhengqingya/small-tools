@@ -148,16 +148,6 @@ public interface AppConstant {
     // ============================ ↓↓↓↓↓↓ redis缓存系列 ↓↓↓↓↓↓ ============================
     // ===============================================================================
 
-    /**
-     * 系统缓存
-     */
-    String CACHE_SYS_MENU_TREE = "SYS_MENU_TREE";
-    String CACHE_SYS_DICT_PREFIX = "SYS_DICT_";
-    /**
-     * 个人缓存
-     */
-    String CACHE_SYS_USER_INFO_PREFIX = "SYS_USER_INFO_";
-    String CACHE_SYS_PERMISSION_PREFIX = "SYS_PERMISSION_";
 
     // ===============================================================================
     // ============================ ↓↓↓↓↓↓ 业务系列 ↓↓↓↓↓↓ ============================
