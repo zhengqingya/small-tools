@@ -9,11 +9,11 @@ import org.junit.Test;
  * @description
  * @date 2021/7/29 11:23
  */
-public class GeneratorTest {
+public class GenerateTest {
 
     @Test
     public void testGenerateAndCreateFile() throws Exception {
-
+        
     }
 
 }

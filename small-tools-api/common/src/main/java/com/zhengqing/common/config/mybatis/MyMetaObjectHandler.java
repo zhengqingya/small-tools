@@ -36,7 +36,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
         // 判断对象中是否存在该参数，如果存在则插入数据
         if (metaObject.hasGetter(MybatisConstant.IS_DELETED)) {
-            this.setFieldValByName(MybatisConstant.IS_DELETED, true, metaObject);
+            this.setFieldValByName(MybatisConstant.IS_DELETED, false, metaObject);
         }
         if (metaObject.hasGetter(MybatisConstant.CREATE_BY)) {
             Object value = metaObject.getValue(MybatisConstant.CREATE_BY);

@@ -1,5 +1,6 @@
 package com.zhengqing.tool.generator.service.impl;
 
+import cn.hutool.core.lang.Assert;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -128,14 +129,11 @@ public class CgProjectTemplateServiceImpl extends ServiceImpl<CgProjectTemplateM
         // 这里先保存数据，然后再去生成模板数据 -> 防止部分模板数据不存在！！！
         this.addOrUpdateData(MyBeanUtil.copyProperties(params, CgProjectTemplateSaveDTO.class));
         Integer projectTemplateId = params.getProjectTemplateId();
-
-        CgTableConfigListDTO tableConfigListDTO = new CgTableConfigListDTO();
-        tableConfigListDTO.setProjectId(params.getProjectId());
-        tableConfigListDTO.setDataType(CgGenerateTemplateDataTypeEnum.测试模板生成配置数据.getType());
-        List<CgTableConfig> cgTableConfigList = cgTableConfigService.list(tableConfigListDTO);
-        if (CollectionUtils.isEmpty(cgTableConfigList)) {
-            throw new MyException("没有初始化模板数据配置，请到《生成代码》页面中进行配置！！！");
-        }
+        List<CgTableConfig> cgTableConfigList = cgTableConfigService.list(CgTableConfigListDTO.builder()
+                .projectId(params.getProjectId())
+                .dataType(CgGenerateTemplateDataTypeEnum.测试模板生成配置数据.getType())
+                .build());
+        Assert.notNull(cgTableConfigList, "没有初始化模板数据配置，请到《生成代码》页面中进行配置！");
         CgTableConfig cgTableConfig = cgTableConfigList.get(0);
         CgGenerateCodeDTO cgGenerateCodeDTO = new CgGenerateCodeDTO();
         cgGenerateCodeDTO.setProjectReDbDataSourceId(cgTableConfig.getProjectReDbDataSourceId());
