@@ -23,14 +23,14 @@
   </select>
 
   <insert id="insertBatch">
-    INSERT INTO t_demo ( username, password,create_by,create_time,update_by,update_time,is_valid )
+    INSERT INTO t_demo ( username, password,create_by,create_time,update_by,update_time,is_deleted )
     VALUES
     <foreach collection="demoList" item="item" separator=",">
       (
       #{item.username}, #{item.password},
       #{item.createBy}, #{item.createTime},
       #{item.updateBy}, #{item.updateTime},
-      #{item.isValid}
+      #{item.isDeleted}
       )
     </foreach>
   </insert>

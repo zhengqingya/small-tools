@@ -6,21 +6,21 @@
     SELECT
     <#list columnInfoList as item>
     ${tableNameAbbr}.${item.columnNameDb} ${item.columnNameJavaLower},
-  </#list>
+    </#list>
     FROM ${tableName} ${tableNameAbbr}
-    WHERE ${tableNameAbbr}.is_valid = 1
-  <#list queryColumnInfoList as item>
-  <#if item.columnTypeJava = "Integer">
-  <if test="filter.${item.columnNameJavaLower}!=null">
-    AND ${tableNameAbbr}.${item.columnNameDb} = ${r"#"}{filter.${item.columnNameJavaLower}}
-  </if>
-  <#else>
-  <if test="filter.${item.columnNameJavaLower}!=null and filter.${item.columnNameJavaLower}!=''">
-    AND ${tableNameAbbr}.${item.columnNameDb} LIKE CONCAT( '%', ${r"#"}{filter.${item.columnNameJavaLower}} , '%' )
-  </if>
-</#if>
-  </#list>
-  ORDER BY ${tableNameAbbr}.update_time DESC
+    WHERE ${tableNameAbbr}.is_deleted=0
+    <#list queryColumnInfoList as item>
+    <#if item.columnTypeJava = "Integer">
+    <if test="filter.${item.columnNameJavaLower}!=null">
+      AND ${tableNameAbbr}.${item.columnNameDb} = ${r"#"}{filter.${item.columnNameJavaLower}}
+    </if>
+    <#else>
+    <if test="filter.${item.columnNameJavaLower}!=null and filter.${item.columnNameJavaLower}!=''">
+      AND ${tableNameAbbr}.${item.columnNameDb} LIKE CONCAT( '%', ${r"#"}{filter.${item.columnNameJavaLower}} , '%' )
+    </if>
+    </#if>
+    </#list>
+    ORDER BY ${tableNameAbbr}.update_time DESC
   </select>
 
-  </mapper>
+</mapper>

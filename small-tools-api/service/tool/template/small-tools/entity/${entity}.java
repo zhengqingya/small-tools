@@ -31,14 +31,14 @@ import lombok.NoArgsConstructor;
 @ApiModel("${tableComment}")
 public class ${entity} extends BaseEntity<${entity}> {
 
-<#list columnInfoList as item>
-<#if item.columnNameDb != "create_by" && item.columnNameDb != "create_time" && item.columnNameDb != "update_by" && item.columnNameDb != "update_time" && item.columnNameDb != "is_valid">
-@ApiModelProperty("${item.columnComment}")
-<#if item.ifPrimaryKey>
-@TableId(value = "${item.columnNameDb}", type = IdType.AUTO)
-</#if>
-private ${item.columnTypeJava} ${item.columnNameJavaLower};
+    <#list columnInfoList as item>
+    <#if item.columnNameDb != "create_by" && item.columnNameDb != "create_time" && item.columnNameDb != "update_by" && item.columnNameDb != "update_time" && item.columnNameDb != "is_deleted">
+    @ApiModelProperty("${item.columnComment}")
+    <#if item.ifPrimaryKey>
+    @TableId(value = "${item.columnNameDb}", type = IdType.AUTO)
+    </#if>
+    private ${item.columnTypeJava} ${item.columnNameJavaLower};
 
-</#if>
-</#list>
-        }
+    </#if>
+    </#list>
+}

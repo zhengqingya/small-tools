@@ -43,7 +43,7 @@ public class GenerateCodeUtil {
      */
     public static Map<String, Object> handleTplData(String moduleName,
                                                     StDbTableColumnListVO columnInfo,
-                                                    Map<Integer, String> packageNameInfoMap,
+                                                    Map<String, String> packageNameInfoMap,
                                                     List<String> queryColumnList) {
         Assert.isTrue(!CollectionUtils.isEmpty(columnInfo.getColumnInfoList()), "数据库表字段信息丢失!");
         // 数据模型(这里使用map类型) -- [数据模型可以是List、Map对象 注意:Map类型的key必须是String类型]
@@ -72,6 +72,12 @@ public class GenerateCodeUtil {
             List<CgGeneratorCodeColumnInfoBO> queryColumnInfoBOList = Lists.newArrayList();
             // 判断是否处理可检索字段
             boolean ifHandleQueryColumn = !CollectionUtils.isEmpty(queryColumnList);
+            // 主键-Java字段名首字母小写
+            String primaryColumnNameJavaLower = "";
+            // 主键-Java字段名首字母大写
+            String primaryColumnNameJavaUpper = "";
+            // 主键-java字段数据类型
+            String primaryColumnTypeJava = "";
             for (StDbTableColumnListVO.ColumnInfo e : columnInfoList) {
                 String columnNameDb = e.getColumnName();
                 String columnComment = e.getColumnComment();
@@ -81,19 +87,27 @@ public class GenerateCodeUtil {
                 boolean ifNullAble = e.isIfNullAble();
                 String columnNameJavaLower = MyStringUtil.dbStrToHumpLower(columnNameDb);
                 String columnNameJavaUpper = MyStringUtil.dbStrToHumpUpper(columnNameDb);
+                String columnTypeJava = CgColumnJavaTypeEnum.getEnum(columnType).getColumnTypeJava();
+
+                // 主键相关处理
+                if (ifPrimaryKey) {
+                    primaryColumnNameJavaLower = columnNameJavaLower;
+                    primaryColumnNameJavaUpper = columnNameJavaUpper;
+                    primaryColumnTypeJava = columnTypeJava;
+                }
 
                 // 封装数据库字段信息
-                CgGeneratorCodeColumnInfoBO cgGeneratorCodeColumnInfoBO = new CgGeneratorCodeColumnInfoBO();
-                cgGeneratorCodeColumnInfoBO.setColumnNameDb(columnNameDb);
-                cgGeneratorCodeColumnInfoBO.setColumnNameJavaLower(columnNameJavaLower);
-                cgGeneratorCodeColumnInfoBO.setColumnNameJavaUpper(columnNameJavaUpper);
-                cgGeneratorCodeColumnInfoBO.setColumnComment(columnComment);
-                cgGeneratorCodeColumnInfoBO.setColumnType(columnType);
-                cgGeneratorCodeColumnInfoBO
-                        .setColumnTypeJava(CgColumnJavaTypeEnum.getEnum(columnType).getColumnTypeJava());
-                cgGeneratorCodeColumnInfoBO.setIfNullAble(ifNullAble);
-                cgGeneratorCodeColumnInfoBO.setIfPrimaryKey(ifPrimaryKey);
-                cgGeneratorCodeColumnInfoBO.setIfAutoIncrement(ifAutoIncrement);
+                CgGeneratorCodeColumnInfoBO cgGeneratorCodeColumnInfoBO = CgGeneratorCodeColumnInfoBO.builder()
+                        .columnNameDb(columnNameDb)
+                        .columnNameJavaLower(columnNameJavaLower)
+                        .columnNameJavaUpper(columnNameJavaUpper)
+                        .columnComment(columnComment)
+                        .columnType(columnType)
+                        .columnTypeJava(columnTypeJava)
+                        .ifNullAble(ifNullAble)
+                        .ifPrimaryKey(ifPrimaryKey)
+                        .ifAutoIncrement(ifAutoIncrement)
+                        .build();
                 columnInfoBOList.add(cgGeneratorCodeColumnInfoBO);
 
                 // 封装可检索字段信息
@@ -101,6 +115,9 @@ public class GenerateCodeUtil {
                     queryColumnInfoBOList.add(cgGeneratorCodeColumnInfoBO);
                 }
             }
+            templateDataMap.put("primaryColumnNameJavaLower", primaryColumnNameJavaLower);
+            templateDataMap.put("primaryColumnNameJavaUpper", primaryColumnNameJavaUpper);
+            templateDataMap.put("primaryColumnTypeJava", primaryColumnTypeJava);
             templateDataMap.put("columnInfoList", columnInfoBOList);
             templateDataMap.put("queryColumnInfoList", queryColumnInfoBOList);
         }
@@ -146,12 +163,10 @@ public class GenerateCodeUtil {
             String fileContentFinal = FreeMarkerUtil.generateTemplateData(templateDataMap, templateContent);
 
             // 包路径
-            String templateRePackagePath =
-                    templateRePackage.replace(".", AppConstant.SEPARATOR_SPRIT) + AppConstant.SEPARATOR_SPRIT;
+            String templateRePackagePath = templateRePackage.replace(".", AppConstant.SEPARATOR_SPRIT) + AppConstant.SEPARATOR_SPRIT;
 
             // 最终生成文件路径
-            String fileFinalPath = AppConstant.FILE_PATH_CODE_GENERATOR_SRC_CODE + AppConstant.SEPARATOR_SPRIT
-                    + templateRePackagePath + generateFileNameFinal;
+            String fileFinalPath = AppConstant.FILE_PATH_CODE_GENERATOR_SRC_CODE + AppConstant.SEPARATOR_SPRIT + templateRePackagePath + generateFileNameFinal;
             // 创建文件并写入生成模板数据
             MyFileUtil.writeFileContent(fileContentFinal, fileFinalPath);
         }

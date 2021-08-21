@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * <p> ${tableComment}查询参数 </p>
+ * <p> ${tableComment}-分页列表-请求参数 </p>
  *
  * @author ${ author }
  * @description
@@ -20,12 +20,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@ApiModel("${tableComment}查询参数")
+@ApiModel("${tableComment}-分页列表-请求参数")
 public class ${entity}ListDTO extends BaseDTO {
 
-<#list queryColumnInfoList as item>
-@ApiModelProperty("${item.columnComment}")
-private ${item.columnTypeJava} ${item.columnNameJavaLower};
+    <#list queryColumnInfoList as item>
+    @ApiModelProperty("${item.columnComment}")
+    private ${item.columnTypeJava} ${item.columnNameJavaLower};
 
-</#list>
-        }
+    </#list>
+}

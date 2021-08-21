@@ -36,45 +36,45 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = {"${tableComment}接口"})
 public class ${entity}Controller extends BaseController {
 
-@Autowired
-private  I${entity}Service ${entityNameLower}Service;
+    @Autowired
+    private  I${entity}Service ${entityNameLower}Service;
 
-@GetMapping("listPage")
-@ApiOperation("列表分页")
-public IPage<${entity}ListVO> listPage(@ModelAttribute ${entity}ListDTO params) {
-        return ${entityNameLower}Service.listPage(params);
-        }
+    @GetMapping("page")
+    @ApiOperation("分页列表")
+    public IPage<${entity}ListVO> page(@Validated @ModelAttribute ${entity}ListDTO params) {
+        return this.${entityNameLower}Service.page(params);
+    }
 
-@GetMapping("list")
-@ApiOperation("列表")
-public List<${entity}ListVO> list(@ModelAttribute ${entity}ListDTO params) {
-        return ${entityNameLower}Service.list(params);
-        }
+    @GetMapping("list")
+    @ApiOperation("列表")
+    public List<${entity}ListVO> list(@Validated @ModelAttribute ${entity}ListDTO params) {
+        return this.${entityNameLower}Service.list(params);
+    }
 
-@NoRepeatSubmit
-@PostMapping("")
-@ApiOperation("新增")
-public Integer add(@Validated @RequestBody ${entity}SaveDTO params) {
-        return ${entityNameLower}Service.addOrUpdateData(params);
-        }
+    @NoRepeatSubmit
+    @PostMapping("")
+    @ApiOperation("新增")
+    public ${primaryColumnTypeJava} add(@Validated @RequestBody ${entity}SaveDTO params) {
+        return this.${entityNameLower}Service.addOrUpdateData(params);
+    }
 
-@NoRepeatSubmit
-@PutMapping("")
-@ApiOperation("更新")
-public Integer update(@Validated(Update.class) @RequestBody ${entity}SaveDTO params) {
-        return ${entityNameLower}Service.addOrUpdateData(params);
-        }
+    @NoRepeatSubmit
+    @PutMapping("")
+    @ApiOperation("更新")
+    public ${primaryColumnTypeJava} update(@Validated(Update.class) @RequestBody ${entity}SaveDTO params) {
+        return this.${entityNameLower}Service.addOrUpdateData(params);
+    }
 
-@DeleteMapping("")
-@ApiOperation("删除")
-public void delete(@RequestParam Integer ${entityNameLower}Id) {
-        ${entityNameLower}Service.removeById(${entityNameLower}Id);
-        }
+    @DeleteMapping("")
+    @ApiOperation("删除")
+    public void delete(@RequestParam ${primaryColumnTypeJava} ${primaryColumnNameJavaLower}) {
+        this.${entityNameLower}Service.removeById(${primaryColumnNameJavaLower});
+    }
 
-@GetMapping("detail")
-@ApiOperation("详情")
-public ${entity} detail(@RequestParam Integer ${entityNameLower}Id) {
-        return ${entityNameLower}Service.getById(${entityNameLower}Id);
-        }
+    @GetMapping("detail")
+    @ApiOperation("详情")
+    public ${entity} detail(@RequestParam ${primaryColumnTypeJava} ${primaryColumnNameJavaLower}) {
+        return this.${entityNameLower}Service.getById(${primaryColumnNameJavaLower});
+    }
 
-        }
+}

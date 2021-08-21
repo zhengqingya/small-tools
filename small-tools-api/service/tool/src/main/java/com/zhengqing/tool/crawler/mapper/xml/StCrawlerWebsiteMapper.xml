@@ -21,7 +21,7 @@
   </select>
 
   <update id="updateWebsiteInvalid">
-    UPDATE t_st_crawler_website SET is_valid=0
+    UPDATE t_st_crawler_website SET is_deleted=1
     WHERE website_id = #{websiteId}
   </update>
 

@@ -111,7 +111,7 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
         }
 
         // 1、获取包路径信息
-        Map<Integer, String> packageNameInfoMap = this.cgProjectPackageService.packageNameInfoMap(projectId);
+        Map<String, String> packageNameInfoMap = this.cgProjectPackageService.packageNameInfoMap(projectId);
         // 查询项目父包名，然后取前端设置的父包名+模块名进行替换处理
         String parentPackageName = this.cgProjectPackageService.getParentPackageName(projectId);
         String parentPackageNameFinal = packageName + (StringUtils.isBlank(moduleName) ? "" : "." + moduleName);
@@ -158,20 +158,16 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
             // 生成数据（模板+数据模型）
             return this.generateTemplateData(tplDataMap, tplFileInfoList.get(0).getTemplateContent());
         } else {
+            // 将模板配置存入数据库提供给前端页面展示使用
+            new CgProjectVelocityContext().delete(new LambdaQueryWrapper<CgProjectVelocityContext>().eq(CgProjectVelocityContext::getProjectId, projectId));
+            tplDataMap.forEach((key, value) -> CgProjectVelocityContext.builder()
+                    .projectId(projectId)
+                    .velocity(key)
+                    .context(JSONObject.toJSONString(value))
+                    .build()
+                    .insert());
             // 先删除旧数据
             MyFileUtil.deleteFileOrFolder(AppConstant.FILE_PATH_CODE_GENERATOR_DATA_PATH);
-
-            // 将模板配置存入数据库提供给前端页面展示使用
-            new CgProjectVelocityContext().delete(new LambdaQueryWrapper<CgProjectVelocityContext>()
-                    .eq(CgProjectVelocityContext::getProjectId, projectId));
-            tplDataMap.forEach((key, value) -> {
-                CgProjectVelocityContext velocityContext = new CgProjectVelocityContext();
-                velocityContext.setProjectId(projectId);
-                velocityContext.setVelocity(key);
-                String valueStr = JSONObject.toJSONString(value);
-                velocityContext.setContext(valueStr);
-                velocityContext.insert();
-            });
             // TODO 注：freemaker模板数据模型必须存在，否则会报错！！！ 之后在前端加个模板测试数据是否正确校验处理
             GenerateCodeUtil.generateTplFileData(tplFileInfoList, tplDataMap);
         }

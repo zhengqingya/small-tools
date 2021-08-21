@@ -22,60 +22,64 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class ${entity}ServiceImpl extends ServiceImpl<${entity}Mapper, ${entity}> implements I${entity}Service {
 
-@Autowired
-private  ${entity}Mapper ${entityNameLower}Mapper;
+    @Autowired
+    private ${entity}Mapper ${entityNameLower}Mapper;
 
-@Override
-public IPage<${entity}ListVO> listPage(${entity}ListDTO params) {
-        IPage<${entity}ListVO> result = ${entityNameLower}Mapper.selectDataList(new Page<>(), params);
+    @Override
+    public IPage<${entity}ListVO> page(${entity}ListDTO params) {
+        IPage<${entity}ListVO> result = this.${entityNameLower}Mapper.selectDataList(new Page<>(), params);
         List<${entity}ListVO> list = result.getRecords();
-        handleResultData(list);
+        this.handleResultData(list);
         return result;
-        }
+    }
 
-@Override
-public List<${entity}ListVO> list(${entity}ListDTO params) {
-        List<${entity}ListVO> list =  ${entityNameLower}Mapper.selectDataList(params);
-        handleResultData(list);
+    @Override
+    public List<${entity}ListVO> list(${entity}ListDTO params) {
+        List<${entity}ListVO> list =  this.${entityNameLower}Mapper.selectDataList(params);
+        this.handleResultData(list);
         return list;
-        }
+    }
 
-/**
- * 处理数据
- *
- * @param list: 数据
- * @return void
- * @author ${author}
- * @date ${date}
- */
-private void handleResultData(List<${entity}ListVO> list) {
+    /**
+     * 处理数据
+     *
+     * @param list 数据
+     * @return void
+     * @author ${author}
+     * @date ${date}
+     */
+    private void handleResultData(List<${entity}ListVO> list) {
 
-        }
+    }
 
-@Override
-public Integer addOrUpdateData(${entity}SaveDTO params) {
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ${primaryColumnTypeJava} addOrUpdateData(${entity}SaveDTO params) {
 <#list columnInfoList as item>
-<#if item.columnNameDb != "create_by" && item.columnNameDb != "create_time" && item.columnNameDb != "update_by" && item.columnNameDb != "update_time" && item.columnNameDb != "is_valid">
+<#if item.columnNameDb != "create_by" && item.columnNameDb != "create_time" && item.columnNameDb != "update_by" && item.columnNameDb != "update_time" && item.columnNameDb != "is_deleted">
         ${item.columnTypeJava} ${item.columnNameJavaLower} = params.get${item.columnNameJavaUpper}();
 </#if>
 </#list>
 
-        ${entity} ${entityNameLower} = new ${entity}();
+        ${entity} ${entityNameLower} = ${entity}.builder()
 <#list columnInfoList as item>
-<#if item.columnNameDb != "create_by" && item.columnNameDb != "create_time" && item.columnNameDb != "update_by" && item.columnNameDb != "update_time" && item.columnNameDb != "is_valid">
-        ${entityNameLower}.set${item.columnNameJavaUpper}(${item.columnNameJavaLower});
+<#if item.columnNameDb != "create_by" && item.columnNameDb != "create_time" && item.columnNameDb != "update_by" && item.columnNameDb != "update_time" && item.columnNameDb != "is_deleted">
+        .${item.columnNameJavaLower}(${item.columnNameJavaLower})
 </#if>
 </#list>
+        .build();
 
-        if (${entityNameLower}Id==null) {
-        ${entityNameLower}.insert();
+        if (${primaryColumnNameJavaLower}==null) {
+            // 新增
+            ${entityNameLower}.insert();
+            ${primaryColumnNameJavaLower} = ${entityNameLower}.get${primaryColumnNameJavaUpper}();
         } else {
-        ${entityNameLower}.updateById();
+            // 更新
+            ${entityNameLower}.updateById();
         }
-        return ${entityNameLower}.getId();
-        }
+        return ${primaryColumnNameJavaLower};
+    }
 
-        }
+}

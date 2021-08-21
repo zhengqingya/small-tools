@@ -49,7 +49,7 @@ docker stats small-tools-api
 ### 数据清理
 
 ```sql
-SELECT CONCAT('DELETE FROM ', TABLE_NAME, ' where is_valid=0;')
+SELECT CONCAT('DELETE FROM ', TABLE_NAME, ' where is_deleted=1;')
 FROM information_schema.TABLES
 WHERE table_schema = 'small-tools';
 ```
