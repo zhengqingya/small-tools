@@ -51,6 +51,12 @@ public class ${entity}Controller extends BaseController {
         return this.${entityNameLower}Service.list(params);
     }
 
+    @GetMapping("detail")
+    @ApiOperation("详情")
+    public ${entity} detail(@RequestParam ${primaryColumnTypeJava} ${primaryColumnNameJavaLower}) {
+        return this.${entityNameLower}Service.detail(${primaryColumnNameJavaLower});
+    }
+
     @NoRepeatSubmit
     @PostMapping("")
     @ApiOperation("新增")
@@ -68,13 +74,7 @@ public class ${entity}Controller extends BaseController {
     @DeleteMapping("")
     @ApiOperation("删除")
     public void delete(@RequestParam ${primaryColumnTypeJava} ${primaryColumnNameJavaLower}) {
-        this.${entityNameLower}Service.removeById(${primaryColumnNameJavaLower});
-    }
-
-    @GetMapping("detail")
-    @ApiOperation("详情")
-    public ${entity} detail(@RequestParam ${primaryColumnTypeJava} ${primaryColumnNameJavaLower}) {
-        return this.${entityNameLower}Service.getById(${primaryColumnNameJavaLower});
+        this.${entityNameLower}Service.deleteData(${primaryColumnNameJavaLower});
     }
 
 }

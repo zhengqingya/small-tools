@@ -37,12 +37,12 @@ public interface I${entity}Service extends IService<${entity}> {
     /**
      * 详情
      *
-     * @param params 查询参数
-     * @return 查询结果
+     * @param ${primaryColumnNameJavaLower} 主键ID
+     * @return 详情
      * @author ${author}
      * @date ${date}
      */
-    ${entity}VO detail(${primaryColumnTypeJava} ${primaryColumnNameJavaLower});
+    ${entity} detail(${primaryColumnTypeJava} ${primaryColumnNameJavaLower});
 
     /**
      * 新增或更新
@@ -53,5 +53,15 @@ public interface I${entity}Service extends IService<${entity}> {
      * @date ${date}
      */
      ${primaryColumnTypeJava} addOrUpdateData(${entity}SaveDTO params);
+
+     /**
+      * 删除数据
+      *
+      * @param ${primaryColumnNameJavaLower} 主键ID
+      * @return void
+      * @author ${author}
+      * @date ${date}
+      */
+      void deleteData(${primaryColumnTypeJava} ${primaryColumnNameJavaLower});
 
 }

@@ -55,6 +55,13 @@ public class ${entity}ServiceImpl extends ServiceImpl<${entity}Mapper, ${entity}
     }
 
     @Override
+    public ${entity} detail(${primaryColumnTypeJava} ${primaryColumnNameJavaLower}){
+        ${entity} detailData = this.${entityNameLower}Mapper.selectById(${primaryColumnNameJavaLower});
+        Assert.notNull(detailData, "该数据不存在！");
+        return detailData;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public ${primaryColumnTypeJava} addOrUpdateData(${entity}SaveDTO params) {
 <#list columnInfoList as item>
@@ -66,10 +73,10 @@ public class ${entity}ServiceImpl extends ServiceImpl<${entity}Mapper, ${entity}
         ${entity} ${entityNameLower} = ${entity}.builder()
 <#list columnInfoList as item>
 <#if item.columnNameDb != "create_by" && item.columnNameDb != "create_time" && item.columnNameDb != "update_by" && item.columnNameDb != "update_time" && item.columnNameDb != "is_deleted">
-        .${item.columnNameJavaLower}(${item.columnNameJavaLower})
+            .${item.columnNameJavaLower}(${item.columnNameJavaLower})
 </#if>
 </#list>
-        .build();
+            .build();
 
         if (${primaryColumnNameJavaLower}==null) {
             // 新增
@@ -80,6 +87,11 @@ public class ${entity}ServiceImpl extends ServiceImpl<${entity}Mapper, ${entity}
             ${entityNameLower}.updateById();
         }
         return ${primaryColumnNameJavaLower};
+    }
+
+    @Override
+    public void deleteData(${primaryColumnTypeJava} ${primaryColumnNameJavaLower}){
+        this.${entityNameLower}Mapper.deleteById(${primaryColumnNameJavaLower});
     }
 
 }
