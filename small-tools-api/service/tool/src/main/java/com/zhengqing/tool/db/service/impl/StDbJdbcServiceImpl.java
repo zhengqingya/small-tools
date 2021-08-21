@@ -77,8 +77,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
 
     @Override
     @SneakyThrows(Exception.class)
-    public List<StDbTableListVO> getAllTablesByDataSourceIdAndDbName(Integer dataSourceId, String dbName,
-                                                                     String tableName) {
+    public List<StDbTableListVO> getAllTablesByDataSourceIdAndDbName(Integer dataSourceId, String dbName, String tableName) {
         // 1、连接数据库
         Connection conn = getConnection(dataSourceId);
         List<StDbTableListVO> tableInfoList = Lists.newArrayList();
@@ -117,14 +116,27 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
 
     @Override
     @SneakyThrows(Exception.class)
-    public StDbTableColumnListVO getAllColumnsByDataSourceIdAndDbNameAndTableName(Integer dataSourceId, String dbName,
-                                                                                  String tableName) {
+    public StDbTableColumnListVO getAllColumnsByDataSourceIdAndDbNameAndTableName(Integer dataSourceId, String dbName, String tableName) {
+        // 获取数据源配置信息
+        StDbDataSourceListVO dbConfig = stDbDataSourceService.detail(dataSourceId);
+        String ipAddress = dbConfig.getIpAddress();
+        String port = dbConfig.getPort();
+        String username = dbConfig.getUsername();
+        String password = dbConfig.getPassword();
+        StDbTableColumnListVO columnInfo = this.getAllColumnsByDbInfo(StDbDataSourceTypeEnum.getEnum(dbConfig.getType()), ipAddress, port, username, password, dbName, tableName);
+        columnInfo.setDataSourceId(dataSourceId);
+        return columnInfo;
+    }
+
+    @Override
+    @SneakyThrows(Exception.class)
+    public StDbTableColumnListVO getAllColumnsByDbInfo(StDbDataSourceTypeEnum dataSourceTypeEnum, String ipAddress, String port, String username, String password, String dbName, String tableName) {
         // 1、连接数据库
-        Connection conn = getConnection(dataSourceId);
+        Connection conn = this.getConnectionBase(dataSourceTypeEnum, ipAddress, port, username, password, dbName);
 
         // 返回结果声明
         StDbTableColumnListVO result = new StDbTableColumnListVO();
-        result.setDataSourceId(dataSourceId);
+        result.setDataSourceId(null);
         result.setDbName(dbName);
         result.setTableName(tableName);
         List<StDbTableColumnListVO.ColumnInfo> columnInfoList = Lists.newArrayList();
@@ -321,35 +333,48 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
     /**
      * 连接数据库
      *
-     * @param dataSourceId: 数据源id
-     * @param dbName:       数据库名称
+     * @param dataSourceId 数据源id
+     * @param dbName       数据库名称
      * @return java.sql.Connection
      */
     private Connection getConnection(Integer dataSourceId, String dbName) {
+        // 获取数据源配置信息
+        StDbDataSourceListVO dbConfig = stDbDataSourceService.detail(dataSourceId);
+        // 连接所需参数【ipAddress：指向要访问的数据库ip地址, username：用户名, password：密码】
+        String ipAddress = dbConfig.getIpAddress();
+        String port = dbConfig.getPort();
+        String username = dbConfig.getUsername();
+        String password = dbConfig.getPassword();
+        return this.getConnectionBase(StDbDataSourceTypeEnum.getEnum(dbConfig.getType()), ipAddress, port, username, password, dbName);
+    }
+
+    /**
+     * 连接数据库
+     *
+     * @param dataSourceTypeEnum 数据源类型枚举
+     * @param ipAddress          指向要访问的数据库ip地址
+     * @param port               端口
+     * @param username           用户名
+     * @param password           密码
+     * @param dbName             库名
+     * @return java.sql.Connection
+     * @author zhengqingya
+     * @date 2021/8/21 5:11 下午
+     */
+    private Connection getConnectionBase(StDbDataSourceTypeEnum dataSourceTypeEnum, String ipAddress, String port, String username, String password, String dbName) {
         try {
-            // 获取数据源配置信息
-            StDbDataSourceListVO dbConfig = stDbDataSourceService.detail(dataSourceId);
-
-            // 连接所需参数【ipAddress：指向要访问的数据库ip地址, username：用户名, password：密码】
-            String ipAddress = dbConfig.getIpAddress();
-            String port = dbConfig.getPort();
-            String username = dbConfig.getUsername();
-            String password = dbConfig.getPassword();
-
             if (StringUtils.isBlank(dbName)) {
                 dbName = "mysql";
             }
-
             // 1、创建用于连接数据库的Connection对象
             Connection con = null;
             // 2、加载JDBC驱动
-            Class.forName(dbConfig.getDriverClassName());
+            Class.forName(dataSourceTypeEnum.getDriverClassName());
             // 3、根据数据库类型【mysql or oracle】，获取连接，与数据库建立连接
-            switch (StDbDataSourceTypeEnum.getEnum(dbConfig.getType())) {
+            switch (dataSourceTypeEnum) {
                 case MySQL:
                     con = DriverManager.getConnection(
-                            String.format(StDbOperateSqlEnum.连接MySQL数据库.getSql(), ipAddress, port, dbName), username,
-                            password);
+                            String.format(StDbOperateSqlEnum.连接MySQL数据库.getSql(), ipAddress, port, dbName), username, password);
                     break;
                 case Oracle:
                     con = DriverManager.getConnection(

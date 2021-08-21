@@ -2,7 +2,10 @@ package com.zhengqing.tool.generator.model.bo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * <p>
@@ -14,6 +17,9 @@ import lombok.Data;
  * @date 2020/11/15 18:06
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ApiModel("模板文件信息")
 public class CgGeneratorCodeTemplateFileBO {
 

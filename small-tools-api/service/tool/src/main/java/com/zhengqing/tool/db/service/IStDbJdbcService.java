@@ -1,5 +1,6 @@
 package com.zhengqing.tool.db.service;
 
+import com.zhengqing.tool.db.enums.StDbDataSourceTypeEnum;
 import com.zhengqing.tool.db.model.dto.StDbTableColumnSaveDTO;
 import com.zhengqing.tool.db.model.vo.StDbDatabaseListVO;
 import com.zhengqing.tool.db.model.vo.StDbTableColumnListVO;
@@ -61,8 +62,23 @@ public interface IStDbJdbcService {
      * @author zhengqingya
      * @date 2020/9/6 13:21
      */
-    StDbTableColumnListVO getAllColumnsByDataSourceIdAndDbNameAndTableName(Integer dataSourceId, String dbName,
-                                                                           String tableName);
+    StDbTableColumnListVO getAllColumnsByDataSourceIdAndDbNameAndTableName(Integer dataSourceId, String dbName, String tableName);
+
+    /**
+     * 根据数据库连接信息+库名+表名查询具体表字段信息
+     *
+     * @param dataSourceTypeEnum 数据源类型枚举
+     * @param ipAddress          指向要访问的数据库ip地址
+     * @param port               端口
+     * @param username           用户名
+     * @param password           密码
+     * @param dbName             库名
+     * @param tableName          表名
+     * @return 表字段列表
+     * @author zhengqingya
+     * @date 2021/8/21 5:15 下午
+     */
+    StDbTableColumnListVO getAllColumnsByDbInfo(StDbDataSourceTypeEnum dataSourceTypeEnum, String ipAddress, String port, String username, String password, String dbName, String tableName);
 
     /**
      * 根据数据源id+库名+表名更新具体表字段信息

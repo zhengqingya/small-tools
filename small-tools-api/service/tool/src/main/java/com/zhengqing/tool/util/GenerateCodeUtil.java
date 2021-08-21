@@ -1,5 +1,6 @@
 package com.zhengqing.tool.util;
 
+import cn.hutool.core.lang.Assert;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zhengqing.common.constant.AppConstant;
@@ -41,8 +42,10 @@ public class GenerateCodeUtil {
      * @date 2020/11/15 21:42
      */
     public static Map<String, Object> handleTplData(String moduleName,
-                                                    StDbTableColumnListVO columnInfo, Map<Integer, String> packageNameInfoMap,
+                                                    StDbTableColumnListVO columnInfo,
+                                                    Map<Integer, String> packageNameInfoMap,
                                                     List<String> queryColumnList) {
+        Assert.isTrue(!CollectionUtils.isEmpty(columnInfo.getColumnInfoList()), "数据库表字段信息丢失!");
         // 数据模型(这里使用map类型) -- [数据模型可以是List、Map对象 注意:Map类型的key必须是String类型]
         Map<String, Object> templateDataMap = Maps.newHashMap();
         String tableName = columnInfo.getTableName();
@@ -68,10 +71,7 @@ public class GenerateCodeUtil {
             List<CgGeneratorCodeColumnInfoBO> columnInfoBOList = Lists.newArrayList();
             List<CgGeneratorCodeColumnInfoBO> queryColumnInfoBOList = Lists.newArrayList();
             // 判断是否处理可检索字段
-            boolean ifHandleQueryColumn = false;
-            if (!CollectionUtils.isEmpty(queryColumnList)) {
-                ifHandleQueryColumn = true;
-            }
+            boolean ifHandleQueryColumn = !CollectionUtils.isEmpty(queryColumnList);
             for (StDbTableColumnListVO.ColumnInfo e : columnInfoList) {
                 String columnNameDb = e.getColumnName();
                 String columnComment = e.getColumnComment();
@@ -123,13 +123,14 @@ public class GenerateCodeUtil {
     /**
      * 模板数据生成
      *
-     * @param templateFileInfoList: 模板文件信息
-     * @param templateDataMap:      模板数据
+     * @param templateFileInfoList 模板文件信息
+     * @param templateDataMap      模板数据
      * @return void
      * @author zhengqingya
      * @date 2020/11/15 21:05
      */
-    public static void generateTplFileData(List<CgGeneratorCodeTemplateFileBO> templateFileInfoList, Map<String, Object> templateDataMap) {
+    public static void generateTplFileData(List<CgGeneratorCodeTemplateFileBO> templateFileInfoList,
+                                           Map<String, Object> templateDataMap) {
         // 循环生成数据文件
         for (CgGeneratorCodeTemplateFileBO templateFileInfo : templateFileInfoList) {
             String templateContent = templateFileInfo.getTemplateContent();

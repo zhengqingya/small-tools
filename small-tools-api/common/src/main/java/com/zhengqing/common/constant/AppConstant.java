@@ -98,6 +98,10 @@ public interface AppConstant {
      * 分隔符 - 逗号
      */
     String SEPARATOR_COMMA = ",";
+    /**
+     * 分隔符 - 点
+     */
+    String SEPARATOR_SPOT = ".";
 
     /**
      * 获取项目根目录

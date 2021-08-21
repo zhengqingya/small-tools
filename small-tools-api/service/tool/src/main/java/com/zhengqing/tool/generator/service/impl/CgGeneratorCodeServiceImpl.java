@@ -92,7 +92,7 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
         }
 
         // 查询项目关联数据库信息
-        CgProjectReDb cgProjectReDb = cgProjectReDbService.getById(projectReDbDataSourceId);
+        CgProjectReDb cgProjectReDb = this.cgProjectReDbService.getById(projectReDbDataSourceId);
         Integer projectId = cgProjectReDb.getProjectId();
         Integer dbDataSourceId = cgProjectReDb.getDbDataSourceId();
         String dbName = cgProjectReDb.getDbName();
@@ -107,13 +107,13 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
             cgTableConfigSaveDTO.setPackageName(packageName);
             cgTableConfigSaveDTO.setModuleName(moduleName);
             cgTableConfigSaveDTO.setDataType(dataType);
-            cgTableConfigService.addOrUpdateData(cgTableConfigSaveDTO);
+            this.cgTableConfigService.addOrUpdateData(cgTableConfigSaveDTO);
         }
 
         // 1、获取包路径信息
-        Map<Integer, String> packageNameInfoMap = cgProjectPackageService.packageNameInfoMap(projectId);
+        Map<Integer, String> packageNameInfoMap = this.cgProjectPackageService.packageNameInfoMap(projectId);
         // 查询项目父包名，然后取前端设置的父包名+模块名进行替换处理
-        String parentPackageName = cgProjectPackageService.getParentPackageName(projectId);
+        String parentPackageName = this.cgProjectPackageService.getParentPackageName(projectId);
         String parentPackageNameFinal = packageName + (StringUtils.isBlank(moduleName) ? "" : "." + moduleName);
         packageNameInfoMap.forEach((key, value) -> {
             value = value.replace(parentPackageName, parentPackageNameFinal);
@@ -122,48 +122,41 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
 
 
         // 2、获取该项目关联的模板数据，并在本地创建模板文件 -> 封装 （模板文件名 -> 模板文件包路径）
-        List<CgProjectTemplateListVO> projectTemplateList = cgProjectTemplateService.list(CgProjectTemplateListDTO.builder()
+        List<CgProjectTemplateListVO> projectTemplateList = this.cgProjectTemplateService.list(CgProjectTemplateListDTO.builder()
                 .projectId(projectId)
                 .isBasic(CgProjectTemplateDataTypeEnum.项目模板.getDataType())
                 .build());
         // 模板文件名列表
-        List<CgGeneratorCodeTemplateFileBO> templateFileInfoList = Lists.newArrayList();
+        List<CgGeneratorCodeTemplateFileBO> tplFileInfoList = Lists.newArrayList();
         for (CgProjectTemplateListVO projectTemplate : projectTemplateList) {
             if (ifTestTemplateData && !projectTemplate.getProjectTemplateId().equals(projectTemplateId)) {
                 continue;
             }
-            String fileName = projectTemplate.getFileName();
-            String fileSuffix = projectTemplate.getFileSuffix();
-            String content = projectTemplate.getContent();
-            String projectTemplateRePackageName = packageNameInfoMap.get(projectTemplate.getProjectPackageId());
-
-            CgGeneratorCodeTemplateFileBO templateFileBO = new CgGeneratorCodeTemplateFileBO();
-            templateFileBO.setFileName(fileName);
-            templateFileBO.setGenerateFileSuffix(fileSuffix);
-            templateFileBO.setTemplateContent(content);
-            templateFileBO.setTemplateRePackage(projectTemplateRePackageName);
-            templateFileInfoList.add(templateFileBO);
+            tplFileInfoList.add(CgGeneratorCodeTemplateFileBO.builder()
+                    .fileName(projectTemplate.getFileName())
+                    .generateFileSuffix(projectTemplate.getFileSuffix())
+                    .templateContent(projectTemplate.getContent())
+                    .templateRePackage(packageNameInfoMap.get(projectTemplate.getProjectPackageId()))
+                    .build());
         }
-        Assert.notNull(templateFileInfoList, "无数据！");
+        Assert.notNull(tplFileInfoList, "无数据！");
 
         // 3、获取表字段信息
-        StDbTableColumnListVO columnInfo =
-                stDbJdbcService.getAllColumnsByDataSourceIdAndDbNameAndTableName(dbDataSourceId, dbName, tableName);
+        StDbTableColumnListVO columnInfo = this.stDbJdbcService.getAllColumnsByDataSourceIdAndDbNameAndTableName(dbDataSourceId, dbName, tableName);
 
         // 4、模板数据处理
-        Map<String, Object> templateDataMap = GenerateCodeUtil.handleTplData(moduleName, columnInfo, packageNameInfoMap, queryColumnList);
+        Map<String, Object> tplDataMap = GenerateCodeUtil.handleTplData(moduleName, columnInfo, packageNameInfoMap, queryColumnList);
         // 获取用户自己配置的模板数据
-        List<CgFreeMarkerTemplateListVO> freeMarkerTemplateDataList =
-                cgFreeMarkerTemplateService.list(CgFreeMarkerTemplateListDTO.builder().build());
+        List<CgFreeMarkerTemplateListVO> freeMarkerTemplateDataList = this.cgFreeMarkerTemplateService.list(CgFreeMarkerTemplateListDTO.builder().build());
         if (!CollectionUtils.isEmpty(freeMarkerTemplateDataList)) {
-            freeMarkerTemplateDataList.forEach(e -> templateDataMap.put(e.getTemplateKey(), e.getTemplateValue()));
+            freeMarkerTemplateDataList.forEach(e -> tplDataMap.put(e.getTemplateKey(), e.getTemplateValue()));
         }
 
 
         // 5、如果为测试模板数据生成，则返回模板内容
         if (ifTestTemplateData) {
             // 生成数据（模板+数据模型）
-            return this.generateTemplateData(templateDataMap, templateFileInfoList.get(0).getTemplateContent());
+            return this.generateTemplateData(tplDataMap, tplFileInfoList.get(0).getTemplateContent());
         } else {
             // 先删除旧数据
             MyFileUtil.deleteFileOrFolder(AppConstant.FILE_PATH_CODE_GENERATOR_DATA_PATH);
@@ -171,7 +164,7 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
             // 将模板配置存入数据库提供给前端页面展示使用
             new CgProjectVelocityContext().delete(new LambdaQueryWrapper<CgProjectVelocityContext>()
                     .eq(CgProjectVelocityContext::getProjectId, projectId));
-            templateDataMap.forEach((key, value) -> {
+            tplDataMap.forEach((key, value) -> {
                 CgProjectVelocityContext velocityContext = new CgProjectVelocityContext();
                 velocityContext.setProjectId(projectId);
                 velocityContext.setVelocity(key);
@@ -180,7 +173,7 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
                 velocityContext.insert();
             });
             // TODO 注：freemaker模板数据模型必须存在，否则会报错！！！ 之后在前端加个模板测试数据是否正确校验处理
-            GenerateCodeUtil.generateTplFileData(templateFileInfoList, templateDataMap);
+            GenerateCodeUtil.generateTplFileData(tplFileInfoList, tplDataMap);
         }
 
         // 6、打包生成的代码
@@ -188,7 +181,7 @@ public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
                 + parentPackageNameFinal.replace(".", AppConstant.SEPARATOR_SPRIT);
         File zipFile = MyFileUtil.zip(codeSrcPath, AppConstant.FILE_PATH_CODE_GENERATOR_ZIP, true, false);
         // 采用七牛云上传并返回地址下载文件
-        return qiniuFileUtil.uploadFile(zipFile, "CODE_" + DateUtil.format(new Date(), "yyyy-MM-dd HH-mm-ss") + ".zip");
+        return this.qiniuFileUtil.uploadFile(zipFile, "CODE_" + DateUtil.format(new Date(), "yyyy-MM-dd HH-mm-ss") + ".zip");
     }
 
 
