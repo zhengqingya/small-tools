@@ -30,15 +30,15 @@ public class GenerateTest {
     @Test
     public void testGenerateCodeAndCreateFile() throws Exception {
         // 基本数据字段
-        String ipAddress = "127.0.0.1";
-        String port = "3306";
-        String username = "root";
-        String password = "root";
-        String dbName = "demo";
-        String tableName = "t_test";
-        String parentPackageName = "com.zhengqingya.demo";
-        String moduleName = "xxx";
-        String tplRootPath = AppConstant.PROJECT_ROOT_DIRECTORY + "/template/small-tools";
+        final String ipAddress = "127.0.0.1";
+        final String port = "3306";
+        final String username = "root";
+        final String password = "root";
+        final String dbName = "demo";
+        final String tableName = "t_test";
+        final String parentPackageName = "com.zhengqingya.demo";
+        final String moduleName = "xxx";
+        final String tplRootPath = AppConstant.PROJECT_ROOT_DIRECTORY + "/template/small-tools";
 
         // 查询字段数据
         List<String> queryColumnList = Lists.newArrayList("username");
@@ -59,6 +59,7 @@ public class GenerateTest {
 
         // 先删除旧数据
         MyFileUtil.deleteFileOrFolder(AppConstant.FILE_PATH_CODE_GENERATOR_DATA_PATH);
+
         // 模板数据生成
         GenerateCodeUtil.generateTplFileData(tplFileInfoList, templateDataMap);
         log.info("=== FINISH ===");
