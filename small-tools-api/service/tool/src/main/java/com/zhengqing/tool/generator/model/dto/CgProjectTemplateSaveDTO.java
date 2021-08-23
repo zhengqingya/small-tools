@@ -5,7 +5,11 @@ import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,11 +23,11 @@ import javax.validation.constraints.NotNull;
  * @description
  * @date 2019/8/22 11:12
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @ApiModel("项目代码模板保存参数")
 @FieldRepeatValidator(tableName = "t_cg_project_template", idDbName = "project_template_id",
         fieldNames = {"projectTemplateId", "currentUserId"}, dbFieldNames = {"project_template_id", "data_re_user_id"},

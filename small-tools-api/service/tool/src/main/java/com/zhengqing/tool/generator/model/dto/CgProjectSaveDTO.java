@@ -5,7 +5,11 @@ import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
@@ -20,11 +24,11 @@ import javax.validation.constraints.NotNull;
  * @description
  * @date 2019/8/22 11:12
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @ApiModel("项目管理保存参数")
 @FieldRepeatValidator(tableName = "t_cg_project", fieldNames = {"name"}, dbFieldNames = {"name"},
         message = "项目名称重复，请重新输入！")

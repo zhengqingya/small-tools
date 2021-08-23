@@ -2,8 +2,11 @@ package com.zhengqing.common.model.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * <p>
@@ -14,8 +17,11 @@ import lombok.EqualsAndHashCode;
  * @description
  * @date 2019/9/13 0013 1:57
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @ApiModel("后台基础传入参数")
 public class BasePageDTO extends BaseDTO {
 
