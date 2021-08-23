@@ -36,7 +36,10 @@ public class HttpRequestGlobalFilter implements GlobalFilter {
      */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        ServerHttpRequest request = exchange.getRequest();
+        // 删除请求头Expect （主要解决三方服务带此请求头请求接口时无法响应问题）
+        ServerHttpRequest request = exchange.getRequest().mutate()
+                .headers(httpHeaders -> httpHeaders.remove("Expect"))
+                .build();
         String requestUrl = request.getPath().toString();
         String requestMethod = request.getMethodValue();
         if (HttpMethod.POST.toString().equals(requestMethod) || HttpMethod.PUT.toString().equals(requestMethod)) {
