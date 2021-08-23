@@ -1,7 +1,12 @@
 package com.zhengqing.common.model.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
@@ -15,9 +20,16 @@ import java.io.Serializable;
  */
 @Data
 @SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 @ApiModel("基类响应参数")
 public class BaseVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @JsonIgnore
+    @JSONField(serialize = false, deserialize = false)
+    @ApiModelProperty(value = "隐藏字段-解决子类lombok部分注解(ex:构造器@NoArgsConstructor、@AllArgsConstructor)无法使用问题", hidden = true)
+    private String xxx;
 
 }
