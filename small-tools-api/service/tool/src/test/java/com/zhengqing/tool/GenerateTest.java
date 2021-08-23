@@ -35,7 +35,7 @@ public class GenerateTest {
         final String username = "root";
         final String password = "root";
         final String dbName = "demo";
-        final String tableName = "t_test";
+        final String tableName = "t_demo";
         final String parentPackageName = "com.zhengqingya.demo";
         final String moduleName = "xxx";
         final String tplRootPath = AppConstant.PROJECT_ROOT_DIRECTORY + "/template/small-tools";
@@ -86,7 +86,7 @@ public class GenerateTest {
                 if (tplFileItem.isDirectory()) {
                     this.handleTplContentData(tplFileInfoList, tplRootPath, tplChildDir + AppConstant.SEPARATOR_SPRIT + tplFileItemName, packageName, packageNameInfoMap);
                 } else if (tplFileItem.isFile()) {
-                    String packageNameItem = packageName + tplRootFile.getPath().replaceFirst(tplRootPath, "").replaceAll(AppConstant.SEPARATOR_SPRIT, AppConstant.SEPARATOR_SPOT);
+                    String packageNameItem = packageName + tplRootFile.getPath().replaceAll(AppConstant.SEPARATOR_BACKSLASH, AppConstant.SEPARATOR_SPRIT).replaceFirst(tplRootPath.replaceAll(AppConstant.SEPARATOR_BACKSLASH, AppConstant.SEPARATOR_SPRIT), "").replaceAll(AppConstant.SEPARATOR_SPRIT, AppConstant.SEPARATOR_SPOT);
                     packageNameInfoMap.put(UUID.randomUUID().toString(), packageNameItem);
                     String[] tplFileNameArray = tplFileItemName.split("\\" + AppConstant.SEPARATOR_SPOT);
                     tplFileInfoList.add(CgGeneratorCodeTemplateFileBO.builder()

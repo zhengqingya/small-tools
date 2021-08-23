@@ -91,9 +91,13 @@ public interface AppConstant {
     // ===============================================================================
 
     /**
-     * 系统分隔符
+     * liunx系统分隔符
      */
     String SEPARATOR_SPRIT = "/";
+    /**
+     * win系统分隔符
+     */
+    String SEPARATOR_BACKSLASH = "\\\\";
     /**
      * 分隔符 - 逗号
      */
