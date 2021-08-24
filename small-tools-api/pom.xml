@@ -81,6 +81,8 @@
         <httpcore.version>4.4.10</httpcore.version>
         <httpmime.version>4.5.6</httpmime.version>
 
+        <snakeyaml.version>1.29</snakeyaml.version>
+
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <docker.plugin.version>1.1.0</docker.plugin.version>
         <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>

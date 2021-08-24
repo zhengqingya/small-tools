@@ -4,11 +4,17 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.util.MyFileUtil;
+import com.zhengqing.common.util.YmlUtil;
 import com.zhengqing.tool.db.enums.StDbDataSourceTypeEnum;
 import com.zhengqing.tool.db.model.vo.StDbTableColumnListVO;
 import com.zhengqing.tool.db.service.impl.StDbJdbcServiceImpl;
 import com.zhengqing.tool.generator.model.bo.CgGeneratorCodeTemplateFileBO;
 import com.zhengqing.tool.util.GenerateCodeUtil;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -29,15 +35,17 @@ public class GenerateTest {
 
     @Test
     public void testGenerateCodeAndCreateFile() throws Exception {
-        // 基本数据字段
-        final String ipAddress = "127.0.0.1";
-        final String port = "3306";
-        final String username = "root";
-        final String password = "root";
-        final String dbName = "demo";
-        final String tableName = "t_demo";
-        final String parentPackageName = "com.zhengqingya.demo";
-        final String moduleName = "xxx";
+        // 读取基本生成配置信息（mysql连接配置等...）
+        final String GENERATE_CONFIG_PATH = AppConstant.PROJECT_ROOT_DIRECTORY + "/src/main/resources/generate-config.yml";
+        final GenerateConfig generateConfig = YmlUtil.getYml(GENERATE_CONFIG_PATH, GenerateConfig.class);
+        final String ip = generateConfig.getIp();
+        final String port = generateConfig.getPort();
+        final String username = generateConfig.getUsername();
+        final String password = generateConfig.getPassword();
+        final String dbName = generateConfig.getDbName();
+        final String tableName = generateConfig.getTableName();
+        final String parentPackageName = generateConfig.getParentPackageName();
+        final String moduleName = generateConfig.getModuleName();
         final String tplRootPath = AppConstant.PROJECT_ROOT_DIRECTORY + "/template/small-tools";
 
         // 查询字段数据
@@ -51,7 +59,7 @@ public class GenerateTest {
         this.handleTplContentData(tplFileInfoList, tplRootPath, "", parentPackageName + AppConstant.SEPARATOR_SPOT + moduleName, packageNameInfoMap);
 
         // 查询表字段信息
-        StDbTableColumnListVO columnInfo = new StDbJdbcServiceImpl().getAllColumnsByDbInfo(StDbDataSourceTypeEnum.MySQL, ipAddress, port, username, password, dbName, tableName);
+        StDbTableColumnListVO columnInfo = new StDbJdbcServiceImpl().getAllColumnsByDbInfo(StDbDataSourceTypeEnum.MySQL, ip, port, username, password, dbName, tableName);
 
         // 模板数据处理
         Map<String, Object> templateDataMap = GenerateCodeUtil.handleTplData(moduleName, columnInfo, packageNameInfoMap, queryColumnList);
@@ -98,6 +106,36 @@ public class GenerateTest {
                 }
             }
         }
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @ApiModel("代码生成配置参数")
+    public static class GenerateConfig {
+        @ApiModelProperty("mysql-ip地址")
+        private String ip;
+
+        @ApiModelProperty("端口")
+        private String port;
+
+        @ApiModelProperty("用户名")
+        private String username;
+
+        @ApiModelProperty("密码")
+        private String password;
+
+        @ApiModelProperty("库名")
+        private String dbName;
+
+        @ApiModelProperty("表名")
+        private String tableName;
+
+        @ApiModelProperty("父包名")
+        private String parentPackageName;
+
+        @ApiModelProperty("模块名")
+        private String moduleName;
     }
 
 }

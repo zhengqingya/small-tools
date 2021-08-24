@@ -30,8 +30,8 @@ public class MyBeanUtil {
     /**
      * 对象属性拷贝
      *
-     * @param source: 源对象
-     * @param target: 目标对象
+     * @param source 源对象
+     * @param target 目标对象
      * @return void
      * @author zhengqingya
      * @date 2020/9/5 23:22
@@ -43,14 +43,15 @@ public class MyBeanUtil {
     /**
      * 对象属性拷贝 : 将源对象的属性拷贝到目标对象
      *
-     * @param source: 源对象
-     * @param clzz:   目标对象class
+     * @param source 源对象
+     * @param clz    目标对象class
+     * @return 对象数据
      */
-    public static <T> T copyProperties(Object source, Class<T> clzz) {
+    public static <T> T copyProperties(Object source, Class<T> clz) {
         if (source == null) {
             return null;
         }
-        T target = BeanUtils.instantiate(clzz);
+        T target = BeanUtils.instantiate(clz);
         try {
             BeanUtils.copyProperties(source, target);
         } catch (BeansException e) {
@@ -64,17 +65,15 @@ public class MyBeanUtil {
     /**
      * 拷贝list
      *
-     * @param input: 输入集合
-     * @param clzz:  输出集合类型
-     * @param <E>:   输入集合类型
-     * @param <T>:   输出集合类型
+     * @param inList 输入list
+     * @param outClz 输出目标对象class
      * @return 返回集合
      */
-    public static <E, T> List<T> copyList(List<E> input, Class<T> clzz) {
+    public static <E, T> List<T> copyList(List<E> inList, Class<T> outClz) {
         List<T> output = Lists.newArrayList();
-        if (!CollectionUtils.isEmpty(input)) {
-            for (E source : input) {
-                T target = BeanUtils.instantiate(clzz);
+        if (!CollectionUtils.isEmpty(inList)) {
+            for (E source : inList) {
+                T target = BeanUtils.instantiate(outClz);
                 BeanUtils.copyProperties(source, target);
                 output.add(target);
             }
@@ -85,10 +84,10 @@ public class MyBeanUtil {
     /**
      * 获取任意泛型类的指定属性值（暂只支持同时访问父类和子类属性，如果有多继承的话，还需要再修改）
      *
-     * @param tList:        list对象数据
-     * @param field:        要获取指定字段属性值对应的字段名
-     * @param isSuperfield: true：父类 false：子类
-     * @return java.util.List<?>
+     * @param tList        list对象数据
+     * @param field        要获取指定字段属性值对应的字段名
+     * @param isSuperfield true->父类 false->子类
+     * @return 字段属性值
      */
     public static <T> List<?> getFieldList(List<T> tList, String field, Boolean isSuperfield) {
         if (StringUtils.isBlank(field)) {
@@ -123,9 +122,9 @@ public class MyBeanUtil {
     /**
      * 获取任意泛型类的指定属性值（暂只支持同时访问父类和子类属性，如果有多继承的话，还需要再修改）
      *
-     * @param tList: list对象数据
-     * @param field: 要获取指定字段属性值对应的字段名
-     * @return java.util.List<?>
+     * @param tList list对象数据
+     * @param field 要获取指定字段属性值对应的字段名
+     * @return 字段属性值
      */
     public static <T> List<?> getFieldList(List<Map<String, Object>> tList, String field) {
         if (StringUtils.isBlank(field)) {
@@ -139,10 +138,10 @@ public class MyBeanUtil {
     }
 
     /**
-     * 将Map转换为对象
+     * 将Map转换为对象 (注：暂无法转换含嵌套对象的map数据源)
      *
-     * @param map:
-     * @param clz:
+     * @param map 需转换map
+     * @param clz 目标对象class
      * @return T
      * @author zhengqingya
      * @date 2020/11/27 18:39
@@ -154,7 +153,7 @@ public class MyBeanUtil {
     /**
      * 对象 转 map （通过反射获取类里面的值和名称）
      *
-     * @param obj: 对象
+     * @param obj 对象
      * @return map
      * @author zhengqingya
      * @date 2021/1/26 16:09
