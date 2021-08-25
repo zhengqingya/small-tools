@@ -58,7 +58,7 @@ public class ${entity}Controller extends BaseController {
     }
 
     @NoRepeatSubmit
-    @PostMapping("")
+    @PostMapping("add")
     @ApiOperation("新增")
     public ${primaryColumnTypeJava} add(@Validated @RequestBody ${entity}SaveDTO params) {
         params.setId(null);
@@ -66,13 +66,13 @@ public class ${entity}Controller extends BaseController {
     }
 
     @NoRepeatSubmit
-    @PutMapping("")
+    @PutMapping("update")
     @ApiOperation("更新")
     public ${primaryColumnTypeJava} update(@Validated(UpdateGroup.class) @RequestBody ${entity}SaveDTO params) {
         return this.${entityNameLower}Service.addOrUpdateData(params);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping("delete")
     @ApiOperation("删除")
     public void delete(@RequestParam ${primaryColumnTypeJava} ${primaryColumnNameJavaLower}) {
         this.${entityNameLower}Service.deleteData(${primaryColumnNameJavaLower});
