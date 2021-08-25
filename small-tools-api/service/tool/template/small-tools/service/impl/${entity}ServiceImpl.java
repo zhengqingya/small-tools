@@ -90,6 +90,7 @@ public class ${entity}ServiceImpl extends ServiceImpl<${entity}Mapper, ${entity}
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteData(${primaryColumnTypeJava} ${primaryColumnNameJavaLower}){
         this.${entityNameLower}Mapper.deleteById(${primaryColumnNameJavaLower});
     }
