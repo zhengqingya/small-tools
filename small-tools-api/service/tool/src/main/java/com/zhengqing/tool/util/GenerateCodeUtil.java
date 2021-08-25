@@ -50,7 +50,7 @@ public class GenerateCodeUtil {
         Map<String, Object> templateDataMap = Maps.newHashMap();
         String tableName = columnInfo.getTableName();
         // 表名驼峰式处理
-        String entityName = tableName.contains("t_") ? tableName.substring("t_".length()) : tableName;
+        String entityName = tableName.startsWith("t_") ? tableName.substring("t_".length()) : tableName;
         String entityNameLower = MyStringUtil.dbStrToHumpLower(entityName);
         String entityNameUpper = MyStringUtil.dbStrToHumpUpper(entityName);
         templateDataMap.put("tableName", tableName);
