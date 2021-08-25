@@ -61,6 +61,7 @@ public class ${entity}Controller extends BaseController {
     @PostMapping("")
     @ApiOperation("新增")
     public ${primaryColumnTypeJava} add(@Validated @RequestBody ${entity}SaveDTO params) {
+        params.setId(null);
         return this.${entityNameLower}Service.addOrUpdateData(params);
     }
 
