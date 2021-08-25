@@ -12,11 +12,12 @@ import lombok.Data;
  * @date ${date}
  */
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @ApiModel("${tableComment}-响应参数")
-public class ${entity}ListVO {
+public class ${entity}ListVO extends BaseVO {
 
 <#list columnInfoList as item>
     <#if item.columnNameDb != "create_by" && item.columnNameDb != "create_time" && item.columnNameDb != "update_by" && item.columnNameDb != "update_time" && item.columnNameDb != "is_deleted">

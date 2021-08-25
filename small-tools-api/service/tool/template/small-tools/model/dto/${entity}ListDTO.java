@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
  * @date ${date}
  */
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)

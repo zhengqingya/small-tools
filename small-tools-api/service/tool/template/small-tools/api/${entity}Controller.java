@@ -67,7 +67,7 @@ public class ${entity}Controller extends BaseController {
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
-    public ${primaryColumnTypeJava} update(@Validated(Update.class) @RequestBody ${entity}SaveDTO params) {
+    public ${primaryColumnTypeJava} update(@Validated(UpdateGroup.class) @RequestBody ${entity}SaveDTO params) {
         return this.${entityNameLower}Service.addOrUpdateData(params);
     }
 
