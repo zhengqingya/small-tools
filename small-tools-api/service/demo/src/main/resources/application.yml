@@ -1,10 +1,10 @@
 server:
   port: 20040
 #spring:
-# jackson全局处理Date时间
+# jackson全局处理-JSON入参及返回值Date时间
 #  jackson:
 #    date-format: yyyy-MM-dd HH:mm:ss
 #    time-zone: GMT+8
-# fastjson全局处理Date时间 TODO 暂无效
+# fastjson全局处理-JSON入参及返回值Date时间 TODO 暂无效
 #  mvc:
 #    date-format: yyyy-MM-dd HH:mm:ss
