@@ -23,6 +23,7 @@ import java.util.Date;
 @Slf4j
 public class MyDateUtil {
 
+    public static final String GMT = "GMT+8";
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String MINUTE_FORMAT = "yyyy-MM-dd HH:mm";
     public static final String HOUR_FORMAT = "yyyy-MM-dd HH";

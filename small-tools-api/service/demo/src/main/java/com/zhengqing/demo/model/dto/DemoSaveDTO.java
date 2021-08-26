@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * <p>
@@ -44,8 +45,13 @@ public class DemoSaveDTO extends BaseDTO {
     private Integer sex;
 
     @Range(min = 1, max = 1, message = "range: 1-3")
-    @ApiModelProperty("类型")
+    @ApiModelProperty(value = "类型", example = "1")
     private Integer type;
 
+    @ApiModelProperty(value = "开始时间", example = "2021-08-25 00:00:00")
+    private Date startTime;
+
+    @ApiModelProperty(value = "结束时间", example = "2021-10-25 23:59:59")
+    private Date endTime;
 
 }

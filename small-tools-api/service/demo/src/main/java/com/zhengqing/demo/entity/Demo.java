@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
+import java.util.Date;
+
 /**
  * <p>
  * 测试demo
@@ -37,5 +39,11 @@ public class Demo extends BaseEntity<Demo> {
     @TableField(value = "sex", updateStrategy = FieldStrategy.IGNORED)
     @ApiModelProperty("性别")
     private Integer sex;
+
+    @ApiModelProperty("开始时间")
+    private Date startTime;
+
+    @ApiModelProperty("结束时间")
+    private Date endTime;
 
 }

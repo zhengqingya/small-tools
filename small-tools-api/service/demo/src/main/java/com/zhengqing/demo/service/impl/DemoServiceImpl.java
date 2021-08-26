@@ -101,6 +101,8 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
                 .username(username)
                 .password(password)
                 .sex(sex)
+                .startTime(params.getStartTime())
+                .endTime(params.getEndTime())
                 .build();
 
         // FIXME 临时测试分页
