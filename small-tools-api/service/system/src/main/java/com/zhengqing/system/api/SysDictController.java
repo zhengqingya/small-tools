@@ -80,8 +80,8 @@ public class SysDictController extends BaseController {
 
     @PutMapping("updateBatch")
     @ApiOperation("批量更新")
-    public void updateBatch(@Validated @RequestBody SysDictSaveBatchDTO params) {
-        this.sysDictService.updateBatch(params);
+    public void updateBatch(@Validated @RequestBody Map<String, List<SysDictSaveBatchDTO>> dictDataMap) {
+        this.sysDictService.updateBatch(dictDataMap);
     }
 
     @DeleteMapping("")

@@ -85,12 +85,12 @@ public interface ISysDictService extends IService<SysDict> {
     /**
      * 批量更新
      *
-     * @param params 提交参数
+     * @param dictDataMap 提交参数
      * @return void
      * @author zhengqingya
      * @date 2021/8/27 11:24 下午
      */
-    void updateBatch(SysDictSaveBatchDTO params);
+    void updateBatch(Map<String, List<SysDictSaveBatchDTO>> dictDataMap);
 
     /**
      * 根据id删除数据字典

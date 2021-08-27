@@ -28,4 +28,48 @@
         ORDER BY sd.sort ASC
     </select>
 
+    <insert id="batchInsertOrUpdate">
+        INSERT t_sys_dict (
+        id,
+        dict_type_id,
+        code,
+        name,
+        value,
+        status,
+        sort,
+        remark,
+        create_by,
+        update_by,
+        create_time,
+        update_time
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.dictTypeId},
+            #{item.code},
+            #{item.name},
+            #{item.value},
+            #{item.status},
+            #{item.sort},
+            #{item.remark},
+            #{item.currentUserId},
+            #{item.currentUserId},
+            now(),
+            now()
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        dict_type_id = VALUES(dict_type_id),
+        code = VALUES(code),
+        name = VALUES(name),
+        value = VALUES(value),
+        status = VALUES(status),
+        sort = VALUES(sort),
+        remark = VALUES(remark),
+        update_by = VALUES(update_by),
+        update_time = VALUES(update_time);
+    </insert>
+
 </mapper>

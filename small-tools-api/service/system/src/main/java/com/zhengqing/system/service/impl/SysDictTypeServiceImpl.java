@@ -3,11 +3,13 @@ package com.zhengqing.system.service.impl;
 import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Maps;
 import com.zhengqing.common.constant.MybatisConstant;
 import com.zhengqing.common.util.RedisUtil;
 import com.zhengqing.system.constant.SystemConstant;
 import com.zhengqing.system.entity.SysDictType;
 import com.zhengqing.system.mapper.SysDictTypeMapper;
+import com.zhengqing.system.model.bo.SysDictTypeBO;
 import com.zhengqing.system.model.dto.SysDictTypeSaveDTO;
 import com.zhengqing.system.model.vo.SysDictTypeListVO;
 import com.zhengqing.system.service.ISysDictService;
@@ -17,8 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -43,6 +48,15 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
     @Override
     public List<SysDictTypeListVO> listByOpen() {
         return this.sysDictTypeMapper.selectDictTypeListByOpen();
+    }
+
+    @Override
+    public Map<String, Integer> getDictTypeIdMap(List<String> codeList) {
+        if (CollectionUtils.isEmpty(codeList)) {
+            return Maps.newHashMap();
+        }
+        List<SysDictTypeBO> dictTypeList = this.sysDictTypeMapper.selectDataList(codeList);
+        return dictTypeList.stream().collect(Collectors.toMap(SysDictTypeBO::getCode, SysDictTypeBO::getId, (k1, k2) -> k1));
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zhengqing.common.constant.MybatisConstant;
+import com.zhengqing.common.context.ContextHandler;
 import com.zhengqing.common.enums.YesNoEnum;
 import com.zhengqing.common.util.RedisUtil;
 import com.zhengqing.system.constant.SystemConstant;
@@ -151,8 +152,21 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     }
 
     @Override
-    public void updateBatch(SysDictSaveBatchDTO params) {
-
+    public void updateBatch(Map<String, List<SysDictSaveBatchDTO>> dictDataMap) {
+        List<SysDictSaveBatchDTO> saveList = Lists.newArrayList();
+        List<String> codeList = Lists.newLinkedList();
+        dictDataMap.forEach((code, dictListItem) -> codeList.add(code));
+        Map<String, Integer> dictTypeIdMap = this.sysDictTypeService.getDictTypeIdMap(codeList);
+        dictDataMap.forEach((code, dictListItem) -> {
+            Integer dictTypeId = dictTypeIdMap.get(code);
+            dictListItem.forEach(item -> {
+                item.setDictTypeId(dictTypeId);
+                item.setCode(code);
+                item.setCurrentUserId(ContextHandler.getUserId());
+            });
+            saveList.addAll(dictListItem);
+        });
+        this.sysDictMapper.batchInsertOrUpdate(saveList);
     }
 
     @Override
@@ -163,9 +177,8 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
             return;
         }
         this.sysDictMapper.deleteById(id);
-        SysDictType dictTypeData = this.sysDictTypeService.detailByCode(sysDict.getCode());
         // 更新缓存
-        this.updateCache(dictTypeData.getCode());
+        this.updateCache(sysDict.getCode());
     }
 
     @Override
@@ -176,6 +189,9 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
 
     @Override
     public void updateCache(String code) {
+        if (StringUtils.isBlank(code)) {
+            return;
+        }
         String key = SystemConstant.CACHE_SYS_DICT_PREFIX + code;
         // 加入||更新 缓存
         if (RedisUtil.hasKey(key)) {

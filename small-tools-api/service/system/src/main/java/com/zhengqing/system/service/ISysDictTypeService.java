@@ -6,6 +6,7 @@ import com.zhengqing.system.model.dto.SysDictTypeSaveDTO;
 import com.zhengqing.system.model.vo.SysDictTypeListVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -26,6 +27,16 @@ public interface ISysDictTypeService extends IService<SysDictType> {
      * @date 2020/9/12 18:51
      */
     List<SysDictTypeListVO> listByOpen();
+
+    /**
+     * 查询字典类型
+     *
+     * @param codeList 字典编码list
+     * @return 编码code -> 字典类型ID
+     * @author zhengqingya
+     * @date 2021/8/28 4:45 上午
+     */
+    Map<String, Integer> getDictTypeIdMap(List<String> codeList);
 
     /**
      * 详情

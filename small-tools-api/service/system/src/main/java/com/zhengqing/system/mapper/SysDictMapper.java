@@ -2,6 +2,7 @@ package com.zhengqing.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zhengqing.system.entity.SysDict;
+import com.zhengqing.system.model.dto.SysDictSaveBatchDTO;
 import com.zhengqing.system.model.vo.SysDictVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
@@ -40,5 +41,15 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
      */
     @Delete("DELETE FROM t_sys_dict WHERE code = #{code}")
     void deleteByCode(@Param("code") String code);
+
+    /**
+     * 批量保存，主键id存在时，作修改处理；不存在时，作插入新数据处理。
+     *
+     * @param list 保存数据
+     * @return void
+     * @author zhengqingya
+     * @date 2021/8/28 1:39 上午
+     */
+    void batchInsertOrUpdate(@Param("list") List<SysDictSaveBatchDTO> list);
 
 }
