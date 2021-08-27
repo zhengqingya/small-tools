@@ -159,6 +159,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         Map<String, Integer> dictTypeIdMap = this.sysDictTypeService.getDictTypeIdMap(codeList);
         dictDataMap.forEach((code, dictListItem) -> {
             Integer dictTypeId = dictTypeIdMap.get(code);
+            Assert.notNull(dictTypeId, String.format("数据字典[%s]丢失，请联系系统管理员!", code));
             dictListItem.forEach(item -> {
                 item.setDictTypeId(dictTypeId);
                 item.setCode(code);
