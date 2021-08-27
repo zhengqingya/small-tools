@@ -31,14 +31,14 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
     List<SysDictVO> selectDictListByCode(@Param("status") Integer status, @Param("codeList") List<String> codeList);
 
     /**
-     * 根据类型id删除数据字典类型下的所有数据字典
+     * 根据类型编码删除关联数据字典
      *
-     * @param dictTypeId:
+     * @param code 数据字典类型编码
      * @return void
      * @author zhengqingya
      * @date 2020/9/12 17:41
      */
-    @Delete("DELETE FROM t_sys_dict WHERE dict_type_id = #{dictTypeId}")
-    void deleteByDictTypeId(@Param("dictTypeId") Integer dictTypeId);
+    @Delete("DELETE FROM t_sys_dict WHERE code = #{code}")
+    void deleteByCode(@Param("code") String code);
 
 }

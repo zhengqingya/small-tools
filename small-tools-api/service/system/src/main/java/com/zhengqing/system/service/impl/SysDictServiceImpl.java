@@ -3,15 +3,18 @@ package com.zhengqing.system.service.impl;
 import cn.hutool.core.lang.Assert;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.zhengqing.common.constant.MybatisConstant;
 import com.zhengqing.common.enums.YesNoEnum;
 import com.zhengqing.common.util.RedisUtil;
 import com.zhengqing.system.constant.SystemConstant;
 import com.zhengqing.system.entity.SysDict;
 import com.zhengqing.system.entity.SysDictType;
 import com.zhengqing.system.mapper.SysDictMapper;
+import com.zhengqing.system.model.dto.SysDictSaveBatchDTO;
 import com.zhengqing.system.model.dto.SysDictSaveDTO;
 import com.zhengqing.system.model.vo.SysDictTypeListVO;
 import com.zhengqing.system.model.vo.SysDictVO;
@@ -102,20 +105,38 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Integer addOrUpdateData(SysDictSaveDTO params) {
-        Integer dictTypeId = params.getDictTypeId();
-        SysDictType dictTypeData = this.sysDictTypeService.detail(dictTypeId);
+        String code = params.getCode();
+        SysDictType dictTypeData = this.sysDictTypeService.detailByCode(code);
         Integer id = params.getId();
         String name = params.getName();
         String value = params.getValue();
         Integer sort = params.getSort();
+        String remark = params.getRemark();
+
+        // 校验名称是否重复
+        SysDict sysDictOldByName = this.sysDictMapper.selectOne(new LambdaQueryWrapper<SysDict>()
+                .eq(SysDict::getCode, code)
+                .eq(SysDict::getName, name)
+                .last(MybatisConstant.LIMIT_ONE));
+        Assert.isTrue(sysDictOldByName == null || sysDictOldByName.getId().equals(id), "字典名称重复，请重新输入！");
+
+        // 校验Value是否重复
+        SysDict sysDictOldByValue = this.sysDictMapper.selectOne(new LambdaQueryWrapper<SysDict>()
+                .eq(SysDict::getCode, code)
+                .eq(SysDict::getValue, value)
+                .last(MybatisConstant.LIMIT_ONE));
+        Assert.isTrue(sysDictOldByValue == null || sysDictOldByValue.getId().equals(id), "字典名称值重复，请重新输入！");
+
         // 保存数据
         SysDict sysDict = SysDict.builder()
                 .id(id)
-                .dictTypeId(dictTypeId)
+                .dictTypeId(dictTypeData.getId())
+                .code(code)
                 .name(name)
                 .value(value)
                 .status(YesNoEnum.是.getValue())
                 .sort(sort)
+                .remark(remark)
                 .build();
         if (params.getId() == null) {
             this.sysDictMapper.insert(sysDict);
@@ -125,8 +146,13 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
             this.sysDictMapper.updateById(sysDict);
         }
         // 更新缓存
-        this.updateCache(dictTypeData.getCode());
+        this.updateCache(code);
         return sysDict.getId();
+    }
+
+    @Override
+    public void updateBatch(SysDictSaveBatchDTO params) {
+
     }
 
     @Override
@@ -137,15 +163,15 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
             return;
         }
         this.sysDictMapper.deleteById(id);
-        SysDictType dictTypeData = this.sysDictTypeService.detail(sysDict.getDictTypeId());
+        SysDictType dictTypeData = this.sysDictTypeService.detailByCode(sysDict.getCode());
         // 更新缓存
         this.updateCache(dictTypeData.getCode());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void deleteDictByDictTypeId(Integer dictTypeId) {
-        this.sysDictMapper.deleteByDictTypeId(dictTypeId);
+    public void deleteDictByCode(String code) {
+        this.sysDictMapper.deleteByCode(code);
     }
 
     @Override

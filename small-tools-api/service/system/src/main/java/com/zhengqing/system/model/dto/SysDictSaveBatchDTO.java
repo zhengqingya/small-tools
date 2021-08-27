@@ -1,7 +1,5 @@
 package com.zhengqing.system.model.dto;
 
-import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
-import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -14,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * <p>
- * 数据字典保存参数
+ * 数据字典批量保存参数
  * </p>
  *
  * @author zhengqingya
@@ -25,18 +23,11 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel("数据字典保存参数")
-@FieldRepeatValidator(tableName = "t_sys_dict", fieldNames = {"name", "code"},
-        dbFieldNames = {"name", "code"}, message = "字段名称重复，请重新输入！")
-public class SysDictSaveDTO {
+@ApiModel("数据字典批量保存参数")
+public class SysDictSaveBatchDTO {
 
-    @NotNull(groups = {UpdateGroup.class}, message = "字典id不能为空!")
     @ApiModelProperty(value = "字典id", example = "1")
     private Integer id;
-
-//    @NotNull(message = "字典类型id不能为空!")
-//    @ApiModelProperty(value = "字典类型id(关联`t_sys_dict_type`表`id`字段)", example = "1")
-//    private Integer dictTypeId;
 
     @NotBlank(message = "字典类型id不能为空!")
     @ApiModelProperty(value = "字典类型编码", example = "permission_btn")

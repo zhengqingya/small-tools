@@ -38,6 +38,16 @@ public interface ISysDictTypeService extends IService<SysDictType> {
     SysDictType detail(Integer dictTypeId);
 
     /**
+     * 详情
+     *
+     * @param code 字段类型编码
+     * @return 字典类型数据
+     * @author zhengqingya
+     * @date 2021/8/27 11:41 下午
+     */
+    SysDictType detailByCode(String code);
+
+    /**
      * 新增或更新
      *
      * @param params:

@@ -1,10 +1,14 @@
 package com.zhengqing.system.model.vo;
 
+import com.zhengqing.common.model.vo.BaseVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-import java.io.Serializable;
 
 /**
  * <p>
@@ -16,10 +20,12 @@ import java.io.Serializable;
  * @date 2020/4/15 20:57
  */
 @Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @ApiModel("数据字典表")
-public class SysDictVO implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class SysDictVO extends BaseVO {
 
     @ApiModelProperty(value = "字典ID")
     private Integer id;

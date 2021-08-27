@@ -1,6 +1,7 @@
 package com.zhengqing.system.api;
 
 import com.zhengqing.common.api.BaseController;
+import com.zhengqing.common.validator.fieldrepeat.CreateGroup;
 import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import com.zhengqing.system.entity.SysDictType;
 import com.zhengqing.system.model.dto.SysDictTypeSaveDTO;
@@ -34,7 +35,7 @@ public class SysDictTypeController extends BaseController {
     @Autowired
     private ISysDictTypeService dictTypeService;
 
-    @GetMapping("/list")
+    @GetMapping("list")
     @ApiOperation("列表")
     public List<SysDictType> list() {
         return this.dictTypeService.list().stream().sorted(Comparator.comparing(SysDictType::getSort)).collect(Collectors.toList());
@@ -42,7 +43,8 @@ public class SysDictTypeController extends BaseController {
 
     @PostMapping("")
     @ApiOperation("新增")
-    public Integer add(@Validated @RequestBody SysDictTypeSaveDTO params) {
+    public Integer add(@Validated(CreateGroup.class) @RequestBody SysDictTypeSaveDTO params) {
+        params.setId(null);
         return this.dictTypeService.addOrUpdateData(params);
     }
 

@@ -2,6 +2,7 @@ package com.zhengqing.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhengqing.system.entity.SysDict;
+import com.zhengqing.system.model.dto.SysDictSaveBatchDTO;
 import com.zhengqing.system.model.dto.SysDictSaveDTO;
 import com.zhengqing.system.model.vo.SysDictVO;
 
@@ -82,6 +83,16 @@ public interface ISysDictService extends IService<SysDict> {
     Integer addOrUpdateData(SysDictSaveDTO params);
 
     /**
+     * 批量更新
+     *
+     * @param params 提交参数
+     * @return void
+     * @author zhengqingya
+     * @date 2021/8/27 11:24 下午
+     */
+    void updateBatch(SysDictSaveBatchDTO params);
+
+    /**
      * 根据id删除数据字典
      *
      * @param id: 数据字典id
@@ -92,14 +103,14 @@ public interface ISysDictService extends IService<SysDict> {
     void deleteDictById(Integer id);
 
     /**
-     * 根据类型id删除数据字典
+     * 根据类型编码删除数据字典
      *
-     * @param dictTypeId: 数据字典类型id
+     * @param code 数据字典类型编码
      * @return void
      * @author zhengqingya
      * @date 2020/9/12 17:36
      */
-    void deleteDictByDictTypeId(Integer dictTypeId);
+    void deleteDictByCode(String code);
 
     /**
      * 根据字典类型更新缓存

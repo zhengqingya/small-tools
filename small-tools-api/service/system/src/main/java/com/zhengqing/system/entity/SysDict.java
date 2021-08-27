@@ -33,6 +33,9 @@ public class SysDict extends BaseEntity<SysDict> {
     @ApiModelProperty(value = "字典类型id")
     private Integer dictTypeId;
 
+    @ApiModelProperty(value = "字典类型编码")
+    private String code;
+
     @ApiModelProperty(value = "字典名")
     private String name;
 
