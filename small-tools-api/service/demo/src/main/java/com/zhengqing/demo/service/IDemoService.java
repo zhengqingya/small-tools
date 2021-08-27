@@ -37,7 +37,7 @@ public interface IDemoService extends IService<Demo> {
      * @author zhengqingya
      * @date 2021/01/13 10:11
      */
-    IPage<DemoListVO> listPage(DemoListDTO params);
+    IPage<DemoListVO> page(DemoListDTO params);
 
     /**
      * 列表

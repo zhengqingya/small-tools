@@ -4,6 +4,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * <p>
  * 测试demo展示视图
@@ -25,5 +28,14 @@ public class DemoListVO {
 
     @ApiModelProperty("密码")
     private String password;
+
+    @ApiModelProperty("开始时间")
+    private Date startTime;
+
+    @ApiModelProperty("结束时间")
+    private Date endTime;
+
+    @ApiModelProperty("list")
+    private List<String> list;
 
 }

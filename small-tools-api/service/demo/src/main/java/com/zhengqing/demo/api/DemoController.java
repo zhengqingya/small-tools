@@ -70,10 +70,10 @@ public class DemoController extends BaseController {
         System.out.println(id);
     }
 
-    @GetMapping("list/page")
+    @GetMapping("page")
     @ApiOperation("列表分页")
-    public IPage<DemoListVO> listPage(@Validated @ModelAttribute DemoListDTO params) {
-        return this.demoService.listPage(params);
+    public IPage<DemoListVO> page(@Validated @ModelAttribute DemoListDTO params) {
+        return this.demoService.page(params);
     }
 
     @GetMapping("list")

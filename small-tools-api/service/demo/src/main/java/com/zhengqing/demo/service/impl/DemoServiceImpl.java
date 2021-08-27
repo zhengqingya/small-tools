@@ -63,7 +63,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     }
 
     @Override
-    public IPage<DemoListVO> listPage(DemoListDTO params) {
+    public IPage<DemoListVO> page(DemoListDTO params) {
         IPage<DemoListVO> result = demoMapper.selectDataList(new Page<>(), params);
         List<DemoListVO> list = result.getRecords();
         this.handleResultData(list);
