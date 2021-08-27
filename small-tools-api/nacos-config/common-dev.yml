@@ -58,14 +58,14 @@ spring:
       strict: false #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候会抛出异常,不启动则使用默认数据源.
       datasource:
         master:
-          url: jdbc:mysql://${small-tools.ip}:3306/small-tools?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false
+          url: jdbc:mysql://${small-tools.ip}:3306/small-tools?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false  ； &serverTimezone=Asia/Shanghai ：解决fastjson时差13小时问题
           name: small-tools
           username: root
           password: root
           platform: mysql
           driver-class-name: com.mysql.cj.jdbc.Driver
         db-test:
-          url: jdbc:mysql://${small-tools.ip}:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false
+          url: jdbc:mysql://${small-tools.ip}:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false  ； &serverTimezone=Asia/Shanghai ：解决fastjson时差13小时问题
           username: root
           password: root
           driver-class-name: com.mysql.cj.jdbc.Driver

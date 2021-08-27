@@ -1,8 +1,5 @@
 package com.zhengqing.common.config;
 
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.zhengqing.common.util.FastJsonHttpMessageConverterEx;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -40,15 +37,6 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ServletContext
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         super.configureMessageConverters(converters);
-        FastJsonHttpMessageConverterEx fastConverter = new FastJsonHttpMessageConverterEx();
-        FastJsonConfig fastJsonConfig = new FastJsonConfig();
-        fastJsonConfig.setSerializerFeatures(
-                SerializerFeature.DisableCircularReferenceDetect,
-                SerializerFeature.WriteNullListAsEmpty,
-                SerializerFeature.WriteNullStringAsEmpty,
-                SerializerFeature.WriteMapNullValue);
-        fastConverter.setFastJsonConfig(fastJsonConfig);
-        converters.add(fastConverter);
     }
 
     @Override

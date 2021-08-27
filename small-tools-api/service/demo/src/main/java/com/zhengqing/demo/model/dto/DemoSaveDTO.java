@@ -48,6 +48,8 @@ public class DemoSaveDTO extends BaseDTO {
     @ApiModelProperty(value = "类型", example = "1")
     private Integer type;
 
+    //    @DateTimeFormat(pattern = MyDateUtil.DATE_TIME_FORMAT)
+    //    @JSONField(format = MyDateUtil.DATE_TIME_FORMAT)
     @ApiModelProperty(value = "开始时间", example = "2021-08-25 00:00:00")
     private Date startTime;
 
