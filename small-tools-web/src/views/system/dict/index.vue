@@ -149,7 +149,7 @@ export default {
       if (this.dicList.length > 0) {
         maxSort = Math.max(...this.dicList.map(e => e.sort)) + 1;
       }
-      this.$refs.editDict.open("create", null, this.dictTypeData.id, maxSort);
+      this.$refs.editDict.open("create", null, this.dictTypeData.id,this.dictTypeData.code, maxSort);
     },
     updateDict(row) {
       this.$refs.editDict.open("update", row);

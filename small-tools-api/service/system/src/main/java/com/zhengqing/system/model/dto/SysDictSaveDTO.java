@@ -38,7 +38,7 @@ public class SysDictSaveDTO {
 //    @ApiModelProperty(value = "字典类型id(关联`t_sys_dict_type`表`id`字段)", example = "1")
 //    private Integer dictTypeId;
 
-    @NotBlank(message = "字典类型id不能为空!")
+    @NotBlank(message = "字典类型编码不能为空!")
     @ApiModelProperty(value = "字典类型编码", example = "permission_btn")
     private String code;
 

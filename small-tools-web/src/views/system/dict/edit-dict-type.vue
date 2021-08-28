@@ -9,7 +9,7 @@
         <el-input v-model="form.name" placeholder="输入字典类型名称" />
       </el-form-item>
       <el-form-item label="字典类型编码：">
-        <el-input v-model="form.code" placeholder="输入字典类型编码" />
+        <el-input v-model="form.code" :disabled="form.id" placeholder="输入字典类型编码" />
       </el-form-item>
       <el-form-item label="是否启用：">
         <el-select
