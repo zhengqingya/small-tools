@@ -113,14 +113,14 @@ public interface ISysDictService extends IService<SysDict> {
     void deleteDictByCode(String code);
 
     /**
-     * 根据字典类型更新缓存
+     * 根据字典类型编码更新缓存
      *
-     * @param code: 字典类型
+     * @param codeList 字典类型编码
      * @return void
      * @author zhengqingya
      * @date 2020/9/3 21:48
      */
-    void updateCache(String code);
+    void updateCache(List<String> codeList);
 
     /**
      * 初始化字典类型缓存

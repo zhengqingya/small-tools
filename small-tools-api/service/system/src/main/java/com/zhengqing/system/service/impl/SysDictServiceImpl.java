@@ -30,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -75,12 +76,13 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     public Map<String, List<SysDictVO>> listFromDbByOpenCode(List<String> codeList) {
         Map<String, List<SysDictVO>> dictDataMap = Maps.newHashMap();
         List<SysDictVO> dictDataList = this.sysDictMapper.selectDictListByCode(YesNoEnum.是.getValue(), codeList);
-        if (CollectionUtils.isEmpty(dictDataList)) {
-            return dictDataMap;
-        }
         for (SysDictVO dictItem : dictDataList) {
             dictDataMap.computeIfAbsent(dictItem.getCode(), k -> new LinkedList<>()).add(dictItem);
         }
+        // 计算有没有差集，若有则装入空数据，返回
+        List<String> codeListByDb = dictDataList.stream().map(SysDictVO::getCode).collect(Collectors.toList());
+        List<String> newCodeList = codeList.stream().filter(code -> !codeListByDb.contains(code)).collect(Collectors.toList());
+        newCodeList.forEach(code -> dictDataMap.put(code, Lists.newArrayList()));
         return dictDataMap;
     }
 
@@ -88,9 +90,11 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     public Map<String, List<SysDictVO>> listFromCacheByCode(List<String> codeList) {
         Map<String, List<SysDictVO>> dictDataMap = Maps.newHashMap();
         codeList.forEach(codeItem -> {
-            String dictListStr = RedisUtil.get(SystemConstant.CACHE_SYS_DICT_PREFIX + codeItem);
-            if (StringUtils.isNotBlank(dictListStr)) {
-                dictDataMap.put(codeItem, JSONArray.parseArray(dictListStr, SysDictVO.class));
+            String dictJsonStr = RedisUtil.get(SystemConstant.CACHE_SYS_DICT_PREFIX + codeItem);
+            if (StringUtils.isBlank(dictJsonStr)) {
+                dictDataMap.put(codeItem, Lists.newArrayList());
+            } else {
+                dictDataMap.put(codeItem, JSONArray.parseArray(dictJsonStr, SysDictVO.class));
             }
         });
         return dictDataMap;
@@ -147,7 +151,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
             this.sysDictMapper.updateById(sysDict);
         }
         // 更新缓存
-        this.updateCache(code);
+        this.updateCache(Collections.singletonList(code));
         return sysDict.getId();
     }
 
@@ -198,6 +202,8 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         if (!CollectionUtils.isEmpty(saveList)) {
             this.sysDictMapper.batchInsertOrUpdate(saveList);
         }
+        // 更新缓存
+        this.updateCache(codeList);
     }
 
     @Override
@@ -209,7 +215,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         }
         this.sysDictMapper.deleteById(id);
         // 更新缓存
-        this.updateCache(sysDict.getCode());
+        this.updateCache(Collections.singletonList(sysDict.getCode()));
     }
 
     @Override
@@ -219,21 +225,24 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     }
 
     @Override
-    public void updateCache(String code) {
-        if (StringUtils.isBlank(code)) {
+    public void updateCache(List<String> codeList) {
+        if (CollectionUtils.isEmpty(codeList)) {
             return;
         }
-        String key = SystemConstant.CACHE_SYS_DICT_PREFIX + code;
-        // 加入||更新 缓存
-        if (RedisUtil.hasKey(key)) {
-            RedisUtil.delete(key);
-            log.info("数据字典[{}] 更新之前删除缓存" + key);
-        }
-        List<SysDictVO> dictList = this.listFromDbByOpenCode(Lists.newArrayList(code)).get(code);
-        if (!CollectionUtils.isEmpty(dictList)) {
+        Map<String, List<SysDictVO>> dictDataMap = this.listFromDbByOpenCode(codeList);
+        dictDataMap.forEach((code, dictList) -> {
+            String key = SystemConstant.CACHE_SYS_DICT_PREFIX + code;
+            // 加入||更新 缓存
+            if (RedisUtil.hasKey(key)) {
+                RedisUtil.delete(key);
+                log.info("数据字典[{}] 更新之前删除缓存" + key);
+            }
+            if (CollectionUtils.isEmpty(dictList)) {
+                dictList = Lists.newArrayList();
+            }
             RedisUtil.set(key, JSON.toJSONString(dictList));
             log.info("数据字典[{}] 加入缓存" + key);
-        }
+        });
     }
 
     @Override

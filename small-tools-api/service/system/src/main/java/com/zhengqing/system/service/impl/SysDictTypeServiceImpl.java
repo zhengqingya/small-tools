@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -104,7 +105,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
             this.sysDictTypeMapper.updateById(sysDictType);
         }
         // 更新缓存
-        this.sysDictService.updateCache(sysDictType.getCode());
+        this.sysDictService.updateCache(Collections.singletonList(sysDictType.getCode()));
         return sysDictType.getId();
     }
 
