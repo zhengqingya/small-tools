@@ -17,7 +17,7 @@
         WHERE
         sd.is_deleted = 0
         <if test="status!=null">
-            AND sdt.status = #{status}
+            AND sdt.status = #{status} AND sd.status = #{status}
         </if>
         <if test="codeList != null and codeList.size() > 0">
             AND sdt.code IN
