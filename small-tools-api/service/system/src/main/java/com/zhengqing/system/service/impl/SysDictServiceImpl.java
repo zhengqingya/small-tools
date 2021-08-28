@@ -152,22 +152,52 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateBatch(Map<String, List<SysDictSaveBatchDTO>> dictDataMap) {
+        if (CollectionUtils.isEmpty(dictDataMap)) {
+            return;
+        }
         List<SysDictSaveBatchDTO> saveList = Lists.newArrayList();
         List<String> codeList = Lists.newLinkedList();
         dictDataMap.forEach((code, dictListItem) -> codeList.add(code));
         Map<String, Integer> dictTypeIdMap = this.sysDictTypeService.getDictTypeIdMap(codeList);
         dictDataMap.forEach((code, dictListItem) -> {
             Integer dictTypeId = dictTypeIdMap.get(code);
-            Assert.notNull(dictTypeId, String.format("数据字典[%s]丢失，请联系系统管理员!", code));
+            Assert.notNull(dictTypeId, String.format("数据字典[%s]丢失或未启用，请联系系统管理员!", code));
+
+            // 删除该code关联字典
+            this.sysDictMapper.deleteByCode(code);
+
+            // 校验字典value和名称是否重复
+            List<String> repeatValueDataList = dictListItem
+                    .stream().map(SysDictSaveBatchDTO::getValue).collect(Collectors.toList())
+                    .stream().collect(Collectors.toMap(e -> e, e -> 1, Integer::sum))
+                    .entrySet().stream()
+                    .filter(entry -> entry.getValue() > 1)
+                    .map(Map.Entry::getKey)
+                    .collect(Collectors.toList());
+            Assert.isTrue(CollectionUtils.isEmpty(repeatValueDataList), "字典名称值重复，请重新输入！");
+            List<String> repeatNameDataList = dictListItem
+                    .stream().map(SysDictSaveBatchDTO::getName).collect(Collectors.toList())
+                    .stream().collect(Collectors.toMap(e -> e, e -> 1, Integer::sum))
+                    .entrySet().stream()
+                    .filter(entry -> entry.getValue() > 1)
+                    .map(Map.Entry::getKey)
+                    .collect(Collectors.toList());
+            Assert.isTrue(CollectionUtils.isEmpty(repeatNameDataList), "字典名称重复，请重新输入！");
+
             dictListItem.forEach(item -> {
+                item.setId(null);
                 item.setDictTypeId(dictTypeId);
                 item.setCode(code);
                 item.setCurrentUserId(ContextHandler.getUserId());
             });
             saveList.addAll(dictListItem);
         });
-        this.sysDictMapper.batchInsertOrUpdate(saveList);
+        // 保存数据
+        if (!CollectionUtils.isEmpty(saveList)) {
+            this.sysDictMapper.batchInsertOrUpdate(saveList);
+        }
     }
 
     @Override
