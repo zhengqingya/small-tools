@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -25,6 +26,8 @@ public class MyDateUtil {
 
     public static final String GMT = "GMT+8";
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_TIME_START_FORMAT = "yyyy-MM-dd 00:00:00";
+    public static final String DATE_TIME_END_FORMAT = "yyyy-MM-dd 23:59:59";
     public static final String MINUTE_FORMAT = "yyyy-MM-dd HH:mm";
     public static final String HOUR_FORMAT = "yyyy-MM-dd HH";
     public static final String DATE_FORMAT = "yyyy-MM-dd";
@@ -134,6 +137,19 @@ public class MyDateUtil {
     }
 
     /**
+     * 获取今日开始时间
+     *
+     * @return 今日开始时间
+     * @author zhengqingya
+     * @date 2021/8/18 18:58
+     */
+    public static String todayStartTimeStr() {
+        DateTimeFormatter df = DateTimeFormatter.ofPattern(DATE_TIME_START_FORMAT);
+        LocalDateTime time = LocalDateTime.now();
+        return df.format(time);
+    }
+
+    /**
      * 获取今日结束时间
      *
      * @return 今日结束时间
@@ -145,6 +161,19 @@ public class MyDateUtil {
         return Date.from(todayStartTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
+    /**
+     * 获取今日结束时间
+     *
+     * @return 今日结束时间
+     * @author zhengqingya
+     * @date 2021/8/18 18:58
+     */
+    public static String todayEndTimeStr() {
+        DateTimeFormatter df = DateTimeFormatter.ofPattern(DATE_TIME_END_FORMAT);
+        LocalDateTime time = LocalDateTime.now();
+        return df.format(time);
+    }
+
     public static void main(String[] args) {
         String dateStr = dateToStr(new Date(), DATE_TIME_FORMAT);
         System.out.println(nowStr(YEAR_FORMAT));
@@ -153,6 +182,9 @@ public class MyDateUtil {
 
         Date todayStartTime = todayStartTime();
         Date todayEndTime = todayEndTime();
+
+        String todayStartTimeStr = todayStartTimeStr();
+        String todayEndTimeStr = todayEndTimeStr();
 
         Date date = strToDateTime("2020-08-18 00:00:10");
 
