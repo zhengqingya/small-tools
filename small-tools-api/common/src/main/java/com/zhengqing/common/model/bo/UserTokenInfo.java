@@ -45,7 +45,7 @@ public class UserTokenInfo {
 
     public static UserTokenInfo buildUser(Map<String, Object> map, Long expirationTime) {
         UserTokenInfo userInfo = new UserTokenInfo();
-        UserInfo user = MyBeanUtil.mapToObject(map, UserInfo.class);
+        UserInfo user = MyBeanUtil.mapToObj(map, UserInfo.class);
         if (user == null) {
             return userInfo;
         }

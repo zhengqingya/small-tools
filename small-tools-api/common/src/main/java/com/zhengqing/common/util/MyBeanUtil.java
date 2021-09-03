@@ -146,7 +146,7 @@ public class MyBeanUtil {
      * @author zhengqingya
      * @date 2020/11/27 18:39
      */
-    public static <T> T mapToObject(Map<String, Object> map, Class<T> clz) {
+    public static <T> T mapToObj(Map<String, Object> map, Class<T> clz) {
         return JSONObject.parseObject(JSONObject.toJSONString(map), clz);
     }
 
@@ -159,10 +159,9 @@ public class MyBeanUtil {
      * @date 2021/1/26 16:09
      */
     @SneakyThrows(Exception.class)
-    public static Map<String, Object> objectToMap(Object obj) {
+    public static Map<String, Object> objToMap(Object obj) {
         Map<String, Object> map = Maps.newHashMap();
         Class<?> clazz = obj.getClass();
-        System.out.println(clazz);
         for (Field field : clazz.getDeclaredFields()) {
             field.setAccessible(true);
             String fieldName = field.getName();
