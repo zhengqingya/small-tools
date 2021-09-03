@@ -167,7 +167,7 @@ public class MyBeanUtil {
             field.setAccessible(true);
             String fieldName = field.getName();
             Object value = field.get(obj);
-            map.put(fieldName, value);
+            map.put(fieldName, value == null ? "" : value.toString());
         }
         return map;
     }

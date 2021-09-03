@@ -101,6 +101,20 @@ public class MyDateUtil {
     }
 
     /**
+     * Str转long(10位-秒级别)
+     *
+     * @param dateStr 字符串时间
+     * @param format  时间格式
+     * @return 秒
+     * @author zhengqingya
+     * @date 2020/8/22 13:07
+     */
+    @SneakyThrows
+    public static long strToLong(String dateStr, String format) {
+        return new SimpleDateFormat(format).parse(dateStr).getTime() / 1000;
+    }
+
+    /**
      * 获取服务器启动时间
      */
     public static Date getServerStartDate() {
@@ -187,6 +201,8 @@ public class MyDateUtil {
         String todayEndTimeStr = todayEndTimeStr();
 
         Date date = strToDateTime("2020-08-18 00:00:10");
+
+        Long aLong = strToLong("2020-08-18 00:00:10", DATE_TIME_FORMAT);
 
         log.info("--------------------------------");
     }
