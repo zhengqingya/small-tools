@@ -51,7 +51,7 @@ public class MyDateUtil {
     /**
      * 获取当前时间字符串的指定格式时间
      *
-     * @param format: 时间格式
+     * @param format 时间格式
      * @return 字符串格式时间
      * @author zhengqingya
      * @date 2020/8/22 13:07
@@ -63,14 +63,42 @@ public class MyDateUtil {
     /**
      * Date转Str
      *
-     * @param date:   时间
-     * @param format: 时间格式
+     * @param date   时间
+     * @param format 时间格式
      * @return 字符串时间类型
      * @author zhengqingya
      * @date 2020/8/22 13:07
      */
     public static String dateToStr(Date date, String format) {
         return new SimpleDateFormat(format).format(date);
+    }
+
+    /**
+     * Date 时间开始处理 (ex: Sat Sep 04 10:11:25 CST 2021 -> 2021-09-04 00:00:00)
+     *
+     * @param date 时间
+     * @return 时间
+     * @author zhengqingya
+     * @date 2021/9/4 10:12
+     */
+    @SneakyThrows(Exception.class)
+    public static Date dateToStartTime(Date date) {
+        String dateTime = dateToStr(date, DATE_TIME_START_FORMAT);
+        return strToDate(dateTime, DATE_TIME_FORMAT);
+    }
+
+    /**
+     * Date 时间结束处理 (ex: Sat Sep 04 10:11:25 CST 2021 -> 2021-09-04 23:59:59)
+     *
+     * @param date 时间
+     * @return 时间
+     * @author zhengqingya
+     * @date 2021/9/4 10:12
+     */
+    @SneakyThrows(Exception.class)
+    public static Date dateToEndTime(Date date) {
+        String dateTime = dateToStr(date, DATE_TIME_END_FORMAT);
+        return strToDate(dateTime, DATE_TIME_FORMAT);
     }
 
     /**
@@ -81,7 +109,7 @@ public class MyDateUtil {
      * @author zhengqingya
      * @date 2021/8/20 9:41
      */
-    @SneakyThrows
+    @SneakyThrows(Exception.class)
     public static Date strToDateTime(String dateStr) {
         return new SimpleDateFormat(DATE_TIME_FORMAT).parse(dateStr);
     }
@@ -89,13 +117,13 @@ public class MyDateUtil {
     /**
      * Str转Date
      *
-     * @param dateStr: 字符串时间
-     * @param format:  时间格式
+     * @param dateStr 字符串时间
+     * @param format  时间格式
      * @return Date时间类型
      * @author zhengqingya
      * @date 2020/8/22 13:07
      */
-    @SneakyThrows
+    @SneakyThrows(Exception.class)
     public static Date strToDate(String dateStr, String format) {
         return new SimpleDateFormat(format).parse(dateStr);
     }
@@ -109,7 +137,7 @@ public class MyDateUtil {
      * @author zhengqingya
      * @date 2020/8/22 13:07
      */
-    @SneakyThrows
+    @SneakyThrows(Exception.class)
     public static long strToLong(String dateStr, String format) {
         return new SimpleDateFormat(format).parse(dateStr).getTime() / 1000;
     }
@@ -125,9 +153,9 @@ public class MyDateUtil {
     /**
      * 判断结束时间是否大于等于开始时间
      *
-     * @param startTime: 开始时间
-     * @param endTime:   结束时间
-     * @param format:    时间格式
+     * @param startTime 开始时间
+     * @param endTime   结束时间
+     * @param format    时间格式
      * @return 判断结果
      * @author zhengqingya
      * @date 2020/8/22 13:21
@@ -189,7 +217,8 @@ public class MyDateUtil {
     }
 
     public static void main(String[] args) {
-        String dateStr = dateToStr(new Date(), DATE_TIME_FORMAT);
+        Date nowDateTime = new Date();
+        String dateStr = dateToStr(nowDateTime, DATE_TIME_FORMAT);
         System.out.println(nowStr(YEAR_FORMAT));
         boolean result = verifyTime("2020-08-18 00:00:00", "2020-08-17 23:59:59", DATE_TIME_FORMAT);
         System.out.println(result);
@@ -203,6 +232,9 @@ public class MyDateUtil {
         Date date = strToDateTime("2020-08-18 00:00:10");
 
         Long aLong = strToLong("2020-08-18 00:00:10", DATE_TIME_FORMAT);
+
+        Date dateTimeStartFormat = dateToStartTime(nowDateTime);
+        Date dateTimeEndFormat = dateToEndTime(nowDateTime);
 
         log.info("--------------------------------");
     }
