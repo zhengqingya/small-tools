@@ -18,3 +18,4 @@ target/
 logs
 tmp
 docker/*.jar
+service/tool/src/main/resources/generate-config.yml

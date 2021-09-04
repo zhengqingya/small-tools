@@ -13,6 +13,7 @@ import com.zhengqing.tool.util.GenerateCodeUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,23 @@ public class GenerateTest {
     public void testGenerateCodeAndCreateFile() throws Exception {
         // 读取基本生成配置信息（mysql连接配置等...）
         final String GENERATE_CONFIG_PATH = AppConstant.PROJECT_ROOT_DIRECTORY + "/src/main/resources/generate-config.yml";
-        final GenerateConfig generateConfig = YmlUtil.getYml(GENERATE_CONFIG_PATH, GenerateConfig.class);
+        GenerateConfig generateConfig;
+        try {
+            generateConfig = YmlUtil.getYml(GENERATE_CONFIG_PATH, GenerateConfig.class);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            log.info("...使用默认配置...");
+            generateConfig = GenerateConfig.builder()
+                    .ip("127.0.0.1")
+                    .port("3306")
+                    .username("root")
+                    .password("root")
+                    .dbName("demo")
+                    .tableName("t_demo")
+                    .parentPackageName("com.zhengqingya.demo")
+                    .moduleName("test")
+                    .build();
+        }
         final String ip = generateConfig.getIp();
         final String port = generateConfig.getPort();
         final String username = generateConfig.getUsername();
@@ -109,6 +126,7 @@ public class GenerateTest {
     }
 
     @Data
+    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     @ApiModel("代码生成配置参数")
