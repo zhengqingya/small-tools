@@ -1,0 +1,72 @@
+package com.zhengqing.system.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhengqing.system.entity.SysProperty;
+import com.zhengqing.system.model.dto.SysPropertySaveDTO;
+import com.zhengqing.system.model.vo.SysPropertyListVO;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * <p> 系统管理-系统属性 服务类 </p>
+ *
+ * @author zhengqingya
+ * @description
+ * @date 2021/09/06 22:57
+ */
+public interface ISysPropertyService extends IService<SysProperty> {
+
+    /**
+     * 列表
+     *
+     * @param keyList 属性key
+     * @return 查询结果
+     * @author zhengqingya
+     * @date 2021/09/06 22:57
+     */
+    List<SysPropertyListVO> list(@NotEmpty(message = "属性key不能为空!") List<String> keyList);
+
+    /**
+     * 详情
+     *
+     * @param id 主键ID
+     * @return 详情
+     * @author zhengqingya
+     * @date 2021/09/06 22:57
+     */
+    SysProperty detail(Integer id);
+
+    /**
+     * 详情
+     *
+     * @param key 属性key
+     * @return 详情
+     * @author zhengqingya
+     * @date 2021/09/06 22:57
+     */
+    SysProperty detailByKey(String key);
+
+    /**
+     * 批量保存
+     *
+     * @param dataMap 保存参数
+     * @return void
+     * @author zhengqingya
+     * @date 2021/09/06 22:57
+     */
+    void saveBatch(@NotEmpty(message = "属性不能为空!") Map<String, List<SysPropertySaveDTO>> dataMap);
+
+    /**
+     * 根据属性key删除数据
+     *
+     * @param key 属性key
+     * @return void
+     * @author zhengqingya
+     * @date 2021/09/06 22:57
+     */
+    void deleteByKey(@NotBlank(message = "属性key不能为空!") String key);
+
+}
