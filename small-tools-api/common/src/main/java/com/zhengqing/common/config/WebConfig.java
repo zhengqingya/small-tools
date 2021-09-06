@@ -1,5 +1,7 @@
 package com.zhengqing.common.config;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -71,9 +73,16 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ServletContext
                     Set<String> patterns = prc.getPatterns();
                     for (String uStr : patterns) {
                         Method methodItem = handlerMethod.getMethod();
-                        log.debug("URL：[{}]  Controller方法：[{}]",
-                                uStr,
-                                methodItem.getDeclaringClass().getSimpleName() + "." + methodItem.getName());
+                        ApiOperation apiOperation = methodItem.getAnnotation(ApiOperation.class);
+                        if (apiOperation != null) {
+                            String apiOperationValue = apiOperation.value();
+                            Api annotation = methodItem.getDeclaringClass().getAnnotation(Api.class);
+                            String apiTags = annotation.tags()[0];
+                            log.debug("名称：[{}]  URI：[{}]  Controller方法：[{}]",
+                                    apiTags + "-" + apiOperationValue,
+                                    uStr,
+                                    methodItem.getDeclaringClass().getSimpleName() + "." + methodItem.getName());
+                        }
                     }
                 }
             }
