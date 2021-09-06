@@ -32,3 +32,16 @@ spring:
             refresh: true
         username: ${spring.cloud.nacos.discovery.username}
         password: ${spring.cloud.nacos.discovery.password}
+
+
+#    config:
+#      # 相同配置下优先使用本地配置 (注：需在nacos上配置才生效！)
+#      override-none: true
+#      allow-override: true
+#      override-system-properties: false
+
+
+# ================================== ↓↓↓↓↓↓ small-tools配置 ↓↓↓↓↓↓ ==================================
+small-tools:
+  swagger:
+    groupName: demo-localhost
