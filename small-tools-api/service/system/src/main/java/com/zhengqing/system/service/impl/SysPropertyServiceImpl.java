@@ -149,7 +149,9 @@ public class SysPropertyServiceImpl extends ServiceImpl<SysPropertyMapper, SysPr
     public void deleteByKey(String key) {
         Assert.notBlank(key, "属性不能为空!");
         this.sysPropertyMapper.deleteByKey(key);
-        this.updateCache(Lists.newArrayList(key));
+        String redisKey = SystemConstant.CACHE_SYS_PROPERTY_PREFIX + key;
+        log.info("[系统管理] 删除系统属性缓存：[{}]", redisKey);
+        RedisUtil.delete(redisKey);
     }
 
     /**
@@ -165,6 +167,9 @@ public class SysPropertyServiceImpl extends ServiceImpl<SysPropertyMapper, SysPr
             return;
         }
         List<SysPropertyVO> dataList = this.listFromDbByKey(keyList);
+        if (CollectionUtils.isEmpty(dataList)) {
+            return;
+        }
         dataList.forEach(item -> {
             String key = SystemConstant.CACHE_SYS_PROPERTY_PREFIX + item.getKey();
             // 加入||更新 缓存
