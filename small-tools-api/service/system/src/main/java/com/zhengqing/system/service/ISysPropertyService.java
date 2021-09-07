@@ -3,7 +3,7 @@ package com.zhengqing.system.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhengqing.system.entity.SysProperty;
 import com.zhengqing.system.model.dto.SysPropertySaveDTO;
-import com.zhengqing.system.model.vo.SysPropertyListVO;
+import com.zhengqing.system.model.vo.SysPropertyVO;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -20,14 +20,44 @@ import java.util.Map;
 public interface ISysPropertyService extends IService<SysProperty> {
 
     /**
-     * 列表
+     * 通过属性key查询数据
      *
      * @param keyList 属性key
-     * @return 查询结果
+     * @return 属性key -> 系统属性
      * @author zhengqingya
      * @date 2021/09/06 22:57
      */
-    List<SysPropertyListVO> list(@NotEmpty(message = "属性key不能为空!") List<String> keyList);
+    Map<String, SysPropertyVO> listByKey(@NotEmpty(message = "属性key不能为空!") List<String> keyList);
+
+    /**
+     * 列表
+     *
+     * @param keyList 属性key
+     * @return 数据查询结果
+     * @author zhengqingya
+     * @date 2021/9/7 11:04
+     */
+    List<SysPropertyVO> list(@NotEmpty(message = "属性key不能为空!") List<String> keyList);
+
+    /**
+     * 通过属性key查询数据 - 数据库方式
+     *
+     * @param keyList 属性key
+     * @return 系统属性
+     * @author zhengqingya
+     * @date 2021/09/06 22:57
+     */
+    List<SysPropertyVO> listFromDbByKey(@NotEmpty(message = "属性key不能为空!") List<String> keyList);
+
+    /**
+     * 通过属性key查询数据 - 缓存方式
+     *
+     * @param keyList 属性key
+     * @return 系统属性
+     * @author zhengqingya
+     * @date 2021/09/06 22:57
+     */
+    List<SysPropertyVO> listFromCacheByKey(@NotEmpty(message = "属性key不能为空!") List<String> keyList);
 
     /**
      * 详情
@@ -47,17 +77,17 @@ public interface ISysPropertyService extends IService<SysProperty> {
      * @author zhengqingya
      * @date 2021/09/06 22:57
      */
-    SysProperty detailByKey(String key);
+    SysProperty detailByKey(@NotBlank(message = "属性不能为空!") String key);
 
     /**
      * 批量保存
      *
-     * @param dataMap 保存参数
+     * @param dataList 保存参数
      * @return void
      * @author zhengqingya
      * @date 2021/09/06 22:57
      */
-    void saveBatch(@NotEmpty(message = "属性不能为空!") Map<String, List<SysPropertySaveDTO>> dataMap);
+    void saveBatch(@NotEmpty(message = "属性不能为空!") List<SysPropertySaveDTO> dataList);
 
     /**
      * 根据属性key删除数据

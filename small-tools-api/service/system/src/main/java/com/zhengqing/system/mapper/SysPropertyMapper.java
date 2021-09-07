@@ -3,7 +3,7 @@ package com.zhengqing.system.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zhengqing.system.entity.SysProperty;
 import com.zhengqing.system.model.dto.SysPropertySaveDTO;
-import com.zhengqing.system.model.vo.SysPropertyListVO;
+import com.zhengqing.system.model.vo.SysPropertyVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
@@ -26,7 +26,7 @@ public interface SysPropertyMapper extends BaseMapper<SysProperty> {
      * @author zhengqingya
      * @date 2021/09/06 22:57
      */
-    List<SysPropertyListVO> selectDataList(@Param("keyList") List<String> keyList);
+    List<SysPropertyVO> selectDataListByKey(@Param("keyList") List<String> keyList);
 
     /**
      * 根据属性key删除数据
@@ -36,7 +36,7 @@ public interface SysPropertyMapper extends BaseMapper<SysProperty> {
      * @author zhengqingya
      * @date 2021/9/6 11:36 下午
      */
-    @Update("UPDATE t_sys_property SET is_deleted=1 WHERE key = #{key}")
+    @Update("UPDATE t_sys_property SET is_deleted=1 WHERE `key` = #{key}")
     void deleteByKey(@Param("key") String key);
 
     /**

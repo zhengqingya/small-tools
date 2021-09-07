@@ -1,5 +1,7 @@
 package com.zhengqing.system.model.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.model.vo.BaseVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
- * <p>系统管理-系统属性-响应参数</p>
+ * <p>系统管理-系统属性-列表-响应参数</p>
  *
  * @author zhengqingya
  * @description
@@ -21,10 +23,12 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@ApiModel("系统管理-系统属性-响应参数")
-public class SysPropertyListVO extends BaseVO {
+@ApiModel("系统管理-系统属性-列表-响应参数")
+public class SysPropertyVO extends BaseVO {
 
-    @ApiModelProperty("主键ID")
+    @JsonIgnore
+    @JSONField(serialize = false, deserialize = false)
+    @ApiModelProperty(value = "主键ID", hidden = true)
     private String id;
 
     @ApiModelProperty("属性key")

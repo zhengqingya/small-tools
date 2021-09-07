@@ -1,7 +1,7 @@
 package com.zhengqing.system.model.dto;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.zhengqing.common.model.dto.BaseDTO;
-import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -27,18 +28,20 @@ import javax.validation.constraints.NotNull;
 @ApiModel("系统管理-系统属性-保存-提交参数")
 public class SysPropertySaveDTO extends BaseDTO {
 
-    @ApiModelProperty("主键ID")
-    @NotNull(groups = {UpdateGroup.class}, message = "主键ID不能为空!")
-    private String id;
+    @JSONField(serialize = false, deserialize = false)
+    @NotNull(message = "属性key不能为空!")
+    @ApiModelProperty(value = "主键ID", hidden = true, example = "1")
+    private Integer id;
 
-    @ApiModelProperty("属性key")
+    @NotBlank(message = "属性key不能为空!")
+    @ApiModelProperty(value = "属性key", required = true, example = "hello")
     private String key;
 
-    @ApiModelProperty("属性value")
+    @NotBlank(message = "属性value不能为空!")
+    @ApiModelProperty(value = "属性value", required = true, example = "world")
     private String value;
 
-    @ApiModelProperty("备注")
+    @ApiModelProperty(value = "备注", example = "hello world !")
     private String remark;
-
 
 }

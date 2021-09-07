@@ -20,6 +20,10 @@ public interface SystemConstant {
      */
     String CACHE_SYS_DICT_PREFIX = "SYSTEM:DICT:";
     /**
+     * 系统属性缓存
+     */
+    String CACHE_SYS_PROPERTY_PREFIX = "SYSTEM:PROPERTY:";
+    /**
      * 系统缓存
      */
     String CACHE_SYS_MENU_TREE = "SYS_MENU_TREE";

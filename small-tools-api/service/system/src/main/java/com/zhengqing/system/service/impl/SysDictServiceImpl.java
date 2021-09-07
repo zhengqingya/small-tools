@@ -66,6 +66,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     public Map<String, List<SysDictVO>> listByOpenCode(List<String> codeList) {
         Map<String, List<SysDictVO>> dictDataMap = this.listFromCacheByCode(codeList);
         if (CollectionUtils.isEmpty(dictDataMap)) {
+            log.warn("[系统管理] 数据字典缓存丢失，请检查：{}", codeList);
             // 如果缓存数据为空，则从db获取
             return this.listFromDbByOpenCode(codeList);
         }
@@ -74,30 +75,45 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
 
     @Override
     public Map<String, List<SysDictVO>> listFromDbByOpenCode(List<String> codeList) {
+        this.checkKey(codeList);
         Map<String, List<SysDictVO>> dictDataMap = Maps.newHashMap();
         List<SysDictVO> dictDataList = this.sysDictMapper.selectDictListByCode(YesNoEnum.是.getValue(), codeList);
         for (SysDictVO dictItem : dictDataList) {
             dictDataMap.computeIfAbsent(dictItem.getCode(), k -> new LinkedList<>()).add(dictItem);
         }
         // 计算有没有差集，若有则装入空数据，返回
-        List<String> codeListByDb = dictDataList.stream().map(SysDictVO::getCode).collect(Collectors.toList());
-        List<String> newCodeList = codeList.stream().filter(code -> !codeListByDb.contains(code)).collect(Collectors.toList());
-        newCodeList.forEach(code -> dictDataMap.put(code, Lists.newArrayList()));
+//        List<String> codeListByDb = dictDataList.stream().map(SysDictVO::getCode).collect(Collectors.toList());
+//        List<String> newCodeList = codeList.stream().filter(code -> !codeListByDb.contains(code)).collect(Collectors.toList());
+//        newCodeList.forEach(code -> dictDataMap.put(code, Lists.newArrayList()));
         return dictDataMap;
     }
 
     @Override
     public Map<String, List<SysDictVO>> listFromCacheByCode(List<String> codeList) {
+        this.checkKey(codeList);
         Map<String, List<SysDictVO>> dictDataMap = Maps.newHashMap();
         codeList.forEach(codeItem -> {
             String dictJsonStr = RedisUtil.get(SystemConstant.CACHE_SYS_DICT_PREFIX + codeItem);
             if (StringUtils.isBlank(dictJsonStr)) {
-                dictDataMap.put(codeItem, Lists.newArrayList());
+//                dictDataMap.put(codeItem, Lists.newArrayList());
             } else {
                 dictDataMap.put(codeItem, JSONArray.parseArray(dictJsonStr, SysDictVO.class));
             }
         });
         return dictDataMap;
+    }
+
+    /**
+     * 字典code值校验
+     *
+     * @param codeList 属性key
+     * @return void
+     * @author zhengqingya
+     * @date 2021/9/7 10:00
+     */
+    private void checkKey(List<String> codeList) {
+        Assert.notNull(codeList, "字典code不能为空！");
+        codeList.forEach(codeItem -> Assert.notBlank(codeItem, "字典code不能为空！"));
     }
 
     @Override
@@ -164,6 +180,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         List<SysDictSaveBatchDTO> saveList = Lists.newArrayList();
         List<String> codeList = Lists.newLinkedList();
         dictDataMap.forEach((code, dictListItem) -> codeList.add(code));
+        this.checkKey(codeList);
         Map<String, Integer> dictTypeIdMap = this.sysDictTypeService.getDictTypeIdMap(codeList);
         dictDataMap.forEach((code, dictListItem) -> {
             Integer dictTypeId = dictTypeIdMap.get(code);
@@ -221,6 +238,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteDictByCode(String code) {
+        Assert.notBlank(code, "字典code不能为空!");
         this.sysDictMapper.deleteByCode(code);
     }
 

@@ -3,7 +3,7 @@ package com.zhengqing.system.api;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.system.model.dto.SysPropertySaveDTO;
-import com.zhengqing.system.model.vo.SysPropertyListVO;
+import com.zhengqing.system.model.vo.SysPropertyVO;
 import com.zhengqing.system.service.ISysPropertyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,17 +30,23 @@ public class SysPropertyController extends BaseController {
     @Autowired
     private ISysPropertyService sysPropertyService;
 
+    @GetMapping("listByKey")
+    @ApiOperation("根据属性key查询")
+    public Map<String, SysPropertyVO> listByKey(@RequestParam List<String> keyList) {
+        return this.sysPropertyService.listByKey(keyList);
+    }
+
     @GetMapping("list")
     @ApiOperation("列表")
-    public List<SysPropertyListVO> list(@RequestParam List<String> keyList) {
+    public List<SysPropertyVO> list(@RequestParam List<String> keyList) {
         return this.sysPropertyService.list(keyList);
     }
 
     @NoRepeatSubmit
     @PostMapping("saveBatch")
     @ApiOperation("批量保存")
-    public void saveBatch(@Validated @RequestBody Map<String, List<SysPropertySaveDTO>> dataMap) {
-        this.sysPropertyService.saveBatch(dataMap);
+    public void saveBatch(@Validated @RequestBody List<SysPropertySaveDTO> dataList) {
+        this.sysPropertyService.saveBatch(dataList);
     }
 
     @DeleteMapping("deleteByKey")

@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhengqing.system.mapper.SysPropertyMapper">
 
-    <select id="selectDataList" resultType="com.zhengqing.system.model.vo.SysPropertyListVO">
+    <select id="selectDataListByKey" resultType="com.zhengqing.system.model.vo.SysPropertyVO">
         SELECT
         id,
-        key,
-        value,
+        `key`,
+        `value`,
         remark
         FROM t_sys_property
         WHERE is_deleted=0
         <if test="keyList != null and keyList.size() > 0">
-            AND key IN
+            AND `key` IN
             <foreach item="item" index="index" collection="keyList" open="(" separator="," close=")">
                 #{item}
             </foreach>
@@ -20,18 +20,20 @@
     </select>
 
     <update id="deleteByKeyList">
-        UPDATE t_sys_property
-        SET is_deleted=1
-        WHERE key IN
-        <foreach item="item" index="index" collection="keyList" open="(" separator="," close=")">
-            #{item}
-        </foreach>
+        <if test="keyList != null and keyList.size() > 0">
+            UPDATE t_sys_property
+            SET is_deleted=1
+            WHERE `key` IN
+            <foreach item="item" index="index" collection="keyList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
     </update>
 
     <insert id="batchInsertOrUpdate">
         INSERT t_sys_property (
         id,
-        key,
+        `key`,
         value,
         remark,
         create_by,
@@ -53,7 +55,7 @@
             )
         </foreach>
         ON DUPLICATE KEY UPDATE
-        key = VALUES(key),
+        `key` = VALUES(`key`),
         value = VALUES(value),
         remark = VALUES(remark),
         update_by = VALUES(update_by),
