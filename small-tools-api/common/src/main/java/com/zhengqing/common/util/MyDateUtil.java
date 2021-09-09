@@ -216,6 +216,23 @@ public class MyDateUtil {
         return df.format(time);
     }
 
+    /**
+     * 计算两时间分钟差
+     *
+     * @param startTimeStr 开始时间 ex:2020-09-09 10:00:10
+     * @param endTimeStr   结束时间 ex:2020-09-09 10:30:10
+     * @return 分钟差 ex:30
+     * @author zhengqingya
+     * @date 2021/9/9 10:21
+     */
+    @SneakyThrows(Exception.class)
+    public static int diffMinute(String startTimeStr, String endTimeStr) {
+        SimpleDateFormat simpleFormat = new SimpleDateFormat(MINUTE_FORMAT);
+        long startTime = simpleFormat.parse(startTimeStr).getTime();
+        long endTime = simpleFormat.parse(endTimeStr).getTime();
+        return (int) ((endTime - startTime) / (1000 * 60));
+    }
+
     public static void main(String[] args) {
         Date nowDateTime = new Date();
         String dateStr = dateToStr(nowDateTime, DATE_TIME_FORMAT);
@@ -235,6 +252,8 @@ public class MyDateUtil {
 
         Date dateTimeStartFormat = dateToStartTime(nowDateTime);
         Date dateTimeEndFormat = dateToEndTime(nowDateTime);
+
+        int diffMinute = diffMinute("2020-09-09 10:00:10", "2020-09-09 10:30:10");
 
         log.info("--------------------------------");
     }
