@@ -29,6 +29,7 @@ RUN sh -c 'touch /'
 VOLUME /tmp
 
 # 对外暴漏的端口号: gateway、system、basic、tool
+# [注：EXPOSE指令只是声明容器运行时提供的服务端口，给读者看有哪些端口，在运行时只会开启程序自身的端口！！]
 EXPOSE 1218
 EXPOSE 20010
 #EXPOSE 20020
