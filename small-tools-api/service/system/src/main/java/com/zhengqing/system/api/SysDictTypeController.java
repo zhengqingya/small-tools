@@ -1,8 +1,8 @@
 package com.zhengqing.system.api;
 
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.fieldrepeat.CreateGroup;
-import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
+import com.zhengqing.common.validator.common.CreateGroup;
+import com.zhengqing.common.validator.common.UpdateGroup;
 import com.zhengqing.system.entity.SysDictType;
 import com.zhengqing.system.model.dto.SysDictTypeSaveDTO;
 import com.zhengqing.system.service.ISysDictTypeService;

@@ -1,6 +1,6 @@
 package com.zhengqing.system.model.dto;
 
-import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
+import com.zhengqing.common.validator.common.UpdateGroup;
 import com.zhengqing.system.model.vo.SysMenuTreeVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
