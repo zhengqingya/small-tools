@@ -1,5 +1,8 @@
 #FROM openjdk:8-jre-alpine   【 注：jre中并没有携带工具文件，但arthas需要依赖lib包和bin包里面的包和工具，arthas需要jps工具和lib包里的内容 具体参考：https://www.cnblogs.com/sky-chen/p/9887777.html 】
-FROM openjdk:8-jdk-alpine
+#FROM openjdk:8-jdk-alpine
+# 注：此镜像支持字体！
+FROM registry.cn-hangzhou.aliyuncs.com/zhengqing/openjdk:8-jdk-alpine-font
+
 
 # 维护者信息
 MAINTAINER zhengqingya
