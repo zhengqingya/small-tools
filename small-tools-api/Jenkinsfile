@@ -130,18 +130,21 @@ node {
             sh "cd ${JENKINS_WORKSPACE}/small-tools-api/docker && docker build -f Dockerfile --build-arg JAVA_OPTS=\"${JAVA_OPTS}\" --build-arg APP_NAME=${current_app_name} --build-arg APP_PORT=${current_app_port} -t ${app_docker_image} . --no-cache"
 
 
-            echo '-------------------- 项目部署 --------------------'
+            echo '****************************** 推送镜像 ******************************'
 
             withCredentials([usernamePassword(credentialsId: "${DOCKER_REGISTRY_AUTH}", passwordVariable: 'password', usernameVariable: 'username')]) {
                 // 登录镜像仓库
                 sh "docker login -u ${username} -p ${password} ${DOCKER_REGISTRY_URL}"
-                // 镜像上传
+                // 推送镜像
                 sh "docker push ${app_docker_image}"
-                sh "echo 镜像上传成功：${app_docker_image}"
+                sh "echo 镜像推送成功：${app_docker_image}"
             }
 
             // 操作完后移除docker目录下的jar文件，防止下次docker将多个jar一起构建导致镜像过大问题
             sh "mv -f ${JENKINS_WORKSPACE}/small-tools-api/docker/*.jar ${PROJECT_DOCKER_HISTORY_JAR_HOME}/"
+
+
+            echo '****************************** 项目部署 ******************************'
 
             // 遍历所有服务器，分别部署
             for (int j = 0; j < publish_ssh_server_select.length; j++) {
