@@ -1,42 +1,178 @@
-pipeline {
-    agent any
-    environment {
-        NAME = 'small-tools-api';
-        APP = 'registry.cn-hangzhou.aliyuncs.com/zhengqing/small-tools-api:latest'
-        APP_PORT = 1218
-        APP_PORT_REMOTE = 50001
-        MVN_HOME = tool 'maven'
+// ==================== ↓↓↓↓↓↓ docker ↓↓↓↓↓↓ ====================
+// 镜像仓库地址
+def DOCKER_REGISTRY_URL = "registry.cn-hangzhou.aliyuncs.com"
+// 镜像仓库命名空间名称
+def DOCKER_REGISTRY_NAMESPACE = "zhengqingya"
+// 镜像拉取凭证 => jenkins全局凭证中配置
+def DOCKER_REGISTRY_AUTH = "aliyun_docker_registry_auth"
+
+
+// ==================== ↓↓↓↓↓↓ git ↓↓↓↓↓↓ ====================
+// git凭证 => jenkins全局凭证中配置
+def GIT_AUTH = "gitee_auth"
+
+
+// ==================== ↓↓↓↓↓↓ project ↓↓↓↓↓↓ ====================
+// 项目-git地址
+def PROJECT_GIT_URL = "https://gitee.com/zhengqingya/small-tools.git"
+// 项目-公共模块名称
+def PROJECT_SERVICE_COMMON_NAME = "small-tools-api/common"
+def PROJECT_SERVICE_API_NAME = "small-tools-api/service-api"
+// 项目-基础目录
+def PROJECT_BASE_HOME = "/Users/zhengqingya/IT_zhengqing/soft/small-tools"
+// 项目-服务日志目录
+def PROJECT_SERVICE_LOG_HOME = "${PROJECT_BASE_HOME}/logs"
+// 项目-jar文件目录
+def PROJECT_JAR_HOME = "${PROJECT_BASE_HOME}/target"
+// 项目-docker部署的历史jar目录
+def PROJECT_DOCKER_HISTORY_JAR_HOME = "${PROJECT_BASE_HOME}/docker-history-jar"
+
+
+node {
+    // jenkins工作空间
+    def JENKINS_WORKSPACE = "${WORKSPACE}"
+    // 取哪一块网卡值
+    def ETH_VALUE = ""
+    // 当前时间
+    def CURRENT_TIME = ""
+    // 获取选择的项目服务名称
+    def project_service_name_select = "${PROJECT_SERVICE_NAME}".split(",")
+    // 获取选择的服务器名称
+    def publish_ssh_server_select = "${PUBLISH_SSH_SERVER}".split(",")
+    // app镜像tag
+    def app_docker_image_tag = ""
+
+
+    stage('初始化准备') {
+        echo '****************************** 初始化准备 ******************************'
+        // 网卡值设置 [注:正常liunx取eth0的内网ip，局域网取enp5s0的内网ip]
+        ETH_VALUE = sh(script: "( [[ \"${JAVA_OPTS}\" = *'-Dspring.cloud.nacos.discovery.ip'* ]] && echo enp5s0 || echo eth0 )", returnStdout: true).trim()
+        CURRENT_TIME = sh(script: "echo `date +\"%Y-%m-%d %H:%M:%S\"`", returnStdout: true).trim()
+        script {
+            app_docker_image_tag = GIT_BRANCH.replaceAll('origin/', '')
+        }
+        echo "当前工作空间：${JENKINS_WORKSPACE}"
+        echo "使用分支：${GIT_BRANCH}"
+        echo "使用docker镜像tag：${app_docker_image_tag}"
+        echo "使用网卡：${ETH_VALUE}"
+        echo "当前时间：${CURRENT_TIME}"
+        sh "mkdir -p ${PROJECT_SERVICE_LOG_HOME}"
+        sh "mkdir -p ${PROJECT_JAR_HOME}"
+        sh "mkdir -p ${PROJECT_DOCKER_HISTORY_JAR_HOME}"
     }
 
-    stages {
-        stage('下载代码') {
-            steps {
-                echo '******************************开始下载源码******************************'
-                git branch: 'master', credentialsId: 'xxx', url: 'https://gitee.com/zhengqingya/small-tools.git'
-            }
-        }
 
-        stage('删除旧容器') {
-            steps {
-                echo '******************************删除旧容器******************************'
-                sh 'docker ps -a|grep $APP_PORT|awk \'{print $1}\'|xargs -i docker stop {}|xargs -i docker rm {}'
-                sh 'docker rmi -f $(docker images -f "dangling=true" -q)'
-            }
-        }
-
-        stage('构建Docker镜像') {
-            steps {
-                echo '******************************开始构建Docker镜像并自动推送******************************'
-//                sh '${MVN_HOME}/bin/mvn compile jib:build'
-                sh '${MVN_HOME}/bin/mvn clean package docker:build'
-            }
-        }
-
-        stage('创建容器') {
-            steps {
-                echo '******************************开始运行镜像******************************'
-                sh 'docker run -d -e PROFILE=prod -p $APP_PORT:$APP_PORT -p $APP_PORT_REMOTE:$APP_PORT_REMOTE --restart=always --name $NAME $APP'
-            }
-        }
+    stage('拉取代码') {
+        echo '****************************** 拉取代码 ******************************'
+        checkout([$class: 'GitSCM', branches: [[name: "${GIT_BRANCH}"]], extensions: [], userRemoteConfigs: [[credentialsId: "${GIT_AUTH}", url: "${PROJECT_GIT_URL}"]]])
+        sh "pwd"
     }
+
+
+    stage('公共工程打包') {
+        echo '****************************** 公共工程打包 ******************************'
+        sh "mvn -f ${PROJECT_SERVICE_COMMON_NAME} clean install -Dmaven.test.skip=true"
+        sh "mvn -f ${PROJECT_SERVICE_API_NAME} clean install -Dmaven.test.skip=true"
+    }
+
+    stage('微服务打包&删除旧容器和镜像&推送镜像&部署远程服务器') {
+        echo '****************************** 微服务打包&删除旧容器和镜像&推送镜像&部署远程服务器 ******************************'
+
+        for (int i = 0; i < project_service_name_select.length; i++) {
+
+            // 当前待处理项目
+            def current_app_name = project_service_name_select[i];
+            def current_app_jar = "${current_app_name}.jar";
+            // 父工程
+            def current_app_parent = ""
+            // 端口号
+            def current_app_port = ""
+
+            echo "当前操作项目: ${current_app_name}"
+
+            script {
+                switch (current_app_name) {
+                    case "demo":
+                        current_app_parent = "small-tools-api/service"
+                        current_app_port = "20040"
+                        break
+                    case "system":
+                        current_app_parent = "small-tools-api/service"
+                        current_app_port = "20010"
+                        break
+                    case "tool":
+                        current_app_parent = "small-tools-api/service"
+                        current_app_port = "20030"
+                        break
+                    case "gateway":
+                        current_app_port = "1218"
+                        current_app_parent = "small-tools-api"
+                        break
+                }
+            }
+
+            echo "当前操作项目： ${current_app_name} 端口：${current_app_port}"
+
+            sh "mvn -f ${current_app_parent}/${current_app_name} clean install -Dmaven.test.skip=true"
+
+            sh "cp ${current_app_parent}/${current_app_name}/target/${current_app_jar} ${JENKINS_WORKSPACE}/small-tools-api/docker"
+
+            // app镜像
+            def app_docker_image = "${DOCKER_REGISTRY_URL}/${DOCKER_REGISTRY_NAMESPACE}/${current_app_name}:${app_docker_image_tag}"
+
+            echo "app镜像: ${app_docker_image}"
+
+            // 删除旧容器
+            sh "docker ps -a | grep ${current_app_name} | grep ${app_docker_image_tag} | awk '{print \$1}' | xargs -I docker stop {} | xargs -I docker rm {}"
+            // 删除旧镜像
+            sh "docker images | grep -E ${current_app_name} | grep ${app_docker_image_tag}| awk '{print \$3}' | uniq | xargs -I {} docker rmi --force {}"
+            // 构建新镜像 -f:指定Dockerfile文件路径
+            sh "cd ${JENKINS_WORKSPACE}/small-tools-api/docker && docker build -f Dockerfile --build-arg JAVA_OPTS=\"${JAVA_OPTS}\" --build-arg APP_NAME=${current_app_name} --build-arg APP_PORT=${current_app_port} -t ${app_docker_image} . --no-cache"
+
+
+            echo '-------------------- 项目部署 --------------------'
+
+            withCredentials([usernamePassword(credentialsId: "${DOCKER_REGISTRY_AUTH}", passwordVariable: 'password', usernameVariable: 'username')]) {
+                //登录到腾讯云镜像仓库
+                sh "docker login -u ${username} -p ${password} ${DOCKER_REGISTRY_URL}"
+                //镜像上传
+                sh "docker push ${app_docker_image}"
+
+                sh "echo 镜像上传成功：${app_docker_image}"
+            }
+
+            //构建完镜像后移除docker 目录下的jar文件，防止docker将多个jar一起构建
+            sh "mv -f ${JENKINS_WORKSPACE}/small-tools-api/docker/*.jar ${PROJECT_DOCKER_HISTORY_JAR_HOME}/"
+
+            //遍历所有服务器，分别部署
+            for (int j = 0; j < publish_ssh_server_select.length; j++) {
+                //获取当前遍历的服务器名称
+                def currentServerName = publish_ssh_server_select[j]
+                echo '开始发布远程机器'
+                sshPublisher(publishers: [sshPublisherDesc(configName: "${currentServerName}",
+                        transfers: [sshTransfer(cleanRemote: false, excludes: '',
+                                execCommand: """
+                                    // 删除旧容器
+                                    docker ps -a | grep ${current_app_name} | grep ${app_docker_image_tag} | awk '{print \$1}' | xargs -I docker stop {} | xargs -I docker rm {}
+                                    // 删除旧镜像
+                                    docker images | grep -E ${current_app_name} | grep ${app_docker_image_tag}| awk '{print \$3}' | uniq | xargs -I {} docker rmi --force {}
+                                    // 拉取新镜像
+                                    docker pull ${app_docker_image}
+                                    // 创建日志文件
+                                    mkdir -p ${PROJECT_SERVICE_LOG_HOME}
+                                    cd ${PROJECT_SERVICE_LOG_HOME}
+                                    touch ${current_app_name}.log
+                                    // 运行容器
+                                    echo "*** ${CURRENT_TIME} docker run -d -p ${current_app_port}:${current_app_port} -e JAVA_OPTS="${JAVA_OPTS} -Dspring.cloud.nacos.discovery.ip=`ifconfig ${ETH_VALUE} | grep inet | grep -v inet6 | awk '{print \$2}'`" -v ${PROJECT_SERVICE_LOG_HOME}/${current_app_name}.log:/home/${current_app_name}.log --name ${current_app_name}  ${app_docker_image}" >> ${PROJECT_SERVICE_LOG_HOME}/run.log
+                                    docker run -d -p ${current_app_port}:${current_app_port} -e JAVA_OPTS="${JAVA_OPTS} -Dspring.cloud.nacos.discovery.ip=`ifconfig ${ETH_VALUE} | grep inet | grep -v inet6 | awk '{print \$2}'`" -v ${PROJECT_SERVICE_LOG_HOME}/${current_app_name}.log:/home/${current_app_name}.log --name ${current_app_name}  ${app_docker_image}
+                                """,
+                                execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false,
+                                patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '',
+                                sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+            }
+
+        }
+
+    }
+
 }
