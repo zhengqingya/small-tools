@@ -133,25 +133,25 @@ node {
             echo '-------------------- 项目部署 --------------------'
 
             withCredentials([usernamePassword(credentialsId: "${DOCKER_REGISTRY_AUTH}", passwordVariable: 'password', usernameVariable: 'username')]) {
-                //登录到腾讯云镜像仓库
+                // 登录镜像仓库
                 sh "docker login -u ${username} -p ${password} ${DOCKER_REGISTRY_URL}"
-                //镜像上传
+                // 镜像上传
                 sh "docker push ${app_docker_image}"
-
                 sh "echo 镜像上传成功：${app_docker_image}"
             }
 
-            //构建完镜像后移除docker 目录下的jar文件，防止docker将多个jar一起构建
+            // 操作完后移除docker目录下的jar文件，防止下次docker将多个jar一起构建导致镜像过大问题
             sh "mv -f ${JENKINS_WORKSPACE}/small-tools-api/docker/*.jar ${PROJECT_DOCKER_HISTORY_JAR_HOME}/"
 
-            //遍历所有服务器，分别部署
+            // 遍历所有服务器，分别部署
             for (int j = 0; j < publish_ssh_server_select.length; j++) {
-                //获取当前遍历的服务器名称
+                // 获取当前服务器名称
                 def currentServerName = publish_ssh_server_select[j]
                 echo '开始发布远程机器'
                 sshPublisher(publishers: [sshPublisherDesc(configName: "${currentServerName}",
                         transfers: [sshTransfer(cleanRemote: false, excludes: '',
                                 execCommand: """
+                                    // 远程服务器下依次执行如下命令
                                     // 删除旧容器
                                     docker ps -a | grep ${current_app_name} | grep ${app_docker_image_tag} | awk '{print \$1}' | xargs -i docker stop {} | xargs -i docker rm {}
                                     // 删除旧镜像
