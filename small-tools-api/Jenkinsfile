@@ -153,7 +153,7 @@ node {
                         transfers: [sshTransfer(cleanRemote: false, excludes: '',
                                 execCommand: """
                                     // 删除旧容器
-                                    docker ps -a | grep ${current_app_name} | grep ${app_docker_image_tag} | awk '{print \$1}' | xargs -I docker stop {} | xargs -I docker rm {}
+                                    docker ps -a | grep ${current_app_name} | grep ${app_docker_image_tag} | awk '{print \$1}' | xargs -i docker stop {} | xargs -i docker rm {}
                                     // 删除旧镜像
                                     docker images | grep -E ${current_app_name} | grep ${app_docker_image_tag}| awk '{print \$3}' | uniq | xargs -I {} docker rmi --force {}
                                     // 拉取新镜像
