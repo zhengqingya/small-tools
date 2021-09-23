@@ -1,5 +1,7 @@
 package com.zhengqing.common.util;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -11,7 +13,10 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,8 +50,8 @@ public class RestTemplateUtil {
     /**
      * get请求
      *
-     * @param url:    请求地址
-     * @param params: 请求参数
+     * @param url    请求地址
+     * @param params 请求参数
      * @return 响应数据
      * @author zhengqingya
      * @date 2020/7/7 14:22
@@ -170,9 +175,9 @@ public class RestTemplateUtil {
     /**
      * post请求
      *
-     * @param url:          请求地址
-     * @param params:       请求参数
-     * @param responseType: 响应类型
+     * @param url          请求地址
+     * @param params       请求参数
+     * @param responseType 响应类型
      * @return 响应数据
      * @author zhengqingya
      * @date 2020/7/7 14:30
@@ -186,8 +191,8 @@ public class RestTemplateUtil {
     /**
      * post请求
      *
-     * @param url:    请求地址
-     * @param params: 请求参数
+     * @param url    请求地址
+     * @param params 请求参数
      * @return 响应数据
      * @author zhengqingya
      * @date 2020/7/7 14:30
@@ -201,8 +206,8 @@ public class RestTemplateUtil {
     /**
      * post请求
      *
-     * @param uploadUrl: 上传文件url
-     * @param file:      文件信息
+     * @param uploadUrl 上传文件url
+     * @param file      文件信息
      * @return 响应数据
      * @author zhengqingya
      * @date 2020/12/2 10:24
@@ -224,6 +229,43 @@ public class RestTemplateUtil {
 
         String dataStr = restTemplate.postForObject(uploadUrl, files, String.class);
         log.debug("url请求: 【{}】 响应数据：【{}】", uploadUrl, dataStr);
+        return dataStr;
+    }
+
+    /**
+     * post请求 - 表单方式提交数据
+     * 请求头为 Content-Type: application/x-www-form-urlencoded
+     *
+     * @param url        url
+     * @param jsonObject 提交参数信息
+     * @return 响应数据
+     * @author zhengqingya
+     * @date 2020/12/2 10:24
+     */
+    public static String postForm(String url, JSONObject jsonObject) {
+        Iterator it = jsonObject.keySet().iterator();
+        StringBuilder formParamSb = new StringBuilder("{");
+        while (it.hasNext()) {
+            String key = (String) it.next();
+            Object value = jsonObject.getString(key);
+            if (value == null) {
+                formParamSb.append(JSON.toJSONString(key)).append(":").append(value).append(",");
+            } else {
+                List<String> list = Collections.singletonList(value.toString());
+                formParamSb.append(JSON.toJSONString(key)).append(":").append(JSON.toJSONString(list)).append(",");
+            }
+        }
+        formParamSb.append("}");
+        formParamSb.deleteCharAt(formParamSb.length() - 2);
+        LinkedMultiValueMap<String, String> paramMap = JSON.parseObject(formParamSb.toString(), LinkedMultiValueMap.class);
+        // 设置请求头，注意是LinkedMultiValueMap
+        RequestEntity requestEntity = RequestEntity
+                .post(null)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .accept(MediaType.ALL).acceptCharset(StandardCharsets.UTF_8)
+                .body(paramMap);
+        String dataStr = restTemplate.postForEntity(url, requestEntity, String.class).getBody();
+        log.debug("url请求: 【{}】 响应数据：【{}】", url, dataStr);
         return dataStr;
     }
 
