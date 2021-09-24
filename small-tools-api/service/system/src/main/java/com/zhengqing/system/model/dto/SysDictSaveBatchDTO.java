@@ -52,7 +52,7 @@ public class SysDictSaveBatchDTO extends BaseDTO {
     private Integer status;
 
     @NotNull(message = "展示顺序不能为空!")
-    @ApiModelProperty(value = "排序", example = "1")
+    @ApiModelProperty(value = "排序", required = true, example = "1")
     private Integer sort;
 
     @ApiModelProperty(value = "备注", example = "this is the add.")
