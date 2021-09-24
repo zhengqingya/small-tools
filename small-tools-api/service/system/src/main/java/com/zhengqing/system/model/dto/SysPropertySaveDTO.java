@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * <p> 系统管理-系统属性-保存-提交参数 </p>
@@ -29,7 +28,6 @@ import javax.validation.constraints.NotNull;
 public class SysPropertySaveDTO extends BaseDTO {
 
     @JSONField(serialize = false, deserialize = false)
-    @NotNull(message = "属性key不能为空!")
     @ApiModelProperty(value = "主键ID", hidden = true, example = "1")
     private Integer id;
 
