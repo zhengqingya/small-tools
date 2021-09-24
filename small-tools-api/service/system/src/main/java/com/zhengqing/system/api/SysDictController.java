@@ -3,6 +3,7 @@ package com.zhengqing.system.api;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.validator.common.UpdateGroup;
+import com.zhengqing.common.validator.common.ValidList;
 import com.zhengqing.system.model.dto.SysDictSaveBatchDTO;
 import com.zhengqing.system.model.dto.SysDictSaveDTO;
 import com.zhengqing.system.model.vo.SysDictVO;
@@ -80,7 +81,7 @@ public class SysDictController extends BaseController {
 
     @PutMapping("updateBatch")
     @ApiOperation("批量更新")
-    public void updateBatch(@Validated @RequestBody Map<String, List<SysDictSaveBatchDTO>> dictDataMap) {
+    public void updateBatch(@Validated @RequestBody Map<String, ValidList<SysDictSaveBatchDTO>> dictDataMap) {
         this.sysDictService.updateBatch(dictDataMap);
     }
 

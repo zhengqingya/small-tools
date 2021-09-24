@@ -1,6 +1,7 @@
 package com.zhengqing.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhengqing.common.validator.common.ValidList;
 import com.zhengqing.system.entity.SysDict;
 import com.zhengqing.system.model.dto.SysDictSaveBatchDTO;
 import com.zhengqing.system.model.dto.SysDictSaveDTO;
@@ -90,7 +91,7 @@ public interface ISysDictService extends IService<SysDict> {
      * @author zhengqingya
      * @date 2021/8/27 11:24 下午
      */
-    void updateBatch(Map<String, List<SysDictSaveBatchDTO>> dictDataMap);
+    void updateBatch(Map<String, ValidList<SysDictSaveBatchDTO>> dictDataMap);
 
     /**
      * 根据id删除数据字典

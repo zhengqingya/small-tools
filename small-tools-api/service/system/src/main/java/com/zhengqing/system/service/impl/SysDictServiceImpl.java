@@ -10,7 +10,9 @@ import com.google.common.collect.Maps;
 import com.zhengqing.common.constant.MybatisConstant;
 import com.zhengqing.common.context.ContextHandler;
 import com.zhengqing.common.enums.YesNoEnum;
+import com.zhengqing.common.util.MyValidatorUtil;
 import com.zhengqing.common.util.RedisUtil;
+import com.zhengqing.common.validator.common.ValidList;
 import com.zhengqing.system.constant.SystemConstant;
 import com.zhengqing.system.entity.SysDict;
 import com.zhengqing.system.entity.SysDictType;
@@ -173,7 +175,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateBatch(Map<String, List<SysDictSaveBatchDTO>> dictDataMap) {
+    public void updateBatch(Map<String, ValidList<SysDictSaveBatchDTO>> dictDataMap) {
         if (CollectionUtils.isEmpty(dictDataMap)) {
             return;
         }
@@ -183,6 +185,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         this.checkKey(codeList);
         Map<String, Integer> dictTypeIdMap = this.sysDictTypeService.getDictTypeIdMap(codeList);
         dictDataMap.forEach((code, dictListItem) -> {
+            MyValidatorUtil.validate(dictListItem);
             Integer dictTypeId = dictTypeIdMap.get(code);
             Assert.notNull(dictTypeId, String.format("数据字典[%s]丢失或未启用，请联系系统管理员!", code));
 

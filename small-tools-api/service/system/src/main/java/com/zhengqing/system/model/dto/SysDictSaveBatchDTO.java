@@ -47,7 +47,7 @@ public class SysDictSaveBatchDTO extends BaseDTO {
     @ApiModelProperty(value = "值", required = true, example = "add")
     private String value;
 
-    @NotBlank(message = "字典值不能为空!")
+    @NotNull(message = "字典值不能为空!")
     @ApiModelProperty(value = "状态(0->停用 1->正常)", required = true, example = "1")
     private Integer status;
 
