@@ -83,6 +83,8 @@
 
         <snakeyaml.version>1.29</snakeyaml.version>
 
+        <logstash.version>6.6</logstash.version>
+
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <docker.plugin.version>1.1.0</docker.plugin.version>
         <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>

@@ -78,6 +78,14 @@
         </triggeringPolicy>
     </appender>
 
+    <!-- 3、日志写入logstash -->
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <!-- TODO: 修改为自己的ip地址 -->
+        <destination>192.168.101.88:20041</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>
+
+
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>
     </contextListener>
@@ -86,6 +94,7 @@
     <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
+        <appender-ref ref="LOGSTASH"/>
     </root>
 
     <!-- 减少部分日志 -->
