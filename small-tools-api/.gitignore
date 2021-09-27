@@ -16,6 +16,7 @@ target/
 
 # 业务相关
 logs
+LOG_HOME_IS_UNDEFINED
 tmp
 docker/*.jar
 service/tool/src/main/resources/generate-config.yml

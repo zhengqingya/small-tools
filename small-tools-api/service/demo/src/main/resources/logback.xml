@@ -6,17 +6,16 @@
     <!-- ============================= ↓↓↓↓↓↓ 外部变量 ↓↓↓↓↓↓ ============================= -->
 
     <!-- 应用名称 -->
-    <springProperty scope="context" name="APP_NAME" source="spring.application.name"/>
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name" defaultValue="small-tools"/>
+    <!-- 日志文件保存位置 注：前面加/ 表示以盘符为绝对路径，不加则是以项目为相对路径 -->
+    <springProperty scope="context" name="LOG_HOME" source="logging.log.home" defaultValue="logs"/>
+    <!-- 日志文件保留天数 -->
+    <springProperty scope="context" name="LOG_MAX_HISTORY_DAY" source="logging.log.max-history-day" defaultValue="30"/>
 
     <!-- ============================= ↓↓↓↓↓↓ 本地变量 ↓↓↓↓↓↓ ============================= -->
 
-    <!-- 日志文件保存位置 注：前面加/ 表示以盘符为绝对路径，不加则是以项目为相对路径 -->
-    <property name="LOG_HOME" value="logs"/>
     <!-- 日志文件输出的文件名 -->
     <property name="LOG_FILE_NAME" value="${LOG_HOME}/${APP_NAME}.%d{yyyy-MM-dd}.log"/>
-    <!-- 日志文件保留天数 -->
-    <property name="LOG_MAX_HISTORY_DAY" value="30"/>
-
 
     <!-- ============================= ↓↓↓↓↓↓ 日志生成配置 ↓↓↓↓↓↓ ============================= -->
 
@@ -93,6 +92,11 @@
     <!-- 业务日志 -->
     <logger name="com.zhengqing" level="DEBUG"/>
     <logger name="com.zhengqing.demo.mapper" level="INFO"/>
+    <logger name="com.zhengqing.tool.generator.mapper" level="INFO"/>
+    <logger name="com.zhengqing.tool.crawler.mapper" level="INFO"/>
+    <logger name="com.zhengqing.tool.db.mapper" level="INFO"/>
+    <logger name="com.zhengqing.tool.other.mapper" level="INFO"/>
+    <logger name="com.zhengqing.system.mapper" level="INFO"/>
 
     <!-- other -->
     <logger name="com.alibaba" level="WARN"/>
@@ -111,7 +115,8 @@
     <logger name="ConditionEvaluationReportLoggingListener" level="WARN"/>
     <logger name="org.mybatis" level="WARN"/>
     <logger name="com.baomidou" level="WARN"/>
-    <logger name="org.apache.http.impl.conn.PoolingHttpClientConnectionManager" level="WARN"/>
+    <logger name="org.apache.http" level="WARN"/>
     <logger name="jdk.event.security" level="WARN"/>
+    <logger name="org.jxls" level="WARN"/>
 
 </configuration>

@@ -1,3 +1,10 @@
+#spring:
+#  servlet:
+#    # 对文件上传暂时不做限制
+#    multipart:
+#      max-file-size: -1
+#      max-request-size: -1
+
 server:
   port: 20040
 #spring:

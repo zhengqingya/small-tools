@@ -144,6 +144,9 @@ server:
 logging:
   #  config: classpath:log/logback.xml
   config: classpath:logback.xml
+  log:
+    home: logs            # 日志文件保存位置
+    max-history-day: 30   # 日志文件保留天数
 
 # ========================== ↓↓↓↓↓↓ 七牛云配置 ↓↓↓↓↓↓ ==========================
 qiniu:
