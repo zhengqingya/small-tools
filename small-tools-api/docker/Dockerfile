@@ -1,8 +1,6 @@
 #FROM openjdk:8-jre-alpine   【 注：jre中并没有携带工具文件，但arthas需要依赖lib包和bin包里面的包和工具，arthas需要jps工具和lib包里的内容 】
-#FROM openjdk:8-jdk-alpine
-#RUN apk add --update ttf-dejavu fontconfig && rm -rf /var/cache/apk/*
-# 注：此镜像支持字体！
-FROM registry.cn-hangzhou.aliyuncs.com/zhengqing/openjdk:8-jdk-alpine-font
+# 使用自制jdk
+FROM registry.cn-hangzhou.aliyuncs.com/zhengqing/openjdk:8-jdk-alpine
 
 # 维护者信息
 MAINTAINER zhengqingya
@@ -20,14 +18,12 @@ ENV JAVA_OPTS ${JAVA_OPTS}
 # -XX:+UseG1GC -Xms64m -Xmx64m -Xmn16m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=100m -XX:MaxGCPauseMillis=200 -XX:ParallelGCThreads=8 -Ddefault.client.encoding=UTF-8 -Dfile.encoding=UTF-8 -Duser.language=Zh -Duser.region=CN -Dspring.profiles.active=xx -Dspring.cloud.nacos.discovery.server-addr=xx -Dspring.cloud.nacos.discovery.username=nacos  -Dspring.cloud.nacos.discovery.password=nacos
 # 远程调试参数： -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5001
 
-# 解决时差8小时问题
-ENV TZ=Asia/Shanghai
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 
 # copy arthas
 COPY --from=hengyunabc/arthas:latest /opt/arthas /opt/arthas
 
+
+# 添加jar包到容器中
 ADD ${APP_JAR} /home/
 RUN sh -c 'touch /'
 
