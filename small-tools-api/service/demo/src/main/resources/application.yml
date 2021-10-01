@@ -15,3 +15,9 @@ server:
 # fastjson全局处理-JSON入参及返回值Date时间 TODO 暂无效
 #  mvc:
 #    date-format: yyyy-MM-dd HH:mm:ss
+
+
+# 日志收集 TODO: 修改为自己的配置
+logstash:
+  host: 192.168.101.88
+  port: 5044
