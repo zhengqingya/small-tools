@@ -39,8 +39,8 @@ node {
     def project_service_name_select = "${PROJECT_SERVICE_NAME}".split(",")
     // 获取选择的服务器名称
     def publish_ssh_server_select = "${PUBLISH_SSH_SERVER}".split(",")
-    // app镜像tag
-    def app_docker_image_tag = ""
+    // git分支tag
+    def git_branch_tag = ""
 
 
     stage('初始化准备') {
@@ -49,11 +49,11 @@ node {
         ETH_VALUE = sh(script: "( [[ \"${JAVA_OPTS}\" = *'-Dspring.cloud.nacos.discovery.ip'* ]] && echo enp5s0 || echo eth0 )", returnStdout: true).trim()
         CURRENT_TIME = sh(script: "echo `date +\"%Y-%m-%d %H:%M:%S\"`", returnStdout: true).trim()
         script {
-            app_docker_image_tag = GIT_BRANCH.replaceAll('origin/', '')
+            git_branch_tag = GIT_BRANCH.replaceAll('origin/', '')
         }
         echo "当前工作空间：${JENKINS_WORKSPACE}"
         echo "使用分支：${GIT_BRANCH}"
-        echo "使用docker镜像tag：${app_docker_image_tag}"
+        echo "使用分支tag：${git_branch_tag}"
         echo "使用网卡：${ETH_VALUE}"
         echo "当前时间：${CURRENT_TIME}"
         sh "mkdir -p ${PROJECT_SERVICE_LOG_HOME}"
@@ -118,14 +118,16 @@ node {
             sh "cp ${current_app_parent}/${current_app_name}/target/${current_app_jar} ${JENKINS_WORKSPACE}/small-tools-api/docker"
 
             // app镜像
-            def app_docker_image = "${DOCKER_REGISTRY_URL}/${DOCKER_REGISTRY_NAMESPACE}/${current_app_name}:${app_docker_image_tag}"
+            def app_docker_image_name = "small-tools"
+            def app_docker_image_tag = "${current_app_name}_${git_branch_tag}"
+            def app_docker_image = "${DOCKER_REGISTRY_URL}/${DOCKER_REGISTRY_NAMESPACE}/${app_docker_image_name}:${app_docker_image_tag}"
 
             echo "app镜像: ${app_docker_image}"
 
             // 删除旧容器
-            sh "docker ps -a | grep ${current_app_name} | grep ${app_docker_image_tag} | awk '{print \$1}' | xargs -I docker stop {} | xargs -I docker rm {}"
+            sh "docker ps -a | grep ${app_docker_image_name} | grep ${app_docker_image_tag} | awk '{print \$1}' | xargs -I docker stop {} | xargs -I docker rm {}"
             // 删除旧镜像
-            sh "docker images | grep -E ${current_app_name} | grep ${app_docker_image_tag}| awk '{print \$3}' | uniq | xargs -I {} docker rmi --force {}"
+            sh "docker images | grep -E ${app_docker_image_name} | grep ${app_docker_image_tag}| awk '{print \$3}' | uniq | xargs -I {} docker rmi --force {}"
             // 构建新镜像 -f:指定Dockerfile文件路径
             sh "cd ${JENKINS_WORKSPACE}/small-tools-api/docker && docker build -f Dockerfile --build-arg JAVA_OPTS=\"${JAVA_OPTS}\" --build-arg APP_NAME=${current_app_name} --build-arg APP_PORT=${current_app_port} -t ${app_docker_image} . --no-cache"
 
@@ -156,9 +158,9 @@ node {
                                 execCommand: """
                                     // 远程服务器下依次执行如下命令
                                     // 删除旧容器
-                                    docker ps -a | grep ${current_app_name} | grep ${app_docker_image_tag} | awk '{print \$1}' | xargs -i docker stop {} | xargs -i docker rm {}
+                                    docker ps -a | grep ${app_docker_image_name} | grep ${app_docker_image_tag} | awk '{print \$1}' | xargs -i docker stop {} | xargs -i docker rm {}
                                     // 删除旧镜像
-                                    docker images | grep -E ${current_app_name} | grep ${app_docker_image_tag}| awk '{print \$3}' | uniq | xargs -I {} docker rmi --force {}
+                                    docker images | grep -E ${app_docker_image_name} | grep ${app_docker_image_tag}| awk '{print \$3}' | uniq | xargs -I {} docker rmi --force {}
                                     // 拉取新镜像
                                     docker pull ${app_docker_image}
                                     // 创建日志文件
