@@ -36,12 +36,13 @@ node {
     // 当前时间
     def CURRENT_TIME = ""
     // 获取选择的项目服务名称
-    def project_service_name_select = "${PROJECT_SERVICE_NAME}".split(",")
+    def PROJECT_SERVICE_NAME_SELECT = "${PROJECT_SERVICE_NAME}".split(",")
     // 获取选择的服务器名称
-    def publish_ssh_server_select = "${PUBLISH_SSH_SERVER}".split(",")
+    def PUBLISH_SSH_SERVER_SELECT = "${PUBLISH_SSH_SERVER}".split(",")
     // git分支tag
-    def git_branch_tag = ""
-
+    def GIT_BRANCH_TAG = ""
+    // docker镜像仓库认证命令
+    def DOCKER_REGISTRY_AUTH_CMD = ""
 
     stage('初始化准备') {
         echo '****************************** 初始化准备 ******************************'
@@ -49,16 +50,24 @@ node {
         ETH_VALUE = sh(script: "( [[ \"${JAVA_OPTS}\" = *'-Dspring.cloud.nacos.discovery.ip'* ]] && echo enp5s0 || echo eth0 )", returnStdout: true).trim()
         CURRENT_TIME = sh(script: "echo `date +\"%Y-%m-%d %H:%M:%S\"`", returnStdout: true).trim()
         script {
-            git_branch_tag = GIT_BRANCH.replaceAll('origin/', '')
+            GIT_BRANCH_TAG = GIT_BRANCH.replaceAll('origin/', '')
         }
         echo "当前工作空间：${JENKINS_WORKSPACE}"
         echo "使用分支：${GIT_BRANCH}"
-        echo "使用分支tag：${git_branch_tag}"
+        echo "使用分支tag：${GIT_BRANCH_TAG}"
         echo "使用网卡：${ETH_VALUE}"
         echo "当前时间：${CURRENT_TIME}"
         sh "mkdir -p ${PROJECT_SERVICE_LOG_HOME}"
         sh "mkdir -p ${PROJECT_JAR_HOME}"
         sh "mkdir -p ${PROJECT_DOCKER_HISTORY_JAR_HOME}"
+
+        echo '****************************** 镜像仓库认证 ******************************'
+
+        withCredentials([usernamePassword(credentialsId: "${DOCKER_REGISTRY_AUTH}", passwordVariable: 'password', usernameVariable: 'username')]) {
+            // 登录镜像仓库
+            DOCKER_REGISTRY_AUTH_CMD = "docker login -u ${username} -p ${password} ${DOCKER_REGISTRY_URL}"
+            sh "${DOCKER_REGISTRY_AUTH_CMD}"
+        }
     }
 
 
@@ -78,10 +87,10 @@ node {
     stage('微服务打包&删除旧容器和镜像&推送镜像&部署远程服务器') {
         echo '****************************** 微服务打包&删除旧容器和镜像&推送镜像&部署远程服务器 ******************************'
 
-        for (int i = 0; i < project_service_name_select.length; i++) {
+        for (int i = 0; i < PROJECT_SERVICE_NAME_SELECT.length; i++) {
 
             // 当前待处理项目
-            def current_app_name = project_service_name_select[i];
+            def current_app_name = PROJECT_SERVICE_NAME_SELECT[i];
             def current_app_jar = "${current_app_name}.jar";
             // 父工程
             def current_app_parent = ""
@@ -119,7 +128,7 @@ node {
 
             // app镜像
             def app_docker_image_name = "small-tools"
-            def app_docker_image_tag = "${current_app_name}_${git_branch_tag}"
+            def app_docker_image_tag = "${current_app_name}_${GIT_BRANCH_TAG}"
             def app_docker_image = "${DOCKER_REGISTRY_URL}/${DOCKER_REGISTRY_NAMESPACE}/${app_docker_image_name}:${app_docker_image_tag}"
 
             echo "app镜像: ${app_docker_image}"
@@ -134,13 +143,10 @@ node {
 
             echo '****************************** 推送镜像 ******************************'
 
-            withCredentials([usernamePassword(credentialsId: "${DOCKER_REGISTRY_AUTH}", passwordVariable: 'password', usernameVariable: 'username')]) {
-                // 登录镜像仓库
-                sh "docker login -u ${username} -p ${password} ${DOCKER_REGISTRY_URL}"
-                // 推送镜像
-                sh "docker push ${app_docker_image}"
-                sh "echo 镜像推送成功：${app_docker_image}"
-            }
+            // 推送镜像
+            sh "docker push ${app_docker_image}"
+            sh "echo 镜像推送成功：${app_docker_image}"
+
 
             // 操作完后移除docker目录下的jar文件，防止下次docker将多个jar一起构建导致镜像过大问题
             sh "mv -f ${JENKINS_WORKSPACE}/small-tools-api/docker/*.jar ${PROJECT_DOCKER_HISTORY_JAR_HOME}/"
@@ -149,14 +155,16 @@ node {
             echo '****************************** 项目部署 ******************************'
 
             // 遍历所有服务器，分别部署
-            for (int j = 0; j < publish_ssh_server_select.length; j++) {
+            for (int j = 0; j < PUBLISH_SSH_SERVER_SELECT.length; j++) {
                 // 获取当前服务器名称
-                def currentServerName = publish_ssh_server_select[j]
+                def currentServerName = PUBLISH_SSH_SERVER_SELECT[j]
                 echo '开始发布远程机器'
                 sshPublisher(publishers: [sshPublisherDesc(configName: "${currentServerName}",
                         transfers: [sshTransfer(cleanRemote: false, excludes: '',
                                 execCommand: """
                                     // 远程服务器下依次执行如下命令
+                                    // 镜像仓库认证
+                                    ${DOCKER_REGISTRY_AUTH_CMD}
                                     // 删除旧容器
                                     docker ps -a | grep ${app_docker_image_name} | grep ${app_docker_image_tag} | awk '{print \$1}' | xargs -i docker stop {} | xargs -i docker rm {}
                                     // 删除旧镜像
