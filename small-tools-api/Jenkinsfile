@@ -167,6 +167,9 @@ node {
                                 execCommand: """
 
                                     // 传输部署脚本到远程服务器之后，执行该脚本运行程序
+
+                                    cd ${PROJECT_SERVICE_LOG_HOME}
+
                                     sh ssh-publish.sh \
                                     ${DOCKER_REGISTRY_AUTH_CMD} \
                                     ${PROJECT_SERVICE_LOG_HOME} \
@@ -176,7 +179,7 @@ node {
                                     ${app_docker_image} \
                                     ${ETH_VALUE} \
                                     ${current_app_port} \
-                                    ${JAVA_OPTS} \
+                                    ${JAVA_OPTS}
 
                                 """,
                                 // 超时时间1000ms*60*2=2分钟
