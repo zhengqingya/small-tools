@@ -3,7 +3,7 @@
 ####################################
 # @description 远程服务器-部署脚本
 # @params $? => 代表上一个命令执行后的退出状态: 0->成功,1->失败
-# @example => sh ssh-publish.sh
+# @example => sh ssh-publish.sh 参数值1 参数值2 参数值n ...
 # @author zhengqingya
 # @date 2021/10/6 12:12 上午
 ####################################
