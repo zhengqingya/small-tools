@@ -170,7 +170,7 @@ node {
 
                                     cd ${PROJECT_SERVICE_LOG_HOME}
 
-                                    // 传输脚本参数时请使用双引号包裹单个参数值 => 避免单个参数中存在空格等特殊符号被解析为多个参数！
+                                    // 传输脚本参数时请使用双引号包裹单个参数值，避免单个参数中存在空格等特殊符号被解析为多个参数！
                                     sh ssh-publish.sh \
                                     "${DOCKER_REGISTRY_AUTH_CMD}" \
                                     "${PROJECT_SERVICE_LOG_HOME}" \
