@@ -28,8 +28,8 @@ spring:
       eager: true   # 禁用控制台懒加载
       transport:
         dashboard: ${small-tools.ip}:8858 # 控制台地址
-        client-ip: ${small-tools.ip} # ${spring.cloud.client.ip-address} # 获取本机IP地址
-        port: 18719 # 启动该服务，会在应用程序的相应服务器上启动HTTP Server，并且该服务器将与Sentinel dashboard进行交互
+        # client-ip: ${small-tools.ip} # ${spring.cloud.client.ip-address} # 获取本机IP地址
+        # port: 18719 # 启动该服务，会在应用程序的相应服务器上启动HTTP Server，并且该服务器将与Sentinel dashboard进行交互
   #  cloud:
   #    config:
   #      # 相同配置下优先使用本地配置 (注：需在nacos上配置才生效！)
