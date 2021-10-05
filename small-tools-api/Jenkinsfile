@@ -159,8 +159,11 @@ node {
                 // 获取当前服务器名称
                 def currentServerName = PUBLISH_SSH_SERVER_SELECT[j]
                 echo '开始发布远程机器'
-                sshPublisher(publishers: [sshPublisherDesc(configName: "${currentServerName}",
+                sshPublisher(publishers: [sshPublisherDesc(
+                        // `Manage Jenkins` -> `Configure System` -> `Publish over SSH` -> `SSH Servers` 中的name值
+                        configName: "${currentServerName}",
                         transfers: [sshTransfer(cleanRemote: false, excludes: '',
+                                // ===================== ↓↓↓↓↓↓ 执行命令 ↓↓↓↓↓↓ =====================
                                 execCommand: """
                                     // 远程服务器下依次执行如下命令
                                     // 镜像仓库认证
@@ -179,9 +182,19 @@ node {
                                     echo "*** ${CURRENT_TIME} docker run -d -p ${current_app_port}:${current_app_port} -e JAVA_OPTS="${JAVA_OPTS} -Dspring.cloud.nacos.discovery.ip=`ifconfig ${ETH_VALUE} | grep inet | grep -v inet6 | awk '{print \$2}'` -Dspring.cloud.sentinel.transport.client-ip=`ifconfig ${ETH_VALUE} | grep inet | grep -v inet6 | awk '{print \$2}'`" -v ${PROJECT_SERVICE_LOG_HOME}/${current_app_name}.log:/home/${current_app_name}.log --name ${current_app_name}  ${app_docker_image}" >> ${PROJECT_SERVICE_LOG_HOME}/run.log
                                     docker run -d -p ${current_app_port}:${current_app_port} -e JAVA_OPTS="${JAVA_OPTS} -Dspring.cloud.nacos.discovery.ip=`ifconfig ${ETH_VALUE} | grep inet | grep -v inet6 | awk '{print \$2}'` -Dspring.cloud.sentinel.transport.client-ip=`ifconfig ${ETH_VALUE} | grep inet | grep -v inet6 | awk '{print \$2}'`" -v ${PROJECT_SERVICE_LOG_HOME}/${current_app_name}.log:/home/${current_app_name}.log --name ${current_app_name}  ${app_docker_image}
                                 """,
-                                execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false,
-                                patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '',
-                                sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                                // 超时时间1000ms*60*2=2分钟
+                                execTimeout: 120000,
+                                flatten: false, makeEmptyDirs: false, noDefaultExcludes: false,
+                                patternSeparator: '[, ]+',
+                                // ===================== ↓↓↓↓↓↓ 传输文件 ↓↓↓↓↓↓ =====================
+                                // 传输文件
+                                sourceFiles: 'small-tools-api/get-random-port.sh',
+                                // 远程服务器目录
+                                remoteDirectory: "${PROJECT_SERVICE_LOG_HOME}",
+                                remoteDirectorySDF: false,
+                                // 传输时移除前缀路径
+                                removePrefix: 'small-tools-api/')],
+                        usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
 
         }
