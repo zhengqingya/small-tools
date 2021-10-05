@@ -190,12 +190,12 @@ node {
                                     // ③ 运行程序
                                     echo `sh get-random-port.sh 30100 30200` | xargs -i \
                                     echo "*** ${CURRENT_TIME} docker run -d \
-                                    -p ${current_app_port}:${current_app_port} \
+                                    -p ${current_app_port}:${current_app_port} -p {}:{} \
                                     -e JAVA_OPTS="${JAVA_OPTS} -Dspring.cloud.nacos.discovery.ip=`ifconfig ${ETH_VALUE} | grep inet | grep -v inet6 | awk '{print \$2}'` \
                                     -Dspring.cloud.sentinel.transport.client-ip=`ifconfig ${ETH_VALUE} | grep inet | grep -v inet6 | awk '{print \$2}'` -Dspring.cloud.sentinel.transport.port={}" \
                                     -v ${PROJECT_SERVICE_LOG_HOME}/${current_app_name}.log:/home/${current_app_name}.log \
                                     --name ${current_app_name} ${app_docker_image}" >> ${PROJECT_SERVICE_LOG_HOME}/run.log \
-                                    && docker run -d -p ${current_app_port}:${current_app_port} \
+                                    && docker run -d -p ${current_app_port}:${current_app_port} -p {}:{} \
                                     -e JAVA_OPTS="${JAVA_OPTS} -Dspring.cloud.nacos.discovery.ip=`ifconfig ${ETH_VALUE} | grep inet | grep -v inet6 | awk '{print \$2}'` \
                                     -Dspring.cloud.sentinel.transport.client-ip=`ifconfig ${ETH_VALUE} | grep inet | grep -v inet6 | awk '{print \$2}'` -Dspring.cloud.sentinel.transport.port={}" \
                                     -v ${PROJECT_SERVICE_LOG_HOME}/${current_app_name}.log:/home/${current_app_name}.log \
