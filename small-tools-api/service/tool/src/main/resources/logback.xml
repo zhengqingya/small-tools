@@ -82,10 +82,10 @@
     </appender>
 
     <!-- 3、日志写入logstash -->
-    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>${LOGSTASH_HOST}:${LOGSTASH_PORT}</destination>
-        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
-    </appender>
+    <!--    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
+    <!--        <destination>${LOGSTASH_HOST}:${LOGSTASH_PORT}</destination>-->
+    <!--        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>-->
+    <!--    </appender>-->
 
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
@@ -96,7 +96,7 @@
     <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
-        <appender-ref ref="LOGSTASH"/>
+        <!--        <appender-ref ref="LOGSTASH"/>-->
     </root>
 
     <!-- 减少部分日志 -->

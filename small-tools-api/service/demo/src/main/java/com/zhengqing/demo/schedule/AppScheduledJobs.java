@@ -2,7 +2,6 @@ package com.zhengqing.demo.schedule;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -28,7 +27,7 @@ public class AppScheduledJobs {
      * @author zhengqingya
      * @date 2021/8/2 8:10 下午
      */
-    @Scheduled(cron = "*/5 * * * * ?")
+//    @Scheduled(cron = "*/5 * * * * ?")
     public void test() {
         log.debug("==================================================================================");
         log.error("<<<<<< error Start: 【{}】 >>>>>>", LocalDateTime.now());
