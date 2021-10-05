@@ -11,15 +11,19 @@
 # 在执行过程中若遇到使用了未定义的变量或命令返回值为非零，将直接报错退出
 set -eu
 
-# 当前时间
-CURRENT_TIME=`date +"%Y-%m-%d %H:%M:%S"`
+# 仅测试时期查看脚本传参使用
+echo ${*} >> /Users/zhengqingya/IT_zhengqing/soft/small-tools/logs/run.log
+
 
 # 检查参数个数
 if [ "${#}" -ne 9 ]; then
-	echo "${CURRENT_TIME} 脚本参数不合法，程序终止！"
+	echo "脚本参数不合法，程序终止！"
 	exit
 fi
 
+
+# 当前时间
+CURRENT_TIME=`date +"%Y-%m-%d %H:%M:%S"`
 
 # 执行脚本时传过来的参数
 DOCKER_REGISTRY_AUTH_CMD=${1}
