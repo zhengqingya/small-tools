@@ -12,7 +12,7 @@
 set -eu
 
 # 仅测试时期查看脚本传参使用
-echo ${*} >> /Users/zhengqingya/IT_zhengqing/soft/small-tools/logs/run.log
+#echo ${*} >> /Users/zhengqingya/IT_zhengqing/soft/small-tools/logs/run.log
 
 
 # 检查参数个数
