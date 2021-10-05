@@ -166,41 +166,17 @@ node {
                                 // ===================== ↓↓↓↓↓↓ 执行命令 ↓↓↓↓↓↓ =====================
                                 execCommand: """
 
-                                    // 远程服务器下依次执行如下命令
-                                    // 镜像仓库认证
-                                    ${DOCKER_REGISTRY_AUTH_CMD}
-
-                                    // 删除旧容器
-                                    docker ps -a | grep ${app_docker_image_name} | grep ${app_docker_image_tag} | awk '{print \$1}' | xargs -i docker stop {} | xargs -i docker rm {}
-
-                                    // 删除旧镜像
-                                    docker images | grep -E ${app_docker_image_name} | grep ${app_docker_image_tag}| awk '{print \$3}' | uniq | xargs -I {} docker rmi --force {}
-
-                                    // 拉取新镜像
-                                    docker pull ${app_docker_image}
-
-                                    // 创建日志文件
-                                    mkdir -p ${PROJECT_SERVICE_LOG_HOME}
-                                    cd ${PROJECT_SERVICE_LOG_HOME}
-                                    touch ${current_app_name}.log
-
-                                    // 运行容器 
-                                    // ① 先获取sentinel随机端口，再传入执行命令
-                                    // ② 运行日志记录
-                                    // ③ 运行程序
-                                    echo `sh get-random-port.sh 30100 30200` | xargs -i \
-                                    echo "*** ${CURRENT_TIME} docker run -d \
-                                    -p ${current_app_port}:${current_app_port} -p {}:{} \
-                                    -e JAVA_OPTS="${JAVA_OPTS} -Dspring.cloud.nacos.discovery.ip=`ifconfig ${ETH_VALUE} | grep inet | grep -v inet6 | awk '{print \$2}'` \
-                                    -Dspring.cloud.sentinel.transport.client-ip=`ifconfig ${ETH_VALUE} | grep inet | grep -v inet6 | awk '{print \$2}'` -Dspring.cloud.sentinel.transport.port={}" \
-                                    -v ${PROJECT_SERVICE_LOG_HOME}/${current_app_name}.log:/home/${current_app_name}.log \
-                                    --name ${current_app_name} ${app_docker_image}" >> ${PROJECT_SERVICE_LOG_HOME}/run.log \
-                                    && echo `sh get-random-port.sh 30100 30200` | xargs -i \
-                                    docker run -d -p ${current_app_port}:${current_app_port} -p {}:{} \
-                                    -e JAVA_OPTS="${JAVA_OPTS} -Dspring.cloud.nacos.discovery.ip=`ifconfig ${ETH_VALUE} | grep inet | grep -v inet6 | awk '{print \$2}'` \
-                                    -Dspring.cloud.sentinel.transport.client-ip=`ifconfig ${ETH_VALUE} | grep inet | grep -v inet6 | awk '{print \$2}'` -Dspring.cloud.sentinel.transport.port={}" \
-                                    -v ${PROJECT_SERVICE_LOG_HOME}/${current_app_name}.log:/home/${current_app_name}.log \
-                                    --name ${current_app_name} ${app_docker_image}
+                                    // 传输部署脚本到远程服务器之后，执行该脚本运行程序
+                                    sh ssh-publish.sh \
+                                    ${DOCKER_REGISTRY_AUTH_CMD} \
+                                    ${PROJECT_SERVICE_LOG_HOME} \
+                                    ${current_app_name} \
+                                    ${app_docker_image_name} \
+                                    ${app_docker_image_tag} \
+                                    ${app_docker_image} \
+                                    ${ETH_VALUE} \
+                                    ${current_app_port} \
+                                    ${JAVA_OPTS} \
 
                                 """,
                                 // 超时时间1000ms*60*2=2分钟
@@ -209,7 +185,7 @@ node {
                                 patternSeparator: '[, ]+',
                                 // ===================== ↓↓↓↓↓↓ 传输文件 ↓↓↓↓↓↓ =====================
                                 // 传输文件
-                                sourceFiles: 'small-tools-api/get-random-port.sh',
+                                sourceFiles: 'small-tools-api/ssh-publish.sh',
                                 // 远程服务器目录
                                 remoteDirectory: "${PROJECT_SERVICE_LOG_HOME}",
                                 remoteDirectorySDF: false,
