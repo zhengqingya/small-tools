@@ -45,12 +45,12 @@ function get_random_port {
    while [ ${PORT} == 0 ]; do
        # 指定区间随机数
        temp_num=`shuf -i ${1}-${2} -n1`
-       echo "temp_num=${temp_num}"
+#       echo "temp_num=${temp_num}"
        if [ `Listening ${temp_num}` == 0 ] ; then
           PORT=${temp_num}
        fi
    done
-   echo "[${1}-${2}] 区间未占用随机端口=${PORT}"
+   echo "${PORT}"
 }
 
 get_random_port ${1} ${2}
