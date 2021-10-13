@@ -3,7 +3,11 @@ package com.zhengqing.demo.model.dto;
 import com.zhengqing.common.model.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Range;
 
 /**
@@ -16,7 +20,7 @@ import org.hibernate.validator.constraints.Range;
  * @date 2021/01/13 10:11
  */
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)

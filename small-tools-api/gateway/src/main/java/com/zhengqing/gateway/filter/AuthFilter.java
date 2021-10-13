@@ -40,7 +40,7 @@ import java.util.List;
  */
 @Slf4j
 @Component
-@Order(2)
+@Order(3)
 public class AuthFilter implements GlobalFilter {
 
     @Autowired

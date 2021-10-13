@@ -10,7 +10,7 @@
            sd.`value` btnVal
     FROM t_sys_role_menu_btn rmt
            INNER JOIN t_sys_dict sd on sd.id = rmt.btn_id
-    WHERE rmt.is_valid = 1
+    WHERE rmt.is_deleted = 0
   </select>
 
   <select
@@ -19,7 +19,7 @@
     SELECT rmt.btn_id
     FROM t_sys_role_menu_btn rmt
            INNER JOIN t_sys_menu_btn mb ON mb.btn_id = rmt.btn_id
-    WHERE rmt.is_valid = 1
+    WHERE rmt.is_deleted = 0
       AND rmt.role_id = #{roleId}
       AND mb.menu_id = #{menuId}
       AND rmt.menu_id = #{menuId}

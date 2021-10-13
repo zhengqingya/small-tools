@@ -3,7 +3,11 @@ package com.zhengqing.tool.generator.model.dto;
 import com.zhengqing.common.model.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -17,11 +21,11 @@ import javax.validation.constraints.NotNull;
  * @description
  * @date 2020/12/3 21:24
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @ApiModel("代码生成器 - 项目模板数据测试提交参数")
 public class CgProjectTemplateTestDataDTO extends BaseDTO {
 

@@ -18,7 +18,7 @@
     resultType="java.lang.Integer">
     SELECT DISTINCT(menu_id)
     FROM t_sys_role_menu
-    WHERE is_valid=1 AND role_id IN
+    WHERE is_deleted = 0 AND role_id IN
     <foreach
       collection="roleIdList"
       item="roleId"

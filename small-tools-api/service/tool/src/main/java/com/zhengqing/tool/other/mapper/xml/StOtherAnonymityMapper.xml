@@ -18,7 +18,7 @@
     tsoa.handle_time handleTime
     FROM t_st_other_anonymity tsoa
     <where>
-      AND tsoa.is_valid = 1
+      AND tsoa.is_deleted = 0
       <if test="filter.content!=null and filter.content!=''">
         AND tsoa.content LIKE CONCAT( '%', #{filter.content} , '%' )
       </if>

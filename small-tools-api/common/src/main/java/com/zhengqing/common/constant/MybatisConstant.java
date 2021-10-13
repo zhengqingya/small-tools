@@ -14,9 +14,9 @@ public interface MybatisConstant {
      */
     String LIMIT_ONE = "LIMIT 1";
     /**
-     * 是否有效(1:有效 0:无效）
+     * 是否删除：true->删除，false->未删除
      */
-    String IS_VALID = "isValid";
+    String IS_DELETED = "isDeleted";
     /**
      * 创建人id
      */
@@ -33,5 +33,5 @@ public interface MybatisConstant {
      * 更新时间
      */
     String UPDATE_TIME = "updateTime";
-    
+
 }

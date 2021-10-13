@@ -1,5 +1,6 @@
 package com.zhengqing.system.feign;
 
+import com.google.common.collect.Lists;
 import com.zhengqing.common.http.ApiResult;
 import com.zhengqing.common.util.RequestContextUtil;
 import com.zhengqing.system.model.dto.SysUserSaveDTO;
@@ -38,13 +39,13 @@ public class SystemClient implements ISystemClient {
     @Override
     @GetMapping(API_DICT + "/getUpDictListFromCacheByCode")
     public List<SysDictVO> getUpDictListFromCacheByCode(String code) {
-        return dictService.getUpDictListFromCacheByCode(code);
+        return this.dictService.listFromCacheByCode(Lists.newArrayList(code)).get(code);
     }
 
     @Override
     @PostMapping(API_USER)
     public ApiResult<Integer> addOrUpdateData(SysUserSaveDTO params) {
-        return ApiResult.build(sysUserService.addOrUpdateData(params));
+        return ApiResult.build(this.sysUserService.addOrUpdateData(params));
     }
 
     @Override

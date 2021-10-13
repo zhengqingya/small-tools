@@ -26,7 +26,7 @@ import lombok.*;
 @TableName("t_sys_dict_type")
 public class SysDictType extends BaseEntity<SysDictType> {
 
-    @ApiModelProperty(value = "主键")
+    @ApiModelProperty(value = "主键ID")
     @TableId(value = "ID", type = IdType.AUTO)
     private Integer id;
 
@@ -36,7 +36,13 @@ public class SysDictType extends BaseEntity<SysDictType> {
     @ApiModelProperty(value = "字典类型名称(展示用)")
     private String name;
 
-    @ApiModelProperty(value = "状态 1启用 0禁用")
+    @ApiModelProperty(value = "状态(0->停用 1->正常)")
     private Integer status;
+
+    @ApiModelProperty(value = "排序")
+    private Integer sort;
+
+    @ApiModelProperty(value = "是否固定(false->否 true->是)")
+    private Boolean isFixed;
 
 }

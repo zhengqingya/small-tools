@@ -28,7 +28,7 @@ import java.nio.charset.StandardCharsets;
  */
 @Slf4j
 @Component
-@Order(1)
+@Order(2)
 public class HttpRequestGlobalFilter implements GlobalFilter {
 
     /**
@@ -36,6 +36,7 @@ public class HttpRequestGlobalFilter implements GlobalFilter {
      */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        // 删除请求头Expect （主要解决三方服务带此请求头请求接口时无法响应问题）
         ServerHttpRequest request = exchange.getRequest();
         String requestUrl = request.getPath().toString();
         String requestMethod = request.getMethodValue();

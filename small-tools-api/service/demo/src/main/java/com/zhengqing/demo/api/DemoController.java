@@ -3,8 +3,9 @@ package com.zhengqing.demo.api;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.custom.RequestPostSingleParam;
-import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
-import com.zhengqing.common.validator.fieldrepeat.ValidList;
+import com.zhengqing.common.model.dto.BaseDTO;
+import com.zhengqing.common.validator.common.UpdateGroup;
+import com.zhengqing.common.validator.common.ValidList;
 import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.mapper.DemoMapper;
@@ -17,6 +18,8 @@ import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,10 +70,10 @@ public class DemoController extends BaseController {
         System.out.println(id);
     }
 
-    @GetMapping("list/page")
+    @GetMapping("page")
     @ApiOperation("列表分页")
-    public IPage<DemoListVO> listPage(@Validated @ModelAttribute DemoListDTO params) {
-        return this.demoService.listPage(params);
+    public IPage<DemoListVO> page(@Validated @ModelAttribute DemoListDTO params) {
+        return this.demoService.page(params);
     }
 
     @GetMapping("list")
@@ -108,6 +111,7 @@ public class DemoController extends BaseController {
     @PostMapping("test/list/")
     @ApiOperation("list校验测试")
     public Integer addListValid(@Valid @RequestBody ValidList<TestSaveDTO> params) {
+        TestSaveDTO testSaveDTO = TestSaveDTO.builder().id(1).username("xx").password("xxx").build();
         return 1;
     }
 
@@ -126,10 +130,18 @@ public class DemoController extends BaseController {
         return new Demo();
     }
 
+    @PostMapping("test/builder/")
+    @ApiOperation("list校验测试")
+    public void testBuilder() {
+
+    }
+
 }
 
 @Data
-class TestSaveDTO {
+@SuperBuilder
+@EqualsAndHashCode(callSuper = true)
+class TestSaveDTO extends BaseDTO {
 
     @ApiModelProperty("主键ID")
     @NotNull(message = "主键ID不能为空!")

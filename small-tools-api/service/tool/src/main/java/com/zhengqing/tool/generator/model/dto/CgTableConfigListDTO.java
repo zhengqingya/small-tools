@@ -3,7 +3,11 @@ package com.zhengqing.tool.generator.model.dto;
 import com.zhengqing.common.model.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * <p>
@@ -14,11 +18,11 @@ import lombok.*;
  * @description
  * @date 2019/8/22 11:12
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @ApiModel("项目表配置表查询参数")
 public class CgTableConfigListDTO extends BaseDTO {
 

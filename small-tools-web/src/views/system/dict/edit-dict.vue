@@ -48,11 +48,12 @@ export default {
     };
   },
   methods: {
-    open(type, data, dictTypeId, maxSort) {
+    open(type, data, dictTypeId,code, maxSort) {
       this.dialogStatus = type;
       if (type === "create") {
         this.resetForm();
         this.form.dictTypeId = dictTypeId;
+        this.form.code = code;
         this.form.sort = maxSort;
       } else if (type === "update") {
         this.form = Object.assign({}, data);

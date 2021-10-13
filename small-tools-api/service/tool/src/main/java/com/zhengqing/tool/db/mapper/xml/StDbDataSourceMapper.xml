@@ -22,7 +22,7 @@
     tsdbs.update_time updateTime
     FROM t_st_db_data_source tsdbs
     WHERE
-    tsdbs.is_valid=1
+    tsdbs.is_deleted = 0
     <if test="filter.name!=null and filter.name!=''">
       AND tsdbs.name LIKE CONCAT( '%', #{filter.name} , '%' )
     </if>
@@ -43,7 +43,7 @@
     tsdbs.driver_class_name driverClassName,
     tsdbs.remark remark
     FROM t_st_db_data_source tsdbs
-    WHERE tsdbs.is_valid=1 AND tsdbs.id = #{id}
+    WHERE tsdbs.is_deleted = 0 AND tsdbs.id = #{id}
   </select>
 
 </mapper>

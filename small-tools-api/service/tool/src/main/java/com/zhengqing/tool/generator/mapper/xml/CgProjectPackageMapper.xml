@@ -12,7 +12,7 @@
     tcpp.project_id projectId
     FROM t_cg_project_package tcpp
     WHERE
-    tcpp.is_valid=1
+    tcpp.is_deleted = 0
     <if test="filter.projectId!=null">
       AND tcpp.project_id = #{filter.projectId}
     </if>
@@ -25,7 +25,7 @@
   <select id="selectParentPackageName" resultType="java.lang.String">
     SELECT tcpp.name
     FROM t_cg_project_package tcpp
-    WHERE tcpp.is_valid = 1
+    WHERE tcpp.is_deleted = 0
       AND tcpp.project_id = #{projectId}
       AND tcpp.parent_id = 0
     ORDER BY tcpp.id ASC LIMIT 1

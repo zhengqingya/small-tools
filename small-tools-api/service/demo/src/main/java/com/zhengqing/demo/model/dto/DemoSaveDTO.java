@@ -1,13 +1,18 @@
 package com.zhengqing.demo.model.dto;
 
 import com.zhengqing.common.model.dto.BaseDTO;
-import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
+import com.zhengqing.common.validator.common.UpdateGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * <p>
@@ -19,7 +24,7 @@ import javax.validation.constraints.NotNull;
  * @date 2021/01/13 10:11
  */
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -40,8 +45,15 @@ public class DemoSaveDTO extends BaseDTO {
     private Integer sex;
 
     @Range(min = 1, max = 1, message = "range: 1-3")
-    @ApiModelProperty("类型")
+    @ApiModelProperty(value = "类型", example = "1")
     private Integer type;
 
+    //    @DateTimeFormat(pattern = MyDateUtil.DATE_TIME_FORMAT)
+    //    @JSONField(format = MyDateUtil.DATE_TIME_FORMAT)
+    @ApiModelProperty(value = "开始时间", example = "2021-08-25 00:00:00")
+    private Date startTime;
+
+    @ApiModelProperty(value = "结束时间", example = "2021-10-25 23:59:59")
+    private Date endTime;
 
 }

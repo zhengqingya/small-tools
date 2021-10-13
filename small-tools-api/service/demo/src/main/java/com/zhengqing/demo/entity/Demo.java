@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
+import java.util.Date;
+
 /**
  * <p>
  * 测试demo
@@ -34,8 +36,17 @@ public class Demo extends BaseEntity<Demo> {
     @ApiModelProperty("密码")
     private String password;
 
+    /**
+     * sex值为空时，MP更新数据库时不忽略此字段值
+     */
     @TableField(value = "sex", updateStrategy = FieldStrategy.IGNORED)
     @ApiModelProperty("性别")
     private Integer sex;
+
+    @ApiModelProperty("开始时间")
+    private Date startTime;
+
+    @ApiModelProperty("结束时间")
+    private Date endTime;
 
 }

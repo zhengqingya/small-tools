@@ -12,11 +12,11 @@ import java.util.List;
 
 /**
  * <p>
- * 返回值配置 用定制的Handler替换默认Handler
+ * 返回值配置
  * </p>
  *
  * @author zhengqingya
- * @description
+ * @description 用定制的Handler替换默认Handler
  * @date 2020/8/1 18:42
  */
 @Configuration
@@ -31,7 +31,7 @@ public class ReturnValueConfig implements InitializingBean {
         List<HandlerMethodReturnValueHandler> list = new ArrayList<>(unmodifiableList.size());
         for (HandlerMethodReturnValueHandler returnValueHandler : unmodifiableList) {
             if (returnValueHandler instanceof RequestResponseBodyMethodProcessor) {
-                list.add(new ResultWarpReturnValueHandler(returnValueHandler));
+                list.add(new MyHandlerMethodReturnValueHandler(returnValueHandler));
             } else {
                 list.add(returnValueHandler);
             }

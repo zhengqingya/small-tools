@@ -22,6 +22,20 @@ on-off:
 
 
 spring:
+  cloud:
+    sentinel:
+      enabled: true # 自动化配置是否生效
+      eager: true   # 禁用控制台懒加载
+      transport:
+        dashboard: ${small-tools.ip}:8858 # 控制台地址
+        # client-ip: ${small-tools.ip} # ${spring.cloud.client.ip-address} # 获取本机IP地址
+        # port: 18719 # 启动该服务，会在应用程序的相应服务器上启动HTTP Server，并且该服务器将与Sentinel dashboard进行交互
+  #  cloud:
+  #    config:
+  #      # 相同配置下优先使用本地配置 (注：需在nacos上配置才生效！)
+  #      override-none: true
+  #      allow-override: true
+  #      override-system-properties: false
   lifecycle:
     timeout-per-shutdown-phase: 30s # 设置缓冲期，最大等待时间（即超时间后，无论线程任务是否执行完毕都会停机处理，需合理设置哦）
   servlet:
@@ -58,14 +72,14 @@ spring:
       strict: false #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候会抛出异常,不启动则使用默认数据源.
       datasource:
         master:
-          url: jdbc:mysql://${small-tools.ip}:3306/small-tools?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false
+          url: jdbc:mysql://${small-tools.ip}:3306/small-tools?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false  ； &serverTimezone=Asia/Shanghai ：解决fastjson时差13小时问题
           name: small-tools
           username: root
           password: root
           platform: mysql
           driver-class-name: com.mysql.cj.jdbc.Driver
         db-test:
-          url: jdbc:mysql://${small-tools.ip}:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false
+          url: jdbc:mysql://${small-tools.ip}:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false  ； &serverTimezone=Asia/Shanghai ：解决fastjson时差13小时问题
           username: root
           password: root
           driver-class-name: com.mysql.cj.jdbc.Driver
@@ -138,6 +152,9 @@ server:
 logging:
   #  config: classpath:log/logback.xml
   config: classpath:logback.xml
+  log:
+    home: logs            # 日志文件保存位置
+    max-history-day: 30   # 日志文件保留天数
 
 # ========================== ↓↓↓↓↓↓ 七牛云配置 ↓↓↓↓↓↓ ==========================
 qiniu:
@@ -175,9 +192,9 @@ mybatis-plus:
       # 驼峰下划线转换
       table-underline: true
       # 逻辑删除配置
-      logic-delete-field: isValid    # 全局逻辑删除的实体字段名
-      logic-delete-value: 0          # 逻辑删除全局值（0表示已删除，默认为 1）
-      logic-not-delete-value: 1      # 逻辑未删除全局值（1表示未删除，默认为 0）
+      logic-delete-field: isDeleted  # 全局逻辑删除的实体字段名
+      logic-delete-value: 1          # 逻辑删除全局值（0表示已删除，默认为 1）
+      logic-not-delete-value: 0      # 逻辑未删除全局值（1表示未删除，默认为 0）
   configuration:
     # 是否开启自动驼峰命名规则映射:从数据库列名到Java属性驼峰命名的类似映射
     map-underscore-to-camel-case: true

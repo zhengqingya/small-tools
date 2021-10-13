@@ -32,3 +32,35 @@ spring:
             refresh: true
         username: ${spring.cloud.nacos.discovery.username}
         password: ${spring.cloud.nacos.discovery.password}
+
+    sentinel:
+      enabled: true # 自动化配置是否生效
+      eager: true   # 禁用控制台懒加载
+      transport:
+        dashboard: 192.168.101.88:8858 # www.zhengqingya.com:8858 # 控制台地址
+        client-ip: ${spring.cloud.client.ip-address} # 获取本机IP地址
+        port: 18719 # 启动该服务，会在应用程序的相应服务器上启动HTTP Server，并且该服务器将与Sentinel dashboard进行交互
+      # nacos配置持久化
+#      datasource:
+#        ds1:
+#          nacos:
+#            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+#            username: ${spring.cloud.nacos.discovery.username}
+#            password: ${spring.cloud.nacos.discovery.password}
+#            dataId: sentinel-${spring.application.name}
+#            groupId: ${spring.cloud.nacos.discovery.group}
+#            data-type: json
+#            rule-type: flow
+
+
+#    config:
+#      # 相同配置下优先使用本地配置 (注：需在nacos上配置才生效！)
+#      override-none: true
+#      allow-override: true
+#      override-system-properties: false
+
+
+# ================================== ↓↓↓↓↓↓ small-tools配置 ↓↓↓↓↓↓ ==================================
+small-tools:
+  swagger:
+    groupName: demo-localhost

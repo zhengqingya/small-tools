@@ -19,7 +19,7 @@
     LEFT JOIN t_cg_project tcp ON tcpt.project_id = tcp.id
     LEFT JOIN t_cg_project_package tcpp ON tcpt.project_package_id = tcpp.id
     WHERE
-    tcpt.is_valid=1
+    tcpt.is_deleted = 0
     <if test="filter.projectTemplateId!=null">
       AND tcpt.project_template_id = #{filter.projectTemplateId}
     </if>

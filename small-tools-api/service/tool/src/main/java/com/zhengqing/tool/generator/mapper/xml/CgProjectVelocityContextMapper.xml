@@ -12,7 +12,7 @@
     context,
     project_id
     FROM t_cg_project_velocity_context
-    WHERE is_valid=1
+    WHERE is_deleted = 0
     <if test="filter.projectId!=null">
       AND project_id = #{filter.projectId}
     </if>

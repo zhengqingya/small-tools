@@ -49,7 +49,7 @@ public interface ICgProjectPackageService extends IService<CgProjectPackage> {
      * @author zhengqingya
      * @date 2020/11/15 17:13
      */
-    Map<Integer, String> packageNameInfoMap(Integer projectId);
+    Map<String, String> packageNameInfoMap(Integer projectId);
 
     /**
      * 获取项目父包名

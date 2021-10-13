@@ -10,7 +10,7 @@
     *
     FROM t_sys_menu
     WHERE
-    is_valid=1
+    is_deleted = 0
     <if test="filter.id!=null">
       AND id = #{filter.id}
     </if>
@@ -39,7 +39,7 @@
     sm.breadcrumb,
     sm.system_source systemSource
     FROM t_sys_menu sm
-    WHERE sm.is_valid = 1
+    WHERE sm.is_deleted = 0
     <if test="systemSource!=null">
       AND sm.system_source = #{systemSource}
     </if>

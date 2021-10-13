@@ -18,7 +18,7 @@
     LEFT JOIN t_cg_project tcp ON tcprd.project_id = tcp.id
     LEFT JOIN t_st_db_data_source tsdbs ON tcprd.db_data_source_id = tsdbs.id
     <where>
-      AND tcprd.is_valid = 1
+      AND tcprd.is_deleted = 0
       <if test="filter.projectId!=null">
         AND tcprd.project_id = #{filter.projectId}
       </if>

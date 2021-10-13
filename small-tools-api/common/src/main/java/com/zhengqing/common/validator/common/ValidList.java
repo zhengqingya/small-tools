@@ -1,4 +1,4 @@
-package com.zhengqing.common.validator.fieldrepeat;
+package com.zhengqing.common.validator.common;
 
 import javax.validation.Valid;
 import java.util.*;

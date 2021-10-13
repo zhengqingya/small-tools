@@ -21,7 +21,7 @@
            mb.btn_id                                                   btnId,
            (SELECT sd.name FROM t_sys_dict sd WHERE sd.id = mb.btn_id) btnName
     FROM t_sys_menu_btn mb
-    WHERE mb.is_valid = 1
+    WHERE mb.is_deleted = 0
       AND mb.menu_id = #{menuId}
   </select>
 

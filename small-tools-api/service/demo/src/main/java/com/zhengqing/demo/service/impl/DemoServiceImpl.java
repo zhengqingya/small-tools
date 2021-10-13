@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.constant.MybatisConstant;
-import com.zhengqing.common.enums.IsValidEnum;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.mapper.DemoMapper;
 import com.zhengqing.demo.model.dto.DemoListDTO;
@@ -64,7 +63,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     }
 
     @Override
-    public IPage<DemoListVO> listPage(DemoListDTO params) {
+    public IPage<DemoListVO> page(DemoListDTO params) {
         IPage<DemoListVO> result = demoMapper.selectDataList(new Page<>(), params);
         List<DemoListVO> list = result.getRecords();
         this.handleResultData(list);
@@ -97,11 +96,14 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         String password = params.getPassword();
         Integer sex = params.getSex();
 
-        Demo demo = new Demo();
-        demo.setId(id);
-        demo.setUsername(username);
-        demo.setPassword(password);
-        demo.setSex(sex);
+        Demo demo = Demo.builder()
+                .id(id)
+                .username(username)
+                .password(password)
+                .sex(sex)
+                .startTime(params.getStartTime())
+                .endTime(params.getEndTime())
+                .build();
 
         // FIXME 临时测试分页
         Demo demoInfo = this.demoMapper
@@ -111,10 +113,11 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
 
         if (id == null) {
             demo.insert();
+            id = demo.getId();
         } else {
             demo.updateById();
         }
-        return demo.getId();
+        return id;
     }
 
     @Async
@@ -190,7 +193,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
             item.setCreateTime(now);
             item.setUpdateBy(1);
             item.setUpdateTime(now);
-            item.setIsValid(IsValidEnum.有效.getValue());
+            item.setIsDeleted(false);
             demoList.add(item);
         }
         demoMapper.insertBatch(demoList);
@@ -213,7 +216,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
             item.setCreateTime(now);
             item.setUpdateBy(1);
             item.setUpdateTime(now);
-            item.setIsValid(IsValidEnum.有效.getValue());
+            item.setIsDeleted(false);
             demoList.add(item);
         }
         SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);

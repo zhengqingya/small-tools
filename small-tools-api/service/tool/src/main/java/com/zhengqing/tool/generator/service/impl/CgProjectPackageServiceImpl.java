@@ -91,10 +91,9 @@ public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMap
     }
 
     @Override
-    public Map<Integer, String> packageNameInfoMap(Integer projectId) {
-        Map<Integer, String> packageNameInfoMap = Maps.newHashMap();
-        List<CgProjectPackageTreeVO> treeData =
-                this.tree(CgProjectPackageTreeDTO.builder().projectId(projectId).build());
+    public Map<String, String> packageNameInfoMap(Integer projectId) {
+        Map<String, String> packageNameInfoMap = Maps.newHashMap();
+        List<CgProjectPackageTreeVO> treeData = this.tree(CgProjectPackageTreeDTO.builder().projectId(projectId).build());
         this.recursionTree(packageNameInfoMap, treeData, "");
         return packageNameInfoMap;
     }
@@ -104,13 +103,11 @@ public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMap
         return cgProjectPackageMapper.selectParentPackageName(projectId);
     }
 
-    private void recursionTree(Map<Integer, String> packageNameInfoMap, List<CgProjectPackageTreeVO> treeData,
-                               String parentPackageName) {
+    private void recursionTree(Map<String, String> packageNameInfoMap, List<CgProjectPackageTreeVO> treeData, String parentPackageName) {
         if (!CollectionUtils.isEmpty(treeData)) {
             treeData.forEach(e -> {
-                String packageNameNew =
-                        (StringUtils.isBlank(parentPackageName) ? "" : parentPackageName + ".") + e.getName();
-                packageNameInfoMap.put(e.getId(), packageNameNew);
+                String packageNameNew = (StringUtils.isBlank(parentPackageName) ? "" : parentPackageName + ".") + e.getName();
+                packageNameInfoMap.put(String.valueOf(e.getId()), packageNameNew);
                 List<CgProjectPackageTreeVO> children = e.getChildren();
                 this.recursionTree(packageNameInfoMap, children, packageNameNew);
             });

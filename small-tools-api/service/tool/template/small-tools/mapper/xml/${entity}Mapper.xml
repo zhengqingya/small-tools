@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${package.mapper}.${entity}Mapper">
+
+  <select id="selectDataList" resultType="${package.vo}.${entity}ListVO">
+    SELECT
+    <#list columnInfoList as item>
+    ${tableNameAbbr}.${item.columnNameDb} ${item.columnNameJavaLower},
+    </#list>
+    FROM ${tableName} ${tableNameAbbr}
+    WHERE ${tableNameAbbr}.is_deleted=0
+    <#list queryColumnInfoList as item>
+    <#if item.columnTypeJava = "Integer">
+    <if test="filter.${item.columnNameJavaLower}!=null">
+      AND ${tableNameAbbr}.${item.columnNameDb} = ${r"#"}{filter.${item.columnNameJavaLower}}
+    </if>
+    <#else>
+    <if test="filter.${item.columnNameJavaLower}!=null and filter.${item.columnNameJavaLower}!=''">
+      AND ${tableNameAbbr}.${item.columnNameDb} LIKE CONCAT( '%', ${r"#"}{filter.${item.columnNameJavaLower}} , '%' )
+    </if>
+    </#if>
+    </#list>
+    ORDER BY ${tableNameAbbr}.update_time DESC
+  </select>
+
+</mapper>

@@ -25,7 +25,7 @@ import java.util.List;
 @ApiModel("数据库表字段信息")
 public class StDbTableColumnListVO {
 
-    @ApiModelProperty(value = "数据源id")
+    @ApiModelProperty(value = "数据源id(内部使用时为空)")
     private Integer dataSourceId;
 
     @ApiModelProperty(value = "数据库名")

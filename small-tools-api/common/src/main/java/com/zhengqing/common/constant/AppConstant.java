@@ -91,13 +91,21 @@ public interface AppConstant {
     // ===============================================================================
 
     /**
-     * 系统分隔符
+     * liunx系统分隔符
      */
     String SEPARATOR_SPRIT = "/";
+    /**
+     * win系统分隔符
+     */
+    String SEPARATOR_BACKSLASH = "\\\\";
     /**
      * 分隔符 - 逗号
      */
     String SEPARATOR_COMMA = ",";
+    /**
+     * 分隔符 - 点
+     */
+    String SEPARATOR_SPOT = ".";
 
     /**
      * 获取项目根目录
@@ -148,16 +156,6 @@ public interface AppConstant {
     // ============================ ↓↓↓↓↓↓ redis缓存系列 ↓↓↓↓↓↓ ============================
     // ===============================================================================
 
-    /**
-     * 系统缓存
-     */
-    String CACHE_SYS_MENU_TREE = "SYS_MENU_TREE";
-    String CACHE_SYS_DICT_PREFIX = "SYS_DICT_";
-    /**
-     * 个人缓存
-     */
-    String CACHE_SYS_USER_INFO_PREFIX = "SYS_USER_INFO_";
-    String CACHE_SYS_PERMISSION_PREFIX = "SYS_PERMISSION_";
 
     // ===============================================================================
     // ============================ ↓↓↓↓↓↓ 业务系列 ↓↓↓↓↓↓ ============================
@@ -198,7 +196,7 @@ public interface AppConstant {
     /**
      * rpc服务调用不需要封装返回值的api
      */
-    List<String> RPC_CLIENT_URL_LIST = Lists.newArrayList("/hello", "/index", "/rpc/client");
+    List<String> RETURN_VALUE_HANDLER_EXCLUDE_API_LIST = Lists.newArrayList("/hello", "/index", "/rpc/client");
 
     // ===============================================================================
     // ============================ ↓↓↓↓↓↓ 其它 ↓↓↓↓↓↓ ============================

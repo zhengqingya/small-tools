@@ -1,7 +1,7 @@
 package com.zhengqing.tool.generator.api;
 
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.fieldrepeat.UpdateGroup;
+import com.zhengqing.common.validator.common.UpdateGroup;
 import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.tool.generator.model.dto.CgProjectPackageListDTO;
 import com.zhengqing.tool.generator.model.dto.CgProjectPackageSaveDTO;

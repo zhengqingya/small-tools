@@ -14,7 +14,7 @@
     tcfmt.is_common isCommon
     FROM t_cg_free_marker_template tcfmt
     <where>
-      AND tcfmt.is_valid = 1
+      AND tcfmt.is_deleted = 0
       <if test="filter.templateKey!=null and filter.templateKey!=''">
         AND tcfmt.template_key LIKE CONCAT( '%', #{filter.templateKey} , '%' )
       </if>

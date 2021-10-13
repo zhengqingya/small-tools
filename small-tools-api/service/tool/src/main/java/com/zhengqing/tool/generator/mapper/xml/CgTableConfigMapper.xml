@@ -8,7 +8,7 @@
     resultType="com.zhengqing.tool.generator.entity.CgTableConfig">
     SELECT *
     FROM t_cg_table_config tc
-    WHERE is_valid=1
+    WHERE is_deleted = 0
     <if test="filter.id!=null">
       AND tc.id = #{filter.id}
     </if>
