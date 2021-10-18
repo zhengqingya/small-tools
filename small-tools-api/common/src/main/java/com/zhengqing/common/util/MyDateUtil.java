@@ -233,6 +233,18 @@ public class MyDateUtil {
         return (int) ((endTime - startTime) / (1000 * 60));
     }
 
+    /**
+     * 在当前时间上加多少秒
+     *
+     * @param second 秒
+     * @return 结果
+     * @author zhengqingya
+     * @date 2021/10/18 16:57
+     */
+    public static Date addSecond(long second) {
+        return new Date(System.currentTimeMillis() + second);
+    }
+
     public static void main(String[] args) {
         Date nowDateTime = new Date();
         String dateStr = dateToStr(nowDateTime, DATE_TIME_FORMAT);
@@ -254,6 +266,8 @@ public class MyDateUtil {
         Date dateTimeEndFormat = dateToEndTime(nowDateTime);
 
         int diffMinute = diffMinute("2020-09-09 10:00:10", "2020-09-09 10:30:10");
+
+        log.info("nowTime:{} addTime: {}", nowStr(), addSecond(1000 * 10));
 
         log.info("--------------------------------");
     }
