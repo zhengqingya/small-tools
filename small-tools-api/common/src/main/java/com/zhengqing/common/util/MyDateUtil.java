@@ -10,7 +10,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -234,15 +236,28 @@ public class MyDateUtil {
     }
 
     /**
-     * 在当前时间上加多少秒
+     * 在当前时间上加指定时间
      *
-     * @param second 秒
+     * @param timeUnit 时间单位
+     * @param time     时间
      * @return 结果
      * @author zhengqingya
      * @date 2021/10/18 16:57
      */
-    public static Date addSecond(long second) {
-        return new Date(System.currentTimeMillis() + second);
+    @SneakyThrows(Exception.class)
+    public static Date addTime(TimeUnit timeUnit, int time) {
+        Calendar nowTime = Calendar.getInstance();
+        switch (timeUnit) {
+            case SECONDS:
+                nowTime.add(Calendar.SECOND, time);
+                break;
+            case MINUTES:
+                nowTime.add(Calendar.MINUTE, time);
+                break;
+            default:
+                throw new Exception("暂不支持该时间类型！");
+        }
+        return nowTime.getTime();
     }
 
     public static void main(String[] args) {
@@ -267,7 +282,8 @@ public class MyDateUtil {
 
         int diffMinute = diffMinute("2020-09-09 10:00:10", "2020-09-09 10:30:10");
 
-        log.info("nowTime:{} addTime: {}", nowStr(), addSecond(1000 * 10));
+        log.info("nowTime:{} addTime: {}", nowStr(), dateToStr(addTime(TimeUnit.SECONDS, 20), DATE_TIME_FORMAT));
+        log.info("nowTime:{} addTime: {}", nowStr(), dateToStr(addTime(TimeUnit.MINUTES, 10), DATE_TIME_FORMAT));
 
         log.info("--------------------------------");
     }
