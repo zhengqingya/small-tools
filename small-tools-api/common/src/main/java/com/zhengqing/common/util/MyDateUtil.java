@@ -254,6 +254,12 @@ public class MyDateUtil {
             case MINUTES:
                 nowTime.add(Calendar.MINUTE, time);
                 break;
+            case HOURS:
+                nowTime.add(Calendar.HOUR, time);
+                break;
+            case DAYS:
+                nowTime.add(Calendar.DATE, time);
+                break;
             default:
                 throw new Exception("暂不支持该时间类型！");
         }
@@ -284,6 +290,8 @@ public class MyDateUtil {
 
         log.info("nowTime:{} addTime: {}", nowStr(), dateToStr(addTime(TimeUnit.SECONDS, 20), DATE_TIME_FORMAT));
         log.info("nowTime:{} addTime: {}", nowStr(), dateToStr(addTime(TimeUnit.MINUTES, 10), DATE_TIME_FORMAT));
+        log.info("nowTime:{} addTime: {}", nowStr(), dateToStr(addTime(TimeUnit.HOURS, 10), DATE_TIME_FORMAT));
+        log.info("nowTime:{} addTime: {}", nowStr(), dateToStr(addTime(TimeUnit.DAYS, 10), DATE_TIME_FORMAT));
 
         log.info("--------------------------------");
     }
