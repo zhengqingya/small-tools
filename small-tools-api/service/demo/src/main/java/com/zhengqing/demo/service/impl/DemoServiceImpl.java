@@ -157,7 +157,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         // 第1次插入
         int page = 1;
         // 每次插入数据条数
-        int pageSize = 500;
+        int pageSize = 5000;
         // 累计插入数量
         int total = 0;
         // 循环插入数据
