@@ -59,9 +59,10 @@ public class DemoController extends BaseController {
     }
 
     @PostMapping("add/batch/data")
-    @ApiOperation("测试插入100w数据用时")
-    public void addBatchData() {
-        this.demoService.addBatchData();
+    @ApiOperation("测试插入数据用时")
+    public String addBatchData(@ApiParam(value = "插入数据量", required = true, example = "10000")
+                               @RequestParam int addSum) {
+        return this.demoService.addBatchData(addSum);
     }
 
     @PostMapping("test/post/param")

@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhengqing.demo.mapper.DemoMapper">
 
-  <select id="selectDataList" resultType="com.zhengqing.demo.model.vo.DemoListVO">
-    SELECT
-    td.id id,
-    td.username username,
-    td.password password,
-    td.start_time startTime,
-    td.end_time endTime
-    FROM t_demo td
-    WHERE td.is_deleted = 0
-    <if test="filter.id!=null">
-      AND td.id = #{filter.id}
-    </if>
-    <if test="filter.username!=null and filter.username!=''">
-      AND td.username LIKE CONCAT( '%', #{filter.username} , '%' )
-    </if>
-    <if test="filter.password!=null and filter.password!=''">
-      AND td.password LIKE CONCAT( '%', #{filter.password} , '%' )
-    </if>
-    ORDER BY td.update_time DESC
-  </select>
+    <select id="selectDataList" resultType="com.zhengqing.demo.model.vo.DemoListVO">
+        SELECT
+        td.id id,
+        td.username username,
+        td.password password,
+        td.start_time startTime,
+        td.end_time endTime
+        FROM t_demo td
+        WHERE td.is_deleted = 0
+        <if test="filter.id!=null">
+            AND td.id = #{filter.id}
+        </if>
+        <if test="filter.username!=null and filter.username!=''">
+            AND td.username LIKE CONCAT( '%', #{filter.username} , '%' )
+        </if>
+        <if test="filter.password!=null and filter.password!=''">
+            AND td.password LIKE CONCAT( '%', #{filter.password} , '%' )
+        </if>
+        ORDER BY td.update_time DESC
+    </select>
 
-  <insert id="insertBatch">
-    INSERT INTO t_demo ( username, password,create_by,create_time,update_by,update_time,is_deleted )
-    VALUES
-    <foreach collection="demoList" item="item" separator=",">
-      (
-      #{item.username}, #{item.password},
-      #{item.createBy}, #{item.createTime},
-      #{item.updateBy}, #{item.updateTime},
-      #{item.isDeleted}
-      )
-    </foreach>
-  </insert>
+    <insert id="insertBatch">
+        INSERT INTO t_demo (
+        username, password, sex,
+        start_time, end_time, remark,
+        create_by, create_time,
+        update_by, update_time,
+        is_deleted )
+        VALUES
+        <foreach collection="demoList" item="item" separator=",">
+            (
+            #{item.username}, #{item.password}, #{item.sex},
+            #{item.startTime}, #{item.endTime}, #{item.remark},
+            #{item.createBy}, #{item.createTime},
+            #{item.updateBy}, #{item.updateTime},
+            #{item.isDeleted}
+            )
+        </foreach>
+    </insert>
 
 </mapper>

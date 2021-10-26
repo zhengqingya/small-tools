@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.constant.MybatisConstant;
+import com.zhengqing.common.util.MyDateUtil;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.mapper.DemoMapper;
 import com.zhengqing.demo.model.dto.DemoListDTO;
@@ -26,6 +27,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -149,18 +151,35 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     }
 
     @Override
-    public void addBatchData() {
-        // 测试插入数据量
-        int addSum = 1000000;
+    public String addBatchData(int addSum) {
         LocalDateTime saveBeforeDateTime = LocalDateTime.now();
-        this.insertData03(addSum);
+
+        // 第1次插入
+        int page = 1;
+        // 每次插入数据条数
+        int pageSize = 500;
+        // 累计插入数量
+        int total = 0;
+        // 循环插入数据
+        for (int index = 1; index <= addSum; ) {
+            total = page * pageSize;
+            log.info("page:[{}] pageSize:[{}] total:[{}] index:[{}]", page, pageSize, total, index);
+            this.insertData03(pageSize);
+            page += 1;
+            index = total + 1;
+        }
+
         LocalDateTime saveAfterDateTime = LocalDateTime.now();
         Duration duration = Duration.between(saveBeforeDateTime, saveAfterDateTime);
-        log.info("测试插入100w数据用时 :【{} s】", duration.toMillis());
+        long millis = duration.toMillis();
+        String msg = String.format("测试插入%s条数据用时: [%s ms]  [%s s]", addSum, millis, millis / 1000);
+        log.info(msg);
+        return msg;
     }
 
     /**
-     * 方式一：for循环中单条插入 1000条数据耗时:8s
+     * 方式一：for循环中单条插入
+     * 测试插入1000条数据用时: [21705 ms]  [21 s]
      */
     private void insertData01(int addSum) {
         for (int i = 0; i < addSum; i++) {
@@ -169,7 +188,8 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     }
 
     /**
-     * 方式二：mybatis api 批量插入 1000条数据耗时:5s
+     * 方式二：mybatis api 批量插入
+     * 测试插入1000条数据用时: [14668 ms]  [14 s]
      */
     private void insertData02(int addSum) {
         List<Demo> demoList = Lists.newLinkedList();
@@ -180,7 +200,11 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     }
 
     /**
-     * 方式三：手写sql 批量插入 1000条数据耗时:1s
+     * 方式三：手写sql 批量插入
+     * 测试插入1000条数据用时: [330 ms]  [0 s]
+     * 测试插入10000条数据用时: [1636 ms]  [1 s]
+     * 测试插入100000条数据用时: [16160 ms]  [16 s]
+     * 测试插入1000000条数据用时: [176016 ms]  [176 s]
      */
     private void insertData03(int addSum) {
         List<Demo> demoList = Lists.newLinkedList();
@@ -189,6 +213,10 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
             Demo item = new Demo();
             item.setUsername("insertData03 - " + i);
             item.setPassword("123456");
+            item.setSex(i % 2);
+            item.setStartTime(MyDateUtil.addTime(TimeUnit.MINUTES, -i));
+            item.setEndTime(MyDateUtil.addTime(TimeUnit.MINUTES, i));
+            item.setRemark("hello:" + i);
             item.setCreateBy(1);
             item.setCreateTime(now);
             item.setUpdateBy(1);
@@ -203,7 +231,8 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     private SqlSessionFactory sqlSessionFactory;
 
     /**
-     * 方式四：批处理 1000条数据耗时:5s
+     * 方式四：批处理
+     * 测试插入1000条数据用时: [14991 ms]  [14 s]
      */
     private void insertData04(int addSum) {
         List<Demo> demoList = Lists.newLinkedList();

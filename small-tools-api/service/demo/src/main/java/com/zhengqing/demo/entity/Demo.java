@@ -49,4 +49,7 @@ public class Demo extends BaseEntity<Demo> {
     @ApiModelProperty("结束时间")
     private Date endTime;
 
+    @ApiModelProperty("备注")
+    private String remark;
+
 }

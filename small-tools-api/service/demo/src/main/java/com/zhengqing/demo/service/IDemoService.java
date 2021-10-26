@@ -69,12 +69,13 @@ public interface IDemoService extends IService<Demo> {
     void asyncExecuteTransactional();
 
     /**
-     * 测试插入100w数据用时
+     * 测试插入指定数据用时
      *
-     * @return void
+     * @param addSum 测试插入数据量
+     * @return 耗时
      * @author zhengqingya
      * @date 2021/5/28 14:06
      */
-    void addBatchData();
+    String addBatchData(int addSum);
 
 }
