@@ -164,7 +164,13 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         for (int index = 1; index <= addSum; ) {
             total = page * pageSize;
             log.info("page:[{}] pageSize:[{}] total:[{}] index:[{}]", page, pageSize, total, index);
-            this.insertData03(pageSize);
+            if (total > addSum) {
+                int finalNum = addSum - ((page - 1) * pageSize);
+                log.info("最后一页新增数：[{}]", finalNum);
+                this.insertData03(finalNum);
+            } else {
+                this.insertData03(pageSize);
+            }
             page += 1;
             index = total + 1;
         }
@@ -204,8 +210,10 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
      * 测试插入1000条数据用时: [330 ms]  [0 s]
      * 测试插入10000条数据用时: [1636 ms]  [1 s]
      * 测试插入100000条数据用时: [16160 ms]  [16 s]
-     * 测试插入1000000条数据用时: [176016 ms]  [176 s]
+     * 测试插入1000000条数据用时: [126093 ms]  [126 s]
+     * 测试插入3000000条数据用时: [331082 ms]  [331 s]
      */
+//    @Async(ThreadPoolConstant.SMALL_TOOLS_THREAD_POOL)
     private void insertData03(int addSum) {
         List<Demo> demoList = Lists.newLinkedList();
         Date now = new Date();
