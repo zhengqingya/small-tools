@@ -64,7 +64,7 @@ spring:
             enable: true
             required: true
 
-  # 配置数据源
+  # 多数据源配置 可参考 https://gitee.com/baomidou/dynamic-datasource-spring-boot-starter
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource   # 连接池类型，druid连接池springboot暂无法默认支持，需要自己配置bean
     dynamic:
