@@ -14,12 +14,11 @@ import com.netflix.loadbalancer.Server;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * <p>
- * 同集群优先带版本的负载均衡策略
+ * Nacos同一集群优先带版本的负载均衡策略
  * </p>
  *
  * @author zhengqingya
@@ -40,51 +39,52 @@ public class TheSameClusterPriorityWithVersionRule extends AbstractLoadBalancerR
     @Override
     public Server choose(Object o) {
         try {
-            // 第一步: 获取当前服务的集群名称 和 服务的版本号
+            // 1、获取当前服务的分组名称、集群名称、版本号
+            String groupName = discoveryProperties.getGroup();
             String clusterName = discoveryProperties.getClusterName();
             String version = discoveryProperties.getMetadata().get("version");
-            // 第二步: 获取当前服务的负载均衡器
+            // 2、获取当前服务的负载均衡器
             BaseLoadBalancer loadBalancer = (BaseLoadBalancer) this.getLoadBalancer();
-            // 第三步: 获取目标服务的服务名
+            // 3、获取目标服务的服务名
             String serviceName = loadBalancer.getName();
-            // 第四步: 获取nacos提供的服务注册api
+            // 4、获取nacos提供的服务注册api
             NamingService namingService = discoveryProperties.namingServiceInstance();
-            // 第五步: 获取所有服务名为serviceName的服务实例
-            List<Instance> allInstances = namingService.getAllInstances(serviceName);
-            // 第六步: 过滤相同版本的服务实例
-            List<Instance> sameVersionInstance = new ArrayList<>();
-            for (Instance instance : allInstances) {
-                if (instance.getMetadata().get("version").equals(version)) {
-                    sameVersionInstance.add(instance);
-                }
-            }
-            // 第七步: 过滤有相同集群的服务实例
-            List<Instance> sameClusterInstance = Lists.newLinkedList();
-            for (Instance instance : sameVersionInstance) {
+            // 5、获取所有服务名为serviceName的服务实例
+            List<Instance> allInstanceList = namingService.getAllInstances(serviceName, groupName);
+            // 6、过滤有相同集群的服务实例
+            List<Instance> sameClusterInstanceList = Lists.newLinkedList();
+            for (Instance instance : allInstanceList) {
                 if (instance.getClusterName().equals(clusterName)) {
-                    sameClusterInstance.add(instance);
+                    sameClusterInstanceList.add(instance);
                 }
             }
-            // 第八步: 选择合适的服务实例
-            Instance toBeChooseInstanc;
-            if (CollectionUtils.isEmpty(sameClusterInstance)) {
-                toBeChooseInstanc = WeightedBalancer.chooseInstanceByRandomWeight(sameVersionInstance);
-                log.warn("跨集群调用, serviceName = {}, clusterName = {}, instances = {}",
+            // 7、过滤相同版本的服务实例
+            List<Instance> sameVersionInstanceList = Lists.newLinkedList();
+            for (Instance instance : sameClusterInstanceList) {
+                if (instance.getMetadata().get("version").equals(version)) {
+                    sameVersionInstanceList.add(instance);
+                }
+            }
+            // 8、选择合适的服务实例
+            Instance toBeChooseInstance;
+            if (CollectionUtils.isEmpty(sameVersionInstanceList)) {
+                toBeChooseInstance = WeightedBalancer.chooseInstanceByRandomWeight(sameClusterInstanceList);
+                log.info("Nacos同一集群不同版本调用 serviceName: [{}], clusterName: [{}], instances: [{}]",
                         serviceName,
                         clusterName,
-                        toBeChooseInstanc
+                        toBeChooseInstance
                 );
             } else {
-                toBeChooseInstanc = WeightedBalancer.chooseInstanceByRandomWeight(sameClusterInstance);
-                log.warn("同集群调用 serviceName = {}, clusterName = {}, instances = {}",
+                toBeChooseInstance = WeightedBalancer.chooseInstanceByRandomWeight(sameVersionInstanceList);
+                log.info("Nacos同一集群同版本调用 serviceName: [{}], clusterName: [{}], instances: [{}]",
                         serviceName,
                         clusterName,
-                        toBeChooseInstanc
+                        toBeChooseInstance
                 );
             }
-            return new NacosServer(toBeChooseInstanc);
+            return new NacosServer(toBeChooseInstance);
         } catch (NacosException e) {
-            log.error("Nacos同一集群优先调用异常: ", e);
+            log.error("Nacos同一集群带版本优先调用异常: ", e);
             return null;
         }
     }

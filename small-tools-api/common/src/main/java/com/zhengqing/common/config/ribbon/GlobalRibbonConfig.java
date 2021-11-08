@@ -16,7 +16,7 @@ public class GlobalRibbonConfig {
 
     @Bean
     public IRule getRule() {
-        // 实现同版本集群优先的服务负载均衡策略
+        // 实现同一集群带版本优先的服务负载均衡策略
         return new TheSameClusterPriorityWithVersionRule();
     }
 
