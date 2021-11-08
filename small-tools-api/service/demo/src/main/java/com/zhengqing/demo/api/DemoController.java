@@ -137,6 +137,21 @@ public class DemoController extends BaseController {
 
     }
 
+
+//    @NoRepeatSubmit
+//    @PostMapping("importData")
+//    @ApiOperation("导入数据")
+//    public String importData(@RequestParam(value = "file", required = false) MultipartFile file,
+//                             @RequestParam(value = "userId", required = false) Integer userId,
+////                             @ModelAttribute List<DemoSaveDTO> list,
+//                             HttpServletRequest request) {
+//        MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+//        MultipartHttpServletRequest multipartRequest = resolver.resolveMultipart(request);
+//        MultipartFile fileNew = multipartRequest.getFile("file");
+//        String websiteIdStr = multipartRequest.getParameter("userId");
+//        return "OK" + websiteIdStr;
+//    }
+
 }
 
 @Data

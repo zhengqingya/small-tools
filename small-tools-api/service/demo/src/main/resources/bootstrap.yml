@@ -13,6 +13,9 @@ spring:
         group: small-tools                     # 分组
         username: nacos
         password: nacos
+        metadata:
+          #当前实例版本
+          version: ${spring.cloud.client.ip-address}
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}  # 配置中心地址
         namespace: ${spring.cloud.nacos.discovery.namespace}      # 命名空间
