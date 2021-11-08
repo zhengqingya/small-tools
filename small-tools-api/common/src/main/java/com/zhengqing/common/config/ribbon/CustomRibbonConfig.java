@@ -17,6 +17,6 @@ import org.springframework.context.annotation.Configuration;
 })*/
 // 使用全局的配置
 @RibbonClients(defaultConfiguration = GlobalRibbonConfig.class)
-public class CustomeRibbonConfig {
+public class CustomRibbonConfig {
 
 }
