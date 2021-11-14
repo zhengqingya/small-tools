@@ -1,10 +1,12 @@
 package com.zhengqing.demo.service.impl;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
+import com.zhengqing.common.constant.DataSourceConstant;
 import com.zhengqing.common.constant.MybatisConstant;
 import com.zhengqing.common.util.MyDateUtil;
 import com.zhengqing.demo.entity.Demo;
@@ -40,6 +42,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Service
+//@DS(DataSourceConstant.MASTER)
 // @Transactional(rollbackFor = Exception.class)
 public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements IDemoService {
 
@@ -181,6 +184,12 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         String msg = String.format("测试插入%s条数据用时: [%s ms]  [%s s]", addSum, millis, millis / 1000);
         log.info(msg);
         return msg;
+    }
+
+    @Override
+    @DS(DataSourceConstant.DB_TEST)
+    public Demo getDataByDbTest(Integer id) {
+        return super.getById(id);
     }
 
     /**

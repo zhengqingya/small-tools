@@ -23,12 +23,6 @@ public interface AppConstant {
     String CONTENT_TYPE = "application/json;charset=utf-8";
 
     /**
-     * db多数据源数据
-     */
-    String DATASOURCE_MASTER = "master";
-    String DATASOURCE_TEST = "db-test";
-
-    /**
      * 实体类名
      */
     String ENTITY_NAME = "${entity}";

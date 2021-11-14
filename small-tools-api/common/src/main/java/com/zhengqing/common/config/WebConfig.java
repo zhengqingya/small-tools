@@ -44,7 +44,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ServletContext
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         initProperties();
-        loadAllUrlMapping(servletContext);
+//        loadAllUrlMapping(servletContext);
     }
 
     /**

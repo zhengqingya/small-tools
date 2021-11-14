@@ -1,6 +1,8 @@
 package com.zhengqing.common.config.mybatis;
 
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.zhengqing.common.config.mybatis.plugins.SqlLogInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -26,10 +28,16 @@ public class MybatisPlusConfig {
      * mybatis-plus分页插件<br>
      * 文档：https://mp.baomidou.com/guide/page.html <br>
      */
+//    @Bean
+//    public PaginationInterceptor paginationInterceptor() {
+//        // paginationInterceptor.setLimit(你的最大单页限制数量，默认 500 条，小于 0 如 -1 不受限制);
+//        return new PaginationInterceptor();
+//    }
     @Bean
-    public PaginationInterceptor paginationInterceptor() {
-        // paginationInterceptor.setLimit(你的最大单页限制数量，默认 500 条，小于 0 如 -1 不受限制);
-        return new PaginationInterceptor();
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        return interceptor;
     }
 
     /**

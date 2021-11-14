@@ -78,4 +78,15 @@ public interface IDemoService extends IService<Demo> {
      */
     String addBatchData(int addSum);
 
+
+    /**
+     * 查询数据 - 从测试库
+     *
+     * @param id 主键ID
+     * @return 数据
+     * @author zhengqingya
+     * @date 2021/11/13 7:09 下午
+     */
+    Demo getDataByDbTest(Integer id);
+
 }
