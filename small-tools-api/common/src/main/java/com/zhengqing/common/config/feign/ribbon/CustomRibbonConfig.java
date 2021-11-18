@@ -1,4 +1,4 @@
-package com.zhengqing.common.config.ribbon;
+package com.zhengqing.common.config.feign.ribbon;
 
 import org.springframework.cloud.netflix.ribbon.RibbonClients;
 import org.springframework.context.annotation.Configuration;

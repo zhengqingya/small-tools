@@ -1,4 +1,4 @@
-package com.zhengqing.common.config.ribbon;
+package com.zhengqing.common.config.feign.ribbon;
 
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.alibaba.nacos.client.naming.core.Balancer;

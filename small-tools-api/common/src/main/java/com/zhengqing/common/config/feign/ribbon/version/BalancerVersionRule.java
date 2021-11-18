@@ -1,4 +1,4 @@
-package com.zhengqing.common.config.ribbon;
+package com.zhengqing.common.config.feign.ribbon.version;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.nacos.ribbon.NacosServer;
@@ -11,6 +11,9 @@ import com.netflix.client.config.IClientConfig;
 import com.netflix.loadbalancer.AbstractLoadBalancerRule;
 import com.netflix.loadbalancer.BaseLoadBalancer;
 import com.netflix.loadbalancer.Server;
+import com.zhengqing.common.config.feign.ribbon.WeightedBalancer;
+import com.zhengqing.common.enums.BalancerRuleTypeEnum;
+import com.zhengqing.common.util.BalancerInstanceUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,7 +21,7 @@ import java.util.List;
 
 /**
  * <p>
- * Nacos同一集群优先带版本的负载均衡策略
+ * 自定义负载均衡策略-同一集群优先带版本实例
  * </p>
  *
  * @author zhengqingya
@@ -26,7 +29,7 @@ import java.util.List;
  * @date 2021/11/8 17:46
  */
 @Slf4j
-public class TheSameClusterPriorityWithVersionRule extends AbstractLoadBalancerRule {
+public class BalancerVersionRule extends AbstractLoadBalancerRule {
 
     @Autowired
     private NacosDiscoveryProperties discoveryProperties;
@@ -69,18 +72,10 @@ public class TheSameClusterPriorityWithVersionRule extends AbstractLoadBalancerR
             Instance toBeChooseInstance;
             if (CollectionUtils.isEmpty(sameVersionInstanceList)) {
                 toBeChooseInstance = WeightedBalancer.chooseInstanceByRandomWeight(sameClusterInstanceList);
-                log.info("Nacos同一集群不同版本调用 serviceName: [{}], clusterName: [{}], instances: [{}]",
-                        serviceName,
-                        clusterName,
-                        toBeChooseInstance
-                );
+                BalancerInstanceUtil.printInstance(BalancerRuleTypeEnum.VERSION_WEIGHT, toBeChooseInstance);
             } else {
                 toBeChooseInstance = WeightedBalancer.chooseInstanceByRandomWeight(sameVersionInstanceList);
-                log.info("Nacos同一集群同版本调用 serviceName: [{}], clusterName: [{}], instances: [{}]",
-                        serviceName,
-                        clusterName,
-                        toBeChooseInstance
-                );
+                BalancerInstanceUtil.printInstance(BalancerRuleTypeEnum.VERSION, toBeChooseInstance);
             }
             return new NacosServer(toBeChooseInstance);
         } catch (NacosException e) {
