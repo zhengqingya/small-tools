@@ -8,8 +8,6 @@ import org.springframework.cloud.netflix.ribbon.RibbonEagerLoadProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
-
 
 /**
  * <p>
@@ -36,9 +34,7 @@ public class MyRibbonEagerLoadProperties {
             return;
         }
         // 如果关闭饥饿加载模式，则默认添加系统所有的服务名
-        List<String> clientList = this.ribbonEagerLoadProperties.getClients();
-        clientList.clear();
-        clientList.addAll(ProjectConstant.ALL_RPC_SERVICE_NAME_LIST);
+        this.ribbonEagerLoadProperties.setClients(ProjectConstant.ALL_RPC_SERVICE_NAME_LIST);
     }
 
 }
