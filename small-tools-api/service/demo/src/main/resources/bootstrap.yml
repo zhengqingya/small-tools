@@ -70,5 +70,6 @@ small-tools:
 
 
 ribbon:
+  rule-type: default
   eager-load:
     enabled: false # 关闭饥饿加载模式
