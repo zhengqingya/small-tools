@@ -32,7 +32,7 @@ import java.util.List;
 public class BalancerVersionRule extends AbstractLoadBalancerRule {
 
     @Autowired
-    private NacosDiscoveryProperties discoveryProperties;
+    private NacosDiscoveryProperties nacosDiscoveryProperties;
 
     @Override
     public void initWithNiwsConfig(IClientConfig iClientConfig) {
@@ -43,15 +43,15 @@ public class BalancerVersionRule extends AbstractLoadBalancerRule {
     public Server choose(Object o) {
         try {
             // 1、获取当前服务的分组名称、集群名称、版本号
-            String groupName = discoveryProperties.getGroup();
-            String clusterName = discoveryProperties.getClusterName();
-            String version = discoveryProperties.getMetadata().get("version");
+            String groupName = this.nacosDiscoveryProperties.getGroup();
+            String clusterName = this.nacosDiscoveryProperties.getClusterName();
+            String version = this.nacosDiscoveryProperties.getMetadata().get("version");
             // 2、获取当前服务的负载均衡器
-            BaseLoadBalancer loadBalancer = (BaseLoadBalancer) this.getLoadBalancer();
+            BaseLoadBalancer baseLoadBalancer = (BaseLoadBalancer) this.getLoadBalancer();
             // 3、获取目标服务的服务名
-            String serviceName = loadBalancer.getName();
+            String serviceName = baseLoadBalancer.getName();
             // 4、获取nacos提供的服务注册api
-            NamingService namingService = discoveryProperties.namingServiceInstance();
+            NamingService namingService = this.nacosDiscoveryProperties.namingServiceInstance();
             // 5、获取所有服务名为serviceName的服务实例
             List<Instance> allInstanceList = namingService.getAllInstances(serviceName, groupName);
             // 6、过滤有相同集群的服务实例

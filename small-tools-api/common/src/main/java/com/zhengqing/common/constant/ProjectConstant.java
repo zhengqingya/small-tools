@@ -1,5 +1,9 @@
 package com.zhengqing.common.constant;
 
+import org.assertj.core.util.Lists;
+
+import java.util.List;
+
 /**
  * <p> 全局常用变量 - 工程使用 </p>
  *
@@ -49,7 +53,13 @@ public interface ProjectConstant {
     /**
      * 服务
      */
+    String RPC_DEMO = "demo";
     String RPC_SYSTEM = "system";
+    String RPC_TOOL = "tool";
+    List<String> ALL_RPC_SERVICE_NAME_LIST = Lists.newArrayList(
+            RPC_DEMO, RPC_SYSTEM, RPC_TOOL
+    );
+
     /**
      * rpc-api前缀
      */

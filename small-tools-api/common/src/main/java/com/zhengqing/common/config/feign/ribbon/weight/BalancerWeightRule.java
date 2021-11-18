@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BalancerWeightRule extends AbstractLoadBalancerRule {
 
     @Autowired
-    private NacosDiscoveryProperties discoveryProperties;
+    private NacosDiscoveryProperties nacosDiscoveryProperties;
 
     @Override
     public void initWithNiwsConfig(IClientConfig iClientConfig) {
@@ -41,15 +41,14 @@ public class BalancerWeightRule extends AbstractLoadBalancerRule {
     @Override
     public Server choose(Object key) {
         try {
-            // 1、获取当前服务的分组名称、集群名称、版本号
-            String groupName = discoveryProperties.getGroup();
-            String clusterName = discoveryProperties.getClusterName();
+            // 1、获取当前服务的分组名称
+            String groupName = this.nacosDiscoveryProperties.getGroup();
             // 2、获取当前服务的负载均衡器
-            BaseLoadBalancer loadBalancer = (BaseLoadBalancer) this.getLoadBalancer();
+            BaseLoadBalancer baseLoadBalancer = (BaseLoadBalancer) this.getLoadBalancer();
             // 3、获取目标服务的服务名
-            String serviceName = loadBalancer.getName();
+            String serviceName = baseLoadBalancer.getName();
             // 4、获取nacos提供的服务注册api
-            NamingService namingService = discoveryProperties.namingServiceInstance();
+            NamingService namingService = this.nacosDiscoveryProperties.namingServiceInstance();
             // 5、根据目标服务名称和分组名称去获取服务实例，nacos实现了权重的负载均衡算法
             Instance toBeChooseInstance = namingService.selectOneHealthyInstance(serviceName, groupName);
             BalancerInstanceUtil.printInstance(BalancerRuleTypeEnum.WEIGHT, toBeChooseInstance);

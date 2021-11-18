@@ -67,3 +67,8 @@ spring:
 small-tools:
   swagger:
     groupName: demo-localhost
+
+
+ribbon:
+  eager-load:
+    enabled: false # 关闭饥饿加载模式
