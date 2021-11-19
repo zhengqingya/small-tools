@@ -38,9 +38,6 @@ public class BalancerWeightRule extends AbstractLoadBalancerRule {
 
     /**
      * 这个方法是实现负载均衡策略的方法
-     *
-     * @param
-     * @return
      */
     @Override
     public Server choose(Object key) {
