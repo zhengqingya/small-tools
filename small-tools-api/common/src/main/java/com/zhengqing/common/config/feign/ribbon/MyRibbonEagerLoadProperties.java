@@ -28,12 +28,8 @@ public class MyRibbonEagerLoadProperties {
 
     @Bean
     public void addRibbonClients() {
-        boolean enabled = this.ribbonEagerLoadProperties.isEnabled();
-        if (enabled) {
-            // 如果开启饥饿加载模式，则使用配置的服务名
-            return;
-        }
-        // 如果关闭饥饿加载模式，则默认添加系统所有的服务名
+        // 默认强行开启饥饿加载模式并加载系统所有服务名
+        this.ribbonEagerLoadProperties.setEnabled(true);
         this.ribbonEagerLoadProperties.setClients(ProjectConstant.ALL_RPC_SERVICE_NAME_LIST);
     }
 
