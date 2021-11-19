@@ -1,6 +1,7 @@
 package com.zhengqing.common.config.feign.ribbon.weight;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
+import com.alibaba.cloud.nacos.NacosServiceManager;
 import com.alibaba.cloud.nacos.ribbon.NacosServer;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
@@ -23,6 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @Slf4j
 public class BalancerWeightRule extends AbstractLoadBalancerRule {
+
+    @Autowired
+    private NacosServiceManager nacosServiceManager;
 
     @Autowired
     private NacosDiscoveryProperties nacosDiscoveryProperties;
@@ -48,9 +52,9 @@ public class BalancerWeightRule extends AbstractLoadBalancerRule {
             // 3、获取目标服务的服务名
             String serviceName = baseLoadBalancer.getName();
             // 4、获取nacos提供的服务注册api
-            NamingService namingService = this.nacosDiscoveryProperties.namingServiceInstance();
+            NamingService namingService = this.nacosServiceManager.getNamingService(this.nacosDiscoveryProperties.getNacosProperties());
             // 5、根据目标服务名称和分组名称去获取服务实例，nacos实现了权重的负载均衡算法
-            Instance toBeChooseInstance = namingService.selectOneHealthyInstance(serviceName, groupName);
+            Instance toBeChooseInstance = namingService.selectOneHealthyInstance(serviceName, groupName, false);
             BalancerInstanceUtil.printInstance(BalancerRuleTypeEnum.WEIGHT, toBeChooseInstance);
             return new NacosServer(toBeChooseInstance);
         } catch (NacosException e) {

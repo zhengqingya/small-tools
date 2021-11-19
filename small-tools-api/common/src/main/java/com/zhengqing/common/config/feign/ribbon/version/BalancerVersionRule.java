@@ -1,6 +1,7 @@
 package com.zhengqing.common.config.feign.ribbon.version;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
+import com.alibaba.cloud.nacos.NacosServiceManager;
 import com.alibaba.cloud.nacos.ribbon.NacosServer;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
@@ -32,6 +33,9 @@ import java.util.List;
 public class BalancerVersionRule extends AbstractLoadBalancerRule {
 
     @Autowired
+    private NacosServiceManager nacosServiceManager;
+
+    @Autowired
     private NacosDiscoveryProperties nacosDiscoveryProperties;
 
     @Override
@@ -51,9 +55,9 @@ public class BalancerVersionRule extends AbstractLoadBalancerRule {
             // 3、获取目标服务的服务名
             String serviceName = baseLoadBalancer.getName();
             // 4、获取nacos提供的服务注册api
-            NamingService namingService = this.nacosDiscoveryProperties.namingServiceInstance();
+            NamingService namingService = this.nacosServiceManager.getNamingService(this.nacosDiscoveryProperties.getNacosProperties());
             // 5、获取所有服务名为serviceName的服务实例
-            List<Instance> allInstanceList = namingService.getAllInstances(serviceName, groupName);
+            List<Instance> allInstanceList = namingService.getAllInstances(serviceName, groupName, false);
             // 6、过滤有相同集群的服务实例
             List<Instance> sameClusterInstanceList = Lists.newLinkedList();
             for (Instance instance : allInstanceList) {
