@@ -1,4 +1,4 @@
-package com.zhengqing.common.config.feign.ribbon.version;
+package com.zhengqing.common.config.feign.ribbon.balancer;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.nacos.NacosServiceManager;
@@ -68,7 +68,7 @@ public class BalancerVersionRule extends AbstractLoadBalancerRule {
             // 7、过滤相同版本的服务实例
             List<Instance> sameVersionInstanceList = Lists.newLinkedList();
             for (Instance instance : sameClusterInstanceList) {
-                if (instance.getMetadata().get("version").equals(version)) {
+                if (version.equals(instance.getMetadata().get("version"))) {
                     sameVersionInstanceList.add(instance);
                 }
             }

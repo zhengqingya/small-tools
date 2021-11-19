@@ -1,4 +1,4 @@
-package com.zhengqing.common.config.feign.ribbon.weight;
+package com.zhengqing.common.config.feign.ribbon.balancer;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.nacos.NacosServiceManager;
@@ -59,5 +59,5 @@ public class BalancerWeightRule extends AbstractLoadBalancerRule {
             return null;
         }
     }
-    
+
 }

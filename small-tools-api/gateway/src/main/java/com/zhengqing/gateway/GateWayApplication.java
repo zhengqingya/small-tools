@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
-// @ComponentScan(basePackages = {"com.zhengqing.gateway", "com.zhengqing.common"})
+//@ComponentScan(basePackages = {"com.zhengqing.common.config.feign"})
 @EnableDiscoveryClient // 开启服务注册发现功能
 public class GateWayApplication {
 

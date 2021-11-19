@@ -1,8 +1,8 @@
 package com.zhengqing.common.config.feign.ribbon;
 
 import com.netflix.loadbalancer.IRule;
-import com.zhengqing.common.config.feign.ribbon.version.BalancerVersionRule;
-import com.zhengqing.common.config.feign.ribbon.weight.BalancerWeightRule;
+import com.zhengqing.common.config.feign.ribbon.balancer.BalancerVersionRule;
+import com.zhengqing.common.config.feign.ribbon.balancer.BalancerWeightRule;
 import com.zhengqing.common.enums.BalancerRuleTypeEnum;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
