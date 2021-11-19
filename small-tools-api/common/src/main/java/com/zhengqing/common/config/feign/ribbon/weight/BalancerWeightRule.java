@@ -50,7 +50,7 @@ public class BalancerWeightRule extends AbstractLoadBalancerRule {
             String serviceName = baseLoadBalancer.getName();
             // 4、获取nacos提供的服务注册api
             NamingService namingService = this.nacosServiceManager.getNamingService(this.nacosDiscoveryProperties.getNacosProperties());
-            // 5、根据目标服务名称和分组名称去获取服务实例，nacos实现了权重的负载均衡算法
+            // 5、根据目标服务名称和分组名称去获取服务实例，nacos实现了权重的负载均衡算法  false: 及时获取nacos注册服务信息
             Instance toBeChooseInstance = namingService.selectOneHealthyInstance(serviceName, groupName, false);
             BalancerInstanceUtil.printInstance(BalancerRuleTypeEnum.WEIGHT, toBeChooseInstance);
             return new NacosServer(toBeChooseInstance);
@@ -59,4 +59,5 @@ public class BalancerWeightRule extends AbstractLoadBalancerRule {
             return null;
         }
     }
+    
 }

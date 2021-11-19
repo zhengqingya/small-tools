@@ -15,6 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 public class BalancerInstanceUtil {
 
     public static void printInstance(BalancerRuleTypeEnum ruleTypeEnum, Instance instance) {
+        if (instance == null) {
+            return;
+        }
         log.info("自定义负载均衡策略-[{}] serviceName: [{}], clusterName: [{}], ip: [{}] port: [{}]",
                 ruleTypeEnum.getDesc(),
                 instance.getServiceName(),

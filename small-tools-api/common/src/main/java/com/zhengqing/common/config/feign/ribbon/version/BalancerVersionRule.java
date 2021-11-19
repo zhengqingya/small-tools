@@ -56,7 +56,7 @@ public class BalancerVersionRule extends AbstractLoadBalancerRule {
             String serviceName = baseLoadBalancer.getName();
             // 4、获取nacos提供的服务注册api
             NamingService namingService = this.nacosServiceManager.getNamingService(this.nacosDiscoveryProperties.getNacosProperties());
-            // 5、获取所有服务名为serviceName的服务实例
+            // 5、获取所有服务名为serviceName的服务实例   false: 及时获取nacos注册服务信息
             List<Instance> allInstanceList = namingService.getAllInstances(serviceName, groupName, false);
             // 6、过滤有相同集群的服务实例
             List<Instance> sameClusterInstanceList = Lists.newLinkedList();
