@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2021/12/6 7:11 下午
  */
 @Configuration
-public class GateWayConfig {
+public class GatewayRouteLocatorConfig {
 
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder routeLocatorBuilder) {
