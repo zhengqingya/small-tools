@@ -6,21 +6,27 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true               # 让gateway从nacos中获取服务信息
+          enabled: true               # 开启从注册中心动态创建路由的功能，利用服务名进行路由
           lower-case-service-id: true # 将请求路径上的服务名配置为小写
-    #      routes:
-    #        - id: nacos-consumer            # 唯一路由表示，没有实际作用不重复就好，建议配合服务名
-    #          uri: lb://nacos-consumer      # 匹配后提供服务的路由地址，lb后跟提供服务的微服务的名，不要写错！！！
-    #          predicates:
-    #            - Path=/consumer/*         # 以`consumer`开头的请求都负载到`nacos-consumer`服务
-    #          filters:
-    #            - RewritePath=/consumer/(?<segment>.*),/$\{segment} # 重写请求路径,例如 http://127.0.0.1:18090/consumer/hi -> http://127.0.0.1:18080/hi
-    #        - id: nacos-provider
-    #          uri: lb://nacos-provider
-    #          predicates:
-    #            - Path=/provider/**
-    #          filters:
-    #            - RewritePath=/provider/(?<segment>.*),/$\{segment}
+      # 配置动态路由
+      routes:
+        - id: nacos-consumer            # 唯一路由表示，没有实际作用不重复就好，建议配合服务名
+          uri: lb://nacos-consumer      # 匹配后提供服务的路由地址，lb后跟提供服务的微服务的名，不要写错！！！
+          predicates:
+            - Path=/consumer/*         # 以`consumer`开头的请求都负载到`nacos-consumer`服务
+          filters:
+            - RewritePath=/consumer/(?<segment>.*),/$\{segment} # 重写请求路径,例如 http://127.0.0.1:18090/consumer/hi -> http://127.0.0.1:18080/hi
+        - id: nacos-provider
+          uri: lb://nacos-provider
+          predicates:
+            - Path=/provider/**
+          filters:
+            - RewritePath=/provider/(?<segment>.*),/$\{segment}
+        # demo服务
+        - id: demo
+          uri: lb://demo
+          predicates:
+            - Path=/web/api/demo/**  # 所有以“/web/api/demo/**”前缀的请求转发到demo服务上 例如 http://127.0.0.1:1218/web/api/demo/demo/detail ->  http://127.0.0.1:1218/demo/web/api/demo/demo/detail
     sentinel:
       enabled: true # 自动化配置是否生效
       eager: true # 禁用控制台懒加载
