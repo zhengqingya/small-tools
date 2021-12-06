@@ -10,9 +10,13 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.gateway.config.PropertiesRouteDefinitionLocator;
+import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -44,6 +48,9 @@ public class GatewayController {
     @Autowired
     private NacosDiscoveryProperties nacosDiscoveryProperties;
 
+    @Resource
+    private PropertiesRouteDefinitionLocator propertiesRouteDefinitionLocator;
+
     @SneakyThrows(Exception.class)
     @GetMapping("getAllInstancesForDemo")
     @ApiOperation("获取nacos注册实例信息 - demo服务")
@@ -63,6 +70,12 @@ public class GatewayController {
     @ApiOperation("hi")
     public String hei() {
         return "this is gateway!";
+    }
+
+    @GetMapping("getGatewayRoute")
+    @ApiOperation("getGatewayRoute")
+    public Flux<RouteDefinition> getGatewayRoute() {
+        return this.propertiesRouteDefinitionLocator.getRouteDefinitions();
     }
 
 }

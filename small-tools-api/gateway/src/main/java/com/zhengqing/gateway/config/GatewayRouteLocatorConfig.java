@@ -11,6 +11,9 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author zhengqingya
  * @description 可参考 https://cloud.spring.io/spring-cloud-static/spring-cloud-gateway/2.2.1.RELEASE/reference/html/#route-metadata-configuration
+ * 方式1: 代码中注入RouteLocator的Bean
+ * 方式2: 在yml配置文件中配置"spring.cloud.gateway.routes"属性值
+ * tips: 两种方式配置值最终会合并处理
  * @date 2021/12/6 7:11 下午
  */
 @Configuration
