@@ -27,6 +27,7 @@ public class ValidatorConfig {
                 // 快速失败模式
                 .failFast(true)
                 .buildValidatorFactory();
+        log.info("Spring Validation 快速失败模式开启 ...");
         return validatorFactory.getValidator();
     }
 
