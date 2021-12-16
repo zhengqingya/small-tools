@@ -13,7 +13,7 @@ import javax.validation.ValidatorFactory;
  * <p> 校验配置 </p>
  *
  * @author zhengqingya
- * @description 快速失败： Spring Validation默认会校验完所有字段，然后才抛出异常。可以通过一些简单的配置，开启`Fali Fast`模式，一旦校验失败就立即返回。
+ * @description 快速失败： Spring Validation默认会校验完所有字段，然后才抛出异常。可以通过一些简单的配置，开启`Fail Fast`模式，一旦校验失败就立即返回。
  * @date 2021/12/16 9:30
  */
 @Slf4j
