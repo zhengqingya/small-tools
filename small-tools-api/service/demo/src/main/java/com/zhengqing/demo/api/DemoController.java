@@ -17,8 +17,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -109,6 +112,10 @@ public class DemoController extends BaseController {
         return this.demoService.getById(demoId);
     }
 
+    /**
+     * `@Valid`: 可嵌套校验，不支持分组校验
+     * `@Validated`: 不支持嵌套校验，但支持分组校验
+     */
     @PostMapping("test/list/")
     @ApiOperation("list校验测试")
     public Integer addListValid(@Valid @RequestBody ValidList<TestSaveDTO> params) {
@@ -132,7 +139,7 @@ public class DemoController extends BaseController {
     }
 
     @PostMapping("test/builder/")
-    @ApiOperation("list校验测试")
+    @ApiOperation("testBuilder")
     public void testBuilder() {
 
     }
@@ -156,6 +163,8 @@ public class DemoController extends BaseController {
 
 @Data
 @SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 class TestSaveDTO extends BaseDTO {
 
@@ -163,6 +172,8 @@ class TestSaveDTO extends BaseDTO {
     @NotNull(message = "主键ID不能为空!")
     private Integer id;
 
+
+    @NotBlank(message = "用户名不能为空!")
     @ApiModelProperty("用户名")
     private String username;
 
