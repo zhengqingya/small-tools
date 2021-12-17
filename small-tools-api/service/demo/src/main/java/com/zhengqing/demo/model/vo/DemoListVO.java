@@ -35,7 +35,22 @@ public class DemoListVO {
     @ApiModelProperty("结束时间")
     private Date endTime;
 
-    @ApiModelProperty("list")
-    private List<String> list;
+    @ApiModelProperty("用户信息list")
+    private List<UserObj> userList;
+
+    @ApiModelProperty("用户信息")
+    private UserObj userObj;
+
+    @Data
+    @ApiModel("测试demo -- mybatis对象映射")
+    static class UserObj {
+
+        @ApiModelProperty("用户名")
+        private String username;
+
+        @ApiModelProperty("密码")
+        private String password;
+
+    }
 
 }

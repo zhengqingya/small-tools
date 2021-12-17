@@ -9,7 +9,11 @@
         td.username username,
         td.password password,
         td.start_time startTime,
-        td.end_time endTime
+        td.end_time endTime,
+        td.username `userObj.username`,
+        td.password `userObj.password`,
+        td.username `userList.username`,
+        td.password `userList.password`
         FROM t_demo td
         WHERE td.is_deleted = 0
         <if test="filter.id!=null">
