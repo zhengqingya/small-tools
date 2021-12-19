@@ -56,6 +56,7 @@ node {
         echo "使用分支：${GIT_BRANCH}"
         echo "使用分支tag：${GIT_BRANCH_TAG}"
         echo "使用网卡：${ETH_VALUE}"
+        echo "是否跳过构建，直接运行docker容器(tips:适用于之前已经进行过构建打包的情景)：${IS_SKIP_BUILD}"
         echo "当前时间：${CURRENT_TIME}"
         sh "mkdir -p ${PROJECT_SERVICE_LOG_HOME}"
         sh "mkdir -p ${PROJECT_JAR_HOME}"
@@ -79,9 +80,13 @@ node {
 
 
     stage('公共工程打包') {
-        echo '****************************** 公共工程打包 ******************************'
-        sh "mvn -f ${PROJECT_SERVICE_COMMON_NAME} clean install -Dmaven.test.skip=true"
-        sh "mvn -f ${PROJECT_SERVICE_API_NAME} clean install -Dmaven.test.skip=true"
+        if ("${IS_SKIP_BUILD}" == "true") {
+            echo '****************************** 公共工程打包 - 跳过 ******************************'
+        } else {
+            echo '****************************** 公共工程打包 ******************************'
+            sh "mvn -f ${PROJECT_SERVICE_COMMON_NAME} clean install -Dmaven.test.skip=true"
+            sh "mvn -f ${PROJECT_SERVICE_API_NAME} clean install -Dmaven.test.skip=true"
+        }
     }
 
     stage('微服务打包&删除旧容器和镜像&推送镜像&部署远程服务器') {
@@ -122,9 +127,12 @@ node {
 
             echo "当前操作项目： ${current_app_name} 端口：${current_app_port}"
 
-            sh "mvn -f ${current_app_parent}/${current_app_name} clean install -Dmaven.test.skip=true"
 
-            sh "cp ${current_app_parent}/${current_app_name}/target/${current_app_jar} ${JENKINS_WORKSPACE}/small-tools-api/docker"
+            if ("${IS_SKIP_BUILD}" != "true") {
+                sh "mvn -f ${current_app_parent}/${current_app_name} clean install -Dmaven.test.skip=true"
+
+                sh "cp ${current_app_parent}/${current_app_name}/target/${current_app_jar} ${JENKINS_WORKSPACE}/small-tools-api/docker"
+            }
 
             // app镜像
             def app_docker_image_name = "small-tools"
@@ -133,23 +141,25 @@ node {
 
             echo "app镜像: ${app_docker_image}"
 
-            // 删除旧容器
-            sh "docker ps -a | grep ${app_docker_image_name} | grep ${app_docker_image_tag} | awk '{print \$1}' | xargs -I docker stop {} | xargs -I docker rm {}"
-            // 删除旧镜像
-            sh "docker images | grep -E ${app_docker_image_name} | grep ${app_docker_image_tag}| awk '{print \$3}' | uniq | xargs -I {} docker rmi --force {}"
-            // 构建新镜像 -f:指定Dockerfile文件路径
-            sh "cd ${JENKINS_WORKSPACE}/small-tools-api/docker && docker build -f Dockerfile --build-arg JAVA_OPTS=\"${JAVA_OPTS}\" --build-arg APP_NAME=${current_app_name} --build-arg APP_PORT=${current_app_port} -t ${app_docker_image} . --no-cache"
+            if ("${IS_SKIP_BUILD}" != "true") {
+                // 删除旧容器
+                sh "docker ps -a | grep ${app_docker_image_name} | grep ${app_docker_image_tag} | awk '{print \$1}' | xargs -I docker stop {} | xargs -I docker rm {}"
+                // 删除旧镜像
+                sh "docker images | grep -E ${app_docker_image_name} | grep ${app_docker_image_tag}| awk '{print \$3}' | uniq | xargs -I {} docker rmi --force {}"
+                // 构建新镜像 -f:指定Dockerfile文件路径
+                sh "cd ${JENKINS_WORKSPACE}/small-tools-api/docker && docker build -f Dockerfile --build-arg JAVA_OPTS=\"${JAVA_OPTS}\" --build-arg APP_NAME=${current_app_name} --build-arg APP_PORT=${current_app_port} -t ${app_docker_image} . --no-cache"
 
 
-            echo '****************************** 推送镜像 ******************************'
+                echo '****************************** 推送镜像 ******************************'
 
-            // 推送镜像
-            sh "docker push ${app_docker_image}"
-            sh "echo 镜像推送成功：${app_docker_image}"
+                // 推送镜像
+                sh "docker push ${app_docker_image}"
+                sh "echo 镜像推送成功：${app_docker_image}"
 
 
-            // 操作完后移除docker目录下的jar文件，防止下次docker将多个jar一起构建导致镜像过大问题
-            sh "mv -f ${JENKINS_WORKSPACE}/small-tools-api/docker/*.jar ${PROJECT_DOCKER_HISTORY_JAR_HOME}/"
+                // 操作完后移除docker目录下的jar文件，防止下次docker将多个jar一起构建导致镜像过大问题
+                sh "mv -f ${JENKINS_WORKSPACE}/small-tools-api/docker/*.jar ${PROJECT_DOCKER_HISTORY_JAR_HOME}/"
+            }
 
 
             echo '****************************** 项目部署 ******************************'
