@@ -21,7 +21,7 @@ import java.util.List;
 public class DemoListVO {
 
     @ApiModelProperty("主键ID")
-    private Integer id;
+    private Long id;
 
     @ApiModelProperty("用户名")
     private String username;

@@ -3,6 +3,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhengqing.demo.mapper.DemoMapper">
 
+    <!-- 测试结果映射返回list对象  -->
+    <resultMap id="resultMap" type="com.zhengqing.demo.model.vo.DemoListVO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <collection property="userList"
+                    ofType="com.zhengqing.demo.model.vo.DemoListVO$UserObj">
+            <result column="username2" jdbcType="VARCHAR" property="username"/>
+            <result column="password2" jdbcType="VARCHAR" property="password"/>
+        </collection>
+    </resultMap>
+
+    <!--    <select id="selectDataList" resultMap="resultMap">-->
     <select id="selectDataList" resultType="com.zhengqing.demo.model.vo.DemoListVO">
         SELECT
         td.id id,
@@ -12,8 +24,8 @@
         td.end_time endTime,
         td.username `userObj.username`,
         td.password `userObj.password`,
-        td.username `userList.username`,
-        td.password `userList.password`
+        td.username username2,
+        td.password password2
         FROM t_demo td
         WHERE td.is_deleted = 0
         <if test="filter.id!=null">
