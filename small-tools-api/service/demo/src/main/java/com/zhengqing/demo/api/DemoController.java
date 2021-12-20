@@ -89,14 +89,14 @@ public class DemoController extends BaseController {
     @NoRepeatSubmit
     @PostMapping("")
     @ApiOperation("新增")
-    public Integer add(@Validated @RequestBody DemoSaveDTO params) {
+    public Long add(@Validated @RequestBody DemoSaveDTO params) {
         return this.demoService.addOrUpdateData(params);
     }
 
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
-    public Integer update(@Validated(UpdateGroup.class) @RequestBody DemoSaveDTO params) {
+    public Long update(@Validated(UpdateGroup.class) @RequestBody DemoSaveDTO params) {
         return this.demoService.addOrUpdateData(params);
     }
 

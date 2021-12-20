@@ -33,7 +33,7 @@ public class DemoSaveDTO extends BaseDTO {
 
     @ApiModelProperty("主键ID")
     @NotNull(groups = {UpdateGroup.class}, message = "主键ID不能为空!")
-    private Integer id;
+    private Long id;
 
     @ApiModelProperty("用户名")
     private String username;

@@ -15,7 +15,7 @@ public class TransactionalInvalidServiceImpl implements ITransactionalInvalidSer
     public void testTransactionalInvalid01() {
         Demo demo = Demo.builder().username("admin").password("123456").build();
         demo.insert();
-        Integer id = demo.getId();
+        Long id = demo.getId();
         log.debug("主键id： 【{}】", id);
 
         log.debug("可能异常启动...");
@@ -32,7 +32,7 @@ public class TransactionalInvalidServiceImpl implements ITransactionalInvalidSer
     public void testTransactionalInvalid02() {
         Demo demo = Demo.builder().username("admin").password("123456").build();
         demo.insert();
-        Integer id = demo.getId();
+        Long id = demo.getId();
         log.debug("主键id： 【{}】", id);
 
         log.debug("可能异常启动...");

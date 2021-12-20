@@ -57,7 +57,7 @@ public interface IDemoService extends IService<Demo> {
      * @author zhengqingya
      * @date 2021/01/13 10:11
      */
-    Integer addOrUpdateData(DemoSaveDTO params);
+    Long addOrUpdateData(DemoSaveDTO params);
 
     /**
      * 测试事务回滚部分异常

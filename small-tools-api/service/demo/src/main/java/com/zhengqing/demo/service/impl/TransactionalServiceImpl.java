@@ -22,7 +22,7 @@ public class TransactionalServiceImpl implements ITransactionalService {
     public void testTransactional01() {
         Demo demo = Demo.builder().username("test-01").password("123456").build();
         demo.insert();
-        Integer id = demo.getId();
+        Long id = demo.getId();
         log.debug("主键id： 【{}】", id);
 
         log.debug("可能异常启动...");
@@ -39,7 +39,7 @@ public class TransactionalServiceImpl implements ITransactionalService {
     public void testTransactional02() {
         Demo demo = Demo.builder().username("test-02").password("123456").build();
         demo.insert();
-        Integer id = demo.getId();
+        Long id = demo.getId();
         log.debug("主键id： 【{}】", id);
 
         log.debug("可能异常启动...");

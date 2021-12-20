@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.constant.DataSourceConstant;
 import com.zhengqing.common.constant.MybatisConstant;
+import com.zhengqing.common.util.IdGeneratorUtil;
 import com.zhengqing.common.util.MyDateUtil;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.mapper.DemoMapper;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import javax.annotation.Resource;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -49,13 +51,16 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     @Autowired
     private DemoMapper demoMapper;
 
+    @Resource
+    private IdGeneratorUtil idGeneratorUtil;
+
     // @Transactional(rollbackFor = Exception.class)
     @Transactional
     @Override
     public void testTransactional() {
         Demo demo = Demo.builder().username("admin").password("123456").build();
         demo.insert();
-        Integer id = demo.getId();
+        Long id = demo.getId();
         log.debug("主键id： 【{}】", id);
 
         log.debug("可能异常启动...");
@@ -95,8 +100,8 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     }
 
     @Override
-    public Integer addOrUpdateData(DemoSaveDTO params) {
-        Integer id = params.getId();
+    public Long addOrUpdateData(DemoSaveDTO params) {
+        Long id = params.getId();
         String username = params.getUsername();
         String password = params.getPassword();
         Integer sex = params.getSex();
@@ -117,8 +122,9 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         log.info("demoInfo ：{}", demoInfo);
 
         if (id == null) {
+            id = idGeneratorUtil.snowflakeId();
+            demo.setId(id);
             demo.insert();
-            id = demo.getId();
         } else {
             demo.updateById();
         }

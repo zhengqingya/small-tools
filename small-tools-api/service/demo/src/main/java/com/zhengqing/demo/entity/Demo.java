@@ -27,8 +27,8 @@ import java.util.Date;
 public class Demo extends BaseEntity<Demo> {
 
     @ApiModelProperty("主键ID")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "id", type = IdType.INPUT)
+    private Long id;
 
     @ApiModelProperty("用户名")
     private String username;
