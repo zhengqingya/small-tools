@@ -55,9 +55,7 @@ public class MybatisPlusConfig {
 
     /**
      * sql 日志
-     *
-     * @param :
-     * @return com.zhengqing.config.mybatis.plugins.SqlLogInterceptor
+     * on-off.mybatis-plus-sql-log值 => true:开启 false:关闭
      */
     @Bean
     @ConditionalOnProperty(value = "on-off.mybatis-plus-sql-log", havingValue = "true")
