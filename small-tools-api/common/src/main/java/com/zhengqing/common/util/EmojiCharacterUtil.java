@@ -188,8 +188,8 @@ public class EmojiCharacterUtil {
      * @return 过滤后的字符
      */
     public static String filter(String srcStr) {
-        if (srcStr == null) {
-            return null;
+        if (StringUtils.isBlank(srcStr)) {
+            return "";
         }
         int cpCount = srcStr.codePointCount(0, srcStr.length());
         int firCodeIndex = srcStr.offsetByCodePoints(0, 0);
@@ -209,8 +209,11 @@ public class EmojiCharacterUtil {
 
     public static void main(String[] args) {
         System.out.println("11 \uD83E\uDDF8 ☀️ ☀ 11");
-        System.out.println(EmojiCharacterUtil.filter("11 \uD83E\uDDF8 ☀️ ☀ 11"));
+        System.out.println(EmojiCharacterUtil.filter("11 \uD83E\uDDF8 🛫 🐻 🐸 \uD83C\uDFF3️ \uD83C\uDF8C ☀️ ☀ 11"));
         System.out.println(EmojiCharacterUtil.filter("123 \ud83d\udfff"));
+
+        System.out.println(EmojiCharacterUtil.filter(" "));
+        System.out.println(EmojiCharacterUtil.filter(""));
 
         System.out.println(EmojiCharacterUtil.filter("👴🐏🐎❀ 汉字 123"));
 
