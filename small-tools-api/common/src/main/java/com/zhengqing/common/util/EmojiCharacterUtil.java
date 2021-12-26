@@ -181,16 +181,22 @@ public class EmojiCharacterUtil {
         return sb.toString();
     }
 
-    public static String filter(String src) {
-        if (src == null) {
+    /**
+     * 过滤emoji 或者 其他非文字类型的字符
+     *
+     * @param srcStr 源文字
+     * @return 过滤后的字符
+     */
+    public static String filter(String srcStr) {
+        if (srcStr == null) {
             return null;
         }
-        int cpCount = src.codePointCount(0, src.length());
-        int firCodeIndex = src.offsetByCodePoints(0, 0);
-        int lstCodeIndex = src.offsetByCodePoints(0, cpCount - 1);
-        StringBuilder sb = new StringBuilder(src.length());
+        int cpCount = srcStr.codePointCount(0, srcStr.length());
+        int firCodeIndex = srcStr.offsetByCodePoints(0, 0);
+        int lstCodeIndex = srcStr.offsetByCodePoints(0, cpCount - 1);
+        StringBuilder sb = new StringBuilder(srcStr.length());
         for (int index = firCodeIndex; index <= lstCodeIndex; ) {
-            int codepoint = src.codePointAt(index);
+            int codepoint = srcStr.codePointAt(index);
             if (!isEmojiCharacter(codepoint)) {
 //                System.err.println("codepoint:" + Integer.toHexString(codepoint));
                 sb.append((char) codepoint);
