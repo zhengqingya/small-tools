@@ -76,6 +76,18 @@ public class MyDateUtil {
     }
 
     /**
+     * Date转Str {@link MyDateUtil.DATE_TIME_FORMAT}
+     *
+     * @param date 时间
+     * @return 字符串时间类型
+     * @author zhengqingya
+     * @date 2020/8/22 13:07
+     */
+    public static String dateToStr(Date date) {
+        return new SimpleDateFormat(DATE_TIME_FORMAT).format(date);
+    }
+
+    /**
      * Date 时间开始处理 (ex: Sat Sep 04 10:11:25 CST 2021 -> 2021-09-04 00:00:00)
      *
      * @param date 时间
