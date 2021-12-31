@@ -258,7 +258,7 @@ public class MyDateUtil {
      */
     @SneakyThrows(Exception.class)
     public static Date addTime(TimeUnit timeUnit, int time) {
-        return addAndsubTime(timeUnit, +time);
+        return addAndSubTime(timeUnit, +time);
     }
 
     /**
@@ -272,7 +272,7 @@ public class MyDateUtil {
      */
     @SneakyThrows(Exception.class)
     public static Date subTime(TimeUnit timeUnit, int time) {
-        return addAndsubTime(timeUnit, -time);
+        return addAndSubTime(timeUnit, -time);
     }
 
     /**
@@ -285,8 +285,8 @@ public class MyDateUtil {
      * @date 2021/10/18 16:57
      */
     @SneakyThrows(Exception.class)
-    public static Date addAndsubTime(TimeUnit timeUnit, int time) {
-        return timeAddAndsubTime(new Date(), timeUnit, time);
+    public static Date addAndSubTime(TimeUnit timeUnit, int time) {
+        return timeAddAndSubTime(new Date(), timeUnit, time);
     }
 
     /**
@@ -299,7 +299,7 @@ public class MyDateUtil {
      * @date 2021/10/18 16:57
      */
     @SneakyThrows(Exception.class)
-    public static Date timeAddAndsubTime(Date sourceDate, TimeUnit timeUnit, int time) {
+    public static Date timeAddAndSubTime(Date sourceDate, TimeUnit timeUnit, int time) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(sourceDate);
         switch (timeUnit) {
@@ -357,7 +357,7 @@ public class MyDateUtil {
 
         log.info("--------------------------------");
 
-        log.info("nowTime:{} timeAddAndsubTime: {}", nowStr(), dateToStr(timeAddAndsubTime(todayStartTime, TimeUnit.MINUTES, 10), DATE_TIME_FORMAT));
+        log.info("nowTime:{} timeAddAndsubTime: {}", nowStr(), dateToStr(timeAddAndSubTime(todayStartTime, TimeUnit.MINUTES, 10), DATE_TIME_FORMAT));
     }
 
 }
