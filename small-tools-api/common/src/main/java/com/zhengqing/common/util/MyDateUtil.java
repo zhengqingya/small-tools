@@ -258,6 +258,34 @@ public class MyDateUtil {
      */
     @SneakyThrows(Exception.class)
     public static Date addTime(TimeUnit timeUnit, int time) {
+        return addAndsubTime(timeUnit, +time);
+    }
+
+    /**
+     * 在当前时间上减指定时间
+     *
+     * @param timeUnit 时间单位
+     * @param time     时间
+     * @return 结果
+     * @author zhengqingya
+     * @date 2021/10/18 16:57
+     */
+    @SneakyThrows(Exception.class)
+    public static Date subTime(TimeUnit timeUnit, int time) {
+        return addAndsubTime(timeUnit, -time);
+    }
+
+    /**
+     * 在当前时间上 加或减 指定时间
+     *
+     * @param timeUnit 时间单位
+     * @param time     时间
+     * @return 结果
+     * @author zhengqingya
+     * @date 2021/10/18 16:57
+     */
+    @SneakyThrows(Exception.class)
+    public static Date addAndsubTime(TimeUnit timeUnit, int time) {
         Calendar nowTime = Calendar.getInstance();
         switch (timeUnit) {
             case SECONDS:
@@ -304,6 +332,13 @@ public class MyDateUtil {
         log.info("nowTime:{} addTime: {}", nowStr(), dateToStr(addTime(TimeUnit.MINUTES, 10), DATE_TIME_FORMAT));
         log.info("nowTime:{} addTime: {}", nowStr(), dateToStr(addTime(TimeUnit.HOURS, 10), DATE_TIME_FORMAT));
         log.info("nowTime:{} addTime: {}", nowStr(), dateToStr(addTime(TimeUnit.DAYS, 10), DATE_TIME_FORMAT));
+
+        log.info("--------------------------------");
+
+        log.info("nowTime:{} subTime: {}", nowStr(), dateToStr(subTime(TimeUnit.SECONDS, 20), DATE_TIME_FORMAT));
+        log.info("nowTime:{} subTime: {}", nowStr(), dateToStr(subTime(TimeUnit.MINUTES, 10), DATE_TIME_FORMAT));
+        log.info("nowTime:{} subTime: {}", nowStr(), dateToStr(subTime(TimeUnit.HOURS, 10), DATE_TIME_FORMAT));
+        log.info("nowTime:{} subTime: {}", nowStr(), dateToStr(subTime(TimeUnit.DAYS, 10), DATE_TIME_FORMAT));
 
         log.info("--------------------------------");
     }
