@@ -233,8 +233,8 @@ public class MyDateUtil {
     /**
      * 计算两时间分钟差
      *
-     * @param startTimeStr 开始时间 ex:2020-09-09 10:00:10
-     * @param endTimeStr   结束时间 ex:2020-09-09 10:30:10
+     * @param startTimeStr 开始时间 ex: 2020-09-09 10:00:10
+     * @param endTimeStr   结束时间 ex: 2020-09-09 10:30:10
      * @return 分钟差 ex:30
      * @author zhengqingya
      * @date 2021/9/9 10:21
@@ -245,6 +245,20 @@ public class MyDateUtil {
         long startTime = simpleFormat.parse(startTimeStr).getTime();
         long endTime = simpleFormat.parse(endTimeStr).getTime();
         return (int) ((endTime - startTime) / (1000 * 60));
+    }
+
+    /**
+     * 计算两时间毫秒差
+     *
+     * @param startTime 开始时间
+     * @param endTime   结束时间
+     * @return 毫秒差 ex:30
+     * @author zhengqingya
+     * @date 2021/9/9 10:21
+     */
+    @SneakyThrows(Exception.class)
+    public static long diffMillisecond(Date startTime, Date endTime) {
+        return endTime.getTime() - startTime.getTime();
     }
 
     /**
@@ -342,6 +356,7 @@ public class MyDateUtil {
         Date dateTimeEndFormat = dateToEndTime(nowDateTime);
 
         int diffMinute = diffMinute("2020-09-09 10:00:10", "2020-09-09 10:30:10");
+        long diffMillisecond = diffMillisecond(todayStartTime, todayEndTime);
 
         log.info("nowTime:{} addTime: {}", nowStr(), dateToStr(addTime(TimeUnit.SECONDS, 20), DATE_TIME_FORMAT));
         log.info("nowTime:{} addTime: {}", nowStr(), dateToStr(addTime(TimeUnit.MINUTES, 10), DATE_TIME_FORMAT));
