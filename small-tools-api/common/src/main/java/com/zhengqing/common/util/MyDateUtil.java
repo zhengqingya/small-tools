@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author zhengqingya
  * @description
- * @date 2019/8/18 0018 12:57
+ * @date 2019/8/18 12:57
  */
 @Slf4j
 public class MyDateUtil {
@@ -286,24 +286,39 @@ public class MyDateUtil {
      */
     @SneakyThrows(Exception.class)
     public static Date addAndsubTime(TimeUnit timeUnit, int time) {
-        Calendar nowTime = Calendar.getInstance();
+        return timeAddAndsubTime(new Date(), timeUnit, time);
+    }
+
+    /**
+     * 在指定时间上 加或减 指定时间
+     *
+     * @param timeUnit 时间单位
+     * @param time     时间
+     * @return 结果
+     * @author zhengqingya
+     * @date 2021/10/18 16:57
+     */
+    @SneakyThrows(Exception.class)
+    public static Date timeAddAndsubTime(Date sourceDate, TimeUnit timeUnit, int time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(sourceDate);
         switch (timeUnit) {
             case SECONDS:
-                nowTime.add(Calendar.SECOND, time);
+                calendar.add(Calendar.SECOND, time);
                 break;
             case MINUTES:
-                nowTime.add(Calendar.MINUTE, time);
+                calendar.add(Calendar.MINUTE, time);
                 break;
             case HOURS:
-                nowTime.add(Calendar.HOUR, time);
+                calendar.add(Calendar.HOUR, time);
                 break;
             case DAYS:
-                nowTime.add(Calendar.DATE, time);
+                calendar.add(Calendar.DATE, time);
                 break;
             default:
                 throw new Exception("暂不支持该时间类型！");
         }
-        return nowTime.getTime();
+        return calendar.getTime();
     }
 
     public static void main(String[] args) {
@@ -341,6 +356,8 @@ public class MyDateUtil {
         log.info("nowTime:{} subTime: {}", nowStr(), dateToStr(subTime(TimeUnit.DAYS, 10), DATE_TIME_FORMAT));
 
         log.info("--------------------------------");
+
+        log.info("nowTime:{} timeAddAndsubTime: {}", nowStr(), dateToStr(timeAddAndsubTime(todayStartTime, TimeUnit.MINUTES, 10), DATE_TIME_FORMAT));
     }
 
 }
