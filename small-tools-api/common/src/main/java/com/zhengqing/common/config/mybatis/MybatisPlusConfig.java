@@ -39,7 +39,7 @@ public class MybatisPlusConfig {
     private static final Set<String> TENANT_ID_TABLE = new HashSet<>();
 
     static {
-        TENANT_ID_TABLE.add("t_test");
+        TENANT_ID_TABLE.add("t_demo2");
     }
 
 
@@ -68,9 +68,13 @@ public class MybatisPlusConfig {
             // 这是 default 方法,默认返回 false 表示所有表都需要拼多租户条件
             @Override
             public boolean ignoreTable(String tableName) {
+                if (!TENANT_ID_TABLE.contains(tableName)) {
+                    // 不需要租户id
+                    return true;
+                }
                 Boolean tenantIdFlag = TenantIdContext.getFlag();
                 Assert.notNull(tenantIdFlag, "租户id不能为空！");
-                return TENANT_ID_TABLE.contains(tableName) && tenantIdFlag;
+                return !tenantIdFlag;
             }
         }));
 

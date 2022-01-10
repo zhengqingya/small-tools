@@ -17,15 +17,15 @@ public class TenantIdContext {
      */
     public static final ThreadLocal<Long> TENANT_ID_THREAD_LOCAL = new ThreadLocal<>();
     /**
-     * 租户ID是否排除标识
-     * true : 是 -> 查询条件,不自动拼接租户ID
-     * false: 否 -> 查询条件,自动拼接上租户ID
+     * 租户ID是否启用标识
+     * true : 是 -> 执行sql时，自动拼接租户ID
+     * false: 否 -> 执行sql时，不自动拼接租户ID
      */
     public static final ThreadLocal<Boolean> TENANT_ID_FLAG_THREAD_LOCAL = new ThreadLocal<>();
 
     public static void setTenantId(Long tenantId) {
         TENANT_ID_THREAD_LOCAL.set(tenantId);
-        TENANT_ID_FLAG_THREAD_LOCAL.set(false);
+        TENANT_ID_FLAG_THREAD_LOCAL.set(true);
     }
 
     public static Long getTenantId() {
@@ -33,7 +33,7 @@ public class TenantIdContext {
     }
 
     public static void removeFlag() {
-        TENANT_ID_FLAG_THREAD_LOCAL.set(true);
+        TENANT_ID_FLAG_THREAD_LOCAL.set(false);
     }
 
 
