@@ -21,6 +21,16 @@ import java.util.List;
 public interface IDemoService extends IService<Demo> {
 
     /**
+     * 测试数据权限
+     *
+     * @param params 查询参数
+     * @return 查询结果
+     * @author zhengqingya
+     * @date 2021/01/13 10:11
+     */
+    IPage<DemoListVO> testDataPermission(DemoListDTO params);
+
+    /**
      * 测试数据范围（数据权限）
      *
      * @return void
@@ -41,7 +51,7 @@ public interface IDemoService extends IService<Demo> {
     /**
      * 列表分页
      *
-     * @param params: 查询参数
+     * @param params 查询参数
      * @return 查询结果
      * @author zhengqingya
      * @date 2021/01/13 10:11
@@ -51,7 +61,7 @@ public interface IDemoService extends IService<Demo> {
     /**
      * 列表
      *
-     * @param params: 查询参数
+     * @param params 查询参数
      * @return 查询结果
      * @author zhengqingya
      * @date 2021/01/13 10:11
@@ -61,7 +71,7 @@ public interface IDemoService extends IService<Demo> {
     /**
      * 新增或更新
      *
-     * @param params: 保存参数
+     * @param params 保存参数
      * @return 主键id
      * @author zhengqingya
      * @date 2021/01/13 10:11

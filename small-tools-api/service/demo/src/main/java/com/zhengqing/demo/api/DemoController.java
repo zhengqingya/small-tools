@@ -62,6 +62,12 @@ public class DemoController extends BaseController {
         return this.demoService.getById(1L);
     }
 
+    @GetMapping("test/dataPermission")
+    @ApiOperation("测试数据权限")
+    public IPage<DemoListVO> testDataPermission(@Validated @ModelAttribute DemoListDTO params) {
+        return this.demoService.testDataPermission(params);
+    }
+
     @GetMapping("test/dataScope")
     @ApiOperation("测试数据范围（数据权限）")
     public void testDataScope() {

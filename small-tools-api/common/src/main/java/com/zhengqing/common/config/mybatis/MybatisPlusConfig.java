@@ -4,8 +4,10 @@ import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
+import com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
+import com.zhengqing.common.config.mybatis.data.permission.MyDataPermissionHandler;
 import com.zhengqing.common.config.mybatis.plugins.SqlLogInterceptor;
 import com.zhengqing.common.context.TenantIdContext;
 import net.sf.jsqlparser.expression.Expression;
@@ -80,8 +82,17 @@ public class MybatisPlusConfig {
 
         // tips: 如果用了分页插件注意先 add TenantLineInnerInterceptor 再 add PaginationInnerInterceptor
 
+
         /**
-         * 2、mybatis-plus分页插件
+         * 2、添加数据权限插件 {@link com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionInterceptor}
+         */
+        DataPermissionInterceptor dataPermissionInterceptor = new DataPermissionInterceptor();
+        // 添加自定义的数据权限处理器
+        dataPermissionInterceptor.setDataPermissionHandler(new MyDataPermissionHandler());
+        interceptor.addInnerInterceptor(dataPermissionInterceptor);
+
+        /**
+         * 3、mybatis-plus分页插件
          * 文档：https://baomidou.com/pages/2976a3/#spring-boot
          */
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));

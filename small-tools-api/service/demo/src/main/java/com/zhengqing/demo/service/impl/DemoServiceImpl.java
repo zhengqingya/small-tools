@@ -6,8 +6,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
+import com.zhengqing.common.config.mybatis.data.permission.UserPermissionInfo;
 import com.zhengqing.common.constant.DataSourceConstant;
 import com.zhengqing.common.constant.MybatisConstant;
+import com.zhengqing.common.context.DataPermissionThreadLocal;
+import com.zhengqing.common.enums.DataPermissionTypeEnum;
 import com.zhengqing.common.util.IdGeneratorUtil;
 import com.zhengqing.common.util.MyDateUtil;
 import com.zhengqing.demo.entity.Demo;
@@ -54,6 +57,14 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
 
     @Resource
     private IdGeneratorUtil idGeneratorUtil;
+
+    @Override
+    public IPage<DemoListVO> testDataPermission(DemoListDTO params) {
+        // 模拟设置当前用户的id是 1 ，其拥有的数据权限为：本人
+        DataPermissionThreadLocal.set(UserPermissionInfo.builder().dataPermissionTypeEnum(DataPermissionTypeEnum.SELF).userId(1L).build());
+        return this.demoMapper.selectDataList(new Page<>(), params);
+    }
+
 
     @Override
     public void testDataScope() {
