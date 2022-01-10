@@ -55,6 +55,13 @@ public class DemoController extends BaseController {
     @Autowired
     private DemoMapper demoMapper;
 
+    @GetMapping("test/tenantId")
+    @ApiOperation("测试-租户id")
+    public Demo testTenantId() {
+//        TenantIdContext.removeFlag();
+        return this.demoService.getById(1L);
+    }
+
     @GetMapping("test/dataScope")
     @ApiOperation("测试数据范围（数据权限）")
     public void testDataScope() {

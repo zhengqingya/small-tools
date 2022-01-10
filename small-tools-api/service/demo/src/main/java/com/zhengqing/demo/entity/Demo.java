@@ -54,4 +54,7 @@ public class Demo extends BaseEntity<Demo> {
     @ApiModelProperty("备注")
     private String remark;
 
+    @ApiModelProperty("租户ID")
+    private Long tenantId;
+
 }

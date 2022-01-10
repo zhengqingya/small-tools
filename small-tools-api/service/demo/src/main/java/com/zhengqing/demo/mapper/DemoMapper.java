@@ -64,6 +64,17 @@ public interface DemoMapper extends BaseMapper<Demo> {
     void deleteDataByDataScope(@Param("id") Long id);
 
     /**
+     * 自定义SQL：默认也会增加多租户条件
+     * 参考打印的SQL
+     *
+     * @return 数据量
+     * @author zhengqingya
+     * @date 2022/1/10 16:03
+     */
+    @Select("select count(1) from t_demo")
+    Long myCount();
+
+    /**
      * 列表分页
      *
      * @param page   分页数据
