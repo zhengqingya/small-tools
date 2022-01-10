@@ -16,6 +16,7 @@ import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.dto.DemoSaveDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
 import com.zhengqing.demo.service.IDemoService;
+import com.zhengqing.system.enums.SysUserSexEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
@@ -110,7 +111,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
                 .id(id)
                 .username(username)
                 .password(password)
-                .sex(sex)
+                .sexEnum(SysUserSexEnum.getEnum(sex))
                 .startTime(params.getStartTime())
                 .endTime(params.getEndTime())
                 .build();
@@ -236,7 +237,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
             Demo item = new Demo();
             item.setUsername("insertData03 - " + i);
             item.setPassword("123456");
-            item.setSex(i % 2);
+            item.setSexEnum(SysUserSexEnum.getEnum(i % 2));
             item.setStartTime(MyDateUtil.addTime(TimeUnit.MINUTES, -i));
             item.setEndTime(MyDateUtil.addTime(TimeUnit.MINUTES, i));
             item.setRemark("hello:" + i);

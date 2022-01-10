@@ -25,14 +25,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class MybatisPlusConfig {
 
     /**
-     * mybatis-plus分页插件<br>
-     * 文档：https://mp.baomidou.com/guide/page.html <br>
+     * mybatis-plus分页插件
+     * 文档：https://baomidou.com/pages/2976a3/#spring-boot
      */
-//    @Bean
-//    public PaginationInterceptor paginationInterceptor() {
-//        // paginationInterceptor.setLimit(你的最大单页限制数量，默认 500 条，小于 0 如 -1 不受限制);
-//        return new PaginationInterceptor();
-//    }
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();

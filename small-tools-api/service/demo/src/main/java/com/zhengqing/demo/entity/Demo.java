@@ -2,6 +2,7 @@ package com.zhengqing.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.zhengqing.common.entity.BaseEntity;
+import com.zhengqing.system.enums.SysUserSexEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -37,11 +38,12 @@ public class Demo extends BaseEntity<Demo> {
     private String password;
 
     /**
+     * {@link com.zhengqing.system.enums.SysUserSexEnum}
      * sex值为空时，MP更新数据库时不忽略此字段值
      */
     @TableField(value = "sex", updateStrategy = FieldStrategy.IGNORED)
     @ApiModelProperty("性别")
-    private Integer sex;
+    private SysUserSexEnum sexEnum;
 
     @ApiModelProperty("开始时间")
     private Date startTime;

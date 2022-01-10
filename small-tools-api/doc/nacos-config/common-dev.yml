@@ -177,7 +177,8 @@ mybatis-plus:
   mapper-locations: classpath:**/*Mapper.xml
   # 实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: com.zhengqing.*.entity
-  # typeEnumsPackage: com.zhengqing.*.**.enumeration
+  # 配置扫描通用枚举, 支持统配符 * 或者 ; 分割
+  type-enums-package: com.zhengqing.*.enums
   # 以下配置均有默认值,可以不设置
   global-config:
     # 关闭MP3.0+自带的banner

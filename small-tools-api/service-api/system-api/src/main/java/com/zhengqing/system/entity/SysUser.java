@@ -41,6 +41,9 @@ public class SysUser extends BaseEntity<SysUser> {
     @ApiModelProperty(value = "昵称")
     private String nickname;
 
+    /**
+     * {@link com.zhengqing.system.enums.SysUserSexEnum}
+     */
     @ApiModelProperty(value = "性别(0:未知 1:男 2:女)")
     private Integer sex;
 
