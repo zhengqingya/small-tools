@@ -37,6 +37,7 @@ public enum SysUserSexEnum {
 
     /**
      * 类型值
+     * {@link com.baomidou.mybatisplus.annotation.EnumValue} 标记数据库存的值是type
      */
     @EnumValue
     private final Integer type;
