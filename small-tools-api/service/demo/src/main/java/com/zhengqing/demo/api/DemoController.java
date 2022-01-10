@@ -55,6 +55,12 @@ public class DemoController extends BaseController {
     @Autowired
     private DemoMapper demoMapper;
 
+    @GetMapping("test/dataScope")
+    @ApiOperation("测试数据范围（数据权限）")
+    public void testDataScope() {
+        this.demoService.testDataScope();
+    }
+
     @GetMapping("test/transactional")
     @ApiOperation("测试事务")
     public void testTransactional() {
@@ -128,11 +134,11 @@ public class DemoController extends BaseController {
     @ApiOperation("测试更新")
     public Demo testUpdate() {
 
-        Demo a = demoMapper.selectById(2);
+        Demo a = this.demoMapper.selectById(2);
         System.out.println(a);
         a.setUsername("xx");
 
-        Demo b = demoMapper.selectById(2);
+        Demo b = this.demoMapper.selectById(2);
         System.out.println("xx::::::" + b);
 
         return new Demo();

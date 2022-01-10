@@ -2,10 +2,16 @@ package com.zhengqing.demo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zhengqing.common.config.mybatis.MybatisPlusDataScopeConfig;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
+import mybatis.mate.annotation.DataColumn;
+import mybatis.mate.annotation.DataScope;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -18,13 +24,50 @@ import java.util.List;
  * @description
  * @date 2021/01/13 10:11
  */
+@Mapper
 public interface DemoMapper extends BaseMapper<Demo> {
+
+    /**
+     * 测试 test 类型数据权限范围，混合分页模式 {@link com.zhengqing.common.config.mybatis.MybatisPlusDataScopeConfig}
+     * <p>
+     * 最终执行SQL语句： SELECT d.* FROM t_demo d WHERE (d.id IN ('1', '2', '3', '5')) AND d.username LIKE '%1533%'
+     *
+     * @param page     分页参数
+     * @param id       id
+     * @param username 用户名
+     * @return 结果
+     * @author zhengqingya
+     * @date 2022/1/10 15:29
+     */
+    @DataScope(type = MybatisPlusDataScopeConfig.TEST, value = {
+            // 关联表 t_demo 别名 d 指定id字段权限
+            @DataColumn(alias = "d", name = "id"),
+            // 关联表 t_demo 别名 d 指定用户名字段权限（自己判断处理）
+            @DataColumn(alias = "d", name = "username")
+    })
+    @Select("select d.* from t_demo d")
+    List<Demo> selectTestListByDataScope(IPage<Demo> page, Long id, @Param("username") String username);
+
+    /**
+     * 删除数据
+     *
+     * @param id 主键id
+     * @return void
+     * @author zhengqingya
+     * @date 2022/1/10 15:48
+     */
+    @DataScope(type = MybatisPlusDataScopeConfig.TEST_CLASS, value = {
+            @DataColumn(name = "id")
+    })
+    @Delete("DELETE FROM t_demo WHERE id = #{id}")
+//    @Update("UPDATE t_demo SET is_deleted = 1 WHERE id = #{id}")
+    void deleteDataByDataScope(@Param("id") Long id);
 
     /**
      * 列表分页
      *
-     * @param page:   分页数据
-     * @param filter: 查询过滤参数
+     * @param page   分页数据
+     * @param filter 查询过滤参数
      * @return 查询结果
      * @author zhengqingya
      * @date 2021/01/13 10:11
@@ -34,7 +77,7 @@ public interface DemoMapper extends BaseMapper<Demo> {
     /**
      * 列表
      *
-     * @param filter: 查询过滤参数
+     * @param filter 查询过滤参数
      * @return 查询结果
      * @author zhengqingya
      * @date 2021/01/13 10:11
@@ -44,7 +87,7 @@ public interface DemoMapper extends BaseMapper<Demo> {
     /**
      * 批量插入数据
      *
-     * @param demoList: list
+     * @param demoList list
      * @return void
      * @author zhengqingya
      * @date 2021/5/28 14:28

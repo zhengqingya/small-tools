@@ -49,11 +49,23 @@ import java.util.concurrent.TimeUnit;
 // @Transactional(rollbackFor = Exception.class)
 public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements IDemoService {
 
-    @Autowired
+    @Resource
     private DemoMapper demoMapper;
 
     @Resource
     private IdGeneratorUtil idGeneratorUtil;
+
+    @Override
+    public void testDataScope() {
+        Page page = new Page<Demo>(1, 2);
+        this.demoMapper.selectTestListByDataScope(page, 1L, "Jack").forEach(System.out::println);
+        // 观察 sql 变化这个方法没有注解权限
+        Demo user = this.demoMapper.selectById(1L);
+        user.setUsername("abc");
+        this.demoMapper.updateById(user);
+        this.demoMapper.insert(Demo.builder().username("admin").password("123456").build());
+        this.demoMapper.deleteDataByDataScope(666L);
+    }
 
     // @Transactional(rollbackFor = Exception.class)
     @Transactional
@@ -75,7 +87,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
 
     @Override
     public IPage<DemoListVO> page(DemoListDTO params) {
-        IPage<DemoListVO> result = demoMapper.selectDataList(new Page<>(), params);
+        IPage<DemoListVO> result = this.demoMapper.selectDataList(new Page<>(), params);
         List<DemoListVO> list = result.getRecords();
         this.handleResultData(list);
         return result;
@@ -83,7 +95,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
 
     @Override
     public List<DemoListVO> list(DemoListDTO params) {
-        List<DemoListVO> list = demoMapper.selectDataList(params);
+        List<DemoListVO> list = this.demoMapper.selectDataList(params);
         this.handleResultData(list);
         return list;
     }
@@ -123,7 +135,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         log.info("demoInfo ：{}", demoInfo);
 
         if (id == null) {
-            id = idGeneratorUtil.snowflakeId();
+            id = this.idGeneratorUtil.snowflakeId();
             demo.setId(id);
             demo.insert();
         } else {
@@ -248,7 +260,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
             item.setIsDeleted(false);
             demoList.add(item);
         }
-        demoMapper.insertBatch(demoList);
+        this.demoMapper.insertBatch(demoList);
     }
 
     @Autowired
@@ -272,7 +284,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
             item.setIsDeleted(false);
             demoList.add(item);
         }
-        SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
+        SqlSession sqlSession = this.sqlSessionFactory.openSession(ExecutorType.BATCH, false);
         DemoMapper demoMapperNew = sqlSession.getMapper(DemoMapper.class);
         demoList.stream().forEach(demoMapperNew::insert);
         sqlSession.commit();

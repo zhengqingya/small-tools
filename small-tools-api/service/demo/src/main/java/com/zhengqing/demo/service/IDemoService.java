@@ -21,6 +21,15 @@ import java.util.List;
 public interface IDemoService extends IService<Demo> {
 
     /**
+     * 测试数据范围（数据权限）
+     *
+     * @return void
+     * @author zhengqingya
+     * @date 2022/1/10 15:11
+     */
+    void testDataScope();
+
+    /**
      * 测试事务
      *
      * @return void
