@@ -2,7 +2,7 @@ package com.zhengqing.demo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zhengqing.common.config.mybatis.MybatisPlusDataScopeConfig;
+import com.zhengqing.demo.config.MybatisPlusDataScopeConfig;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
@@ -28,7 +28,7 @@ import java.util.List;
 public interface DemoMapper extends BaseMapper<Demo> {
 
     /**
-     * 测试 test 类型数据权限范围，混合分页模式 {@link com.zhengqing.common.config.mybatis.MybatisPlusDataScopeConfig}
+     * 测试 test 类型数据权限范围，混合分页模式 {@link com.zhengqing.demo.config.MybatisPlusDataScopeConfig}
      * <p>
      * 最终执行SQL语句： SELECT d.* FROM t_demo d WHERE (d.id IN ('1', '2', '3', '5')) AND d.username LIKE '%1533%'
      *

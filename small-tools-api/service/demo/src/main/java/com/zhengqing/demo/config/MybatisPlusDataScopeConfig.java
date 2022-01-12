@@ -1,4 +1,4 @@
-package com.zhengqing.common.config.mybatis;
+package com.zhengqing.demo.config;
 
 import mybatis.mate.datascope.AbstractDataScopeProvider;
 import mybatis.mate.datascope.DataColumnProperty;

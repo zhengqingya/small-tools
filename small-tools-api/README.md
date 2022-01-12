@@ -42,6 +42,19 @@ chmod -R 777 ./elk
 
 ## 其它
 
+### 数据库增加区分字段
+
+> 为每张表（所有需要区分租户的表）增加一个 tenant_id 字段，用来区分租户
+
+```shell
+SELECT
+	concat( 'ALTER TABLE ', table_schema, '.', table_name, ' ADD COLUMN tenant_id varchar(30) NULL;' ) 
+FROM
+	information_schema.TABLES t
+WHERE
+	table_schema = '指定数据库';
+```
+
 ### 数据清理
 
 ```sql
