@@ -7,17 +7,20 @@ import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
+import com.zhengqing.common.config.mybatis.data.permission.DataScopeInterceptor;
 import com.zhengqing.common.config.mybatis.data.permission.MyDataPermissionHandler;
 import com.zhengqing.common.config.mybatis.plugins.SqlLogInterceptor;
 import com.zhengqing.common.context.TenantIdContext;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.sql.DataSource;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -120,6 +123,17 @@ public class MybatisPlusConfig {
     @ConditionalOnProperty(value = "on-off.mybatis-plus-sql-log", havingValue = "true")
     public SqlLogInterceptor sqlLogInterceptor() {
         return new SqlLogInterceptor();
+    }
+
+    /**
+     * 数据权限插件
+     *
+     * @return DataScopeInterceptor
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public DataScopeInterceptor dataScopeInterceptor(DataSource dataSource) {
+        return new DataScopeInterceptor(dataSource);
     }
 
 }

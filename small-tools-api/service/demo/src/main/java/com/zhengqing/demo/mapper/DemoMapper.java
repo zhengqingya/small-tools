@@ -2,7 +2,7 @@ package com.zhengqing.demo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zhengqing.demo.config.MybatisPlusDataScopeConfig;
+import com.zhengqing.demo.config.MybatisPlusDataScopeConfigDemo;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
@@ -28,7 +28,7 @@ import java.util.List;
 public interface DemoMapper extends BaseMapper<Demo> {
 
     /**
-     * 测试 test 类型数据权限范围，混合分页模式 {@link com.zhengqing.demo.config.MybatisPlusDataScopeConfig}
+     * 测试 test 类型数据权限范围，混合分页模式 {@link com.zhengqing.demo.config.MybatisPlusDataScopeConfigDemo}
      * <p>
      * 最终执行SQL语句： SELECT d.* FROM t_demo d WHERE (d.id IN ('1', '2', '3', '5')) AND d.username LIKE '%1533%'
      *
@@ -39,7 +39,7 @@ public interface DemoMapper extends BaseMapper<Demo> {
      * @author zhengqingya
      * @date 2022/1/10 15:29
      */
-    @DataScope(type = MybatisPlusDataScopeConfig.TEST, value = {
+    @DataScope(type = MybatisPlusDataScopeConfigDemo.TEST, value = {
             // 关联表 t_demo 别名 d 指定id字段权限
             @DataColumn(alias = "d", name = "id"),
             // 关联表 t_demo 别名 d 指定用户名字段权限（自己判断处理）
@@ -56,7 +56,7 @@ public interface DemoMapper extends BaseMapper<Demo> {
      * @author zhengqingya
      * @date 2022/1/10 15:48
      */
-    @DataScope(type = MybatisPlusDataScopeConfig.TEST_CLASS, value = {
+    @DataScope(type = MybatisPlusDataScopeConfigDemo.TEST_CLASS, value = {
             @DataColumn(name = "id")
     })
     @Delete("DELETE FROM t_demo WHERE id = #{id}")

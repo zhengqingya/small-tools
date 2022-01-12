@@ -26,7 +26,7 @@ import java.util.List;
  * @date 2022/1/10 15:27
  */
 @Configuration
-public class MybatisPlusDataScopeConfig {
+public class MybatisPlusDataScopeConfigDemo {
 
     /**
      * {@link com.zhengqing.demo.mapper.DemoMapper}

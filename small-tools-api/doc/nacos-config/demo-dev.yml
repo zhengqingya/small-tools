@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: demo-dev # 应用名称
+  profiles:
+    active: dev # 环境配置
+
+  cloud:
+    config:
+      # 相同配置下优先使用本地配置 (注：需在nacos上配置才生效！)
+      override-none: true
+      allow-override: true
+      override-system-properties: false
+
+# 系统配置开关
+on-off:
+  mybatis-plus-sql-log: true # true:开启sql日志 false:关闭，默认关闭
+  swagger: true # 开启swagger，默认关闭
