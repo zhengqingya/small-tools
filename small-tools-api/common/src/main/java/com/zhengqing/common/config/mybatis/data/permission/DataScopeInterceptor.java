@@ -10,7 +10,6 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
-import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -27,7 +26,6 @@ import java.util.Properties;
 @Slf4j
 @AllArgsConstructor
 @Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})
-@Component
 public class DataScopeInterceptor implements Interceptor {
 
     /**
