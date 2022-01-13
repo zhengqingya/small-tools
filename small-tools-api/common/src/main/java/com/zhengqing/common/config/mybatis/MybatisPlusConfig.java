@@ -4,11 +4,11 @@ import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
-import com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
-import com.zhengqing.common.config.mybatis.data.permission.DataScopeInterceptor;
-import com.zhengqing.common.config.mybatis.data.permission.MyDataPermissionHandler;
+import com.zhengqing.common.config.mybatis.data.permission.first.DataPermissionInterceptor;
+import com.zhengqing.common.config.mybatis.data.permission.second.MyDataPermissionHandler;
+import com.zhengqing.common.config.mybatis.data.permission.second.MyDataPermissionInterceptor;
 import com.zhengqing.common.config.mybatis.plugins.SqlLogInterceptor;
 import com.zhengqing.common.context.TenantIdContext;
 import net.sf.jsqlparser.expression.Expression;
@@ -87,9 +87,9 @@ public class MybatisPlusConfig {
 
 
         /**
-         * 2、添加数据权限插件 {@link com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionInterceptor}
+         * 2、添加数据权限插件
          */
-        DataPermissionInterceptor dataPermissionInterceptor = new DataPermissionInterceptor();
+        MyDataPermissionInterceptor dataPermissionInterceptor = new MyDataPermissionInterceptor();
         // 添加自定义的数据权限处理器
         dataPermissionInterceptor.setDataPermissionHandler(new MyDataPermissionHandler());
         interceptor.addInnerInterceptor(dataPermissionInterceptor);
@@ -127,13 +127,11 @@ public class MybatisPlusConfig {
 
     /**
      * 数据权限插件
-     *
-     * @return DataScopeInterceptor
      */
     @Bean
     @ConditionalOnMissingBean
-    public DataScopeInterceptor dataScopeInterceptor(DataSource dataSource) {
-        return new DataScopeInterceptor(dataSource);
+    public DataPermissionInterceptor dataScopeInterceptor(DataSource dataSource) {
+        return new DataPermissionInterceptor(dataSource);
     }
 
 }

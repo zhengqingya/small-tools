@@ -1,6 +1,6 @@
 package com.zhengqing.common.context;
 
-import com.zhengqing.common.config.mybatis.data.permission.UserPermissionInfo;
+import com.zhengqing.common.config.mybatis.data.permission.second.UserPermissionInfo;
 import lombok.extern.slf4j.Slf4j;
 
 /**

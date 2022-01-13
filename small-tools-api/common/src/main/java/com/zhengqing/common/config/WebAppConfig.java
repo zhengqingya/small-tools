@@ -1,6 +1,6 @@
 package com.zhengqing.common.config;
 
-import com.zhengqing.common.config.interceptor.TenantIdContextHandlerInterceptor;
+import com.zhengqing.common.config.interceptor.MyContextHandlerInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -20,7 +20,7 @@ public class WebAppConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 可添加多个
-        registry.addInterceptor(new TenantIdContextHandlerInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new MyContextHandlerInterceptor()).addPathPatterns("/**");
     }
 
 }

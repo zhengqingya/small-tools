@@ -1,21 +1,19 @@
-package com.zhengqing.common.config.mybatis.data.permission;
+package com.zhengqing.common.config.mybatis.data.permission.second;
 
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.extension.plugins.handler.DataPermissionHandler;
 import com.zhengqing.common.context.DataPermissionThreadLocal;
 import com.zhengqing.common.enums.DataPermissionTypeEnum;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.jsqlparser.expression.Expression;
-import net.sf.jsqlparser.expression.HexValue;
-import net.sf.jsqlparser.expression.LongValue;
-import net.sf.jsqlparser.expression.StringValue;
+import net.sf.jsqlparser.expression.*;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.InExpression;
 import net.sf.jsqlparser.expression.operators.relational.ItemsList;
 import net.sf.jsqlparser.schema.Column;
+import net.sf.jsqlparser.schema.Table;
+import net.sf.jsqlparser.statement.select.PlainSelect;
 
 import java.util.List;
 import java.util.Set;
@@ -23,38 +21,46 @@ import java.util.stream.Collectors;
 
 
 /**
- * <p> mybatis-plus 数据权限 </p>
+ * <p> mybatis-plus 数据权限处理器 </p>
  *
  * @author zhengqingya
- * @description 可参考 https://gitee.com/lakernote/easy-admin/blob/master/src/main/java/com/laker/admin/framework/ext/mybatis/LakerDataPermissionHandler.java
+ * @description {@link com.zhengqing.common.config.mybatis.data.permission.second.MyDataPermissionInterceptor}
  * @date 2022/1/10 17:37
  */
 @Slf4j
-public class MyDataPermissionHandler implements DataPermissionHandler {
+public class MyDataPermissionHandler {
 
     /**
      * 获取数据权限 SQL 片段
      *
-     * @param where             待执行 SQL Where 条件表达式
-     * @param mappedStatementId Mybatis MappedStatement Id 根据该参数可以判断具体执行方法
+     * @param plainSelect  查询对象
+     * @param whereSegment 查询条件片段
      * @return JSqlParser 条件表达式
      */
-    @SneakyThrows
-    @Override
-    public Expression getSqlSegment(Expression where, String mappedStatementId) {
-        List<String> split = StrUtil.split(mappedStatementId, '.');
-        int index = split.size();
-        String method = split.get(index - 1);
-        String mapper = split.get(index - 2);
-
+    @SneakyThrows(Exception.class)
+    public Expression getSqlSegment(PlainSelect plainSelect, String whereSegment) {
+        // 待执行 SQL Where 条件表达式
+        Expression where = plainSelect.getWhere();
         // 获取权限过滤相关信息
         UserPermissionInfo userPermissionInfo = DataPermissionThreadLocal.get();
         if (userPermissionInfo == null) {
             return where;
         }
+        Table fromItem = (Table) plainSelect.getFromItem();
+        // 有别名用别名，无别名用表名，防止字段冲突报错
+        Alias fromItemAlias = fromItem.getAlias();
+        String mainTableName = fromItemAlias == null ? fromItem.getName() : fromItemAlias.getName();
+
+        // 获取mapper层信息
+        List<String> split = StrUtil.split(whereSegment, '.');
+        int index = split.size();
+        String method = split.get(index - 1);
+        String mapper = split.get(index - 2);
+
+
         try {
             DataPermissionTypeEnum dataPermissionTypeEnum = userPermissionInfo.getDataPermissionTypeEnum();
-            log.info("进行权限过滤, dataPowerFilterType:{} , where: {},mappedStatementId: {}", dataPermissionTypeEnum, where, mappedStatementId);
+            log.info("[数据权限过滤] dataPermissionType:[{}]  where:[{}]  whereSegment:[{}]", dataPermissionTypeEnum, where, whereSegment);
             Expression expression = new HexValue(" 1 = 1 ");
             if (where == null) {
                 where = expression;
@@ -72,7 +78,7 @@ public class MyDataPermissionHandler implements DataPermissionHandler {
                     Set<String> roleIdList = userPermissionInfo.getRoleIdList();
                     // 把集合转变为JSQLParser需要的元素列表
                     ItemsList itemsList = new ExpressionList(roleIdList.stream().map(LongValue::new).collect(Collectors.toList()));
-                    InExpression inExpression = new InExpression(new Column("create_role_id"), itemsList);
+                    InExpression inExpression = new InExpression(new Column(mainTableName + ".create_role_id"), itemsList);
                     AndExpression andExpression = new AndExpression(where, inExpression);
                     log.info(" where {}", andExpression);
                     return andExpression;
@@ -81,7 +87,7 @@ public class MyDataPermissionHandler implements DataPermissionHandler {
                     //  = 表达式
                     // role_id = roleId
                     EqualsTo equalsTo = new EqualsTo();
-                    equalsTo.setLeftExpression(new Column("create_role_id"));
+                    equalsTo.setLeftExpression(new Column(mainTableName + ".create_role_id"));
                     equalsTo.setRightExpression(new LongValue(userPermissionInfo.getRoleId()));
                     // 创建 AND 表达式 拼接Where 和 = 表达式
                     // WHERE xxx AND role_id = 3
@@ -92,7 +98,7 @@ public class MyDataPermissionHandler implements DataPermissionHandler {
                 case SELF:
                     // create_by = userId
                     EqualsTo selfEqualsTo = new EqualsTo();
-                    selfEqualsTo.setLeftExpression(new Column("create_by"));
+                    selfEqualsTo.setLeftExpression(new Column(mainTableName + ".create_by"));
                     selfEqualsTo.setRightExpression(new LongValue(userPermissionInfo.getUserId()));
                     AndExpression selfAndExpression = new AndExpression(where, selfEqualsTo);
                     log.info(" where {}", selfAndExpression);
@@ -109,5 +115,6 @@ public class MyDataPermissionHandler implements DataPermissionHandler {
         }
         return where;
     }
+
 
 }

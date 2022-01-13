@@ -2,6 +2,7 @@ package com.zhengqing.common.config.interceptor;
 
 import com.github.xiaoymin.knife4j.core.util.StrUtil;
 import com.zhengqing.common.context.ContextHandler;
+import com.zhengqing.common.context.DataPermissionThreadLocal;
 import com.zhengqing.common.context.RequestHeaderHandler;
 import com.zhengqing.common.context.TenantIdContext;
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @description 注册使用参考 {@link com.zhengqing.common.config.WebAppConfig}
  * @date 2022/1/10 16:28
  */
-public class TenantIdContextHandlerInterceptor implements HandlerInterceptor {
+public class MyContextHandlerInterceptor implements HandlerInterceptor {
 
     /**
      * 租户ID字段名称
@@ -65,6 +66,7 @@ public class TenantIdContextHandlerInterceptor implements HandlerInterceptor {
         ContextHandler.remove();
         RequestHeaderHandler.remove();
         TenantIdContext.remove();
+        DataPermissionThreadLocal.remove();
     }
 
 }

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
-import com.zhengqing.common.config.mybatis.data.permission.UserPermissionInfo;
+import com.zhengqing.common.config.mybatis.data.permission.second.UserPermissionInfo;
 import com.zhengqing.common.constant.DataSourceConstant;
 import com.zhengqing.common.constant.MybatisConstant;
 import com.zhengqing.common.context.DataPermissionThreadLocal;

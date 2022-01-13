@@ -1,4 +1,4 @@
-package com.zhengqing.common.config.mybatis.data.permission;
+package com.zhengqing.common.config.mybatis.data.permission.second;
 
 import com.zhengqing.common.enums.DataPermissionTypeEnum;
 import io.swagger.annotations.ApiModelProperty;
