@@ -129,5 +129,6 @@
     <logger name="org.apache.http" level="WARN"/>
     <logger name="jdk.event.security" level="WARN"/>
     <logger name="org.jxls" level="WARN"/>
+    <logger name="org.redisson" level="WARN"/>
 
 </configuration>

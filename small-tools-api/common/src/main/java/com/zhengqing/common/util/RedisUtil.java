@@ -1,5 +1,7 @@
 package com.zhengqing.common.util;
 
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.Cursor;
@@ -26,17 +28,28 @@ public class RedisUtil {
 
     private static StringRedisTemplate redisTemplate;
 
+    private static RedissonClient redissonClient;
+
     @Autowired
-    public RedisUtil(StringRedisTemplate redisTemplate) {
+    public RedisUtil(StringRedisTemplate redisTemplate, RedissonClient redissonClient) {
+        RedisUtil.redisTemplate = redisTemplate;
+        RedisUtil.redissonClient = redissonClient;
+    }
+
+    public static StringRedisTemplate getRedisTemplate() {
+        return redisTemplate;
+    }
+
+    public static void setRedisTemplate(StringRedisTemplate redisTemplate) {
         RedisUtil.redisTemplate = redisTemplate;
     }
 
-    public void setRedisTemplate(StringRedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
+    public static RedissonClient getRedissonClient() {
+        return redissonClient;
     }
 
-    public StringRedisTemplate getRedisTemplate() {
-        return this.redisTemplate;
+    public static void setRedissonClient(RedissonClient redissonClient) {
+        RedisUtil.redissonClient = redissonClient;
     }
 
     /** -------------------key相关操作--------------------- */
@@ -1313,4 +1326,17 @@ public class RedisUtil {
     public static Cursor<TypedTuple<String>> zScan(String key, ScanOptions options) {
         return redisTemplate.opsForZSet().scan(key, options);
     }
+
+    // -------------------------- 锁相关操作 --------------------------------
+
+    /**
+     * 可重入锁
+     *
+     * @param key
+     * @return 锁
+     */
+    public static RLock getLock(String key) {
+        return redissonClient.getLock(key);
+    }
+
 }
