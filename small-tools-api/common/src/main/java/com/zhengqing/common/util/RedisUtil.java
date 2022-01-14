@@ -1331,12 +1331,31 @@ public class RedisUtil {
 
     /**
      * 可重入锁
+     * https://www.bookstack.cn/read/redisson-wiki-zh/spilt.1.8.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%92%8C%E5%90%8C%E6%AD%A5%E5%99%A8.md
      *
-     * @param key
+     * @param key key
      * @return 锁
      */
     public static RLock getLock(String key) {
         return redissonClient.getLock(key);
+    }
+
+    /**
+     * 可重入锁
+     *
+     * @param key       key
+     * @param leaseTime 时间
+     * @param unit      时间单位
+     * @return 锁
+     * @author zhengqingya
+     * @date 2022/1/14 9:25 下午
+     */
+    public static RLock lock(String key, long leaseTime, TimeUnit unit) {
+        RLock lock = redissonClient.getLock(key);
+        // 加锁leaseTime以后自动解锁
+        // 无需调用unlock方法手动解锁
+        lock.lock(leaseTime, unit);
+        return lock;
     }
 
 }
