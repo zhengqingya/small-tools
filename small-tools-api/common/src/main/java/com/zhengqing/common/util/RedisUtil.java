@@ -36,22 +36,6 @@ public class RedisUtil {
         RedisUtil.redissonClient = redissonClient;
     }
 
-    public static StringRedisTemplate getRedisTemplate() {
-        return redisTemplate;
-    }
-
-    public static void setRedisTemplate(StringRedisTemplate redisTemplate) {
-        RedisUtil.redisTemplate = redisTemplate;
-    }
-
-    public static RedissonClient getRedissonClient() {
-        return redissonClient;
-    }
-
-    public static void setRedissonClient(RedissonClient redissonClient) {
-        RedisUtil.redissonClient = redissonClient;
-    }
-
     /** -------------------key相关操作--------------------- */
 
     /**

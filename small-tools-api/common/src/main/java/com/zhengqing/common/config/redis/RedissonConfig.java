@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * <p> Redisson配置类 </p>
  *
  * @author zhengqingya
- * @description
+ * @description https://www.bookstack.cn/read/redisson-wiki-zh/2.-%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95.md
  * @date 2022/1/14 11:03 下午
  */
 @Configuration
@@ -30,8 +30,6 @@ public class RedissonConfig {
     public RedissonClient getRedisson() {
         Config config = new Config();
         config.useSingleServer().setAddress("redis://" + host + ":" + port).setPassword(password);
-        //添加主从配置
-//        config.useMasterSlaveServers().setMasterAddress("").setPassword("").addSlaveAddress(new String[]{"",""});
         return Redisson.create(config);
     }
 

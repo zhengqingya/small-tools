@@ -57,4 +57,7 @@ public class Demo extends BaseEntity<Demo> {
     @ApiModelProperty("租户ID")
     private Long tenantId;
 
+    @ApiModelProperty("数量")
+    private Integer num;
+
 }

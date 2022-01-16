@@ -4,6 +4,8 @@ import cn.hutool.core.thread.ThreadUtil;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.util.MyDateUtil;
 import com.zhengqing.common.util.RedisUtil;
+import com.zhengqing.demo.entity.Demo;
+import com.zhengqing.demo.service.IDemoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -26,6 +29,9 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/web/api/demo/redis")
 @Api(tags = "测试redis")
 public class RedisController extends BaseController {
+
+    @Resource
+    private IDemoService demoService;
 
 
     @GetMapping("set")
@@ -42,9 +48,13 @@ public class RedisController extends BaseController {
         // 加锁
         RLock redisLock = RedisUtil.lock("test:lock", 5, TimeUnit.SECONDS);
         try {
-            Long result = RedisUtil.incrBy("test", 1);
-            ThreadUtil.sleep(5, TimeUnit.SECONDS);
-            log.info("time:{} incrBy: {}", MyDateUtil.nowStr(), result);
+            Demo demo = demoService.getById(1);
+            demo.setNum(demo.getNum() - 1);
+
+            ThreadUtil.sleep(1, TimeUnit.SECONDS);
+            demo.updateById();
+
+            log.info("time:{} incrBy: {}", MyDateUtil.nowStr(), demo.getNum());
         } finally {
             // 释放锁
             redisLock.unlock();
@@ -53,3 +63,4 @@ public class RedisController extends BaseController {
 
 
 }
+

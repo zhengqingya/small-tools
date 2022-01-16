@@ -8,7 +8,6 @@ import com.zhengqing.common.validator.common.UpdateGroup;
 import com.zhengqing.common.validator.common.ValidList;
 import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.demo.entity.Demo;
-import com.zhengqing.demo.mapper.DemoMapper;
 import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.dto.DemoSaveDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
@@ -23,11 +22,11 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -49,11 +48,8 @@ import java.util.List;
 // @Transactional(rollbackFor = Exception.class)
 public class DemoController extends BaseController {
 
-    @Autowired
+    @Resource
     private IDemoService demoService;
-
-    @Autowired
-    private DemoMapper demoMapper;
 
     @GetMapping("test/tenantId")
     @ApiOperation("测试-租户id")
@@ -147,11 +143,11 @@ public class DemoController extends BaseController {
     @ApiOperation("测试更新")
     public Demo testUpdate() {
 
-        Demo a = this.demoMapper.selectById(2);
+        Demo a = this.demoService.getById(2);
         System.out.println(a);
         a.setUsername("xx");
 
-        Demo b = this.demoMapper.selectById(2);
+        Demo b = this.demoService.getById(2);
         System.out.println("xx::::::" + b);
 
         return new Demo();
