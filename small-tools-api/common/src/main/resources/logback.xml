@@ -108,6 +108,7 @@
     <logger name="com.zhengqing.tool.db.mapper" level="INFO"/>
     <logger name="com.zhengqing.tool.other.mapper" level="INFO"/>
     <logger name="com.zhengqing.system.mapper" level="INFO"/>
+    <logger name="com.zhengqing.common.config.mybatis" level="INFO"/>
 
     <!-- other -->
     <logger name="com.alibaba" level="WARN"/>
