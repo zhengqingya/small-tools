@@ -16,8 +16,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Statement;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -69,11 +67,11 @@ public class SqlLogInterceptor implements Interceptor {
         String stmtClassName = statement.getClass().getName();
         if (DRUID_POOLED_PREPARED_STATEMENT.equals(stmtClassName)) {
             try {
-                if (druidGetSqlMethod == null) {
+                if (this.druidGetSqlMethod == null) {
                     Class<?> clazz = Class.forName(DRUID_POOLED_PREPARED_STATEMENT);
-                    druidGetSqlMethod = clazz.getMethod("getSql");
+                    this.druidGetSqlMethod = clazz.getMethod("getSql");
                 }
-                Object stmtSql = druidGetSqlMethod.invoke(statement);
+                Object stmtSql = this.druidGetSqlMethod.invoke(statement);
                 if (stmtSql instanceof String) {
                     originalSql = (String) stmtSql;
                 }
@@ -83,19 +81,19 @@ public class SqlLogInterceptor implements Interceptor {
         } else if (T4C_PREPARED_STATEMENT.equals(stmtClassName)
                 || ORACLE_PREPARED_STATEMENT_WRAPPER.equals(stmtClassName)) {
             try {
-                if (oracleGetOriginalSqlMethod != null) {
-                    Object stmtSql = oracleGetOriginalSqlMethod.invoke(statement);
+                if (this.oracleGetOriginalSqlMethod != null) {
+                    Object stmtSql = this.oracleGetOriginalSqlMethod.invoke(statement);
                     if (stmtSql instanceof String) {
                         originalSql = (String) stmtSql;
                     }
                 } else {
                     Class<?> clazz = Class.forName(stmtClassName);
-                    oracleGetOriginalSqlMethod = getMethodRegular(clazz, "getOriginalSql");
-                    if (oracleGetOriginalSqlMethod != null) {
+                    this.oracleGetOriginalSqlMethod = this.getMethodRegular(clazz, "getOriginalSql");
+                    if (this.oracleGetOriginalSqlMethod != null) {
                         // OraclePreparedStatementWrapper is not a public class, need set this.
-                        oracleGetOriginalSqlMethod.setAccessible(true);
-                        if (null != oracleGetOriginalSqlMethod) {
-                            Object stmtSql = oracleGetOriginalSqlMethod.invoke(statement);
+                        this.oracleGetOriginalSqlMethod.setAccessible(true);
+                        if (null != this.oracleGetOriginalSqlMethod) {
+                            Object stmtSql = this.oracleGetOriginalSqlMethod.invoke(statement);
                             if (stmtSql instanceof String) {
                                 originalSql = (String) stmtSql;
                             }
@@ -110,7 +108,7 @@ public class SqlLogInterceptor implements Interceptor {
             originalSql = statement.toString();
         }
         originalSql = originalSql.replaceAll("[\\s]+", StringPool.SPACE);
-        int index = indexOfSqlStart(originalSql);
+        int index = this.indexOfSqlStart(originalSql);
         if (index > 0) {
             // 这里拿到执行sql
             originalSql = originalSql.substring(index);
@@ -126,10 +124,14 @@ public class SqlLogInterceptor implements Interceptor {
         MetaObject metaObject = SystemMetaObject.forObject(target);
         MappedStatement ms = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
         // 打印 sql
-        System.err.println(String.format(
-                "\n==============  Sql Start  ==============" + "\nExecute ID  ：%s" + "\nExecute SQL ：%s"
-                        + "\nExecute Time：%s ms" + "\n==============  Sql  End   ==============\n",
-                ms.getId(), originalSql, timing));
+        System.err.println(
+                String.format(
+                        "\n==============  Sql Start  ==============" +
+                                "\nExecute ID  ：%s" +
+                                "\nExecute SQL ：%s" +
+                                "\nExecute Time：%s ms" +
+                                "\n==============  Sql  End   ==============\n",
+                        ms.getId(), originalSql, timing));
         return result;
     }
 
@@ -157,7 +159,7 @@ public class SqlLogInterceptor implements Interceptor {
                 return method;
             }
         }
-        return getMethodRegular(clazz.getSuperclass(), methodName);
+        return this.getMethodRegular(clazz.getSuperclass(), methodName);
     }
 
     /**
@@ -183,46 +185,46 @@ public class SqlLogInterceptor implements Interceptor {
     }
 
     /**
-     * 匹配sql
+     * 匹配sql -- 拿到表名
      *
-     * @param sql
-     * @return 匹配后的sql
+     * @param sql sql
+     * @return 匹配后的sql表名
      * @author zhengqingya
      * @date 2020/12/2 17:14
      */
-    private String matchSql(String sql) {
-        Matcher matcher = null;
-        // SELECT 列名称 FROM 表名称
-        // SELECT * FROM 表名称
-        if (sql.startsWith("SELECT")) {
-            matcher = Pattern.compile("SELECT\\s.+FROM\\s(.+)WHERE\\s(.*)").matcher(sql);
-            if (matcher.find()) {
-                return matcher.group(1);
-            }
-        }
-        // INSERT INTO 表名称 VALUES (值1, 值2,....)
-        // INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....)
-        if (sql.startsWith("INSERT")) {
-            matcher = Pattern.compile("INSERT\\sINTO\\s(.+)\\(.*\\)\\s.*").matcher(sql);
-            if (matcher.find()) {
-                return matcher.group(1);
-            }
-        }
-        // UPDATE 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值
-        if (sql.startsWith("UPDATE")) {
-            matcher = Pattern.compile("UPDATE\\s(.+)SET\\s.*").matcher(sql);
-            if (matcher.find()) {
-                return matcher.group(1);
-            }
-        }
-        // DELETE FROM 表名称 WHERE 列名称 = 值
-        if (sql.startsWith("DELETE")) {
-            matcher = Pattern.compile("DELETE\\sFROM\\s(.+)WHERE\\s(.*)").matcher(sql);
-            if (matcher.find()) {
-                return matcher.group(1);
-            }
-        }
-        return null;
-    }
+//    private String matchSql(String sql) {
+//        Matcher matcher = null;
+//        // SELECT 列名称 FROM 表名称
+//        // SELECT * FROM 表名称
+//        if (sql.startsWith("SELECT")) {
+//            matcher = Pattern.compile("SELECT\\s.+FROM\\s(.+)WHERE\\s(.*)").matcher(sql);
+//            if (matcher.find()) {
+//                return matcher.group(1);
+//            }
+//        }
+//        // INSERT INTO 表名称 VALUES (值1, 值2,....)
+//        // INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....)
+//        if (sql.startsWith("INSERT")) {
+//            matcher = Pattern.compile("INSERT\\sINTO\\s(.+)\\(.*\\)\\s.*").matcher(sql);
+//            if (matcher.find()) {
+//                return matcher.group(1);
+//            }
+//        }
+//        // UPDATE 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值
+//        if (sql.startsWith("UPDATE")) {
+//            matcher = Pattern.compile("UPDATE\\s(.+)SET\\s.*").matcher(sql);
+//            if (matcher.find()) {
+//                return matcher.group(1);
+//            }
+//        }
+//        // DELETE FROM 表名称 WHERE 列名称 = 值
+//        if (sql.startsWith("DELETE")) {
+//            matcher = Pattern.compile("DELETE\\sFROM\\s(.+)WHERE\\s(.*)").matcher(sql);
+//            if (matcher.find()) {
+//                return matcher.group(1);
+//            }
+//        }
+//        return null;
+//    }
 
 }
