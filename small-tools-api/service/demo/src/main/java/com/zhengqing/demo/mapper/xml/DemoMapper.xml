@@ -59,4 +59,11 @@
         </foreach>
     </insert>
 
+    <update id="updateNum">
+        UPDATE t_demo
+        SET num = (num + #{num})
+        WHERE id = #{id}
+          AND (num + #{num}) >= 0
+    </update>
+
 </mapper>

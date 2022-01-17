@@ -108,4 +108,15 @@ public interface IDemoService extends IService<Demo> {
      */
     Demo getDataByDbTest(Integer id);
 
+    /**
+     * 更新数量
+     *
+     * @param id  主键id
+     * @param num 数量
+     * @return void
+     * @author zhengqingya
+     * @date 2022/1/17 6:55 下午
+     */
+    void updateNum(Integer id, Integer num);
+
 }

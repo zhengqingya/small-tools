@@ -1,5 +1,6 @@
 package com.zhengqing.demo.service.impl;
 
+import cn.hutool.core.lang.Assert;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -221,6 +222,13 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     public Demo getDataByDbTest(Integer id) {
         return super.getById(id);
     }
+
+    @Override
+    public void updateNum(Integer id, Integer num) {
+        long updateNum = this.demoMapper.updateNum(id, num);
+        Assert.isTrue(updateNum > 0, "库存不足！");
+    }
+
 
     /**
      * 方式一：for循环中单条插入

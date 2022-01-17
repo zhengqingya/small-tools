@@ -105,4 +105,15 @@ public interface DemoMapper extends BaseMapper<Demo> {
      */
     void insertBatch(@Param("demoList") List<Demo> demoList);
 
+    /**
+     * 更新数量
+     *
+     * @param id  主键id
+     * @param num 数量
+     * @return 更新条数
+     * @author zhengqingya
+     * @date 2022/1/17 6:55 下午
+     */
+    long updateNum(@Param("id") Integer id, @Param("num") Integer num);
+
 }

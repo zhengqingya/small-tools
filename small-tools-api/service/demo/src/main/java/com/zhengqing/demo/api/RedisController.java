@@ -1,6 +1,5 @@
 package com.zhengqing.demo.api;
 
-import cn.hutool.core.thread.ThreadUtil;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.util.MyDateUtil;
 import com.zhengqing.common.util.RedisUtil;
@@ -48,11 +47,14 @@ public class RedisController extends BaseController {
         // 加锁
         RLock redisLock = RedisUtil.lock("test:lock", 5, TimeUnit.SECONDS);
         try {
-            Demo demo = demoService.getById(1);
-            demo.setNum(demo.getNum() - 1);
 
-            ThreadUtil.sleep(1, TimeUnit.SECONDS);
-            demo.updateById();
+            // 模拟扣减库存
+            this.demoService.updateNum(1, -1);
+
+            Demo demo = demoService.getById(1);
+//            demo.setNum(demo.getNum() - 1);
+//            ThreadUtil.sleep(1, TimeUnit.SECONDS);
+//            demo.updateById();
 
             log.info("time:{} incrBy: {}", MyDateUtil.nowStr(), demo.getNum());
         } finally {
