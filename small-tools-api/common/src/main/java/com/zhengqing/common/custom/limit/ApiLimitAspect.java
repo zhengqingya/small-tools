@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Aspect
 @Component
-public class ApiLimitAop {
+public class ApiLimitAspect {
 
     @Autowired
     private RedissonClient redissonClient;
