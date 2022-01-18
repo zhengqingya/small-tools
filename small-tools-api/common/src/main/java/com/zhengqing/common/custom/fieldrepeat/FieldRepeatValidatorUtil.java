@@ -1,4 +1,4 @@
-package com.zhengqing.common.validator.fieldrepeat;
+package com.zhengqing.common.custom.fieldrepeat;
 
 import com.zhengqing.common.exception.MyException;
 import com.zhengqing.common.mapper.MyBaseMapper;
@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
  * 数据库字段内容重复判断处理工具类
  * </p>
  *
- * @author zhengqingya <br/>
- * @date 2019/9/10$ 9:28$ <br/>
+ * @author zhengqingya
+ * @date 2019/9/10 9:28
  */
 @Slf4j
 public class FieldRepeatValidatorUtil {
@@ -100,7 +100,7 @@ public class FieldRepeatValidatorUtil {
         this.fieldFixedValues = fieldFixedValues;
         this.object = object;
         this.message = message;
-        getFieldValue();
+        this.getFieldValue();
     }
 
     /**
@@ -123,43 +123,43 @@ public class FieldRepeatValidatorUtil {
 
         // 5、拼接sql
         Map<Object, Object> queryMap = new HashMap<>(5);
-        if (fieldFixedValues.length == 0) {
-            for (int i = 0; i < fieldNames.length; i++) {
-                queryMap.put(DB_FIELDS.get(i), fieldValues.get(i));
+        if (this.fieldFixedValues.length == 0) {
+            for (int i = 0; i < this.fieldNames.length; i++) {
+                queryMap.put(this.DB_FIELDS.get(i), this.fieldValues.get(i));
             }
         } else {
-            for (int i = 0; i < fieldNames.length; i++) {
-                if (StringUtils.isBlank(fieldFixedValues[i])) {
-                    queryMap.put(DB_FIELDS.get(i), fieldValues.get(i));
+            for (int i = 0; i < this.fieldNames.length; i++) {
+                if (StringUtils.isBlank(this.fieldFixedValues[i])) {
+                    queryMap.put(this.DB_FIELDS.get(i), this.fieldValues.get(i));
                 } else {
-                    queryMap.put(DB_FIELDS.get(i), fieldFixedValues[i]);
+                    queryMap.put(this.DB_FIELDS.get(i), this.fieldFixedValues[i]);
                 }
 
             }
         }
 
         List<Map<String, Object>> list =
-                ApplicationContextUtil.getApplicationContext().getBean(MyBaseMapper.class).selectList(TABLE_NAME, queryMap);
+                ApplicationContextUtil.getApplicationContext().getBean(MyBaseMapper.class).selectList(this.TABLE_NAME, queryMap);
 
         // 6、如果数据重复返回false -> 再返回自定义错误消息到前端
         if (!CollectionUtils.isEmpty(list)) {
-            if (idValue == null) {
-                throw new MyException(message);
+            if (this.idValue == null) {
+                throw new MyException(this.message);
             } else {
                 if (list.size() > 1) {
-                    throw new MyException(message);
+                    throw new MyException(this.message);
                 }
                 // 获取list中指定字段属性值 - 这里只获取主键id
-                List<Object> idList = (List<Object>) MyBeanUtil.getFieldList(list, idDbName);
+                List<Object> idList = (List<Object>) MyBeanUtil.getFieldList(list, this.idDbName);
                 boolean isContainsIdValue = false;
                 for (Object itemId : idList) {
-                    if (itemId.toString().equals(idValue.toString())) {
+                    if (itemId.toString().equals(this.idValue.toString())) {
                         isContainsIdValue = true;
                         break;
                     }
                 }
                 if (!isContainsIdValue) {
-                    throw new MyException(message);
+                    throw new MyException(this.message);
                 }
             }
         }
@@ -172,10 +172,10 @@ public class FieldRepeatValidatorUtil {
     private void getFieldValue() {
         try {
             // 1、获取所有的字段
-            Class clz = object.getClass();
+            Class clz = this.object.getClass();
             // 当父类为null的时候说明到达了最上层的父类(Object类) -> 作递归取父类属性值使用
             Map<String, Field> fieldMap = new HashMap<>();
-            while (clz != null && !PACKAGE_NAME.equals(clz.getName().toLowerCase())) {
+            while (clz != null && !this.PACKAGE_NAME.equals(clz.getName().toLowerCase())) {
                 fieldMap.putAll(
                         Arrays.stream(clz.getDeclaredFields()).collect(Collectors.toMap(Field::getName, field -> field)));
                 // 得到父类,然后赋给自己
@@ -183,24 +183,24 @@ public class FieldRepeatValidatorUtil {
             }
 
             // 2、取校验字段值
-            for (int i = 0; i < fieldNames.length; i++) {
-                Field field = fieldMap.get(fieldNames[i]);
+            for (int i = 0; i < this.fieldNames.length; i++) {
+                Field field = fieldMap.get(this.fieldNames[i]);
                 if (field == null) {
-                    fieldValues.add(null);
+                    this.fieldValues.add(null);
                 } else {
                     // 设置对象中成员 属性private为可读
                     field.setAccessible(true);
                     // 校验字段名的值 【 fieldNames中第一个字段为校验字段，其后为辅助校验字段 】
-                    Object fieldValue = field.get(object);
-                    fieldValues.add(fieldValue);
+                    Object fieldValue = field.get(this.object);
+                    this.fieldValues.add(fieldValue);
                 }
             }
 
             // 3、取主键id字段值 -> 作用：判断是插入还是更新操作
-            Field fieldId = fieldMap.get(idName);
+            Field fieldId = fieldMap.get(this.idName);
             if (fieldId != null) {
                 fieldId.setAccessible(true);
-                idValue = (Integer) fieldId.get(object);
+                this.idValue = (Integer) fieldId.get(this.object);
             }
         } catch (Exception e) {
             throw new MyException("数据库字段内容验重校验取值失败：" + e.toString());

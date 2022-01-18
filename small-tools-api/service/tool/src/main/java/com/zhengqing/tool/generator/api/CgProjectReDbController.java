@@ -2,8 +2,8 @@ package com.zhengqing.tool.generator.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.common.UpdateGroup;
-import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.validator.common.UpdateGroup;
 import com.zhengqing.tool.generator.model.dto.CgProjectReDbListDTO;
 import com.zhengqing.tool.generator.model.dto.CgProjectReDbSaveDTO;
 import com.zhengqing.tool.generator.model.dto.CgProjectReDbTableInfoDTO;
@@ -40,45 +40,45 @@ public class CgProjectReDbController extends BaseController {
     @GetMapping("listPage")
     @ApiOperation("列表分页")
     public IPage<CgProjectReDbListVO> listPage(@ModelAttribute CgProjectReDbListDTO params) {
-        return codeProjectReDbService.listPage(params);
+        return this.codeProjectReDbService.listPage(params);
     }
 
     @GetMapping("list")
     @ApiOperation("列表")
     public List<CgProjectReDbListVO> list(@ModelAttribute CgProjectReDbListDTO params) {
-        return codeProjectReDbService.list(params);
+        return this.codeProjectReDbService.list(params);
     }
 
     @GetMapping("tableList")
     @ApiOperation("表列表信息")
     public List<CgTableListVO> tableList(@ModelAttribute CgProjectReDbTableListDTO params) {
-        return codeProjectReDbService.tableList(params);
+        return this.codeProjectReDbService.tableList(params);
     }
 
     @GetMapping("tableInfo")
     @ApiOperation("表具体信息（含表字段列表）")
     public CgTableInfoVO tableInfo(@ModelAttribute CgProjectReDbTableInfoDTO params) {
-        return codeProjectReDbService.tableInfo(params);
+        return this.codeProjectReDbService.tableInfo(params);
     }
 
     @NoRepeatSubmit
     @PostMapping("")
     @ApiOperation("新增")
     public Integer add(@Validated @RequestBody CgProjectReDbSaveDTO params) {
-        return codeProjectReDbService.addOrUpdateData(params);
+        return this.codeProjectReDbService.addOrUpdateData(params);
     }
 
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
     public Integer update(@Validated(UpdateGroup.class) @RequestBody CgProjectReDbSaveDTO params) {
-        return codeProjectReDbService.addOrUpdateData(params);
+        return this.codeProjectReDbService.addOrUpdateData(params);
     }
 
     @DeleteMapping("")
     @ApiOperation("删除")
     public void delete(@RequestParam Integer projectReDbDataSourceId) {
-        codeProjectReDbService.removeById(projectReDbDataSourceId);
+        this.codeProjectReDbService.removeById(projectReDbDataSourceId);
     }
 
 }

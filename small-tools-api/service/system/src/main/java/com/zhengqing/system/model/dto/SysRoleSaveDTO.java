@@ -1,6 +1,6 @@
 package com.zhengqing.system.model.dto;
 
-import com.zhengqing.common.validator.common.UpdateGroup;
+import com.zhengqing.common.custom.validator.common.UpdateGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

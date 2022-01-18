@@ -2,8 +2,8 @@ package com.zhengqing.tool.crawler.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.common.UpdateGroup;
-import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.validator.common.UpdateGroup;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerWebsiteListDTO;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerWebsiteRefreshDataDTO;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerWebsiteSaveDTO;
@@ -39,40 +39,40 @@ public class StCrawlerWebsiteController extends BaseController {
     @GetMapping("listPage")
     @ApiOperation("列表分页")
     public IPage<StCrawlerWebsiteListVO> listPage(@ModelAttribute StCrawlerWebsiteListDTO params) {
-        return stCrawlerWebsiteService.listPage(params);
+        return this.stCrawlerWebsiteService.listPage(params);
     }
 
     @GetMapping("list")
     @ApiOperation("列表")
     public List<StCrawlerWebsiteListVO> list(@ModelAttribute StCrawlerWebsiteListDTO params) {
-        return stCrawlerWebsiteService.list(params);
+        return this.stCrawlerWebsiteService.list(params);
     }
 
     @NoRepeatSubmit
     @PostMapping("")
     @ApiOperation("新增")
     public Integer add(@Validated @RequestBody StCrawlerWebsiteSaveDTO params) {
-        return stCrawlerWebsiteService.addOrUpdateData(params);
+        return this.stCrawlerWebsiteService.addOrUpdateData(params);
     }
 
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
     public Integer update(@Validated(UpdateGroup.class) @RequestBody StCrawlerWebsiteSaveDTO params) {
-        return stCrawlerWebsiteService.addOrUpdateData(params);
+        return this.stCrawlerWebsiteService.addOrUpdateData(params);
     }
 
     @DeleteMapping("")
     @ApiOperation("删除")
     public void delete(@RequestParam Integer websiteId) {
-        stCrawlerWebsiteService.updateWebsiteInvalid(websiteId);
+        this.stCrawlerWebsiteService.updateWebsiteInvalid(websiteId);
     }
 
     @NoRepeatSubmit
     @PutMapping("refreshData")
     @ApiOperation("更新网站爬虫数据")
     public void refreshData(@RequestBody StCrawlerWebsiteRefreshDataDTO params) {
-        stCrawlerWebsiteService.refreshData(params);
+        this.stCrawlerWebsiteService.refreshData(params);
     }
 
 }

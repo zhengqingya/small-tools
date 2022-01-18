@@ -1,4 +1,4 @@
-package com.zhengqing.common.validator.repeatsubmit;
+package com.zhengqing.common.custom.repeatsubmit;
 
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.exception.MyException;

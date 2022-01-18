@@ -1,7 +1,7 @@
 package com.zhengqing.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zhengqing.common.validator.common.ValidList;
+import com.zhengqing.common.custom.validator.common.ValidList;
 import com.zhengqing.system.entity.SysDict;
 import com.zhengqing.system.model.dto.SysDictSaveBatchDTO;
 import com.zhengqing.system.model.dto.SysDictSaveDTO;

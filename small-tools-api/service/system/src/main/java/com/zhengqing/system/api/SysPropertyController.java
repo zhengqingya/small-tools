@@ -1,7 +1,7 @@
 package com.zhengqing.system.api;
 
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.system.model.dto.SysPropertySaveDTO;
 import com.zhengqing.system.model.vo.SysPropertyVO;
 import com.zhengqing.system.service.ISysPropertyService;

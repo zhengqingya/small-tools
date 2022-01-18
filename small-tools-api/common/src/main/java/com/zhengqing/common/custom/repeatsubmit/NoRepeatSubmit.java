@@ -1,4 +1,4 @@
-package com.zhengqing.common.validator.repeatsubmit;
+package com.zhengqing.common.custom.repeatsubmit;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

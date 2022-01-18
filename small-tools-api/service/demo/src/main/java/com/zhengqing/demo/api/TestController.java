@@ -3,6 +3,7 @@ package com.zhengqing.demo.api;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.aspect.config.BeanSelfAware;
+import com.zhengqing.common.custom.limit.ApiLimit;
 import com.zhengqing.common.http.ApiResult;
 import com.zhengqing.common.model.dto.BaseDTO;
 import com.zhengqing.common.util.EmailUtil;
@@ -42,8 +43,8 @@ public class TestController extends BaseController implements BeanSelfAware {
         log.debug("AAA: {}", filter.getCurrentUserId());
         log.debug("AAA: {}", filter.getCurrentUsername());
         this.b(new BaseDTO());
-        b(new BaseDTO());
-        self.b(new BaseDTO());
+        this.b(new BaseDTO());
+        this.self.b(new BaseDTO());
     }
 
     public void b(BaseDTO filter) {
@@ -75,6 +76,14 @@ public class TestController extends BaseController implements BeanSelfAware {
     @GetMapping("testHandleReturnValue")
     public ApiResult<List<String>> testHandleReturnValue() {
         return ApiResult.ok("SUCCESS", Lists.newArrayList("hello world"));
+    }
+
+
+    @ApiLimit(key = "API_LIMIT")
+    @ApiOperation("测试限流")
+    @GetMapping("apiLimit")
+    public String apiLimit(@RequestParam String key) {
+        return "OK";
     }
 
 }

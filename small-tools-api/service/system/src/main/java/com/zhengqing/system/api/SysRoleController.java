@@ -2,8 +2,8 @@ package com.zhengqing.system.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.common.UpdateGroup;
-import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.validator.common.UpdateGroup;
 import com.zhengqing.system.model.dto.*;
 import com.zhengqing.system.model.vo.SysMenuBtnListVO;
 import com.zhengqing.system.model.vo.SysRoleAllPermissionDetailVO;
@@ -52,46 +52,46 @@ public class SysRoleController extends BaseController {
     @GetMapping("listPage")
     @ApiOperation("列表分页")
     public IPage<SysRoleListVO> listPage(@ModelAttribute SysRoleListDTO params) {
-        return roleService.listPage(params);
+        return this.roleService.listPage(params);
     }
 
     @GetMapping("list")
     @ApiOperation("列表")
     public List<SysRoleListVO> list(@ModelAttribute SysRoleListDTO params) {
-        return roleService.list(params);
+        return this.roleService.list(params);
     }
 
     @NoRepeatSubmit
     @PostMapping("")
     @ApiOperation("新增")
     public Integer add(@Validated @RequestBody SysRoleSaveDTO params) {
-        return roleService.addOrUpdateData(params);
+        return this.roleService.addOrUpdateData(params);
     }
 
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
     public Integer update(@Validated(UpdateGroup.class) @RequestBody SysRoleSaveDTO params) {
-        return roleService.addOrUpdateData(params);
+        return this.roleService.addOrUpdateData(params);
     }
 
     @GetMapping("detail")
     @ApiOperation("详情(角色基本信息+菜单ids)")
     public SysRolePermissionDetailVO detail(@RequestParam Integer roleId) {
-        return roleService.detail(roleId);
+        return this.roleService.detail(roleId);
     }
 
     @GetMapping("permissionDetail")
     @ApiOperation("详情(带树+按钮+所拥有的权限)")
     public SysRoleAllPermissionDetailVO permissionDetail(@RequestParam Integer roleId,
                                                          @RequestParam(required = false) Integer systemSource) {
-        return roleService.permissionDetail(roleId, systemSource);
+        return this.roleService.permissionDetail(roleId, systemSource);
     }
 
     @DeleteMapping("")
     @ApiOperation("删除")
     public void delete(@RequestParam Integer roleId) {
-        roleService.deleteRoleAndRoleMenu(roleId);
+        this.roleService.deleteRoleAndRoleMenu(roleId);
     }
 
     // ======================== ↓↓↓↓↓↓ 角色关联菜单按钮权限 ↓↓↓↓↓↓ ==========================
@@ -99,35 +99,35 @@ public class SysRoleController extends BaseController {
     @GetMapping("getBtnsByMenuId")
     @ApiOperation("通过菜单id查询该菜单所有按钮信息")
     public List<SysMenuBtnListVO> getBtnInfoListByMenuId(@RequestParam Integer menuId) {
-        return sysMenuBtnService.getBtnInfoListByMenuId(menuId);
+        return this.sysMenuBtnService.getBtnInfoListByMenuId(menuId);
     }
 
     @GetMapping("getPermissionBtnsByRoleIdAndMenuId")
     @ApiOperation("通过角色id和菜单id查询该菜单所拥有的所有按钮")
     public List<Integer> getPermissionBtnsByRoleIdAndMenuId(@RequestParam Integer roleId,
                                                             @RequestParam Integer menuId) {
-        return sysRoleMenuBtnService.getPermissionBtnsByRoleIdAndMenuId(roleId, menuId);
+        return this.sysRoleMenuBtnService.getPermissionBtnsByRoleIdAndMenuId(roleId, menuId);
     }
 
     @NoRepeatSubmit
     @PostMapping("saveRoleMenuIds")
     @ApiOperation("保存角色关联菜单ids")
     public void saveRoleMenuIds(@Validated @RequestBody SysRoleMenuSaveDTO params) {
-        sysRoleMenuService.saveRoleMenuIds(params);
+        this.sysRoleMenuService.saveRoleMenuIds(params);
     }
 
     @NoRepeatSubmit
     @PostMapping("saveRoleMenuBtnIds")
     @ApiOperation("保存角色关联菜单按钮ids")
     public void saveRoleMenuBtnIds(@Validated @RequestBody SysRoleMenuBtnSaveDTO params) {
-        sysRoleMenuBtnService.saveRoleMenuBtnIds(params);
+        this.sysRoleMenuBtnService.saveRoleMenuBtnIds(params);
     }
 
     @NoRepeatSubmit
     @PostMapping("saveRolePermission")
     @ApiOperation("保存角色权限（菜单权限+按钮权限）")
     public void saveRolePermission(@Validated @RequestBody SysRolePermissionSaveDTO params) {
-        sysRoleMenuService.saveRolePermission(params);
+        this.sysRoleMenuService.saveRolePermission(params);
     }
 
 }

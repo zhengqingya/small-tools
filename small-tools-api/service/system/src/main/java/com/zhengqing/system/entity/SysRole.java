@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zhengqing.common.entity.BaseEntity;
-import com.zhengqing.common.validator.fieldrepeat.FieldRepeatValidator;
+import com.zhengqing.common.custom.fieldrepeat.FieldRepeatValidator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;

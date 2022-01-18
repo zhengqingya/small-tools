@@ -2,8 +2,8 @@ package com.zhengqing.tool.generator.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.common.UpdateGroup;
-import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.validator.common.UpdateGroup;
 import com.zhengqing.tool.generator.model.dto.CgGenerateCodeDTO;
 import com.zhengqing.tool.generator.model.dto.CgProjectListDTO;
 import com.zhengqing.tool.generator.model.dto.CgProjectSaveDTO;
@@ -42,39 +42,39 @@ public class CgProjectController extends BaseController {
     @GetMapping("listPage")
     @ApiOperation("列表分页")
     public IPage<CgProjectListVO> listPage(@ModelAttribute CgProjectListDTO filter) {
-        return projectService.listPage(filter);
+        return this.projectService.listPage(filter);
     }
 
     @GetMapping("list")
     @ApiOperation("列表")
     public List<CgProjectListVO> list(@ModelAttribute CgProjectListDTO filter) {
-        return projectService.list(filter);
+        return this.projectService.list(filter);
     }
 
     @NoRepeatSubmit
     @PostMapping("")
     @ApiOperation("新增")
     public Integer add(@Validated @RequestBody CgProjectSaveDTO params) {
-        return projectService.addOrUpdateData(params);
+        return this.projectService.addOrUpdateData(params);
     }
 
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
     public Integer update(@Validated(UpdateGroup.class) @RequestBody CgProjectSaveDTO params) {
-        return projectService.addOrUpdateData(params);
+        return this.projectService.addOrUpdateData(params);
     }
 
     @DeleteMapping("")
     @ApiOperation("删除")
     public void delete(@RequestParam Integer id) {
-        projectService.deleteData(id);
+        this.projectService.deleteData(id);
     }
 
     @PostMapping("generateCode")
     @ApiOperation("生成代码")
     public String generateCode(@Validated @RequestBody CgGenerateCodeDTO params) {
-        return cgGeneratorCodeService.generateCode(params);
+        return this.cgGeneratorCodeService.generateCode(params);
     }
 
 }

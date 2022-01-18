@@ -2,8 +2,8 @@ package com.zhengqing.tool.generator.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.common.UpdateGroup;
-import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.validator.common.UpdateGroup;
 import com.zhengqing.tool.generator.entity.CgFreeMarkerTemplate;
 import com.zhengqing.tool.generator.model.dto.CgFreeMarkerTemplateListDTO;
 import com.zhengqing.tool.generator.model.dto.CgFreeMarkerTemplateSaveDTO;
@@ -38,46 +38,46 @@ public class CgFreeMarkerTemplateController extends BaseController {
     @GetMapping("listPage")
     @ApiOperation("列表分页")
     public IPage<CgFreeMarkerTemplateListVO> listPage(@ModelAttribute CgFreeMarkerTemplateListDTO params) {
-        return cgFreeMarkerTemplateService.listPage(params);
+        return this.cgFreeMarkerTemplateService.listPage(params);
     }
 
     @GetMapping("list")
     @ApiOperation("列表")
     public List<CgFreeMarkerTemplateListVO> list(@ModelAttribute CgFreeMarkerTemplateListDTO params) {
-        return cgFreeMarkerTemplateService.list(params);
+        return this.cgFreeMarkerTemplateService.list(params);
     }
 
     @NoRepeatSubmit
     @PostMapping("")
     @ApiOperation("新增")
     public Integer add(@Validated @RequestBody CgFreeMarkerTemplateSaveDTO params) {
-        return cgFreeMarkerTemplateService.addOrUpdateData(params);
+        return this.cgFreeMarkerTemplateService.addOrUpdateData(params);
     }
 
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
     public Integer update(@Validated(UpdateGroup.class) @RequestBody CgFreeMarkerTemplateSaveDTO params) {
-        return cgFreeMarkerTemplateService.addOrUpdateData(params);
+        return this.cgFreeMarkerTemplateService.addOrUpdateData(params);
     }
 
     @DeleteMapping("")
     @ApiOperation("删除")
     public void delete(@RequestParam Integer freeMarkerTemplateId) {
-        cgFreeMarkerTemplateService.deleteData(freeMarkerTemplateId);
+        this.cgFreeMarkerTemplateService.deleteData(freeMarkerTemplateId);
     }
 
     @GetMapping("detail")
     @ApiOperation("详情")
     public CgFreeMarkerTemplate detail(@RequestParam Integer freeMarkerTemplateId) {
-        return cgFreeMarkerTemplateService.getById(freeMarkerTemplateId);
+        return this.cgFreeMarkerTemplateService.getById(freeMarkerTemplateId);
     }
 
     @NoRepeatSubmit
     @PostMapping("testTemplateData")
     @ApiOperation("测试模板数据")
     public String testTemplateData(@Validated @RequestBody CgFreeMarkerTemplateTestDataDTO params) {
-        return cgFreeMarkerTemplateService.testTemplateData(params);
+        return this.cgFreeMarkerTemplateService.testTemplateData(params);
     }
 
 }

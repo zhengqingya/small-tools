@@ -2,8 +2,8 @@ package com.zhengqing.tool.generator.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.common.UpdateGroup;
-import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.validator.common.UpdateGroup;
 import com.zhengqing.tool.generator.entity.CgProjectVelocityContext;
 import com.zhengqing.tool.generator.model.dto.CgProjectTemplateListDTO;
 import com.zhengqing.tool.generator.model.dto.CgProjectTemplateSaveDTO;
@@ -38,59 +38,59 @@ public class CgProjectTemplateController extends BaseController {
     @GetMapping("listPage")
     @ApiOperation("列表分页")
     public IPage<CgProjectTemplateListVO> listPage(@ModelAttribute CgProjectTemplateListDTO params) {
-        return templateService.listPage(params);
+        return this.templateService.listPage(params);
     }
 
     @GetMapping("list")
     @ApiOperation("列表")
     public List<CgProjectTemplateListVO> list(@ModelAttribute CgProjectTemplateListDTO params) {
-        return templateService.list(params);
+        return this.templateService.list(params);
     }
 
     @NoRepeatSubmit
     @PostMapping("")
     @ApiOperation("新增")
     public Integer add(@Validated @RequestBody CgProjectTemplateSaveDTO params) {
-        return templateService.addOrUpdateData(params);
+        return this.templateService.addOrUpdateData(params);
     }
 
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
     public Integer update(@Validated(UpdateGroup.class) @RequestBody CgProjectTemplateSaveDTO params) {
-        return templateService.addOrUpdateData(params);
+        return this.templateService.addOrUpdateData(params);
     }
 
     @NoRepeatSubmit
     @PostMapping("testTemplateData")
     @ApiOperation("测试模板数据")
     public String testTemplateData(@Validated @RequestBody CgProjectTemplateTestDataDTO params) {
-        return templateService.testTemplateData(params);
+        return this.templateService.testTemplateData(params);
     }
 
     @DeleteMapping("")
     @ApiOperation("删除")
     public void delete(@RequestParam Integer projectTemplateId) {
-        templateService.removeById(projectTemplateId);
+        this.templateService.removeById(projectTemplateId);
     }
 
     @GetMapping("")
     @ApiOperation("校验模板数据是否正确")
     public void checkTemplateData(@RequestParam Integer projectTemplateId) {
-        templateService.checkTemplateData(projectTemplateId);
+        this.templateService.checkTemplateData(projectTemplateId);
     }
 
     @PostMapping("generateTemplate")
     @ApiOperation("生成项目代码模板")
     public void generateTemplate(@RequestParam Integer projectId) {
-        templateService.generateTemplate(projectId);
+        this.templateService.generateTemplate(projectId);
     }
 
     @GetMapping("listPageCodeProjectVelocityContext")
     @ApiOperation("获取项目代码模板对应数据源模板列表")
     public IPage<CgProjectVelocityContext>
     listPageCodeProjectVelocityContext(@ModelAttribute CgProjectTemplateListDTO params) {
-        return templateService.listPageCodeProjectVelocityContext(params);
+        return this.templateService.listPageCodeProjectVelocityContext(params);
     }
 
 }

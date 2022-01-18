@@ -1,8 +1,8 @@
 package com.zhengqing.system.api;
 
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.common.UpdateGroup;
-import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.validator.common.UpdateGroup;
 import com.zhengqing.system.model.dto.SysMenuBtnSaveDTO;
 import com.zhengqing.system.model.dto.SysMenuSaveDTO;
 import com.zhengqing.system.model.vo.SysMenuTreeVO;
@@ -53,27 +53,27 @@ public class SysMenuController extends BaseController {
     @GetMapping("menuTree")
     @ApiOperation("菜单树")
     public List<SysMenuTreeVO> menuTree(@RequestParam(required = false) Integer systemSource) {
-        return menuService.tree(systemSource);
+        return this.menuService.tree(systemSource);
     }
 
     @NoRepeatSubmit
     @PostMapping("")
     @ApiOperation("新增")
     public Integer add(@Validated @RequestBody SysMenuSaveDTO params) {
-        return menuService.addOrUpdateData(params);
+        return this.menuService.addOrUpdateData(params);
     }
 
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
     public Integer update(@Validated(UpdateGroup.class) @RequestBody SysMenuSaveDTO params) {
-        return menuService.addOrUpdateData(params);
+        return this.menuService.addOrUpdateData(params);
     }
 
     @DeleteMapping("")
     @ApiOperation("删除")
     public void delete(@RequestParam Integer menuId) {
-        menuService.removeById(menuId);
+        this.menuService.removeById(menuId);
     }
 
     // 下：菜单按钮权限(菜单页面中配置页面所属按钮使用)
@@ -81,14 +81,14 @@ public class SysMenuController extends BaseController {
     @GetMapping("getBtnIdsByMenuId")
     @ApiOperation("通过菜单id获取已经配置的按钮ids")
     public List<Integer> getBtnIdsByMenuId(@RequestParam Integer menuId) {
-        return sysMenuBtnService.getBtnIdsByMenuId(menuId);
+        return this.sysMenuBtnService.getBtnIdsByMenuId(menuId);
     }
 
     @NoRepeatSubmit
     @PostMapping("saveMenuBtnIds")
     @ApiOperation("保存菜单按钮ids")
     public void saveMenuBtnIds(@Validated @RequestBody SysMenuBtnSaveDTO params) {
-        sysMenuBtnService.addOrUpdateData(params);
+        this.sysMenuBtnService.addOrUpdateData(params);
     }
 
 }

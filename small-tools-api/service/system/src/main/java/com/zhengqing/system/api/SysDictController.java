@@ -2,8 +2,8 @@ package com.zhengqing.system.api;
 
 import com.google.common.collect.Lists;
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.common.UpdateGroup;
-import com.zhengqing.common.validator.common.ValidList;
+import com.zhengqing.common.custom.validator.common.UpdateGroup;
+import com.zhengqing.common.custom.validator.common.ValidList;
 import com.zhengqing.system.model.dto.SysDictSaveBatchDTO;
 import com.zhengqing.system.model.dto.SysDictSaveDTO;
 import com.zhengqing.system.model.vo.SysDictVO;

@@ -1,8 +1,8 @@
 package com.zhengqing.tool.generator.api;
 
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.common.UpdateGroup;
-import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.validator.common.UpdateGroup;
 import com.zhengqing.tool.generator.model.dto.CgProjectPackageListDTO;
 import com.zhengqing.tool.generator.model.dto.CgProjectPackageSaveDTO;
 import com.zhengqing.tool.generator.model.dto.CgProjectPackageTreeDTO;
@@ -37,33 +37,33 @@ public class CgProjectPackageController extends BaseController {
     @GetMapping("list")
     @ApiOperation("列表")
     public List<CgProjectPackageListVO> list(@ModelAttribute CgProjectPackageListDTO params) {
-        return cgProjectPackageService.list(params);
+        return this.cgProjectPackageService.list(params);
     }
 
     @GetMapping("tree")
     @ApiOperation("项目包架构树")
     public List<CgProjectPackageTreeVO> tree(@ModelAttribute CgProjectPackageTreeDTO params) {
-        return cgProjectPackageService.tree(params);
+        return this.cgProjectPackageService.tree(params);
     }
 
     @NoRepeatSubmit
     @PostMapping()
     @ApiOperation("新增")
     public Integer add(@Validated @RequestBody CgProjectPackageSaveDTO params) {
-        return cgProjectPackageService.addOrUpdateData(params);
+        return this.cgProjectPackageService.addOrUpdateData(params);
     }
 
     @NoRepeatSubmit
     @PutMapping()
     @ApiOperation("更新")
     public Integer update(@Validated(UpdateGroup.class) @RequestBody CgProjectPackageSaveDTO params) {
-        return cgProjectPackageService.addOrUpdateData(params);
+        return this.cgProjectPackageService.addOrUpdateData(params);
     }
 
     @DeleteMapping()
     @ApiOperation("删除")
     public void delete(@RequestParam Integer id) {
-        cgProjectPackageService.deleteData(id);
+        this.cgProjectPackageService.deleteData(id);
     }
 
 }

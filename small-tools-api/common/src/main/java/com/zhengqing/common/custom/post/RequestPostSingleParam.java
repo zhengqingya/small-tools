@@ -1,4 +1,4 @@
-package com.zhengqing.common.custom;
+package com.zhengqing.common.custom.post;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.ValueConstants;

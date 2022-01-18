@@ -1,4 +1,4 @@
-package com.zhengqing.common.custom;
+package com.zhengqing.common.custom.post;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;

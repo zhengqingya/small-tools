@@ -1,4 +1,4 @@
-package com.zhengqing.common.validator.common;
+package com.zhengqing.common.custom.validator.common;
 
 import javax.validation.groups.Default;
 
@@ -16,5 +16,5 @@ import javax.validation.groups.Default;
  * 否则,在你声明@Validated(Update.class)的时候,就会出现你在默认没添加groups = {}的时候的校验组@Email(message = "邮箱格式不对"),会不去校验,因为默认的校验组是groups = {Default.class}.
  * @date 2019/9/9 16:51
  */
-public interface UpdateGroup extends Default {
+public interface CreateGroup extends Default {
 }

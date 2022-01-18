@@ -2,8 +2,8 @@ package com.zhengqing.tool.other.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.common.UpdateGroup;
-import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.validator.common.UpdateGroup;
 import com.zhengqing.tool.other.model.dto.StOtherAnonymityHandleDTO;
 import com.zhengqing.tool.other.model.dto.StOtherAnonymityListDTO;
 import com.zhengqing.tool.other.model.dto.StOtherAnonymitySaveDTO;
@@ -35,7 +35,7 @@ public class StOtherAnonymityController extends BaseController {
     @GetMapping("listPage")
     @ApiOperation("列表分页")
     public IPage<StOtherAnonymityListVO> listPage(@ModelAttribute StOtherAnonymityListDTO params) {
-        return stOtherAnonymityService.listPage(params);
+        return this.stOtherAnonymityService.listPage(params);
     }
 
     // @GetMapping("/list")
@@ -48,27 +48,27 @@ public class StOtherAnonymityController extends BaseController {
     @PostMapping("")
     @ApiOperation("新增")
     public Integer add(@Validated @RequestBody StOtherAnonymitySaveDTO params) {
-        return stOtherAnonymityService.addOrUpdateData(params);
+        return this.stOtherAnonymityService.addOrUpdateData(params);
     }
 
     @NoRepeatSubmit
     @PutMapping("")
     @ApiOperation("更新")
     public Integer update(@Validated(UpdateGroup.class) @RequestBody StOtherAnonymitySaveDTO params) {
-        return stOtherAnonymityService.addOrUpdateData(params);
+        return this.stOtherAnonymityService.addOrUpdateData(params);
     }
 
     @NoRepeatSubmit
     @PutMapping("handle")
     @ApiOperation("处理")
     public void handle(@Validated @RequestBody StOtherAnonymityHandleDTO params) {
-        stOtherAnonymityService.handle(params);
+        this.stOtherAnonymityService.handle(params);
     }
 
     @DeleteMapping("")
     @ApiOperation("删除")
     public void delete(@RequestParam Integer id) {
-        stOtherAnonymityService.removeById(id);
+        this.stOtherAnonymityService.removeById(id);
     }
 
     // @GetMapping("/detail")

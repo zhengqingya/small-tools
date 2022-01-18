@@ -2,7 +2,7 @@ package com.zhengqing.tool.crawler.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.validator.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerArticleInfoExportDataDTO;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerArticleInfoListDTO;
 import com.zhengqing.tool.crawler.model.vo.StCrawlerArticleInfoListVO;
@@ -42,28 +42,28 @@ public class StCrawlerArticleInfoController extends BaseController {
     @GetMapping("listPage")
     @ApiOperation("列表分页")
     public IPage<StCrawlerArticleInfoListVO> listPage(@ModelAttribute StCrawlerArticleInfoListDTO params) {
-        return stCrawlerArticleInfoService.listPage(params);
+        return this.stCrawlerArticleInfoService.listPage(params);
     }
 
     @NoRepeatSubmit
     @GetMapping("exportData")
     @ApiOperation("导出数据(html/md/word...)")
     public String exportData(@Validated @ModelAttribute StCrawlerArticleInfoExportDataDTO params) {
-        return stCrawlerArticleInfoService.exportData(params);
+        return this.stCrawlerArticleInfoService.exportData(params);
     }
 
     @NoRepeatSubmit
     @GetMapping("exportAllDataByWebsiteId")
     @ApiOperation("根据网站导出所有爬虫文章数据")
     public String exportAllDataByWebsiteId(@RequestParam Integer websiteId) {
-        return stCrawlerArticleInfoService.exportAllDataByWebsiteId(websiteId);
+        return this.stCrawlerArticleInfoService.exportAllDataByWebsiteId(websiteId);
     }
 
     @NoRepeatSubmit
     @GetMapping("exportExcelByWebsiteId")
     @ApiOperation("根据网站导出爬虫文章数据Excel")
     public String exportExcelByWebsiteId(@RequestParam Integer websiteId) {
-        return stCrawlerArticleInfoService.exportExcelByWebsiteId(websiteId);
+        return this.stCrawlerArticleInfoService.exportExcelByWebsiteId(websiteId);
     }
 
     @NoRepeatSubmit
@@ -79,7 +79,7 @@ public class StCrawlerArticleInfoController extends BaseController {
         if (StringUtils.isNotBlank(websiteIdStr)) {
             websiteIdNew = Integer.valueOf(websiteIdStr);
         }
-        return stCrawlerArticleInfoService.importData(fileNew, websiteIdNew);
+        return this.stCrawlerArticleInfoService.importData(fileNew, websiteIdNew);
     }
 
 }

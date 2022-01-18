@@ -1,4 +1,4 @@
-package com.zhengqing.common.validator.fieldrepeat;
+package com.zhengqing.common.custom.fieldrepeat;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -32,43 +32,31 @@ public @interface FieldRepeatValidator {
 
     /**
      * 表名
-     *
-     * @return
      */
     String tableName();
 
     /**
      * 数据库主键id字段属性名 - 默认为id （该值可无）
-     *
-     * @return
      */
     String idDbName() default "id";
 
     /**
      * 注解属性 - 对应校验字段名组 ex: { "name", "code" } 【 注：第一个字段名为所校验的字段，其后的字段为辅助校验字段！！！ 】
-     *
-     * @returnqin
      */
     String[] fieldNames() default {};
 
     /**
      * 数据库校验字段属性名 - 对应数据库校验字段名组 ex: { "name", "code" }
-     *
-     * @returnqin
      */
     String[] dbFieldNames() default {};
 
     /**
      * 校验字段组固定值 ex: { "", "1" }
-     *
-     * @returnqin
      */
     String[] fieldFixedValues() default {};
 
     /**
      * 默认错误提示信息
-     *
-     * @return
      */
     String message() default "字段内容重复！";
 
