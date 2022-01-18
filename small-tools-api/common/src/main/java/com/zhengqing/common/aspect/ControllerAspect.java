@@ -2,8 +2,8 @@ package com.zhengqing.common.aspect;
 
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.context.ContextHandler;
+import com.zhengqing.common.custom.parameter.ParameterVerify;
 import com.zhengqing.common.model.dto.BaseDTO;
-import com.zhengqing.common.parameter.ParameterVerify;
 import com.zhengqing.common.util.ServletUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;

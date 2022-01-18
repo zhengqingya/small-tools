@@ -1,4 +1,4 @@
-package com.zhengqing.common.parameter;
+package com.zhengqing.common.custom.parameter;
 
 import com.zhengqing.common.exception.ParameterException;
 

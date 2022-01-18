@@ -1,7 +1,7 @@
 package com.zhengqing.tool.crawler.model.dto;
 
+import com.zhengqing.common.custom.parameter.ParameterVerify;
 import com.zhengqing.common.exception.ParameterException;
-import com.zhengqing.common.parameter.ParameterVerify;
 import com.zhengqing.common.util.MyDateUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
