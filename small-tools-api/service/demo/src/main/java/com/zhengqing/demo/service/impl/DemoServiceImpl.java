@@ -224,6 +224,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateNum(Integer id, Integer num) {
         long updateNum = this.demoMapper.updateNum(id, num);
         Assert.isTrue(updateNum > 0, "库存不足！");

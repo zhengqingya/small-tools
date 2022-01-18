@@ -9,7 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +33,7 @@ public class RedisController extends BaseController {
     private IDemoService demoService;
 
 
-    @GetMapping("set")
+    @PostMapping("set")
     @ApiOperation("设置值")
     public String set() {
         Long result = RedisUtil.incrBy("test", 1);
@@ -41,7 +41,7 @@ public class RedisController extends BaseController {
         return "成功";
     }
 
-    @GetMapping("reentrantLock")
+    @PostMapping("reentrantLock")
     @ApiOperation("可重入锁")
     public void reentrantLock() {
         // 加锁
@@ -51,7 +51,7 @@ public class RedisController extends BaseController {
             // 模拟扣减库存
             this.demoService.updateNum(1, -1);
 
-            Demo demo = demoService.getById(1);
+            Demo demo = this.demoService.getById(1);
 //            demo.setNum(demo.getNum() - 1);
 //            ThreadUtil.sleep(1, TimeUnit.SECONDS);
 //            demo.updateById();
