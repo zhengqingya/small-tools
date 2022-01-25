@@ -220,6 +220,21 @@ public class BigDecimalUtil {
     }
 
     /**
+     * 分转元
+     *
+     * @param money 钱钱 (如果2位小数以上，自动四舍五入)
+     * @return 分
+     * @author zhengqingya
+     * @date 2021/8/24 11:04
+     */
+    public static String fenToYuan(Integer money) {
+        if (money == null) {
+            money = 0;
+        }
+        return String.valueOf(divide(BigDecimal.valueOf(money), BigDecimal.valueOf(100), 2));
+    }
+
+    /**
      * BigDecimal转Integer
      *
      * @param money 钱钱 (如果有小数，自动四舍五入)
@@ -259,6 +274,7 @@ public class BigDecimalUtil {
         log.info("百分比格式化: {}", BigDecimalUtil.rateFormat(num2));
         log.info("元转分: {}", BigDecimalUtil.yuanToFen(num2));
         log.info("分转元: {}", BigDecimalUtil.fenToYuan("0"));
+        log.info("分转元: {}", BigDecimalUtil.fenToYuan(0));
         log.info("BigDecimal转Integer: {}", BigDecimalUtil.toInt(num2));
     }
 
