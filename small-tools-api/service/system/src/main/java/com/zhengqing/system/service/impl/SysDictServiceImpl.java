@@ -79,7 +79,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     public Map<String, List<SysDictVO>> listFromDbByOpenCode(List<String> codeList) {
         this.checkKey(codeList);
         Map<String, List<SysDictVO>> dictDataMap = Maps.newHashMap();
-        List<SysDictVO> dictDataList = this.sysDictMapper.selectDictListByCode(YesNoEnum.是.getValue(), codeList);
+        List<SysDictVO> dictDataList = this.sysDictMapper.selectDictListByCode(YesNoEnum.YES.getValue(), codeList);
         for (SysDictVO dictItem : dictDataList) {
             dictDataMap.computeIfAbsent(dictItem.getCode(), k -> new LinkedList<>()).add(dictItem);
         }
@@ -157,7 +157,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
                 .code(code)
                 .name(name)
                 .value(value)
-                .status(YesNoEnum.是.getValue())
+                .status(YesNoEnum.YES.getValue())
                 .sort(sort)
                 .remark(remark)
                 .build();

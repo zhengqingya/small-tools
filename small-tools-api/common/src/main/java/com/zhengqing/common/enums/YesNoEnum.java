@@ -1,7 +1,12 @@
 package com.zhengqing.common.enums;
 
+import com.google.common.collect.Lists;
+import com.zhengqing.common.exception.MyException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -15,8 +20,41 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum YesNoEnum {
-    是(1), 否(0);
 
+    /**
+     * 是
+     */
+    YES(1, "是"),
+    /**
+     * 否
+     */
+    NO(0, "否");
+
+    /**
+     * 类型
+     */
     private final int value;
+    /**
+     * 描述
+     */
+    private final String desc;
+
+    private static final List<YesNoEnum> LIST = Lists.newArrayList();
+
+    static {
+        LIST.addAll(Arrays.asList(YesNoEnum.values()));
+    }
+
+    /**
+     * 根据指定类型查找相应枚举类
+     */
+    public static YesNoEnum getEnum(int value) {
+        for (YesNoEnum itemEnum : LIST) {
+            if (itemEnum.getValue() == value) {
+                return itemEnum;
+            }
+        }
+        throw new MyException("未找到指定类型枚举数据！");
+    }
 
 }

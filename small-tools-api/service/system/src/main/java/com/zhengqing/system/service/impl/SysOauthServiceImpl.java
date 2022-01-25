@@ -145,7 +145,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
         sysUser.setToken(jwtToken);
         sysUser.updateById();
 
-        String redirectUrl = systemProperty.getThirdpartOauth().getWebRedirectUrl() + jwtToken;
+        String redirectUrl = this.systemProperty.getThirdpartOauth().getWebRedirectUrl() + jwtToken;
         response.sendRedirect(redirectUrl);
         log.info("《三方授权》 授权回调地址： {}", redirectUrl);
     }
@@ -155,7 +155,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
     public void handleCallbackBind(String oauthType, AuthCallback callback, HttpServletResponse response) {
         Map<String, Object> authResponseMap = this.handleCallbackData(oauthType, callback);
         String openId = String.valueOf(authResponseMap.get("uuid"));
-        String redirectUrl = String.format(systemProperty.getThirdpartOauth().getWebBindRedirectUrl(),
+        String redirectUrl = String.format(this.systemProperty.getThirdpartOauth().getWebBindRedirectUrl(),
                 SysOauthTypeEnum.getEnum(oauthType).getOauthTypeValue(), openId);
         response.sendRedirect(redirectUrl);
         log.info("《三方授权》 绑定回调地址： {}", redirectUrl);
@@ -187,15 +187,15 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
     private AuthRequest getAuthRequest(String oauthType) {
         switch (SysOauthTypeEnum.getEnum(oauthType)) {
             case Gitee:
-                return new AuthGiteeRequest(systemProperty.getThirdpartOauth().getGitee());
+                return new AuthGiteeRequest(this.systemProperty.getThirdpartOauth().getGitee());
             case GiteeBind:
-                return new AuthGiteeRequest(systemProperty.getThirdpartOauth().getGiteeBind());
+                return new AuthGiteeRequest(this.systemProperty.getThirdpartOauth().getGiteeBind());
             case GitHub:
-                return new AuthGithubRequest(systemProperty.getThirdpartOauth().getGithub());
+                return new AuthGithubRequest(this.systemProperty.getThirdpartOauth().getGithub());
             case GitHubBind:
-                return new AuthGithubRequest(systemProperty.getThirdpartOauth().getGithubBind());
+                return new AuthGithubRequest(this.systemProperty.getThirdpartOauth().getGithubBind());
             case QQ:
-                return new AuthQqRequest(systemProperty.getThirdpartOauth().getQq());
+                return new AuthQqRequest(this.systemProperty.getThirdpartOauth().getQq());
             default:
                 throw new MyException("未找到存在的授权数据类型！");
         }
@@ -219,7 +219,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
         Integer sex = params.getSex();
         String remark = params.getRemark();
 
-        SysOauth oauthInfo = sysOauthMapper.selectOne(
+        SysOauth oauthInfo = this.sysOauthMapper.selectOne(
                 new LambdaQueryWrapper<SysOauth>().eq(SysOauth::getOpenId, openId).eq(SysOauth::getOauthType, oauthType));
         if (oauthInfo != null) {
             return oauthInfo.getUserId();
@@ -234,7 +234,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
         userSaveDTO.setEmail(email);
         userSaveDTO.setAvatar(avatar);
 
-        Integer userId = sysUserService.addOrUpdateData(userSaveDTO);
+        Integer userId = this.sysUserService.addOrUpdateData(userSaveDTO);
 
         SysOauthSaveDTO oauthSaveDTO = new SysOauthSaveDTO();
         oauthSaveDTO.setUserId(userId);
@@ -249,7 +249,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
         Integer userId = params.getUserId();
         String openId = params.getOpenId();
         Integer oauthType = params.getOauthType();
-        SysOauth oauthInfo = sysOauthMapper.selectOne(
+        SysOauth oauthInfo = this.sysOauthMapper.selectOne(
                 new LambdaQueryWrapper<SysOauth>().eq(SysOauth::getOpenId, openId).eq(SysOauth::getOauthType, oauthType));
         if (oauthInfo != null) {
             return oauthInfo.getUserId();
@@ -264,13 +264,13 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
 
     @Override
     public List<SysOauthListVO> list(SysOauthListDTO params) {
-        return sysOauthMapper.selectDataList(params);
+        return this.sysOauthMapper.selectDataList(params);
     }
 
     @Override
     public List<SysOauthDataListVO> getOauthDataList(Integer userId) {
         List<SysOauthDataListVO> oauthDataList = Lists.newArrayList();
-        List<SysDictVO> oauthTypeList = dictService.listFromCacheByCode(Lists.newArrayList(SysDictTypeEnum.第三方帐号授权类型.getCode())).get(SysDictTypeEnum.第三方帐号授权类型.getCode());
+        List<SysDictVO> oauthTypeList = this.dictService.listFromCacheByCode(Lists.newArrayList(SysDictTypeEnum.第三方帐号授权类型.getCode())).get(SysDictTypeEnum.第三方帐号授权类型.getCode());
         List<SysOauthListVO> oauthBindList = this.list(SysOauthListDTO.builder().userId(userId).build());
         List<Integer> oauthTypeBindList =
                 oauthBindList.stream().map(SysOauthListVO::getOauthType).collect(Collectors.toList());
@@ -285,7 +285,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
             oauthData.setOauthTypeBindName(oauthTypeName + "Bind");
             oauthData.setOauthTypeDesc(SysOauthTypeEnum.getEnum(oauthTypeName).getDesc());
             oauthData.setIfBind(
-                    oauthTypeBindList.contains(oauthTypeValue) ? YesNoEnum.是.getValue() : YesNoEnum.否.getValue());
+                    oauthTypeBindList.contains(oauthTypeValue) ? YesNoEnum.YES.getValue() : YesNoEnum.NO.getValue());
             oauthData.setUserReOauthId(oauthBindMap.get(oauthTypeValue));
             oauthDataList.add(oauthData);
         });
