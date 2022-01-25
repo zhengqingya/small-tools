@@ -214,7 +214,7 @@ public class BigDecimalUtil {
      */
     public static String fenToYuan(String money) {
         if (money == null) {
-            money = "0.00";
+            money = "0";
         }
         return String.valueOf(divide(BigDecimal.valueOf(Long.parseLong(money)), BigDecimal.valueOf(100), 2));
     }
