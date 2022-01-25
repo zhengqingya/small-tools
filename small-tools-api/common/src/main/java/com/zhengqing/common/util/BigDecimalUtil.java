@@ -1,6 +1,7 @@
 package com.zhengqing.common.util;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -213,10 +214,10 @@ public class BigDecimalUtil {
      * @date 2021/8/24 11:04
      */
     public static String fenToYuan(String money) {
-        if (money == null) {
+        if (StringUtils.isBlank(money)) {
             money = "0";
         }
-        return String.valueOf(divide(BigDecimal.valueOf(Long.parseLong(money)), BigDecimal.valueOf(100), 2));
+        return String.valueOf(divide(new BigDecimal(money), BigDecimal.valueOf(100), 2));
     }
 
     /**
@@ -273,7 +274,7 @@ public class BigDecimalUtil {
         log.info("货币格式化: {}", BigDecimalUtil.currencyFormat(num2));
         log.info("百分比格式化: {}", BigDecimalUtil.rateFormat(num2));
         log.info("元转分: {}", BigDecimalUtil.yuanToFen(num2));
-        log.info("分转元: {}", BigDecimalUtil.fenToYuan("0"));
+        log.info("分转元: {}", BigDecimalUtil.fenToYuan("0.01"));
         log.info("分转元: {}", BigDecimalUtil.fenToYuan(0));
         log.info("BigDecimal转Integer: {}", BigDecimalUtil.toInt(num2));
     }
