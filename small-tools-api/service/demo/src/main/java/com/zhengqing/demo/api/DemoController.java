@@ -91,6 +91,9 @@ public class DemoController extends BaseController {
 
     @GetMapping("page")
     @ApiOperation("列表分页")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "params", value = "提交参数")
+//    })
     public IPage<DemoListVO> page(@Validated @ModelAttribute DemoListDTO params) {
         return this.demoService.page(params);
     }
