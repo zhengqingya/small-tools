@@ -106,7 +106,7 @@ public class RedisGeoUtil {
      * @param lng           经度
      * @param lat           纬度
      * @param distanceValue 距离值
-     * @param metric        记录单位
+     * @param metric        距离单位
      * @param count         限定返回的记录数
      * @return 满足条件的数据
      * @author zhengqingya
