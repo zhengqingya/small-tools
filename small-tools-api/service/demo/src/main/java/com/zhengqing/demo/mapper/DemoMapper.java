@@ -2,12 +2,9 @@ package com.zhengqing.demo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zhengqing.demo.config.MybatisPlusDataScopeConfigDemo;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
-import mybatis.mate.annotation.DataColumn;
-import mybatis.mate.annotation.DataScope;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -39,12 +36,12 @@ public interface DemoMapper extends BaseMapper<Demo> {
      * @author zhengqingya
      * @date 2022/1/10 15:29
      */
-    @DataScope(type = MybatisPlusDataScopeConfigDemo.TEST, value = {
-            // 关联表 t_demo 别名 d 指定id字段权限
-            @DataColumn(alias = "d", name = "id"),
-            // 关联表 t_demo 别名 d 指定用户名字段权限（自己判断处理）
-            @DataColumn(alias = "d", name = "username")
-    })
+//    @DataScope(type = MybatisPlusDataScopeConfigDemo.TEST, value = {
+//            // 关联表 t_demo 别名 d 指定id字段权限
+//            @DataColumn(alias = "d", name = "id"),
+//            // 关联表 t_demo 别名 d 指定用户名字段权限（自己判断处理）
+//            @DataColumn(alias = "d", name = "username")
+//    })
     @Select("select d.* from t_demo d")
     List<Demo> selectTestListByDataScope(IPage<Demo> page, Long id, @Param("username") String username);
 
@@ -56,9 +53,9 @@ public interface DemoMapper extends BaseMapper<Demo> {
      * @author zhengqingya
      * @date 2022/1/10 15:48
      */
-    @DataScope(type = MybatisPlusDataScopeConfigDemo.TEST_CLASS, value = {
-            @DataColumn(name = "id")
-    })
+//    @DataScope(type = MybatisPlusDataScopeConfigDemo.TEST_CLASS, value = {
+//            @DataColumn(name = "id")
+//    })
     @Delete("DELETE FROM t_demo WHERE id = #{id}")
 //    @Update("UPDATE t_demo SET is_deleted = 1 WHERE id = #{id}")
     void deleteDataByDataScope(@Param("id") Long id);
