@@ -33,32 +33,26 @@ public class RedisGeoController extends BaseController {
     }
 
     /**
-     * 使用redis+GEO，上报司机位置
+     * 添加位置
      * 成都银泰城       http://localhost:20040/web/api/demo/redis/geo/addDriverPosition?cityId=666&driverId=001&lng=104.059477&lat=30.540611
      * 腾讯成都大夏B楼   http://localhost:20040/web/api/demo/redis/geo/addDriverPosition?cityId=666&driverId=002&lng=104.061967&lat=30.545361
      * 成都高新文化中心  http://localhost:20040/web/api/demo/redis/geo/addDriverPosition?cityId=666&driverId=003&lng=104.050658&lat=30.543457
      * 大源            http://localhost:20040/web/api/demo/redis/geo/addDriverPosition?cityId=666&driverId=004&lng=104.046002&lat=30.549537
      */
-    @GetMapping("addDriverPosition")
-    public Long addDriverPosition(String cityId, String driverId, Double lng, Double lat) {
+    @GetMapping("geoAdd")
+    public List<Point> geoAdd(String cityId, String driverId, Double lng, Double lat) {
         String redisKey = this.buildRedisKey(this.GEO_KEY, cityId);
-
-        Long addNum = RedisGeoUtil.geoAdd(redisKey, new Point(lng, lat), driverId);
-
-        List<Point> points = RedisGeoUtil.geoPos(redisKey, driverId);
-        System.out.println("添加位置坐标点：" + points);
-
-        return addNum;
+        RedisGeoUtil.geoAdd(redisKey, new Point(lng, lat), driverId);
+        return RedisGeoUtil.geoPos(redisKey, driverId);
     }
 
     /**
-     * 使用redis+GEO，查询附近司机位置
+     * 查询1km内的数据
      * OCG国际中心   http://localhost:20040/web/api/demo/redis/geo/getNearDrivers?cityId=666&lng=104.064391&lat=30.542866
      */
-    @GetMapping("getNearDrivers")
-    public List<RedisGeoPoint> getNearDrivers(String cityId, Double lng, Double lat) {
+    @GetMapping("geoNear")
+    public List<RedisGeoPoint> geoNear(String cityId, Double lng, Double lat) {
         String redisKey = this.buildRedisKey(this.GEO_KEY, cityId);
-        // 1km内的数据
         return RedisGeoUtil.geoNear(redisKey, lng, lat, 1, RedisGeoCommands.DistanceUnit.KILOMETERS, 5);
     }
 
