@@ -8,7 +8,7 @@ import com.google.common.collect.Lists;
 import com.zhengqing.common.constant.AppConstant;
 import com.zhengqing.common.exception.MyException;
 import com.zhengqing.common.model.bo.UserTokenInfo;
-import com.zhengqing.common.util.DESUtil;
+import com.zhengqing.common.util.DesUtil;
 import com.zhengqing.common.util.JwtUtil;
 import com.zhengqing.system.entity.SysRole;
 import com.zhengqing.system.entity.SysUser;
@@ -67,14 +67,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public IPage<SysUserDetailVO> listPage(SysUserListDTO params) {
-        IPage<SysUserDetailVO> result = sysUserMapper.selectUsers(new Page<>(), params);
-        handleUserList(result.getRecords());
+        IPage<SysUserDetailVO> result = this.sysUserMapper.selectUsers(new Page<>(), params);
+        this.handleUserList(result.getRecords());
         return result;
     }
 
     @Override
     public List<SysUserDetailVO> list(SysUserListDTO params) {
-        List<SysUserDetailVO> userList = sysUserMapper.selectUsers(params);
+        List<SysUserDetailVO> userList = this.sysUserMapper.selectUsers(params);
         // handleUserList(userList);
         return userList;
     }
@@ -88,7 +88,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                         Arrays.stream(roleIds.split(",")).map(e -> Integer.parseInt(e.trim())).collect(Collectors.toList());
                 StringBuilder roleNames = new StringBuilder();
                 if (!CollectionUtils.isEmpty(roleIdsX)) {
-                    List<SysRole> sysRoleList = sysRoleService.listByIds(roleIdsX);
+                    List<SysRole> sysRoleList = this.sysRoleService.listByIds(roleIdsX);
                     sysRoleList.forEach(role -> {
                         roleNames.append("[");
                         roleNames.append(role.getName());
@@ -135,7 +135,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             SysUserRoleSaveDTO userRoleSaveDTO = new SysUserRoleSaveDTO();
             userRoleSaveDTO.setUserId(user.getUserId());
             userRoleSaveDTO.setRoleIdList(Lists.newArrayList(SysUserReRoleEnum.凡人.getRoleId()));
-            sysUserRoleService.addOrUpdateData(userRoleSaveDTO);
+            this.sysUserRoleService.addOrUpdateData(userRoleSaveDTO);
         } else {
             user.updateById();
         }
@@ -148,7 +148,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             throw new MyException("您没有权限删除超级管理员！");
         }
         // ① 删除关联角色
-        sysUserRoleService.removeById(userId);
+        this.sysUserRoleService.removeById(userId);
         // ② 删除关联项目 FIXME
         // cgProjectService.deleteDataByUserId(userId);
         // ③ 删除该用户
@@ -157,8 +157,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public void updatePassword(SysUserUpdatePasswordDTO params) {
-        String password = DESUtil.decryption(params.getPassword(), AppConstant.DES_KEY);
-        SysUser userInfo = sysUserMapper.selectById(params.getUserId());
+        String password = DesUtil.decrypt(params.getPassword(), AppConstant.DES_KEY);
+        SysUser userInfo = this.sysUserMapper.selectById(params.getUserId());
         String salt = userInfo.getSalt();
         boolean isValid = PasswordUtil.isValidPassword(password, userInfo.getPassword(), salt);
         // ① 校验原始密码是否正确
@@ -166,23 +166,23 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             throw new MyException(AppConstant.WRONG_OLD_PASSWORD);
         }
         // ② 修改密码
-        String newPassword = DESUtil.decryption(params.getNewPassword(), AppConstant.DES_KEY);
+        String newPassword = DesUtil.decrypt(params.getNewPassword(), AppConstant.DES_KEY);
         userInfo.setPassword(PasswordUtil.encodePassword(newPassword, salt));
-        sysUserMapper.updateById(userInfo);
+        this.sysUserMapper.updateById(userInfo);
     }
 
     @Override
     public void resetPassword(Integer userId) {
-        SysUser sysUser = sysUserMapper.selectById(userId);
+        SysUser sysUser = this.sysUserMapper.selectById(userId);
         sysUser.setPassword(PasswordUtil.encodePassword(AppConstant.DEFAULT_PASSWORD, sysUser.getSalt()));
-        sysUserMapper.updateById(sysUser);
+        this.sysUserMapper.updateById(sysUser);
     }
 
     @Override
     public String login(SysUserLoginDTO params) {
         String username = params.getUsername();
         // des解密
-        String password = DESUtil.decryption(params.getPassword(), AppConstant.DES_KEY);
+        String password = DesUtil.decrypt(params.getPassword(), AppConstant.DES_KEY);
 
         SysUserVO currentUserInfo = this.getUserInfoByUsername(username);
         if (Objects.isNull(currentUserInfo)) {
@@ -191,7 +191,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // 下面获取其相关权限
         Integer userId = currentUserInfo.getUserId();
         // 获取角色+对应的菜单+所拥有的按钮权限
-        SysPermissionVO permissionVO = sysPermissionService.getPermissionByUserId(userId, null);
+        SysPermissionVO permissionVO = this.sysPermissionService.getPermissionByUserId(userId, null);
         if (permissionVO == null) {
             throw new MyException(AppConstant.NO_PERMISSION);
         }
@@ -212,17 +212,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public SysUserDetailVO getUserInfoByUserId(Integer userId) {
-        return sysUserMapper.selectUserByUserId(userId);
+        return this.sysUserMapper.selectUserByUserId(userId);
     }
 
     @Override
     public SysUserVO getUserInfoByUsername(String username) {
-        return sysUserMapper.selectUserByUsername(username);
+        return this.sysUserMapper.selectUserByUsername(username);
     }
 
     @Override
     public List<SysUserVO> getUserInfoByUserIds(List<Integer> userIdList) {
-        return sysUserMapper.selectUserInfoByUserIds(userIdList);
+        return this.sysUserMapper.selectUserInfoByUserIds(userIdList);
     }
 
 }
