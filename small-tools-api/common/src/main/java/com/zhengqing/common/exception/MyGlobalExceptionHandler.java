@@ -64,9 +64,12 @@ public class MyGlobalExceptionHandler {
      */
     @ExceptionHandler(ValidationException.class)
     public ApiResult handleValidationException(ValidationException e) {
-        Throwable cause = e.getCause();
-        String message = cause.getMessage();
         log.error("ValidationException:", e);
+        Throwable cause = e.getCause();
+        if (cause == null) {
+            return ApiResult.fail(e.getMessage());
+        }
+        String message = cause.getMessage();
         return ApiResult.fail(message);
     }
 

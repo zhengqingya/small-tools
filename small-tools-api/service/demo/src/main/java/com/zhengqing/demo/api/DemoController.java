@@ -198,4 +198,8 @@ class TestSaveDTO extends BaseDTO {
     @ApiModelProperty("密码")
     private String password;
 
+    //    @NotEmpty(message = "list不能为空！")
+    @ApiModelProperty("list")
+    private List<TestSaveDTO> list;
+
 }
