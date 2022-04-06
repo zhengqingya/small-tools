@@ -11,6 +11,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
+import java.lang.reflect.UndeclaredThrowableException;
 
 /**
  * <p>
@@ -140,6 +141,16 @@ public class MyGlobalExceptionHandler {
     public ApiResult arrayIndexOutOfBoundsException(ArrayIndexOutOfBoundsException e) {
         log.error("数组越界异常:", e);
         return ApiResult.fail("数组越界异常:" + e.getMessage());
+    }
+
+    @ExceptionHandler({UndeclaredThrowableException.class})
+    public ApiResult exception(UndeclaredThrowableException e) {
+        log.error("UndeclaredThrowableException:", e);
+        Throwable cause = e.getCause();
+        if (cause == null) {
+            return ApiResult.fail(e.getMessage());
+        }
+        return ApiResult.fail(500, cause.getMessage());
     }
 
     /**
