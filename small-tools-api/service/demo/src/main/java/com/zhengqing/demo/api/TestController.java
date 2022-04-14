@@ -1,5 +1,6 @@
 package com.zhengqing.demo.api;
 
+import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.api.BaseController;
 import com.zhengqing.common.aspect.config.BeanSelfAware;
@@ -7,9 +8,11 @@ import com.zhengqing.common.custom.limit.ApiLimit;
 import com.zhengqing.common.http.ApiResult;
 import com.zhengqing.common.model.dto.BaseDTO;
 import com.zhengqing.common.util.EmailUtil;
+import com.zhengqing.common.util.RedisUtil;
 import com.zhengqing.common.util.RestTemplateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.web.bind.annotation.*;
@@ -84,6 +87,16 @@ public class TestController extends BaseController implements BeanSelfAware {
     @GetMapping("apiLimit")
     public String apiLimit(@RequestParam String key) {
         return "OK";
+    }
+
+    @ApiOperation("并发测试")
+    @GetMapping("contiperf")
+    @SneakyThrows(Exception.class)
+    public String contiPerf(@RequestParam String key) {
+//        TimeUnit.SECONDS.sleep(1);
+        Long num = RedisUtil.incrBy(key, 1);
+        log.info("num: {}", num);
+        return "OK: " + RandomUtil.randomNumber();
     }
 
 }
