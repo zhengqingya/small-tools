@@ -20,12 +20,12 @@ public class SpringElUtil {
     /**
      * 表达式解析器
      */
-    private static final ExpressionParser parser = new SpelExpressionParser();
+    private static final ExpressionParser PARSER = new SpelExpressionParser();
 
     /**
      * 获取方法的参数名
      */
-    private static final LocalVariableTableParameterNameDiscoverer discoverer = new LocalVariableTableParameterNameDiscoverer();
+    private static final LocalVariableTableParameterNameDiscoverer DISCOVERER = new LocalVariableTableParameterNameDiscoverer();
 
     /**
      * 解析spring EL表达式
@@ -39,7 +39,7 @@ public class SpringElUtil {
      */
     public static String parse(String key, Method method, Object[] args) {
         // 获取方法的参数名
-        String[] paramNameArray = discoverer.getParameterNames(method);
+        String[] paramNameArray = DISCOVERER.getParameterNames(method);
         if (paramNameArray == null) {
             return "";
         }
@@ -49,7 +49,7 @@ public class SpringElUtil {
             // 为了让表达式可以访问该对象, 先把对象放到上下文中
             context.setVariable(paramNameArray[i], args[i]);
         }
-        return parser.parseExpression(key).getValue(context, String.class);
+        return PARSER.parseExpression(key).getValue(context, String.class);
     }
 
 }
