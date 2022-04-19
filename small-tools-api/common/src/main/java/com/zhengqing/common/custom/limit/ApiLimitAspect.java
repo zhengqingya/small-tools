@@ -2,18 +2,21 @@ package com.zhengqing.common.custom.limit;
 
 import cn.hutool.core.lang.Assert;
 import com.zhengqing.common.exception.MyException;
+import com.zhengqing.common.util.SpringElUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.redisson.api.RRateLimiter;
 import org.redisson.api.RateIntervalUnit;
 import org.redisson.api.RateType;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -28,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class ApiLimitAspect {
 
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
     /**
@@ -48,6 +51,12 @@ public class ApiLimitAspect {
         // 数据获取
         String key = apiLimit.key();
         Assert.notBlank(key, "限流器key不能为空！");
+
+        // 支持spring El表达式
+        Method method = ((MethodSignature) pjp.getSignature()).getMethod();
+        Object[] args = pjp.getArgs();
+        key = SpringElUtil.parse(key, method, args);
+
         RateType rateType = apiLimit.rateType();
         long rate = apiLimit.rate();
         long rateInterval = apiLimit.rateInterval();
