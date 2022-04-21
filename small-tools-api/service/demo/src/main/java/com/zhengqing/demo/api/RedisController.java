@@ -1,6 +1,8 @@
 package com.zhengqing.demo.api;
 
+import com.google.common.collect.Lists;
 import com.zhengqing.common.api.BaseController;
+import com.zhengqing.common.util.IdGeneratorUtil;
 import com.zhengqing.common.util.MyDateUtil;
 import com.zhengqing.common.util.RedisUtil;
 import com.zhengqing.demo.entity.Demo;
@@ -9,11 +11,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -63,6 +67,15 @@ public class RedisController extends BaseController {
         }
     }
 
+    @GetMapping("getRandomCode")
+    @ApiOperation("获取随机码")
+    public List<String> getRandomCode() {
+        List<String> codeList = Lists.newLinkedList();
+        for (int i = 0; i < 10; i++) {
+            codeList.add(IdGeneratorUtil.generateRandomCode());
+        }
+        return codeList;
+    }
 
 }
 
