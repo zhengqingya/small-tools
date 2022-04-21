@@ -5,6 +5,7 @@ import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.zhengqing.common.constant.RedisConstant;
+import com.zhengqing.common.exception.MyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -61,7 +62,7 @@ public class IdGeneratorUtil {
     /**
      * 随机码生成 -- 12位英文大写字母+数字
      *
-     * @return 兑换码
+     * @return 随机码
      * @author zhengqingya
      * @date 2022/4/20 16:48
      */
@@ -69,9 +70,18 @@ public class IdGeneratorUtil {
         String key = RedisConstant.GENERATE_RANDOM_CODE_KEY;
         String code = RandomUtil.randomStringUpper(12);
         if (!RedisUtil.hPutIfAbsent(key, code, code)) {
+            // 如果重试次数超过5次则告警...
+            Long retryNum = RedisUtil.incrBy(RedisConstant.GENERATE_RANDOM_CODE_RETRY_NUM_KEY, 1);
+            if (retryNum > RedisConstant.GENERATE_RANDOM_CODE_MAX_RETRY_NUM) {
+                // 先删除key，防止下次进来直接异常退出程序
+                RedisUtil.delete(RedisConstant.GENERATE_RANDOM_CODE_RETRY_NUM_KEY);
+                throw new MyException("随机码已用尽，请联系系统管理员！");
+            }
+
             // 如果存在了，继续拿数据
             return generateRandomCode();
         }
+        // 正常拿到数据返回
         return code;
     }
 
