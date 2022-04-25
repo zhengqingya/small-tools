@@ -22,3 +22,32 @@ docker ps -a | grep demo | grep dev | awk '{print $1}' | xargs -I docker stop {}
 # 删除旧镜像
 docker images | grep -E demo | grep dev | awk '{print $3}' | uniq | xargs -I {} docker rmi --force {}
 ```
+
+---
+
+### registry.cn-hangzhou.aliyuncs.com/zhengqing/openjdk:8-jdk-alpine
+
+###### Dockerfile
+
+```shell
+FROM openjdk:8-jdk-alpine
+
+# 解决时差8小时问题
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# 支持字体
+RUN apk add --update ttf-dejavu fontconfig && rm -rf /var/cache/apk/*
+```
+
+###### 构建镜像
+
+```shell
+# 构建镜像 注：有点慢
+docker build -t registry.cn-hangzhou.aliyuncs.com/zhengqing/openjdk:8-jdk-alpine . --no-cache
+# 推送镜像
+docker push registry.cn-hangzhou.aliyuncs.com/zhengqing/openjdk:8-jdk-alpine
+
+# Dockerfile中引用新镜像
+# FROM registry.cn-hangzhou.aliyuncs.com/zhengqing/openjdk:8-jdk-alpine
+```
