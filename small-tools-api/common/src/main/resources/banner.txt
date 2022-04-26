@@ -11,4 +11,5 @@ ${AnsiColor.BLUE}
 Application Name: ${spring.application.name}
 Application Profile: ${AnsiColor.RED}${spring.profiles.active}${AnsiColor.BLUE}
 Server Port: ${server.port}
+Server Doc: http://127.0.0.1:${server.port}/doc.html
 Spring Boot Version: ${spring-boot.version}${spring-boot.formatted-version}
