@@ -184,6 +184,7 @@ public interface AppConstant {
     // ===============================================================================
 
     String BASE_PACKAGES = "com.zhengqing";
+    String APPLICATION_NAME_DEMO = "demo";
     String APPLICATION_NAME_SYSTEM = "system";
     String APPLICATION_NAME_BASIC = "basic";
 
