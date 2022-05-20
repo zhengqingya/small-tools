@@ -143,6 +143,9 @@ public class MyGlobalExceptionHandler {
         return ApiResult.fail("数组越界异常:" + e.getMessage());
     }
 
+    /**
+     * 包含调用处理程序抛出的未声明的检查异常
+     */
     @ExceptionHandler({UndeclaredThrowableException.class})
     public ApiResult exception(UndeclaredThrowableException e) {
         log.error("UndeclaredThrowableException:", e);
@@ -150,7 +153,7 @@ public class MyGlobalExceptionHandler {
         if (cause == null) {
             return ApiResult.fail(e.getMessage());
         }
-        return ApiResult.fail(500, cause.getMessage());
+        return ApiResult.fail(500, cause.toString());
     }
 
     /**

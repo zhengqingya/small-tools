@@ -5,9 +5,11 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;
 import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
 import com.alibaba.fastjson.JSON;
 import com.zhengqing.common.http.ApiResult;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @description
  * @date 2022/5/19 10:14
  */
-//@Component
+@Component
 public class MySentinelExceptionHandler implements BlockExceptionHandler {
 
     @Override
@@ -27,24 +29,14 @@ public class MySentinelExceptionHandler implements BlockExceptionHandler {
         String msg = null;
         if (ex instanceof FlowException) {
             msg = "访问频繁，请稍候再试";
-
         } else if (ex instanceof DegradeException) {
             msg = "系统降级";
-//ParamFlowException异常需要额外的依赖包
-//         <dependency>
-//            <groupId>com.alibaba.csp</groupId>
-//            <artifactId>sentinel-parameter-flow-control</artifactId>
-//        </dependency>
-
-//            } else if (ex instanceof ParamFlowException) {
-//                msg = "热点参数限流";
-
+        } else if (ex instanceof ParamFlowException) {
+            msg = "热点参数限流";
         } else if (ex instanceof SystemBlockException) {
             msg = "系统规则限流或降级";
-
         } else if (ex instanceof AuthorityException) {
             msg = "授权规则不通过";
-
         } else {
             msg = "未知限流降级";
         }
