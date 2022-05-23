@@ -40,24 +40,68 @@ spring:
       enabled: true # 自动化配置是否生效
       eager: true   # 禁用控制台懒加载
       transport:
-        dashboard: 192.168.101.88:8858 # www.zhengqingya.com:8858 # 控制台地址
+        dashboard: 172.16.2.244:8858 # www.zhengqingya.com:8858 # 控制台地址
         client-ip: ${spring.cloud.client.ip-address} # 获取本机IP地址
         port: 18719 # 启动该服务，会在应用程序的相应服务器上启动HTTP Server，并且该服务器将与Sentinel dashboard进行交互
       #      web-context-unify: false # 关闭context整合
       #      log:
       #        switch-pid: true
-      # nacos配置持久化
+
+      # ============== ↓↓↓↓↓↓ 增加规则持久化配置到nacos ↓↓↓↓↓↓ ==============
       datasource:
-        ds:
+        # 流控规则
+        flow:
           nacos:
-            server-addr: ${spring.cloud.nacos.discovery.server-addr}
-            username: ${spring.cloud.nacos.discovery.username}
-            password: ${spring.cloud.nacos.discovery.password}
-            dataId: sentinel-${spring.application.name}
-            groupId: ${spring.cloud.nacos.discovery.group}
-            data-type: json
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            username: ${spring.cloud.nacos.config.username}
+            password: ${spring.cloud.nacos.config.password}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: sentinel-group
+            data-id: ${spring.application.name}-sentinel-flow-rules
             # 规则类型：flow、degrade、param-flow、system、authority
             rule-type: flow
+        # 熔断降级
+        degrade:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            username: ${spring.cloud.nacos.config.username}
+            password: ${spring.cloud.nacos.config.password}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: sentinel-group
+            data-id: ${spring.application.name}-sentinel-degrade-rules
+            rule-type: degrade
+        # 热点规则
+        param-flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            username: ${spring.cloud.nacos.config.username}
+            password: ${spring.cloud.nacos.config.password}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: sentinel-group
+            data-id: ${spring.application.name}-sentinel-param-flow-rules
+            rule-type: param-flow
+        # 系统规则
+        system:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            username: ${spring.cloud.nacos.config.username}
+            password: ${spring.cloud.nacos.config.password}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: sentinel-group
+            data-id: ${spring.application.name}-sentinel-system-rules
+            rule-type: system
+        # 授权规则
+        authority:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            username: ${spring.cloud.nacos.config.username}
+            password: ${spring.cloud.nacos.config.password}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: sentinel-group
+            data-id: ${spring.application.name}-sentinel-authority-rules
+            rule-type: authority
+
+
 
 #    config:
 #      # 相同配置下优先使用本地配置 (注：需在nacos上配置才生效！)
