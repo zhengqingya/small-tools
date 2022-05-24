@@ -61,8 +61,7 @@ public class SentinelController extends BaseController {
             return this.num;
         }
         // 只有正常请求common，才能启动链路限流规则
-//        this.requestCommon();
-        this.common();
+        this.requestCommon();
         return RandomUtil.randomLong();
     }
 
@@ -73,7 +72,17 @@ public class SentinelController extends BaseController {
     @GetMapping("flow/B")
     @ApiOperation("B")
     public Long flowB() {
-//        this.requestCommon();
+        this.common();
+        return RandomUtil.randomLong();
+    }
+
+    /**
+     * http://127.0.0.1:20040/sentinel/flow/BB
+     */
+    @SneakyThrows(Exception.class)
+    @GetMapping("flow/BB")
+    @ApiOperation("BB")
+    public Long flowBB() {
         this.common();
         return RandomUtil.randomLong();
     }
@@ -100,6 +109,7 @@ public class SentinelController extends BaseController {
             int a = 1 / 0;
         } catch (Exception e) {
             if (!BlockException.isBlockException(e)) {
+                // 或 添加注解`@SentinelResource(value = "err")` 异常比例和异常数才能熔断测试！！！
                 Tracer.trace(e);
             }
             throw e;
@@ -141,9 +151,19 @@ public class SentinelController extends BaseController {
         return RandomUtil.randomLong();
     }
 
-
     public Long blockHandlerForG(BlockException ex) {
         return 666L;
+    }
+
+    /**
+     * http://127.0.0.1:20040/sentinel/err
+     */
+    @GetMapping("err")
+    @ApiOperation("err")
+    @SentinelResource(value = "/sentinel/err")
+    public Long err() {
+        int a = 1 / 0;
+        return RandomUtil.randomLong();
     }
 
 }

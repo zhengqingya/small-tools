@@ -120,3 +120,11 @@ ribbon:
   rule-type: version
   eager-load:
     enabled: true # 开启饥饿加载模式
+
+
+# feign配置
+feign:
+  sentinel:
+    enabled: true # openfeign整合sentinel，开启sentinel监控功能
+  hystrix:
+    enabled: true # 开启Feign的熔断功能 默认是关闭的
