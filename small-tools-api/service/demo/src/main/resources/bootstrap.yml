@@ -39,11 +39,11 @@ spring:
     sentinel:
       enabled: true # 自动化配置是否生效
       eager: true   # 禁用控制台懒加载
+      web-context-unify: false # 关闭调用链路收敛 => 实现链路流控
       transport:
         dashboard: 172.16.2.244:8858 # www.zhengqingya.com:8858 # 控制台地址
         client-ip: ${spring.cloud.client.ip-address} # 获取本机IP地址
         port: 18719 # 启动该服务，会在应用程序的相应服务器上启动HTTP Server，并且该服务器将与Sentinel dashboard进行交互
-      #      web-context-unify: false # 关闭context整合
       #      log:
       #        switch-pid: true
 

@@ -44,6 +44,11 @@ public class SentinelController extends BaseController {
         return this.iDemoClient.flowCommon();
     }
 
+    public Long common() {
+        this.iSentinelService.common();
+        return 1L;
+    }
+
     /**
      * http://127.0.0.1:20040/sentinel/flow/A
      */
@@ -56,7 +61,8 @@ public class SentinelController extends BaseController {
             return this.num;
         }
         // 只有正常请求common，才能启动链路限流规则
-        this.requestCommon();
+//        this.requestCommon();
+        this.common();
         return RandomUtil.randomLong();
     }
 
@@ -67,7 +73,8 @@ public class SentinelController extends BaseController {
     @GetMapping("flow/B")
     @ApiOperation("B")
     public Long flowB() {
-        this.requestCommon();
+//        this.requestCommon();
+        this.common();
         return RandomUtil.randomLong();
     }
 
@@ -121,6 +128,22 @@ public class SentinelController extends BaseController {
     @ApiOperation("F")
     public Long F() {
         return RandomUtil.randomLong();
+    }
+
+    /**
+     * http://127.0.0.1:20040/sentinel/G
+     */
+    @GetMapping("G")
+    @ApiOperation("G")
+    @SneakyThrows(Exception.class)
+    @SentinelResource(value = "/sentinel/G", blockHandler = "blockHandlerForG")
+    public Long G() {
+        return RandomUtil.randomLong();
+    }
+
+
+    public Long blockHandlerForG(BlockException ex) {
+        return 666L;
     }
 
 }
