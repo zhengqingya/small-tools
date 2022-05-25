@@ -12,7 +12,12 @@
     <artifactId>common</artifactId>
     <name>${project.artifactId}</name>
     <version>${small-tools-api.project.version}</version>
-    <packaging>jar</packaging>
+
+    <modules>
+        <module>redis</module>
+    </modules>
+
+    <packaging>pom</packaging>
 
     <dependencies>
         <!-- SpringCloud Ailibaba Nacos Discovery -->
