@@ -3,7 +3,7 @@ package com.zhengqing.tool.crawler.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhengqing.common.util.MyBeanUtil;
+import com.zhengqing.common.base.util.MyBeanUtil;
 import com.zhengqing.tool.crawler.entity.StCrawlerWebsite;
 import com.zhengqing.tool.crawler.mapper.StCrawlerWebsiteMapper;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerWebsiteListDTO;

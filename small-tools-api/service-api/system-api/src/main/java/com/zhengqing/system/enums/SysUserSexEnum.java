@@ -2,7 +2,7 @@ package com.zhengqing.system.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.google.common.collect.Lists;
-import com.zhengqing.common.exception.MyException;
+import com.zhengqing.common.base.exception.MyException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

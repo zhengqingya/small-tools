@@ -3,8 +3,8 @@ package com.zhengqing.tool.util;
 import com.lowagie.text.Font;
 import com.lowagie.text.*;
 import com.lowagie.text.rtf.RtfWriter2;
-import com.zhengqing.common.exception.MyException;
-import com.zhengqing.common.util.MyFileUtil;
+import com.zhengqing.common.base.exception.MyException;
+import com.zhengqing.common.base.util.MyFileUtil;
 import com.zhengqing.tool.db.model.bo.StDbTableColumnBO;
 import lombok.extern.slf4j.Slf4j;
 

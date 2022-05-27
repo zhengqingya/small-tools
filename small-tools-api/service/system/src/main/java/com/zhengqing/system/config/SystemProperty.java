@@ -1,6 +1,6 @@
 package com.zhengqing.system.config;
 
-import com.zhengqing.common.config.CommonProperty;
+import com.zhengqing.common.swagger.config.CommonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import me.zhyd.oauth.config.AuthConfig;

@@ -1,7 +1,7 @@
 package com.zhengqing.system.api;
 
-import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.util.QiniuFileUtil;
+import com.zhengqing.common.core.api.BaseController;
+import com.zhengqing.common.core.util.QiniuFileUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -32,25 +32,25 @@ public class SysFileController extends BaseController {
     @PostMapping("uploadMultipartFile")
     @ApiOperation("上传文件")
     public String uploadMultipartFile(@RequestParam(value = "file") MultipartFile file) {
-        return qiniuFileUtil.uploadFile(file, file.getOriginalFilename());
+        return this.qiniuFileUtil.uploadFile(file, file.getOriginalFilename());
     }
 
     @PostMapping("uploadFile")
     @ApiOperation("上传文件")
     public String uploadFile(@RequestParam("file") File file) {
-        return qiniuFileUtil.uploadFile(file, file.getName());
+        return this.qiniuFileUtil.uploadFile(file, file.getName());
     }
 
     @GetMapping("downloadFile")
     @ApiOperation("下载文件")
     public String downloadFile(@RequestParam("fileName") String fileName) {
-        return qiniuFileUtil.downloadFile(fileName, 3600);
+        return this.qiniuFileUtil.downloadFile(fileName, 3600);
     }
 
     @DeleteMapping("deleteFile")
     @ApiOperation("删除文件")
     public String deleteFile(@RequestParam String fileName) {
-        return qiniuFileUtil.delete(fileName);
+        return this.qiniuFileUtil.delete(fileName);
     }
 
 }

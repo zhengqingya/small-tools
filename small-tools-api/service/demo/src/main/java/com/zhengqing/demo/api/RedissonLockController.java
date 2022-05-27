@@ -1,8 +1,8 @@
 package com.zhengqing.demo.api;
 
-import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.custom.lock.RedisLock;
-import com.zhengqing.common.custom.lock.RedisLockType;
+import com.zhengqing.common.core.api.BaseController;
+import com.zhengqing.common.core.custom.lock.RedisLock;
+import com.zhengqing.common.core.custom.lock.RedisLockType;
 import com.zhengqing.demo.model.dto.DemoListDTO;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;

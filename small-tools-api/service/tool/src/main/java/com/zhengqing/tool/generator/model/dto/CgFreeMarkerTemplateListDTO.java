@@ -1,6 +1,6 @@
 package com.zhengqing.tool.generator.model.dto;
 
-import com.zhengqing.common.model.dto.BaseDTO;
+import com.zhengqing.common.base.model.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

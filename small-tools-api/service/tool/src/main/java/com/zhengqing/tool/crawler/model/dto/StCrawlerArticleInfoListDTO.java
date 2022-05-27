@@ -1,8 +1,8 @@
 package com.zhengqing.tool.crawler.model.dto;
 
-import com.zhengqing.common.custom.parameter.ParameterVerify;
-import com.zhengqing.common.exception.ParameterException;
-import com.zhengqing.common.util.MyDateUtil;
+import com.zhengqing.common.core.custom.parameter.ParameterVerify;
+import com.zhengqing.common.base.exception.ParameterException;
+import com.zhengqing.common.base.util.MyDateUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

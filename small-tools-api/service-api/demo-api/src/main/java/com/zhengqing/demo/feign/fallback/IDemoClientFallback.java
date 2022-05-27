@@ -1,6 +1,6 @@
 package com.zhengqing.demo.feign.fallback;
 
-import com.zhengqing.common.exception.MyException;
+import com.zhengqing.common.base.exception.MyException;
 import com.zhengqing.demo.feign.IDemoClient;
 import org.springframework.stereotype.Component;
 

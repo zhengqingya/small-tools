@@ -1,6 +1,6 @@
 package com.zhengqing.system.config;
 
-import com.zhengqing.common.config.AppCommonRunner;
+import com.zhengqing.common.core.config.AppCommonRunner;
 import com.zhengqing.system.service.ISysDictService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

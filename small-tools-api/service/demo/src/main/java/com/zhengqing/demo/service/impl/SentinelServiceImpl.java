@@ -3,7 +3,7 @@ package com.zhengqing.demo.service.impl;
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.zhengqing.common.util.IdGeneratorUtil;
+import com.zhengqing.common.core.util.IdGeneratorUtil;
 import com.zhengqing.demo.service.ISentinelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

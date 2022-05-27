@@ -1,6 +1,6 @@
 package com.zhengqing.tool.crawler.processor;
 
-import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.tool.crawler.model.bo.StCrawlerCsdnBO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
@@ -135,7 +135,7 @@ public class StCsdnPageProcessor implements PageProcessor {
 
     @Override
     public Site getSite() {
-        return site;
+        return this.site;
     }
 
     public static void main(String[] args) {

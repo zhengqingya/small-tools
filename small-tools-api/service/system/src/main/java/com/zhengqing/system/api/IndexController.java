@@ -1,6 +1,6 @@
 package com.zhengqing.system.api;
 
-import com.zhengqing.common.api.BaseController;
+import com.zhengqing.common.core.api.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +28,7 @@ public class IndexController extends BaseController {
     @GetMapping("/index")
     @ApiOperation(value = "首页")
     public String index() {
-        return "您好，欢迎访问【" + applicationName + "】";
+        return "您好，欢迎访问【" + this.applicationName + "】";
     }
 
     @GetMapping("/hello")

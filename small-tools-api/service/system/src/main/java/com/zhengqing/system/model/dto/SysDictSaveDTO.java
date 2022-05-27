@@ -1,7 +1,7 @@
 package com.zhengqing.system.model.dto;
 
-import com.zhengqing.common.custom.validator.common.UpdateGroup;
-import com.zhengqing.common.custom.fieldrepeat.FieldRepeatValidator;
+import com.zhengqing.common.core.custom.validator.common.UpdateGroup;
+import com.zhengqing.common.core.custom.fieldrepeat.FieldRepeatValidator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

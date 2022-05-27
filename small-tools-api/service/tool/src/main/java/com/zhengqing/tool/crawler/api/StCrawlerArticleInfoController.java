@@ -1,8 +1,8 @@
 package com.zhengqing.tool.crawler.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.core.api.BaseController;
+import com.zhengqing.common.core.custom.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerArticleInfoExportDataDTO;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerArticleInfoListDTO;
 import com.zhengqing.tool.crawler.model.vo.StCrawlerArticleInfoListVO;

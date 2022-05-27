@@ -13,6 +13,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URI;
 
+/**
+ * <p> 自定义监听器 </p>
+ *
+ * @author zhengqingya
+ * @description
+ * @date 2021/11/19 14:49
+ */
 @Slf4j
 @Component
 public class TestRefreshRoutesListener implements ApplicationListener<ApplicationReadyEvent> {
@@ -23,17 +30,17 @@ public class TestRefreshRoutesListener implements ApplicationListener<Applicatio
     @Autowired
     private GatewayProperties gatewayProperties;
 
-
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         try {
-            for (RouteDefinition route : gatewayProperties.getRoutes()) {
+            for (RouteDefinition route : this.gatewayProperties.getRoutes()) {
                 URI uri = route.getUri();
+                String id = route.getId();
                 if (uri.toString().startsWith("lb")) {
                     Method getContext = SpringClientFactory.class.getDeclaredMethod("getContext", String.class);
                     getContext.setAccessible(true);
-                    getContext.invoke(this.springClientFactory, route.getId());
-                    log.info("执行操作");
+                    getContext.invoke(this.springClientFactory, id);
+                    log.info("获取路由: {}", id);
                 }
             }
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {

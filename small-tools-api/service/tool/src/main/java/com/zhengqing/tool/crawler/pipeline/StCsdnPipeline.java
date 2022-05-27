@@ -1,7 +1,7 @@
 package com.zhengqing.tool.crawler.pipeline;
 
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.util.DateTimeUtil;
+import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.base.util.DateTimeUtil;
 import com.zhengqing.tool.crawler.entity.StCrawlerArticleInfo;
 import com.zhengqing.tool.crawler.model.bo.StCrawlerCsdnBO;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerArticleInfoQueryDTO;
@@ -45,7 +45,7 @@ public class StCsdnPipeline implements Pipeline {
     @Override
     public void process(ResultItems resultItems, Task task) {
         StCrawlerCsdnBO stCrawlerCsdnBO = resultItems.get("csdn:article:info");
-        List<StCrawlerWebsiteListVO> list = stCrawlerWebsiteService.list(StCrawlerWebsiteListDTO.builder().build());
+        List<StCrawlerWebsiteListVO> list = this.stCrawlerWebsiteService.list(StCrawlerWebsiteListDTO.builder().build());
         if (stCrawlerCsdnBO != null) {
             list.forEach(e -> {
                 String url = e.getUrl();
@@ -74,14 +74,14 @@ public class StCsdnPipeline implements Pipeline {
                         // 这里判断是否已经有解析过的数据，如果有走更新数据，否则走插入
                         // Integer articleInfoId = stCrawlerArticleInfoService.getArticleInfoId(articleId);
                         StCrawlerArticleInfoListVO articleDetail =
-                                stCrawlerArticleInfoService.getArticleDetail(StCrawlerArticleInfoQueryDTO.builder()
+                                this.stCrawlerArticleInfoService.getArticleDetail(StCrawlerArticleInfoQueryDTO.builder()
                                         .websiteId(websiteId).title(stCrawlerArticleInfo.getTitle())
                                         .category(stCrawlerArticleInfo.getCategory()).build());
                         if (articleDetail == null) {
-                            stCrawlerArticleInfoService.save(stCrawlerArticleInfo);
+                            this.stCrawlerArticleInfoService.save(stCrawlerArticleInfo);
                         } else {
                             stCrawlerArticleInfo.setArticleInfoId(articleDetail.getArticleInfoId());
-                            stCrawlerArticleInfoService.updateById(stCrawlerArticleInfo);
+                            this.stCrawlerArticleInfoService.updateById(stCrawlerArticleInfo);
                         }
                     } catch (ParseException parseException) {
                         parseException.printStackTrace();

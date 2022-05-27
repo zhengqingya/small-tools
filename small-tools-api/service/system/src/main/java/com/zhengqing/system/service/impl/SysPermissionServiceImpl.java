@@ -2,10 +2,10 @@ package com.zhengqing.system.service.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.context.ContextHandler;
-import com.zhengqing.common.exception.MyException;
-import com.zhengqing.common.util.MyBeanUtil;
+import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.base.context.ContextHandler;
+import com.zhengqing.common.base.exception.MyException;
+import com.zhengqing.common.base.util.MyBeanUtil;
 import com.zhengqing.system.entity.SysRole;
 import com.zhengqing.system.entity.SysUserRole;
 import com.zhengqing.system.enums.SysCacheTypeEnum;
@@ -101,7 +101,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     @Override
     public List<SysMenuTreeVO> menuTree(Integer systemSource) {
         // ①、拿到所有菜单
-        List<SysMenuTreeVO> allMenuList = sysMenuService.selectMenuTree(systemSource);
+        List<SysMenuTreeVO> allMenuList = this.sysMenuService.selectMenuTree(systemSource);
         // ②、准备一个空的父菜单集合
         List<SysMenuTreeVO> parentMenuList = Lists.newArrayList();
         // ③、遍历子菜单 -> 进行对父菜单的设置
@@ -112,7 +112,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         }
         // ④、遍历出父菜单对应的子菜单
         for (SysMenuTreeVO parent : parentMenuList) {
-            List<SysMenuTreeVO> child = getChildMenu(parent.getMenuId(), allMenuList);
+            List<SysMenuTreeVO> child = this.getChildMenu(parent.getMenuId(), allMenuList);
             parent.setChildren(child);
         }
         // RedisUtil.set(Constants.CACHE_SYS_MENU_TREE, JSON.toJSONString(parentMenuList));
@@ -139,7 +139,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         }
         // ⑥、递归
         for (SysMenuTreeVO userGroup : childMenuList) {
-            userGroup.setChildren(getChildMenu(userGroup.getMenuId(), allMenuList));
+            userGroup.setChildren(this.getChildMenu(userGroup.getMenuId(), allMenuList));
         }
         // if (childMenuList.size() == 0) {
         // return null;
@@ -155,7 +155,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     public SysPermissionVO getPermissionByUserId(Integer userId, Integer systemSource) {
         log.debug("=========== 用户ID为：{} ===========", userId);
         // 通过用户ID取得用户角色
-        SysUserRole sysUserRole = sysUserRoleService.getById(userId);
+        SysUserRole sysUserRole = this.sysUserRoleService.getById(userId);
         if (sysUserRole == null) {
             throw new MyException(AppConstant.NO_PERMISSION);
         }
@@ -165,12 +165,12 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         }
         List<Integer> roleIdList =
                 Arrays.stream(roleIds.split(",")).map(e -> Integer.parseInt(e.trim())).collect(Collectors.toList());
-        List<SysRole> sysRoleList = sysRoleService.listByIds(roleIdList);
+        List<SysRole> sysRoleList = this.sysRoleService.listByIds(roleIdList);
         if (CollectionUtils.isEmpty(sysRoleList)) {
             return null;
         }
 
-        SysPermissionVO permissionVO = getRoleAndMenuInfo(sysRoleList, roleIdList);
+        SysPermissionVO permissionVO = this.getRoleAndMenuInfo(sysRoleList, roleIdList);
         List<SysMenuTreeVO> menuBtnPermissionTreeList =
                 this.menuAndBtnPermissionTree(permissionVO.getMenuIdList(), roleIdList, systemSource);
         permissionVO.setMenuAndBtnPermissionTree(menuBtnPermissionTreeList);
@@ -204,7 +204,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         result.setRoleNames(roleNames.toString());
         result.setRoleCodes(roleCodes.toString());
         result.setRoleIdList(roleIdList);
-        result.setMenuIdList(sysRoleMenuService.getMenuIdsByRoleIds(roleIdList));
+        result.setMenuIdList(this.sysRoleMenuService.getMenuIdsByRoleIds(roleIdList));
         return result;
     }
 
@@ -230,7 +230,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
 
         // 【法二】：直接查
         List<SysMenuTreeVO> menuTreeList = this.menuTree(systemSource);
-        List<SysRoleMenuBtnListVO> btnList = sysRoleMenuBtnService.getAllRoleMenuBtns();
+        List<SysRoleMenuBtnListVO> btnList = this.sysRoleMenuBtnService.getAllRoleMenuBtns();
         List<SysMenuTreeVO> menuBtnTreeList = this.filterTree(menuTreeList, menuIdList, roleIdList, btnList);
         return menuBtnTreeList;
     }
@@ -254,7 +254,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
             if (menuIdList.contains(menuId) && SysMenuTypeEnum.菜单.getType().equals(menu.getType())) {
                 List<SysMenuTreeVO> menuChildren = menu.getChildren();
                 if (!CollectionUtils.isEmpty(menuChildren)) {
-                    menu.setChildren(filterTree(menuChildren, menuIdList, roleIdList, btnList));
+                    menu.setChildren(this.filterTree(menuChildren, menuIdList, roleIdList, btnList));
                 }
 
                 List<String> btnPermissions = this.getBtnsByRoleIdMenuId(menuId, roleIdList, btnList);
@@ -299,7 +299,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     // ===============================================================================
 
     private void updateUserInfoByUserId(Integer userId) {
-        SysUserDetailVO sysUserDetailVO = sysUserService.getUserInfoByUserId(userId);
+        SysUserDetailVO sysUserDetailVO = this.sysUserService.getUserInfoByUserId(userId);
         SysUserVO currentUserInfo = MyBeanUtil.copyProperties(sysUserDetailVO, SysUserVO.class);
         // 【法一】：从redis缓存中取权限数据...
         // SysPermissionVO permissionVO = JSONObject
@@ -328,7 +328,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         // SecurityUser user = JSONObject.parseObject(RedisUtil.get(key), SecurityUser.class);
 
         // 【法二】：直接查
-        SysUserDetailVO sysUserDetailVO = sysUserService.getUserInfoByUserId(userId);
+        SysUserDetailVO sysUserDetailVO = this.sysUserService.getUserInfoByUserId(userId);
         SysPermissionVO permissionVO = this.getPermissionByUserId(userId, systemSource);
         SysUserVO currentUserInfo = MyBeanUtil.copyProperties(sysUserDetailVO, SysUserVO.class);
         currentUserInfo.setRoleNames(permissionVO.getRoleNames());

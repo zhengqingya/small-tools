@@ -2,10 +2,10 @@ package com.zhengqing.gateway.filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.http.ApiResult;
-import com.zhengqing.common.model.bo.UserTokenInfo;
-import com.zhengqing.common.util.JwtUtil;
+import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.core.model.bo.UserTokenInfo;
+import com.zhengqing.common.core.util.JwtUtil;
 import com.zhengqing.gateway.config.GatewayProperty;
 import com.zhengqing.gateway.config.GatewayProperty.Auth;
 import lombok.SneakyThrows;
@@ -62,7 +62,7 @@ public class AuthFilter implements GlobalFilter {
 
         String tokenValue = request.getHeaders().getFirst(AppConstant.REQUEST_HEADER_TOKEN);
         if (StringUtils.isBlank(tokenValue)) {
-            return unAuth(response, "token丢失!");
+            return this.unAuth(response, "token丢失!");
         }
         HttpHeaders headers = new HttpHeaders();
 
@@ -70,7 +70,7 @@ public class AuthFilter implements GlobalFilter {
         try {
             tokenInfo = JwtUtil.checkJWT(tokenValue);
         } catch (Exception e) {
-            return unAuth(response, e.getMessage());
+            return this.unAuth(response, e.getMessage());
         }
 
         headers.add(AppConstant.CONTEXT_KEY_USER_ID, String.valueOf(tokenInfo.getUserId()));
@@ -90,7 +90,7 @@ public class AuthFilter implements GlobalFilter {
      * @date 2021/1/13 13:49
      */
     private boolean isSkip(String requestUrl) {
-        Auth auth = gatewayProperty.getAuth();
+        Auth auth = this.gatewayProperty.getAuth();
         List<String> ignoreUrls = auth.getIgnoreUrls();
         List<String> openApiUrls = auth.getOpenApiUrls();
         List<String> webApiUrls = auth.getWebApiUrls();
@@ -116,7 +116,7 @@ public class AuthFilter implements GlobalFilter {
         response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
         String result = "";
         try {
-            result = objectMapper.writeValueAsString(ApiResult.fail(msg));
+            result = this.objectMapper.writeValueAsString(ApiResult.fail(msg));
         } catch (JsonProcessingException e) {
             log.error(e.getMessage(), e);
         }

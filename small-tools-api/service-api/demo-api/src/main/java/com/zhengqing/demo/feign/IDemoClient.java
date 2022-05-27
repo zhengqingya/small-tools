@@ -1,8 +1,8 @@
 package com.zhengqing.demo.feign;
 
 
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.rpc.IBaseClient;
+import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.feign.rpc.IBaseClient;
 import com.zhengqing.demo.feign.fallback.IDemoClientFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

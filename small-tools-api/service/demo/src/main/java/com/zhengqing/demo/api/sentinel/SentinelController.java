@@ -4,7 +4,7 @@ import cn.hutool.core.util.RandomUtil;
 import com.alibaba.csp.sentinel.Tracer;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.zhengqing.common.api.BaseController;
+import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.demo.feign.IDemoClient;
 import com.zhengqing.demo.service.ISentinelService;
 import io.swagger.annotations.Api;

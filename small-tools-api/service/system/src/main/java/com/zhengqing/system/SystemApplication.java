@@ -1,5 +1,6 @@
 package com.zhengqing.system;
 
+import com.zhengqing.common.core.constant.AppConstant;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -7,8 +8,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import com.zhengqing.common.constant.AppConstant;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {AppConstant.BASE_PACKAGES})

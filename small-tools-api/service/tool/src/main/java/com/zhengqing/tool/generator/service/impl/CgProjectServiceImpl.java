@@ -3,7 +3,7 @@ package com.zhengqing.tool.generator.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.tool.generator.entity.CgProject;
 import com.zhengqing.tool.generator.mapper.CgProjectMapper;
 import com.zhengqing.tool.generator.model.dto.CgProjectListDTO;
@@ -44,7 +44,7 @@ public class CgProjectServiceImpl extends ServiceImpl<CgProjectMapper, CgProject
 
     @Override
     public IPage<CgProjectListVO> listPage(CgProjectListDTO filter) {
-        IPage<CgProjectListVO> result = cgProjectMapper.selectProjects(new Page(), filter);
+        IPage<CgProjectListVO> result = this.cgProjectMapper.selectProjects(new Page(), filter);
         // 根据项目名称去重
         // result = result.stream().collect( Collectors.collectingAndThen( Collectors.toCollection( () -> new TreeSet<>(
         // Comparator.comparing( Project::getName ) ) ), ArrayList::new ) );
@@ -53,7 +53,7 @@ public class CgProjectServiceImpl extends ServiceImpl<CgProjectMapper, CgProject
 
     @Override
     public List<CgProjectListVO> list(CgProjectListDTO filter) {
-        return cgProjectMapper.selectProjects(filter);
+        return this.cgProjectMapper.selectProjects(filter);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class CgProjectServiceImpl extends ServiceImpl<CgProjectMapper, CgProject
             cgProjectPackageSaveDTO.setName(AppConstant.PROJECT_RE_PACKAGE_PARENT_NAME);
             cgProjectPackageSaveDTO.setParentId(AppConstant.PROJECT_RE_PACKAGE_PARENT_ID);
             cgProjectPackageSaveDTO.setProjectId(cgProject.getId());
-            cgProjectPackageService.addOrUpdateData(cgProjectPackageSaveDTO);
+            this.cgProjectPackageService.addOrUpdateData(cgProjectPackageSaveDTO);
         } else {
             cgProject.updateById();
         }
@@ -85,11 +85,11 @@ public class CgProjectServiceImpl extends ServiceImpl<CgProjectMapper, CgProject
     @Override
     public void deleteData(Integer projectId) {
         // 一、删除关联的项目模板
-        cgProjectTemplateService.deleteDataByProjectId(projectId);
+        this.cgProjectTemplateService.deleteDataByProjectId(projectId);
         // 二、删除关联的项目包
-        cgProjectPackageService.deleteDataByProjectId(projectId);
+        this.cgProjectPackageService.deleteDataByProjectId(projectId);
         // 三、删除该项目
-        removeById(projectId);
+        this.removeById(projectId);
     }
 
     @Override

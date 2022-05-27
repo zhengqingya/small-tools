@@ -1,6 +1,6 @@
 package com.zhengqing.system.model.vo;
 
-import com.zhengqing.common.model.vo.BaseVO;
+import com.zhengqing.common.base.model.vo.BaseVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

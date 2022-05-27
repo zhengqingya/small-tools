@@ -2,9 +2,9 @@ package com.zhengqing.tool;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.util.MyFileUtil;
-import com.zhengqing.common.util.YmlUtil;
+import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.base.util.MyFileUtil;
+import com.zhengqing.common.base.util.YmlUtil;
 import com.zhengqing.tool.db.enums.StDbDataSourceTypeEnum;
 import com.zhengqing.tool.db.model.vo.StDbTableColumnListVO;
 import com.zhengqing.tool.db.service.impl.StDbJdbcServiceImpl;

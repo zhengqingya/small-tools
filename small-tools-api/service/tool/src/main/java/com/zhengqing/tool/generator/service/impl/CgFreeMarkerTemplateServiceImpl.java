@@ -3,10 +3,10 @@ package com.zhengqing.tool.generator.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.context.ContextHandler;
-import com.zhengqing.common.exception.MyException;
-import com.zhengqing.common.util.MyBeanUtil;
+import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.base.context.ContextHandler;
+import com.zhengqing.common.base.exception.MyException;
+import com.zhengqing.common.base.util.MyBeanUtil;
 import com.zhengqing.tool.generator.entity.CgFreeMarkerTemplate;
 import com.zhengqing.tool.generator.enums.CgFreeMarkerTemplateCommonTypeEnum;
 import com.zhengqing.tool.generator.mapper.CgFreeMarkerTemplateMapper;
@@ -49,16 +49,16 @@ public class CgFreeMarkerTemplateServiceImpl extends ServiceImpl<CgFreeMarkerTem
 
     @Override
     public IPage<CgFreeMarkerTemplateListVO> listPage(CgFreeMarkerTemplateListDTO params) {
-        IPage<CgFreeMarkerTemplateListVO> result = cgFreeMarkerTemplateMapper.selectTemplates(new Page<>(), params);
+        IPage<CgFreeMarkerTemplateListVO> result = this.cgFreeMarkerTemplateMapper.selectTemplates(new Page<>(), params);
         List<CgFreeMarkerTemplateListVO> list = result.getRecords();
-        handleResultData(list);
+        this.handleResultData(list);
         return result;
     }
 
     @Override
     public List<CgFreeMarkerTemplateListVO> list(CgFreeMarkerTemplateListDTO params) {
-        List<CgFreeMarkerTemplateListVO> list = cgFreeMarkerTemplateMapper.selectTemplates(params);
-        handleResultData(list);
+        List<CgFreeMarkerTemplateListVO> list = this.cgFreeMarkerTemplateMapper.selectTemplates(params);
+        this.handleResultData(list);
         return list;
     }
 
@@ -124,7 +124,7 @@ public class CgFreeMarkerTemplateServiceImpl extends ServiceImpl<CgFreeMarkerTem
         if (!CollectionUtils.isEmpty(templateList)) {
             Map<String, Object> templateDataMap = templateList.stream().collect(Collectors
                     .toMap(CgFreeMarkerTemplateListVO::getTemplateKey, CgFreeMarkerTemplateListVO::getTemplateValue));
-            templateData = cgGeneratorCodeService.generateTemplateData(templateDataMap, templateContent);
+            templateData = this.cgGeneratorCodeService.generateTemplateData(templateDataMap, templateContent);
         }
         return templateData;
     }

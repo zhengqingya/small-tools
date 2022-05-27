@@ -1,7 +1,7 @@
 package com.zhengqing.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.zhengqing.common.entity.BaseEntity;
+import com.zhengqing.common.db.entity.BaseEntity;
 import com.zhengqing.system.enums.SysUserSexEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

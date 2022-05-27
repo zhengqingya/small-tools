@@ -2,9 +2,9 @@ package com.zhengqing.system.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Maps;
-import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
-import com.zhengqing.common.custom.validator.common.UpdateGroup;
+import com.zhengqing.common.core.api.BaseController;
+import com.zhengqing.common.core.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.core.custom.validator.common.UpdateGroup;
 import com.zhengqing.system.model.dto.*;
 import com.zhengqing.system.model.vo.SysUserDetailVO;
 import com.zhengqing.system.model.vo.SysUserVO;

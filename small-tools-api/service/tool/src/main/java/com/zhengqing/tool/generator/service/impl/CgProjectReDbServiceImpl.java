@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
-import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.tool.db.model.vo.StDbTableColumnListVO;
 import com.zhengqing.tool.db.model.vo.StDbTableListVO;
 import com.zhengqing.tool.db.service.IStDbJdbcService;
@@ -59,16 +59,16 @@ public class CgProjectReDbServiceImpl extends ServiceImpl<CgProjectReDbMapper, C
 
     @Override
     public IPage<CgProjectReDbListVO> listPage(CgProjectReDbListDTO params) {
-        IPage<CgProjectReDbListVO> result = cgProjectReDbMapper.selectCodeProjectReDbs(new Page<>(), params);
+        IPage<CgProjectReDbListVO> result = this.cgProjectReDbMapper.selectCodeProjectReDbs(new Page<>(), params);
         List<CgProjectReDbListVO> list = result.getRecords();
-        handleResultData(list);
+        this.handleResultData(list);
         return result;
     }
 
     @Override
     public List<CgProjectReDbListVO> list(CgProjectReDbListDTO params) {
-        List<CgProjectReDbListVO> list = cgProjectReDbMapper.selectCodeProjectReDbs(params);
-        handleResultData(list);
+        List<CgProjectReDbListVO> list = this.cgProjectReDbMapper.selectCodeProjectReDbs(params);
+        this.handleResultData(list);
         return list;
     }
 
@@ -77,14 +77,14 @@ public class CgProjectReDbServiceImpl extends ServiceImpl<CgProjectReDbMapper, C
         Integer projectReDbDataSourceId = params.getProjectReDbDataSourceId();
         String tableName = params.getTableName();
 
-        CgProjectReDb cgProjectReDb = cgProjectReDbMapper.selectById(projectReDbDataSourceId);
+        CgProjectReDb cgProjectReDb = this.cgProjectReDbMapper.selectById(projectReDbDataSourceId);
         Integer dbDataSourceId = cgProjectReDb.getDbDataSourceId();
         String dbName = cgProjectReDb.getDbName();
 
         List<CgTableListVO> myTableList = Lists.newArrayList();
 
         List<StDbTableListVO> tableList =
-                stDbJdbcService.getAllTablesByDataSourceIdAndDbName(dbDataSourceId, dbName, tableName);
+                this.stDbJdbcService.getAllTablesByDataSourceIdAndDbName(dbDataSourceId, dbName, tableName);
         if (!CollectionUtils.isEmpty(tableList)) {
             tableList.forEach(e -> myTableList.add(new CgTableListVO(e.getTableName(), e.getTableComment())));
         }
@@ -96,7 +96,7 @@ public class CgProjectReDbServiceImpl extends ServiceImpl<CgProjectReDbMapper, C
         Integer projectReDbDataSourceId = params.getProjectReDbDataSourceId();
         String tableName = params.getTableName();
 
-        CgProjectReDb cgProjectReDb = cgProjectReDbMapper.selectById(projectReDbDataSourceId);
+        CgProjectReDb cgProjectReDb = this.cgProjectReDbMapper.selectById(projectReDbDataSourceId);
         Integer projectId = cgProjectReDb.getProjectId();
         Integer dbDataSourceId = cgProjectReDb.getDbDataSourceId();
         String dbName = cgProjectReDb.getDbName();
@@ -105,7 +105,7 @@ public class CgProjectReDbServiceImpl extends ServiceImpl<CgProjectReDbMapper, C
 
         // 1、获取表信息
         StDbTableColumnListVO columnInfo =
-                stDbJdbcService.getAllColumnsByDataSourceIdAndDbNameAndTableName(dbDataSourceId, dbName, tableName);
+                this.stDbJdbcService.getAllColumnsByDataSourceIdAndDbNameAndTableName(dbDataSourceId, dbName, tableName);
         if (columnInfo != null) {
             myTableInfo.setTableName(tableName);
             myTableInfo.setTableComment(columnInfo.getTableComment());
@@ -114,7 +114,7 @@ public class CgProjectReDbServiceImpl extends ServiceImpl<CgProjectReDbMapper, C
 
         // 2、查询是否存在之前生成代码时的检索字段
         List<CgTableConfig> cgTableConfigList =
-                cgTableConfigService.list(CgTableConfigListDTO.builder().projectId(projectId).tableName(tableName).build());
+                this.cgTableConfigService.list(CgTableConfigListDTO.builder().projectId(projectId).tableName(tableName).build());
         if (!CollectionUtils.isEmpty(cgTableConfigList)) {
             String queryColumns = cgTableConfigList.get(0).getQueryColumns();
             if (StringUtils.isNotBlank(queryColumns)) {
@@ -124,7 +124,7 @@ public class CgProjectReDbServiceImpl extends ServiceImpl<CgProjectReDbMapper, C
 
         /// 3、获取库的关联项目包信息
         List<CgProjectPackage> cgProjectPackageList =
-                cgProjectPackageMapper.selectList(new LambdaQueryWrapper<CgProjectPackage>()
+                this.cgProjectPackageMapper.selectList(new LambdaQueryWrapper<CgProjectPackage>()
                         .eq(CgProjectPackage::getParentId, AppConstant.PROJECT_RE_PACKAGE_PARENT_ID)
                         .eq(CgProjectPackage::getProjectId, projectId));
         myTableInfo.setPackageName(cgProjectPackageList.get(0).getName());

@@ -1,12 +1,12 @@
 package com.zhengqing.demo.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.custom.post.RequestPostSingleParam;
-import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
-import com.zhengqing.common.custom.validator.common.UpdateGroup;
-import com.zhengqing.common.custom.validator.common.ValidList;
-import com.zhengqing.common.model.dto.BaseDTO;
+import com.zhengqing.common.core.api.BaseController;
+import com.zhengqing.common.core.custom.post.RequestPostSingleParam;
+import com.zhengqing.common.core.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.core.custom.validator.common.UpdateGroup;
+import com.zhengqing.common.core.custom.validator.common.ValidList;
+import com.zhengqing.common.base.model.dto.BaseDTO;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.dto.DemoSaveDTO;

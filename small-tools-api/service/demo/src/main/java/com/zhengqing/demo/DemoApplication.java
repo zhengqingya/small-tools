@@ -1,6 +1,6 @@
 package com.zhengqing.demo;
 
-import com.zhengqing.common.constant.AppConstant;
+import com.zhengqing.common.core.constant.AppConstant;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -8,6 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 
 @EnableRetry // 启用重试
 @SpringBootApplication

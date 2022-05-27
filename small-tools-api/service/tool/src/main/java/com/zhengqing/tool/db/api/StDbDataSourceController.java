@@ -1,9 +1,9 @@
 package com.zhengqing.tool.db.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
-import com.zhengqing.common.custom.validator.common.UpdateGroup;
+import com.zhengqing.common.core.api.BaseController;
+import com.zhengqing.common.core.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.core.custom.validator.common.UpdateGroup;
 import com.zhengqing.tool.db.entity.StDbDataSource;
 import com.zhengqing.tool.db.model.dto.StDbDataSourceListDTO;
 import com.zhengqing.tool.db.model.dto.StDbDataSourceSaveDTO;

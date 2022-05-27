@@ -2,9 +2,9 @@ package com.zhengqing.tool.db.service.impl;
 
 import cn.hutool.core.io.FileUtil;
 import com.google.common.collect.Lists;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.exception.MyException;
-import com.zhengqing.common.util.QiniuFileUtil;
+import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.base.exception.MyException;
+import com.zhengqing.common.core.util.QiniuFileUtil;
 import com.zhengqing.tool.db.enums.StDbDataSourceTypeEnum;
 import com.zhengqing.tool.db.enums.StDbOperateSqlEnum;
 import com.zhengqing.tool.db.model.bo.StDbTableColumnBO;
@@ -51,14 +51,14 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
 
     @Override
     public void connectTest(Integer dataSourceId, String dbName) {
-        getConnection(dataSourceId, dbName);
+        this.getConnection(dataSourceId, dbName);
     }
 
     @Override
     @SneakyThrows(Exception.class)
     public List<StDbDatabaseListVO> getAllDatabasesByDataSourceId(Integer dataSourceId) {
         // 1、连接数据库
-        Connection conn = getConnection(dataSourceId);
+        Connection conn = this.getConnection(dataSourceId);
         List<StDbDatabaseListVO> dbInfoList = Lists.newArrayList();
         // 2、获取sql预编译对象
         Statement stmt = conn.createStatement();
@@ -79,7 +79,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
     @SneakyThrows(Exception.class)
     public List<StDbTableListVO> getAllTablesByDataSourceIdAndDbName(Integer dataSourceId, String dbName, String tableName) {
         // 1、连接数据库
-        Connection conn = getConnection(dataSourceId);
+        Connection conn = this.getConnection(dataSourceId);
         List<StDbTableListVO> tableInfoList = Lists.newArrayList();
         // 2、获取sql预编译对象
         Statement stmt = conn.createStatement();
@@ -118,7 +118,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
     @SneakyThrows(Exception.class)
     public StDbTableColumnListVO getAllColumnsByDataSourceIdAndDbNameAndTableName(Integer dataSourceId, String dbName, String tableName) {
         // 获取数据源配置信息
-        StDbDataSourceListVO dbConfig = stDbDataSourceService.detail(dataSourceId);
+        StDbDataSourceListVO dbConfig = this.stDbDataSourceService.detail(dataSourceId);
         String ipAddress = dbConfig.getIpAddress();
         String port = dbConfig.getPort();
         String username = dbConfig.getUsername();
@@ -190,7 +190,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
     public void updateColumnInfo(StDbTableColumnSaveDTO params) {
         try {
             // 1、连接数据库
-            Connection conn = getConnection(params.getDataSourceId());
+            Connection conn = this.getConnection(params.getDataSourceId());
             // 2、获取sql预编译对象
             Statement stmt = conn.createStatement();
 
@@ -245,7 +245,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
     public String tableInfoToWordByDataSourceIdAndDbName(Integer dataSourceId, String dbName) {
         // 1、获取数据库所有表信息
         List<StDbTableColumnBO> tableInfoList = Lists.newArrayList();
-        getAllTableAndColumnInfoList(tableInfoList, dataSourceId, dbName);
+        this.getAllTableAndColumnInfoList(tableInfoList, dataSourceId, dbName);
 
         // 2、调用工具类生成文件
         String dbWordFilePath = AppConstant.FILE_PATH_DB_WORD;
@@ -255,7 +255,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
         TableToWordUtil.toWord(tableInfoList, dbWordFilePath, title);
 
         // 3、返回文件地址
-        return qiniuFileUtil.uploadFile(FileUtil.newFile(dbWordFilePath), System.currentTimeMillis() + "_" + fileName);
+        return this.qiniuFileUtil.uploadFile(FileUtil.newFile(dbWordFilePath), System.currentTimeMillis() + "_" + fileName);
     }
 
     /**
@@ -272,7 +272,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
     public void getAllTableAndColumnInfoList(List<StDbTableColumnBO> tableInfoList, Integer dataSourceId,
                                              String dbName) {
         // 1、连接数据库
-        Connection conn = getConnection(dataSourceId);
+        Connection conn = this.getConnection(dataSourceId);
         // 2、获取sql预编译对象
         Statement stmt = conn.createStatement();
         // 3.1、查询表名+注释信息
@@ -327,7 +327,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
      * @return java.sql.Connection
      */
     private Connection getConnection(Integer dataSourceId) {
-        return getConnection(dataSourceId, null);
+        return this.getConnection(dataSourceId, null);
     }
 
     /**
@@ -339,7 +339,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
      */
     private Connection getConnection(Integer dataSourceId, String dbName) {
         // 获取数据源配置信息
-        StDbDataSourceListVO dbConfig = stDbDataSourceService.detail(dataSourceId);
+        StDbDataSourceListVO dbConfig = this.stDbDataSourceService.detail(dataSourceId);
         // 连接所需参数【ipAddress：指向要访问的数据库ip地址, username：用户名, password：密码】
         String ipAddress = dbConfig.getIpAddress();
         String port = dbConfig.getPort();

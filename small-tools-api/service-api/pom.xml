@@ -20,10 +20,9 @@
     </modules>
 
     <dependencies>
-        <!-- FIXME 后面解决`BaseEntity` 去掉common依赖 -->
         <dependency>
             <groupId>com.zhengqing</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>core</artifactId>
             <version>${small-tools-api.project.version}</version>
             <exclusions>
                 <exclusion>
@@ -36,28 +35,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <!-- mybatis-plus -->
-        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis-plus-boot-starter.version}</version>
-        </dependency>
-
-        <!-- knife4j -->
-        <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>${knife4j.version}</version>
-        </dependency>
-
     </dependencies>
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -67,7 +48,6 @@
                     <finalName>${project.name}</finalName>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 

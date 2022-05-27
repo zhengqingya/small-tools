@@ -1,6 +1,6 @@
 package com.zhengqing.tool.crawler.api;
 
-import com.zhengqing.common.api.BaseController;
+import com.zhengqing.common.core.api.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

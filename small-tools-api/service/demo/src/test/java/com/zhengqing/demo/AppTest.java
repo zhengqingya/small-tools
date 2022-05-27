@@ -2,7 +2,7 @@ package com.zhengqing.demo;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.zhengqing.common.model.bo.UserTokenInfo.UserInfo;
+import com.zhengqing.common.core.model.bo.UserTokenInfo.UserInfo;
 import com.zhengqing.demo.entity.Demo;
 import java.time.Duration;
 import java.time.LocalDateTime;

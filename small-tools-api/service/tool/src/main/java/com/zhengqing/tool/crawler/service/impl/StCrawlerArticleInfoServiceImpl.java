@@ -10,14 +10,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.youbenzi.md2.export.FileFactory;
 import com.youbenzi.md2.util.MDUtil;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.enums.ExcelExportFileTypeEnum;
-import com.zhengqing.common.enums.ExcelImportFileTypeEnum;
-import com.zhengqing.common.exception.MyException;
-import com.zhengqing.common.util.ExcelReportUtil;
-import com.zhengqing.common.util.MyDateUtil;
-import com.zhengqing.common.util.MyFileUtil;
-import com.zhengqing.common.util.QiniuFileUtil;
+import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.core.enums.ExcelExportFileTypeEnum;
+import com.zhengqing.common.core.enums.ExcelImportFileTypeEnum;
+import com.zhengqing.common.base.exception.MyException;
+import com.zhengqing.common.core.util.ExcelReportUtil;
+import com.zhengqing.common.base.util.MyDateUtil;
+import com.zhengqing.common.base.util.MyFileUtil;
+import com.zhengqing.common.core.util.QiniuFileUtil;
 import com.zhengqing.tool.crawler.entity.StCrawlerArticleInfo;
 import com.zhengqing.tool.crawler.enums.StCrawlerExportDataTypeEnum;
 import com.zhengqing.tool.crawler.mapper.StCrawlerArticleInfoMapper;
@@ -70,34 +70,34 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
     @Override
     public IPage<StCrawlerArticleInfoListVO> listPage(StCrawlerArticleInfoListDTO params) {
         IPage<StCrawlerArticleInfoListVO> result =
-                stCrawlerArticleInfoMapper.selectStCrawlerArticleInfos(new Page<>(), params);
+                this.stCrawlerArticleInfoMapper.selectStCrawlerArticleInfos(new Page<>(), params);
         return result;
     }
 
     @Override
     public Integer getArticleInfoId(Integer articleId) {
-        return stCrawlerArticleInfoMapper.selectArticleInfoId(articleId);
+        return this.stCrawlerArticleInfoMapper.selectArticleInfoId(articleId);
     }
 
     @Override
     public StCrawlerArticleInfoListVO getArticleDetail(StCrawlerArticleInfoQueryDTO params) {
-        return stCrawlerArticleInfoMapper.selectArticleDetail(params);
+        return this.stCrawlerArticleInfoMapper.selectArticleDetail(params);
     }
 
     @Override
     public Integer getArticleSumByWebsiteId(Integer websiteId) {
-        return stCrawlerArticleInfoMapper.selectArticleSumByWebsiteId(websiteId);
+        return this.stCrawlerArticleInfoMapper.selectArticleSumByWebsiteId(websiteId);
     }
 
     @Override
     public List<StCrawlerArticleInfoListVO> getArticlesByWebsiteId(Integer websiteId) {
-        return stCrawlerArticleInfoMapper.selectArticlesByWebsiteId(websiteId);
+        return this.stCrawlerArticleInfoMapper.selectArticlesByWebsiteId(websiteId);
     }
 
     @Override
     @SneakyThrows(Exception.class)
     public String exportData(StCrawlerArticleInfoExportDataDTO params) {
-        StCrawlerArticleInfo articleInfo = stCrawlerArticleInfoMapper.selectById(params.getArticleInfoId());
+        StCrawlerArticleInfo articleInfo = this.stCrawlerArticleInfoMapper.selectById(params.getArticleInfoId());
         if (articleInfo == null) {
             throw new MyException("未找到此文章信息！");
         }
@@ -139,7 +139,7 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
         // MyFileUtil.deleteFileOrFolder(Constants.FILE_PATH_CSDN_BLOG_EXPORT_ZIP);
         // return fileUrl;
         // }
-        String fileUrl = qiniuFileUtil.uploadFile(file, articleInfo.getTitle() + fileExtension);
+        String fileUrl = this.qiniuFileUtil.uploadFile(file, articleInfo.getTitle() + fileExtension);
         // 删除本地数据
         MyFileUtil.deleteFileOrFolder(AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_SRC);
         return fileUrl;
@@ -150,7 +150,7 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
         if (websiteId == null) {
             throw new MyException("请先选择要导出的网站数据源！");
         }
-        List<StCrawlerArticleInfoListVO> articleList = getArticlesByWebsiteId(websiteId);
+        List<StCrawlerArticleInfoListVO> articleList = this.getArticlesByWebsiteId(websiteId);
         List<String> filePathList = Lists.newArrayList();
         articleList.forEach(e -> {
             e.setPublishTimeStr(MyDateUtil.dateToStr(e.getPublishTime(), MyDateUtil.DATE_TIME_FORMAT));
@@ -171,14 +171,14 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
             List<Map<String, Object>> dataList =
                     JSON.parseObject(JSON.toJSONString(articleList), new TypeReference<List<Map<String, Object>>>() {
                     });
-            String exportUploadUrl = excelReportUtil.export(dataList, ExcelExportFileTypeEnum.CSDN文章信息数据,
+            String exportUploadUrl = this.excelReportUtil.export(dataList, ExcelExportFileTypeEnum.CSDN文章信息数据,
                     AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_EXCEL);
 
             File zipFile = MyFileUtil.zip(AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_SRC,
                     AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_ZIP, true, true);
             String bloggerName = articleList.get(0).getWebsiteName();
             // 采用七牛云上传并返回地址下载文件
-            String downloadUrl = qiniuFileUtil.uploadFile(zipFile,
+            String downloadUrl = this.qiniuFileUtil.uploadFile(zipFile,
                     "BLOG_(" + bloggerName + ")_" + MyDateUtil.dateToStr(new Date(), "yyyy-MM-dd HH-mm-ss") + ".zip");
             // 删除本地数据
             MyFileUtil.deleteFileOrFolder(AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_ZIP);
@@ -192,7 +192,7 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
         if (websiteId == null) {
             throw new MyException("请先选择要导出的网站数据源！");
         }
-        List<StCrawlerArticleInfoListVO> articleList = getArticlesByWebsiteId(websiteId);
+        List<StCrawlerArticleInfoListVO> articleList = this.getArticlesByWebsiteId(websiteId);
         articleList
                 .forEach(e -> e.setPublishTimeStr(MyDateUtil.dateToStr(e.getPublishTime(), MyDateUtil.DATE_TIME_FORMAT)));
         if (!CollectionUtils.isEmpty(articleList)) {
@@ -200,7 +200,7 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
             List<Map<String, Object>> dataList =
                     JSON.parseObject(JSON.toJSONString(articleList), new TypeReference<List<Map<String, Object>>>() {
                     });
-            String downloadUrl = excelReportUtil.export(dataList, ExcelExportFileTypeEnum.CSDN文章信息数据,
+            String downloadUrl = this.excelReportUtil.export(dataList, ExcelExportFileTypeEnum.CSDN文章信息数据,
                     AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_EXCEL);
             return downloadUrl;
         }
@@ -243,20 +243,20 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
             // 解析系统导出时定义的excel文件名`excel.xls`
             String[] ExcelPathArray = AppConstant.FILE_PATH_CSDN_BLOG_EXPORT_EXCEL.split(AppConstant.SEPARATOR_SPRIT);
             String csdnBlogExportExcelFilePath = ExcelPathArray[ExcelPathArray.length - 1];
-            recursionReadFile(articleInfoList, fileFullPath, csdnBlogExportExcelFilePath);
+            this.recursionReadFile(articleInfoList, fileFullPath, csdnBlogExportExcelFilePath);
             articleInfoList.forEach(e -> {
                 e.setWebsiteId(websiteId);
                 // 保存数据
                 StCrawlerArticleInfoListVO articleInfo =
-                        stCrawlerArticleInfoMapper.selectArticleDetail(StCrawlerArticleInfoQueryDTO.builder()
+                        this.stCrawlerArticleInfoMapper.selectArticleDetail(StCrawlerArticleInfoQueryDTO.builder()
                                 .websiteId(e.getWebsiteId()).title(e.getTitle()).category(e.getCategory()).build());
                 if (articleInfo == null) {
                     // 情况① : 新增数据
-                    stCrawlerArticleInfoMapper.insert(e);
+                    this.stCrawlerArticleInfoMapper.insert(e);
                 } else {
                     // 情况② : 更新数据
                     e.setArticleInfoId(articleInfo.getArticleInfoId());
-                    stCrawlerArticleInfoMapper.updateById(e);
+                    this.stCrawlerArticleInfoMapper.updateById(e);
                 }
             });
 
@@ -297,7 +297,7 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
                         // 重新设置路径
                         String readFileNewPath = fileFullPath + "/" + fileList[i];
                         // 继续递归读取
-                        recursionReadFile(articleInfoList, readFileNewPath, csdnBlogExportExcelFilePath);
+                        this.recursionReadFile(articleInfoList, readFileNewPath, csdnBlogExportExcelFilePath);
                     }
                 } else {
                     log.debug("该目录下面为空！");
@@ -311,7 +311,7 @@ public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticl
                     InputStream inputStream = new FileInputStream(file);
                     MultipartFile multipartFile = new MockMultipartFile(file.getName(), inputStream);
                     List<StCrawlerArticleInfoBO> excelArticleInfoList = Lists.newArrayList();
-                    excelReportUtil.read(excelArticleInfoList, ExcelImportFileTypeEnum.CSDN文章信息数据, multipartFile, true);
+                    this.excelReportUtil.read(excelArticleInfoList, ExcelImportFileTypeEnum.CSDN文章信息数据, multipartFile, true);
                     System.out.println(1);
                     // TODO 这里读取到数据后待处理...
                 } else {

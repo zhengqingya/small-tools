@@ -1,6 +1,6 @@
 package com.zhengqing.demo.api.transactional;
 
-import com.zhengqing.common.api.BaseController;
+import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.demo.service.ITransactionalService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -3,7 +3,7 @@ package com.zhengqing.tool.db.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhengqing.common.util.MyBeanUtil;
+import com.zhengqing.common.base.util.MyBeanUtil;
 import com.zhengqing.tool.db.entity.StDbDataSource;
 import com.zhengqing.tool.db.enums.StDbDataSourceTypeEnum;
 import com.zhengqing.tool.db.mapper.StDbDataSourceMapper;

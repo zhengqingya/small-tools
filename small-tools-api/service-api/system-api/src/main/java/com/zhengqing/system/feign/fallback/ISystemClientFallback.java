@@ -1,7 +1,7 @@
 package com.zhengqing.system.feign.fallback;
 
-import com.zhengqing.common.exception.MyException;
-import com.zhengqing.common.http.ApiResult;
+import com.zhengqing.common.base.exception.MyException;
+import com.zhengqing.common.base.http.ApiResult;
 import com.zhengqing.system.feign.ISystemClient;
 import com.zhengqing.system.model.dto.SysUserSaveDTO;
 import com.zhengqing.system.model.vo.SysDictVO;

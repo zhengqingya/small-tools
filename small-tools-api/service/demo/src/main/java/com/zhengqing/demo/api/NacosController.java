@@ -5,7 +5,7 @@ import com.alibaba.cloud.nacos.NacosServiceManager;
 import com.alibaba.nacos.api.naming.NamingFactory;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
-import com.zhengqing.common.api.BaseController;
+import com.zhengqing.common.core.api.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.SneakyThrows;
@@ -79,8 +79,8 @@ public class NacosController extends BaseController {
         Properties properties = new Properties();
         properties.setProperty("serverAddr", "www.zhengqingya.com:8848,www.zhengqingya.com:8848");
         properties.setProperty("namespace", this.active);
-        properties.setProperty("username", username);
-        properties.setProperty("password", password);
+        properties.setProperty("username", this.username);
+        properties.setProperty("password", this.password);
         NamingService naming = NamingFactory.createNamingService(properties);
         naming.registerInstance("nacos.test.3", "www.zhengqingya.com", 8888, "TEST1");
         naming.registerInstance("nacos.test.3", "www.zhengqingya.com", 9999, "DEFAULT");
@@ -94,8 +94,8 @@ public class NacosController extends BaseController {
         Properties properties = new Properties();
         properties.setProperty("serverAddr", this.serverAddr);
         properties.setProperty("namespace", this.active);
-        properties.setProperty("username", username);
-        properties.setProperty("password", password);
+        properties.setProperty("username", this.username);
+        properties.setProperty("password", this.password);
         NamingService naming = NamingFactory.createNamingService(properties);
         return naming.getAllInstances(this.applicationName, this.group);
     }

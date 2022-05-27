@@ -1,7 +1,7 @@
 package com.zhengqing.tool.db.api;
 
-import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.core.api.BaseController;
+import com.zhengqing.common.core.custom.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.tool.db.model.dto.StDbTableColumnSaveDTO;
 import com.zhengqing.tool.db.model.vo.StDbDatabaseListVO;
 import com.zhengqing.tool.db.model.vo.StDbTableColumnListVO;

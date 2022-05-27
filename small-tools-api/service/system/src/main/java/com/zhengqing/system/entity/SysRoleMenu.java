@@ -1,7 +1,7 @@
 package com.zhengqing.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zhengqing.common.entity.BaseEntity;
+import com.zhengqing.common.db.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;

@@ -1,13 +1,12 @@
 package com.zhengqing.tool;
 
-import java.util.Map;
-
+import com.google.common.collect.Maps;
+import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.base.util.DocUtil;
+import com.zhengqing.common.base.util.MyFileUtil;
 import org.junit.Test;
 
-import com.google.common.collect.Maps;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.util.DocUtil;
-import com.zhengqing.common.util.MyFileUtil;
+import java.util.Map;
 
 /**
  * <p>
@@ -27,15 +26,15 @@ public class WordTest {
     public void testReplaceWord() throws Exception {
         Map<String, String> templateDataMap = Maps.newHashMap();
         templateDataMap.put("name", "张三");
-        DocUtil.replaceWordContent(srcPath, destPath, templateDataMap);
+        DocUtil.replaceWordContent(this.srcPath, this.destPath, templateDataMap);
     }
 
     @Test
     public void testReplaceWord2() throws Exception {
         Map<String, String> templateDataMap = Maps.newHashMap();
         templateDataMap.put("name", "李四");
-        byte[] wordBytes = DocUtil.replaceWordContent(MyFileUtil.readBytes(srcPath), templateDataMap);
-        MyFileUtil.writeFileContent(wordBytes, destPath);
+        byte[] wordBytes = DocUtil.replaceWordContent(MyFileUtil.readBytes(this.srcPath), templateDataMap);
+        MyFileUtil.writeFileContent(wordBytes, this.destPath);
     }
 
 }

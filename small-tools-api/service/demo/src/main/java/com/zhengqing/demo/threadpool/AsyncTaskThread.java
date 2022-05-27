@@ -1,15 +1,16 @@
 package com.zhengqing.demo.threadpool;
 
-import com.zhengqing.common.constant.ThreadPoolConstant;
+import com.zhengqing.common.core.constant.ThreadPoolConstant;
 import com.zhengqing.demo.entity.Demo;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component

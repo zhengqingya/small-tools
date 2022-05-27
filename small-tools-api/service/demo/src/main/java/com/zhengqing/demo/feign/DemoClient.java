@@ -1,8 +1,8 @@
 package com.zhengqing.demo.feign;
 
 import cn.hutool.core.util.RandomUtil;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.rpc.IBaseClient;
+import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.feign.rpc.IBaseClient;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;

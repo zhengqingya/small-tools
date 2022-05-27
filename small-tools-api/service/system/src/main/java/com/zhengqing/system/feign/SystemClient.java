@@ -1,8 +1,8 @@
 package com.zhengqing.system.feign;
 
 import com.google.common.collect.Lists;
-import com.zhengqing.common.http.ApiResult;
-import com.zhengqing.common.util.RequestContextUtil;
+import com.zhengqing.common.feign.util.RequestContextUtil;
+import com.zhengqing.common.base.http.ApiResult;
 import com.zhengqing.system.model.dto.SysUserSaveDTO;
 import com.zhengqing.system.model.vo.SysDictVO;
 import com.zhengqing.system.service.ISysDictService;

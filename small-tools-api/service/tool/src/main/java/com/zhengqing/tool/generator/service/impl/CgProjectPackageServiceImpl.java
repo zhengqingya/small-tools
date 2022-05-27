@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.exception.MyException;
+import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.base.exception.MyException;
 import com.zhengqing.tool.generator.entity.CgProjectPackage;
 import com.zhengqing.tool.generator.mapper.CgProjectPackageMapper;
 import com.zhengqing.tool.generator.model.dto.CgProjectPackageListDTO;
@@ -41,7 +41,7 @@ public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMap
 
     @Override
     public List<CgProjectPackageListVO> list(CgProjectPackageListDTO params) {
-        return cgProjectPackageMapper.selectProjectPackages(params);
+        return this.cgProjectPackageMapper.selectProjectPackages(params);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMap
         }
         // ④、遍历出父包对应的子包
         for (CgProjectPackageTreeVO parent : parentPackageList) {
-            List<CgProjectPackageTreeVO> child = getChild(parent.getId(), parent.getName(), allPackage);
+            List<CgProjectPackageTreeVO> child = this.getChild(parent.getId(), parent.getName(), allPackage);
             parent.setChildren(child);
         }
         return parentPackageList;
@@ -100,7 +100,7 @@ public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMap
 
     @Override
     public String getParentPackageName(Integer projectId) {
-        return cgProjectPackageMapper.selectParentPackageName(projectId);
+        return this.cgProjectPackageMapper.selectParentPackageName(projectId);
     }
 
     private void recursionTree(Map<String, String> packageNameInfoMap, List<CgProjectPackageTreeVO> treeData, String parentPackageName) {
@@ -139,12 +139,12 @@ public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMap
 
     @Override
     public void deleteData(Integer id) {
-        List<CgProjectPackage> cgProjectPackageList = cgProjectPackageMapper
+        List<CgProjectPackage> cgProjectPackageList = this.cgProjectPackageMapper
                 .selectList(new LambdaQueryWrapper<CgProjectPackage>().eq(CgProjectPackage::getParentId, id));
         if (!CollectionUtils.isEmpty(cgProjectPackageList)) {
             throw new MyException("该包下存在子包，请先删除子包！");
         }
-        CgProjectPackage cgProjectPackage = cgProjectPackageMapper.selectById(id);
+        CgProjectPackage cgProjectPackage = this.cgProjectPackageMapper.selectById(id);
         if (cgProjectPackage.getParentId().equals(AppConstant.PROJECT_RE_PACKAGE_PARENT_ID)) {
             throw new MyException("Sorry，您没有权限删除顶级父包！");
         }
@@ -153,7 +153,7 @@ public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMap
 
     @Override
     public void deleteDataByProjectId(Integer projectId) {
-        cgProjectPackageMapper
+        this.cgProjectPackageMapper
                 .delete(new LambdaQueryWrapper<CgProjectPackage>().eq(CgProjectPackage::getProjectId, projectId));
     }
 
@@ -180,7 +180,7 @@ public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMap
         }
         // ⑥、递归
         for (CgProjectPackageTreeVO e : listChild) {
-            e.setChildren(getChild(e.getId(), e.getName(), allPackage));
+            e.setChildren(this.getChild(e.getId(), e.getName(), allPackage));
         }
         if (listChild.size() == 0) {
             return Lists.newArrayList();

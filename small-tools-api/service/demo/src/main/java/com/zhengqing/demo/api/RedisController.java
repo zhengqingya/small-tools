@@ -1,10 +1,10 @@
 package com.zhengqing.demo.api;
 
 import com.google.common.collect.Lists;
-import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.util.IdGeneratorUtil;
-import com.zhengqing.common.util.MyDateUtil;
-import com.zhengqing.common.util.RedisUtil;
+import com.zhengqing.common.core.api.BaseController;
+import com.zhengqing.common.redis.util.RedisUtil;
+import com.zhengqing.common.core.util.IdGeneratorUtil;
+import com.zhengqing.common.base.util.MyDateUtil;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.service.IDemoService;
 import io.swagger.annotations.Api;

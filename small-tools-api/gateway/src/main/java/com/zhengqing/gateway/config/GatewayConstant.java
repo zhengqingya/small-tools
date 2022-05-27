@@ -1,7 +1,6 @@
 package com.zhengqing.gateway.config;
 
-import com.zhengqing.common.constant.AppConstant;
-import org.assertj.core.util.Lists;
+import com.google.common.collect.Lists;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
  * @description
  * @date 2021/1/9 18:32
  */
-public interface GatewayConstant extends AppConstant {
+public interface GatewayConstant {
 
     /**
      * rpc服务名

@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.zhengqing</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>core</artifactId>
             <version>${small-tools-api.project.version}</version>
             <exclusions>
                 <exclusion>
@@ -39,7 +39,10 @@
                     <groupId>com.github.tobato</groupId>
                     <artifactId>fastdfs-client</artifactId>
                 </exclusion>
-
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-jdbc</artifactId>
@@ -68,7 +71,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
-
 
     </dependencies>
 

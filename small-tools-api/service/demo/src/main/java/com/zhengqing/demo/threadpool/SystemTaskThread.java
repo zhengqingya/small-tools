@@ -1,7 +1,7 @@
 package com.zhengqing.demo.threadpool;
 
-import com.zhengqing.common.constant.ThreadPoolConstant;
-import com.zhengqing.common.context.RequestHeaderHandler;
+import com.zhengqing.common.core.constant.ThreadPoolConstant;
+import com.zhengqing.common.feign.context.RequestHeaderHandler;
 import com.zhengqing.system.feign.ISystemClient;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;

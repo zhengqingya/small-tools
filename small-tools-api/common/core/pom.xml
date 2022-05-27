@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>common</artifactId>
+        <groupId>com.zhengqing</groupId>
+        <version>0.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>core</artifactId>
+
+    <name>${project.artifactId}</name>
+    <version>${small-tools-api.project.version}</version>
+    <packaging>jar</packaging>
+
+    <properties>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>base</artifactId>
+            <version>${small-tools-api.project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>swagger</artifactId>
+            <version>${small-tools-api.project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>db</artifactId>
+            <version>${small-tools-api.project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>redis</artifactId>
+            <version>${small-tools-api.project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>feign</artifactId>
+            <version>${small-tools-api.project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>sentinel</artifactId>
+            <version>${small-tools-api.project.version}</version>
+        </dependency>
+
+        <!-- 七牛云 -->
+        <!-- https://mvnrepository.com/artifact/com.qiniu/qiniu-java-sdk -->
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>${qiniu-java-sdk.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>gson</artifactId>
+                    <groupId>com.google.code.gson</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- jwt依赖: https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+        <!--    <dependency>-->
+        <!--      <groupId>io.jsonwebtoken</groupId>-->
+        <!--      <artifactId>jjwt</artifactId>-->
+        <!--      <version>${jjwt.version}</version>-->
+        <!--    </dependency>-->
+        <!-- JWT -->
+        <!-- https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt -->
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>${nimbus-jose-jwt.version}</version>
+        </dependency>
+
+    </dependencies>
+
+</project>

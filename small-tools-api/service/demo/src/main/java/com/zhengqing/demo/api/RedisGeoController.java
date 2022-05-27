@@ -1,8 +1,8 @@
 package com.zhengqing.demo.api;
 
-import com.zhengqing.common.api.BaseController;
-import com.zhengqing.common.model.bo.RedisGeoPoint;
-import com.zhengqing.common.util.RedisGeoUtil;
+import com.zhengqing.common.core.api.BaseController;
+import com.zhengqing.common.redis.model.bo.RedisGeoPoint;
+import com.zhengqing.common.redis.util.RedisGeoUtil;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.geo.Point;

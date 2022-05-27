@@ -8,9 +8,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhengqing.common.constant.AppConstant;
-import com.zhengqing.common.exception.MyException;
-import com.zhengqing.common.util.MyBeanUtil;
+import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.base.exception.MyException;
+import com.zhengqing.common.base.util.MyBeanUtil;
 import com.zhengqing.tool.generator.entity.CgProjectPackage;
 import com.zhengqing.tool.generator.entity.CgProjectTemplate;
 import com.zhengqing.tool.generator.entity.CgProjectVelocityContext;
@@ -64,17 +64,17 @@ public class CgProjectTemplateServiceImpl extends ServiceImpl<CgProjectTemplateM
 
     @Override
     public IPage<CgProjectTemplateListVO> listPage(CgProjectTemplateListDTO params) {
-        IPage<CgProjectTemplateListVO> result = cgProjectTemplateMapper.selectDataList(new Page(), params);
+        IPage<CgProjectTemplateListVO> result = this.cgProjectTemplateMapper.selectDataList(new Page(), params);
         List<CgProjectTemplateListVO> list = result.getRecords();
-        handleResultData(list);
+        this.handleResultData(list);
         return result;
 
     }
 
     @Override
     public List<CgProjectTemplateListVO> list(CgProjectTemplateListDTO params) {
-        List<CgProjectTemplateListVO> list = cgProjectTemplateMapper.selectDataList(params);
-        handleResultData(list);
+        List<CgProjectTemplateListVO> list = this.cgProjectTemplateMapper.selectDataList(params);
+        this.handleResultData(list);
         return list;
     }
 
@@ -129,7 +129,7 @@ public class CgProjectTemplateServiceImpl extends ServiceImpl<CgProjectTemplateM
         // 这里先保存数据，然后再去生成模板数据 -> 防止部分模板数据不存在！！！
         this.addOrUpdateData(MyBeanUtil.copyProperties(params, CgProjectTemplateSaveDTO.class));
         Integer projectTemplateId = params.getProjectTemplateId();
-        List<CgTableConfig> cgTableConfigList = cgTableConfigService.list(CgTableConfigListDTO.builder()
+        List<CgTableConfig> cgTableConfigList = this.cgTableConfigService.list(CgTableConfigListDTO.builder()
                 .projectId(params.getProjectId())
                 .dataType(CgGenerateTemplateDataTypeEnum.测试模板生成配置数据.getType())
                 .build());
@@ -144,12 +144,12 @@ public class CgProjectTemplateServiceImpl extends ServiceImpl<CgProjectTemplateM
         cgGenerateCodeDTO.setDataType(CgGenerateTemplateDataTypeEnum.测试模板生成配置数据.getType());
         cgGenerateCodeDTO.setIfTestTemplateData(true);
         cgGenerateCodeDTO.setProjectTemplateId(projectTemplateId);
-        return cgGeneratorCodeService.generateCode(cgGenerateCodeDTO);
+        return this.cgGeneratorCodeService.generateCode(cgGenerateCodeDTO);
     }
 
     @Override
     public void deleteDataByProjectId(Integer projectId) {
-        cgProjectTemplateMapper
+        this.cgProjectTemplateMapper
                 .delete(new LambdaQueryWrapper<CgProjectTemplate>().eq(CgProjectTemplate::getProjectId, projectId));
     }
 
@@ -160,7 +160,7 @@ public class CgProjectTemplateServiceImpl extends ServiceImpl<CgProjectTemplateM
     @Override
     public void generateTemplate(Integer projectId) {
         // 查询指定项目ID的包
-        List<CgProjectPackage> packageList = cgProjectPackageService
+        List<CgProjectPackage> packageList = this.cgProjectPackageService
                 .list(new LambdaQueryWrapper<CgProjectPackage>().eq(CgProjectPackage::getProjectId, projectId));
 
         List<CgProjectTemplate> bsTemplateList = this.list(new LambdaQueryWrapper<CgProjectTemplate>()
@@ -175,7 +175,7 @@ public class CgProjectTemplateServiceImpl extends ServiceImpl<CgProjectTemplateM
                     template.setFileName(bsTemplate.getFileName());
                     template.setFileSuffix(bsTemplate.getFileSuffix());
                     template.setContent(bsTemplate.getContent());
-                    cgProjectTemplateMapper.insert(template);
+                    this.cgProjectTemplateMapper.insert(template);
                 }
             }));
         }
@@ -186,7 +186,7 @@ public class CgProjectTemplateServiceImpl extends ServiceImpl<CgProjectTemplateM
         if (params.getProjectId() == null) {
             throw new MyException("请先选择项目！（提示：一个项目对应一套数据源哦~）");
         }
-        IPage<CgProjectVelocityContext> result = contextMapper.selectCodeProjectVelocityContexts(new Page(), params);
+        IPage<CgProjectVelocityContext> result = this.contextMapper.selectCodeProjectVelocityContexts(new Page(), params);
         result.getRecords().forEach(e -> {
             String context = e.getContext();
             if (context.startsWith("{")) {

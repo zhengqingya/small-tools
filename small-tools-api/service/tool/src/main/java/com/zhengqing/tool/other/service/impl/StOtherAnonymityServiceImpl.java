@@ -3,7 +3,7 @@ package com.zhengqing.tool.other.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhengqing.common.util.MyBeanUtil;
+import com.zhengqing.common.base.util.MyBeanUtil;
 import com.zhengqing.tool.other.entity.StOtherAnonymity;
 import com.zhengqing.tool.other.enums.StOtherAnonymityStatusEnum;
 import com.zhengqing.tool.other.mapper.StOtherAnonymityMapper;

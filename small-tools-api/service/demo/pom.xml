@@ -22,7 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>com.zhengqing</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>core</artifactId>
             <version>${small-tools-api.project.version}</version>
             <exclusions>
                 <exclusion>
@@ -34,6 +34,12 @@
                     <groupId>org.slf4j</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>xxl-job</artifactId>
+            <version>${small-tools-api.project.version}</version>
         </dependency>
 
         <dependency>

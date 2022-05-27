@@ -3,7 +3,7 @@ package com.zhengqing.system.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhengqing.common.util.MyBeanUtil;
+import com.zhengqing.common.base.util.MyBeanUtil;
 import com.zhengqing.system.entity.SysMenu;
 import com.zhengqing.system.mapper.SysMenuMapper;
 import com.zhengqing.system.model.dto.SysMenuListDTO;
