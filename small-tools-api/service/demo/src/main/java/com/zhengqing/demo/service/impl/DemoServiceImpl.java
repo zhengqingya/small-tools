@@ -7,13 +7,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
+import com.zhengqing.common.base.util.MyDateUtil;
+import com.zhengqing.common.core.util.IdGeneratorUtil;
 import com.zhengqing.common.db.config.mybatis.data.permission.second.UserPermissionInfo;
 import com.zhengqing.common.db.constant.DataSourceConstant;
 import com.zhengqing.common.db.constant.MybatisConstant;
 import com.zhengqing.common.db.context.DataPermissionThreadLocal;
 import com.zhengqing.common.db.enums.DataPermissionTypeEnum;
-import com.zhengqing.common.core.util.IdGeneratorUtil;
-import com.zhengqing.common.base.util.MyDateUtil;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.mapper.DemoMapper;
 import com.zhengqing.demo.model.dto.DemoListDTO;
@@ -21,6 +21,7 @@ import com.zhengqing.demo.model.dto.DemoSaveDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
 import com.zhengqing.demo.service.IDemoService;
 import com.zhengqing.system.enums.SysUserSexEnum;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
@@ -230,6 +231,16 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         Assert.isTrue(updateNum > 0, "库存不足！");
     }
 
+    @Async
+    @Override
+    @SneakyThrows(Exception.class)
+    @Transactional(rollbackFor = Exception.class)
+    public void asyncExecute05() {
+        TimeUnit.SECONDS.sleep(2);
+        log.info("[asyncExecute] ...");
+        Demo.builder().username("asyncExecute").password("123456").build().insert();
+        int a1 = 1 / 0;
+    }
 
     /**
      * 方式一：for循环中单条插入

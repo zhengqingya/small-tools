@@ -38,4 +38,14 @@ public interface ITransactionalService {
      */
     void testTransactional04();
 
+    /**
+     * 事务A方法( @Transactional )        调用          异步B方法( @Async 和 @Transactional )
+     * B方法事务生效测试
+     *
+     * @return void
+     * @author zhengqingya
+     * @date 2022/5/30 15:02
+     */
+    void testTransactional05();
+
 }

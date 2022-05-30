@@ -119,4 +119,13 @@ public interface IDemoService extends IService<Demo> {
      */
     void updateNum(Integer id, Integer num);
 
+    /**
+     * 测试异步事务 -- 事务生效
+     *
+     * @return void
+     * @author zhengqingya
+     * @date 2022/5/30 15:15
+     */
+    void asyncExecute05();
+
 }

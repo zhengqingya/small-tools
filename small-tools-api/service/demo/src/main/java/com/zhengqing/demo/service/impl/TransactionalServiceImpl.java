@@ -9,6 +9,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.transaction.support.TransactionSynchronizationAdapter;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 @Slf4j
 @Service
@@ -97,6 +99,21 @@ public class TransactionalServiceImpl implements ITransactionalService {
     @Override
     public void testTransactional04() {
         this.demoService.asyncExecuteTransactional();
+    }
+
+    //    @Async
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void testTransactional05() {
+        Demo.builder().username("test-05-simple-method").password("123456").build().insert();
+        // 异步任务
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
+            @Override
+            public void afterCommit() {
+                TransactionalServiceImpl.this.demoService.asyncExecute05();
+            }
+        });
+        log.info("[testTransactional05] ...");
     }
 
 
