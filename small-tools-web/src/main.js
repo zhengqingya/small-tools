@@ -5,7 +5,7 @@ import store from "./store";
 import ElementUI from "element-ui";
 
 import "@/components/SvgIcon/icons"; // svg图标
-import "./styles/element-variables.scss"; //element样式
+// import "./styles/element-variables.scss"; //element样式
 //import "./styles/theme/index.css";
 import "normalize.css/normalize.css"; //css样式初始化
 import "@/styles/index.scss"; // 全局 css

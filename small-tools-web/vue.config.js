@@ -31,7 +31,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        prependData: `@import "@/styles/dark_theme.scss";`
+        additionalData: `@import "@/styles/dark_theme.scss";`
       }
     }
   }
