@@ -14,12 +14,15 @@ Who是否可以对What进行How的访问操作，并对这个逻辑表达式进�
 4. 用户-角色映射：用户和角色之间的映射关系
 5. 角色-权限映射：角色和权限之间的映射
 
-```
-SELECT person.id,person.姓名,person.性别,person.籍贯,role.角色名,role.权限等级,permission.权限名
-        FROM person
-                 INNER JOIN person_role ON person.id = person_role.person_id
-                 INNER JOIN role ON person_role.role_id = role.id
-                 INNER JOIN role_permission  ON role.id = role_permission.role_id
-                 INNER JOIN permission ON role_permission.permission_id = permission.id
-        WHERE person.id = 1
+```sql
+SELECT u.user_id,
+       u.username                     "用户名",
+       GROUP_CONCAT(DISTINCT r.NAME ) "角色",
+       GROUP_CONCAT(DISTINCT p.NAME ) "权限"
+FROM t_sys_user u
+         INNER JOIN t_sys_user_role ur ON u.user_id = ur.user_id
+         INNER JOIN t_sys_role r ON ur.role_id = r.role_id
+         INNER JOIN t_sys_role_permission rp ON r.role_id = rp.role_id
+         INNER JOIN t_sys_permission p ON rp.permission_id = p.id
+GROUP BY u.user_id
 ```
