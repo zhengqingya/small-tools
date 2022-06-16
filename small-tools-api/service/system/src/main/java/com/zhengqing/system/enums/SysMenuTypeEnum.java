@@ -19,4 +19,5 @@ public enum SysMenuTypeEnum {
     菜单(0), 按钮(1);
 
     private final Integer type;
+
 }

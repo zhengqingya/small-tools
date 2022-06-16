@@ -1,13 +1,17 @@
 package com.zhengqing.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.zhengqing.common.db.entity.BaseEntity;
-import com.zhengqing.system.enums.SysUserSexEnum;
+import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
+import com.zhengqing.common.core.enums.UserSexEnum;
+import com.zhengqing.common.db.config.mybatis.handler.ListToStrTypeHandler;
+import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
+import com.zhengqing.demo.model.bo.DemoBO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -23,9 +27,9 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("t_demo")
+@TableName(value = "t_demo", autoResultMap = true)
 @ApiModel("测试demo")
-public class Demo extends BaseEntity<Demo> {
+public class Demo extends IsDeletedYesBaseEntity<Demo> {
 
     @ApiModelProperty("主键ID")
     @TableId(value = "id", type = IdType.INPUT)
@@ -38,12 +42,12 @@ public class Demo extends BaseEntity<Demo> {
     private String password;
 
     /**
-     * {@link com.zhengqing.system.enums.SysUserSexEnum}
+     * {@link UserSexEnum}
      * sex值为空时，MP更新数据库时不忽略此字段值
      */
     @TableField(value = "sex", updateStrategy = FieldStrategy.IGNORED)
     @ApiModelProperty("性别")
-    private SysUserSexEnum sexEnum;
+    private UserSexEnum sexEnum;
 
     @ApiModelProperty("开始时间")
     private Date startTime;
@@ -59,5 +63,18 @@ public class Demo extends BaseEntity<Demo> {
 
     @ApiModelProperty("数量")
     private Integer num;
+
+    /**
+     * 字段类型处理器
+     * tips：使用时，必须开启映射注解`@TableName(autoResultMap = true)`否则插入没问题，但查询时该字段会为空
+     * 可参考 https://baomidou.com/pages/fd41d8/
+     */
+    @TableField(typeHandler = FastjsonTypeHandler.class)
+    @ApiModelProperty("demoJson")
+    private DemoBO demoJson;
+
+    @TableField(typeHandler = ListToStrTypeHandler.class)
+    @ApiModelProperty("numJson")
+    private List<String> numJson;
 
 }

@@ -12,10 +12,10 @@ import com.zhengqing.tool.generator.service.ICgGeneratorCodeService;
 import com.zhengqing.tool.generator.service.ICgProjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -32,10 +32,10 @@ import java.util.List;
 @Api(tags = "代码生成器 - 项目管理接口")
 public class CgProjectController extends BaseController {
 
-    @Autowired
+    @Resource
     private ICgProjectService projectService;
 
-    @Autowired
+    @Resource
     private ICgGeneratorCodeService cgGeneratorCodeService;
 
     // @RequiresPermissions("code:project:list")

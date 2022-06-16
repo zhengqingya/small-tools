@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengqing.system.mapper.SysRolePermissionMapper">
+
+    <select id="selectRoleMenuBtns" resultType="com.zhengqing.system.model.vo.SysRoleMenuBtnListVO">
+        SELECT srp.*,
+               sd.`value` btnVal
+        FROM t_sys_role_permission srp
+                 JOIN t_sys_permission sp on sp.id = srp.permission_id
+                 JOIN t_sys_dict sd on sd.id = sp.btn_id
+        WHERE srp.is_deleted = 0
+    </select>
+
+    <select id="selectBtnsByRoleIdAndMenuId" resultType="java.lang.Integer">
+        SELECT srp.btn_id
+        FROM t_sys_role_permission srp
+                 JOIN t_sys_permission sp ON sp.btn_id = srp.btn_id
+        WHERE srp.is_deleted = 0
+          AND srp.role_id = #{roleId}
+          AND sp.menu_id = #{menuId}
+          AND srp.menu_id = #{menuId}
+    </select>
+
+</mapper>

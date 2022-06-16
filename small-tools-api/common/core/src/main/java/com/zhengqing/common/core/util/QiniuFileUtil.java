@@ -9,11 +9,11 @@ import com.qiniu.util.StringMap;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URLEncoder;
@@ -31,13 +31,13 @@ import java.net.URLEncoder;
 @Component
 public class QiniuFileUtil implements InitializingBean {
 
-    @Autowired
+    @Resource
     private UploadManager uploadManager;
 
-    @Autowired
+    @Resource
     private BucketManager bucketManager;
 
-    @Autowired
+    @Resource
     private Auth auth;
 
     @Value("${qiniu.bucket}")
@@ -57,21 +57,21 @@ public class QiniuFileUtil implements InitializingBean {
     /**
      * 上传前台传过来的文件
      *
-     * @param file:     文件
-     * @param fileName: 文件名
+     * @param file     文件
+     * @param fileName 文件名
      * @return 成功则返回下载地址url
      */
     @SneakyThrows(Exception.class)
     public String uploadFile(MultipartFile file, String fileName) {
         // delete(fileName);
-        Response response = this.uploadManager.put(file.getInputStream(), fileName, getUploadToken(), null, null);
+        Response response = this.uploadManager.put(file.getInputStream(), fileName, this.getUploadToken(), null, null);
         int retry = 0;
         while (response.needRetry() && retry < 3) {
-            response = this.uploadManager.put(file.getInputStream(), fileName, getUploadToken(), null, null);
+            response = this.uploadManager.put(file.getInputStream(), fileName, this.getUploadToken(), null, null);
             retry++;
         }
         if (response.statusCode == 200) {
-            return downloadFile(fileName, expireInSeconds);
+            return this.downloadFile(fileName, this.expireInSeconds);
         }
         return "上传失败!";
     }
@@ -79,25 +79,25 @@ public class QiniuFileUtil implements InitializingBean {
     /**
      * 以文件的形式上传
      *
-     * @param file:     文件
-     * @param fileName: 文件名
+     * @param file     文件
+     * @param fileName 文件名
      * @return 成功则返回下载地址url
      */
     @SneakyThrows(Exception.class)
     public String uploadFile(File file, String fileName) {
         try {
-            delete(fileName);
+            this.delete(fileName);
         } catch (Exception e) {
             log.error("七牛云上传文件时删除久文件数据({})时错误： 【{}】", fileName, e.getMessage());
         }
-        Response response = this.uploadManager.put(file, fileName, getUploadToken());
+        Response response = this.uploadManager.put(file, fileName, this.getUploadToken());
         int retry = 0;
         while (response.needRetry() && retry < 3) {
-            response = this.uploadManager.put(file, fileName, getUploadToken());
+            response = this.uploadManager.put(file, fileName, this.getUploadToken());
             retry++;
         }
         if (response.statusCode == 200) {
-            return downloadFile(fileName, expireInSeconds);
+            return this.downloadFile(fileName, this.expireInSeconds);
         }
         return "上传失败!";
     }
@@ -105,21 +105,21 @@ public class QiniuFileUtil implements InitializingBean {
     /**
      * 以流的形式上传
      *
-     * @param inputStream: 流
-     * @param fileName:    文件名
+     * @param inputStream 流
+     * @param fileName    文件名
      * @return 成功则返回下载地址url
      */
     @SneakyThrows(Exception.class)
     public String uploadFile(InputStream inputStream, String fileName) {
         // delete(fileName);
-        Response response = this.uploadManager.put(inputStream, fileName, getUploadToken(), null, null);
+        Response response = this.uploadManager.put(inputStream, fileName, this.getUploadToken(), null, null);
         int retry = 0;
         while (response.needRetry() && retry < 3) {
-            response = this.uploadManager.put(inputStream, fileName, getUploadToken(), null, null);
+            response = this.uploadManager.put(inputStream, fileName, this.getUploadToken(), null, null);
             retry++;
         }
         if (response.statusCode == 200) {
-            return downloadFile(fileName, expireInSeconds);
+            return this.downloadFile(fileName, this.expireInSeconds);
         }
         return "上传失败!";
     }
@@ -127,8 +127,8 @@ public class QiniuFileUtil implements InitializingBean {
     /**
      * 下载文件 (参考私有空间下载：https://developer.qiniu.com/kodo/sdk/1239/java#private-get)
      *
-     * @param fileName:        文件名
-     * @param expireInSeconds: 过期时间(默认1小时)
+     * @param fileName        文件名
+     * @param expireInSeconds 过期时间(默认1小时)
      * @return 返回下载地址url
      * @author zhengqingya
      * @date 2020/10/25 18:37
@@ -139,8 +139,8 @@ public class QiniuFileUtil implements InitializingBean {
 
         // 私有空间下载地址方式
         String encodedFileName = URLEncoder.encode(fileName, "utf-8").replace("+", "%20");
-        String publicUrl = String.format("http://%s/%s", domain, encodedFileName);
-        String finalDownloadUrl = auth.privateDownloadUrl(publicUrl, expireInSeconds);
+        String publicUrl = String.format("http://%s/%s", this.domain, encodedFileName);
+        String finalDownloadUrl = this.auth.privateDownloadUrl(publicUrl, expireInSeconds);
         log.debug("【七牛云】私有空间 文件名：【{}】 下载地址url：【{}】", fileName, finalDownloadUrl);
         return finalDownloadUrl;
     }
@@ -148,15 +148,15 @@ public class QiniuFileUtil implements InitializingBean {
     /**
      * 删除文件
      *
-     * @param key: 即上传文件时的fileName
+     * @param key 即上传文件时的fileName
      * @return 操作结果
      */
     public String delete(String key) {
         try {
-            Response response = bucketManager.delete(this.bucket, key);
+            Response response = this.bucketManager.delete(this.bucket, key);
             int retry = 0;
             while (response.needRetry() && retry++ < 3) {
-                response = bucketManager.delete(bucket, key);
+                response = this.bucketManager.delete(this.bucket, key);
             }
             return response.statusCode == 200 ? "删除成功!" : "删除失败!";
         } catch (QiniuException e) {
@@ -168,7 +168,7 @@ public class QiniuFileUtil implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
         this.putPolicy = new StringMap();
-        putPolicy.put("returnBody",
+        this.putPolicy.put("returnBody",
                 "{\"key\":\"$(key)\",\"hash\":\"$(etag)\",\"bucket\":\"$(bucket)\",\"width\":$(imageInfo.width), \"height\":${imageInfo.height}}");
     }
 
@@ -176,7 +176,7 @@ public class QiniuFileUtil implements InitializingBean {
      * 获取上传凭证
      */
     private String getUploadToken() {
-        return this.auth.uploadToken(bucket, null, 3600, putPolicy);
+        return this.auth.uploadToken(this.bucket, null, 3600, this.putPolicy);
     }
 
 }

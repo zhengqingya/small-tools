@@ -36,7 +36,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = {"${tableComment}接口"})
 public class ${entity}Controller extends BaseController {
 
-    @Autowired
+    @Resource
     private  I${entity}Service ${entityNameLower}Service;
 
     @GetMapping("page")

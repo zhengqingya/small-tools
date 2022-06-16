@@ -1,10 +1,9 @@
 package com.zhengqing.system.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zhengqing.common.db.entity.BaseEntity;
+import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -25,10 +24,10 @@ import lombok.*;
 @NoArgsConstructor
 @ApiModel("系统管理 - 菜单表")
 @TableName("t_sys_menu")
-public class SysMenu extends BaseEntity<SysMenu> {
+public class SysMenu extends IsDeletedYesBaseEntity<SysMenu> {
 
     @ApiModelProperty(value = "菜单ID")
-    @TableId(value = "menu_id", type = IdType.AUTO)
+    @TableId(type = IdType.AUTO)
     private Integer menuId;
 
     @ApiModelProperty(value = "菜单名称")
@@ -47,7 +46,7 @@ public class SysMenu extends BaseEntity<SysMenu> {
     private Integer parentId;
 
     @ApiModelProperty(value = "菜单排序")
-    private Integer displayOrder;
+    private Integer sort;
 
     @ApiModelProperty(value = "组件名")
     private String component;
@@ -69,14 +68,5 @@ public class SysMenu extends BaseEntity<SysMenu> {
 
     @ApiModelProperty(value = "面包屑 0 false 1 true")
     private Integer breadcrumb;
-
-    @ApiModelProperty(value = "系统来源")
-    private Integer systemSource;
-
-    // 下面为uri权限判断时所用，待处理...
-    @TableField(exist = false)
-    private String url = "xxx";
-    @TableField(exist = false)
-    private Integer id;
 
 }

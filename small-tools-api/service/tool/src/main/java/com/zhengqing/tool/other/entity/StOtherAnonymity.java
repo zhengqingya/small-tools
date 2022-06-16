@@ -1,10 +1,9 @@
 package com.zhengqing.tool.other.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zhengqing.common.db.entity.BaseEntity;
+import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -27,7 +26,7 @@ import java.util.Date;
 @NoArgsConstructor
 @TableName("t_st_other_anonymity")
 @ApiModel("小工具 - 其它 - 匿名事件表")
-public class StOtherAnonymity extends BaseEntity<StOtherAnonymity> {
+public class StOtherAnonymity extends IsDeletedYesBaseEntity<StOtherAnonymity> {
 
     @ApiModelProperty(value = "主键ID")
     @TableId(value = "id", type = IdType.AUTO)
@@ -50,13 +49,5 @@ public class StOtherAnonymity extends BaseEntity<StOtherAnonymity> {
 
     @ApiModelProperty(value = "处理时间")
     private Date handleTime;
-
-    @ApiModelProperty(value = "创建人id")
-    @TableField(value = "create_by", exist = false)
-    private Integer createBy;
-
-    @ApiModelProperty(value = "更新人id")
-    @TableField(value = "update_by", exist = false)
-    private Integer updateBy;
 
 }

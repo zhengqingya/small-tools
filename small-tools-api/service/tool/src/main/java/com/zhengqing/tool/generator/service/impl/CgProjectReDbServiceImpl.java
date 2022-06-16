@@ -22,11 +22,11 @@ import com.zhengqing.tool.generator.service.ICgProjectReDbService;
 import com.zhengqing.tool.generator.service.ICgTableConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,16 +45,16 @@ import java.util.List;
 public class CgProjectReDbServiceImpl extends ServiceImpl<CgProjectReDbMapper, CgProjectReDb>
         implements ICgProjectReDbService {
 
-    @Autowired
+    @Resource
     private CgProjectReDbMapper cgProjectReDbMapper;
 
-    @Autowired
+    @Resource
     private CgProjectPackageMapper cgProjectPackageMapper;
 
-    @Autowired
+    @Resource
     private IStDbJdbcService stDbJdbcService;
 
-    @Autowired
+    @Resource
     private ICgTableConfigService cgTableConfigService;
 
     @Override

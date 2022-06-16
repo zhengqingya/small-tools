@@ -33,7 +33,7 @@ public interface SysOauthMapper extends BaseMapper<SysOauth> {
      * 查询授权信息
      *
      * @param oauthType: 授权类型
-     * @param openId:    三方id
+     * @param openId     三方id
      * @return 授权信息
      * @author zhengqingya
      * @date 2020/11/28 22:24

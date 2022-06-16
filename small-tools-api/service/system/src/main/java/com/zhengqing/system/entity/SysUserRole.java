@@ -3,7 +3,7 @@ package com.zhengqing.system.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zhengqing.common.db.entity.BaseEntity;
+import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -24,13 +24,16 @@ import lombok.*;
 @NoArgsConstructor
 @ApiModel("系统管理-用户角色关联表")
 @TableName("t_sys_user_role")
-public class SysUserRole extends BaseEntity<SysUserRole> {
+public class SysUserRole extends IsDeletedYesBaseEntity<SysUserRole> {
+
+    @TableId(type = IdType.AUTO)
+    @ApiModelProperty(value = "主键ID")
+    private Integer id;
 
     @ApiModelProperty(value = "用户ID")
-    @TableId(value = "user_id", type = IdType.INPUT)
     private Integer userId;
 
     @ApiModelProperty(value = "角色ID")
-    private String roleIds;
+    private Integer roleId;
 
 }

@@ -6,11 +6,11 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
+import com.zhengqing.common.base.context.TenantIdContext;
 import com.zhengqing.common.db.config.mybatis.data.permission.first.DataPermissionInterceptor;
 import com.zhengqing.common.db.config.mybatis.data.permission.second.MyDataPermissionHandler;
 import com.zhengqing.common.db.config.mybatis.data.permission.second.MyDataPermissionInterceptor;
 import com.zhengqing.common.db.config.mybatis.plugins.SqlLogInterceptor;
-import com.zhengqing.common.base.context.TenantIdContext;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
 import org.mybatis.spring.annotation.MapperScan;
@@ -35,13 +35,13 @@ import java.util.Set;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan({"com.zhengqing.*.**.mapper*", "com.zhengqing.*.*.**.mapper*"})
+@MapperScan({"com.zhengqing.*.mapper", "com.zhengqing.*.*.mapper"})
 public class MybatisPlusConfig {
 
     /**
      * 需要设置租户ID的表
      */
-    private static final Set<String> TENANT_ID_TABLE = new HashSet<>();
+    public static Set<String> TENANT_ID_TABLE = new HashSet<>();
 
     static {
         TENANT_ID_TABLE.add("t_demo2");

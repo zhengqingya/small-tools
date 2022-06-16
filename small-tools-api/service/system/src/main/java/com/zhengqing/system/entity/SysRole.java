@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zhengqing.common.db.entity.BaseEntity;
 import com.zhengqing.common.core.custom.fieldrepeat.FieldRepeatValidator;
+import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -29,7 +29,7 @@ import lombok.*;
 @FieldRepeatValidator(tableName = "t_sys_role", idDbName = "role_id", fieldNames = "code", dbFieldNames = {"code"},
         message = "角色编号重复，请重新输入！")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SysRole extends BaseEntity<SysRole> {
+public class SysRole extends IsDeletedYesBaseEntity<SysRole> {
 
     @ApiModelProperty(value = "主键ID")
     @TableId(value = "role_id", type = IdType.AUTO)

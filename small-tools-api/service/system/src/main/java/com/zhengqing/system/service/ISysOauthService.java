@@ -27,7 +27,7 @@ public interface ISysOauthService extends IService<SysOauth> {
      * 登录授权
      *
      * @param oauthType: 授权数据类型
-     * @param response:  响应数据
+     * @param response   响应数据
      * @return 重定向url
      * @author zhengqingya
      * @date 2020/11/27 17:37
@@ -38,8 +38,8 @@ public interface ISysOauthService extends IService<SysOauth> {
      * 处理登录授权后回调数据
      *
      * @param oauthType: 授权数据类型
-     * @param callback:  回调信息
-     * @param response:  响应
+     * @param callback   回调信息
+     * @param response   响应
      * @return void
      * @author zhengqingya
      * @date 2020/11/27 17:39
@@ -50,8 +50,8 @@ public interface ISysOauthService extends IService<SysOauth> {
      * 处理绑定后回调数据
      *
      * @param oauthType: 授权数据类型
-     * @param callback:  回调信息
-     * @param response:  响应
+     * @param callback   回调信息
+     * @param response   响应
      * @return void
      * @author zhengqingya
      * @date 2020/12/6 18:44

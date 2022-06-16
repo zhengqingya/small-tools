@@ -7,31 +7,32 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.zhengqing.common.db.constant.MybatisConstant;
-import com.zhengqing.common.base.context.ContextHandler;
-import com.zhengqing.common.core.custom.validator.common.ValidList;
+import com.zhengqing.common.base.context.SysUserContext;
 import com.zhengqing.common.base.enums.YesNoEnum;
-import com.zhengqing.common.redis.util.RedisUtil;
 import com.zhengqing.common.base.util.MyValidatorUtil;
+import com.zhengqing.common.core.custom.validator.common.ValidList;
+import com.zhengqing.common.db.constant.MybatisConstant;
+import com.zhengqing.common.redis.util.RedisUtil;
 import com.zhengqing.system.constant.SystemConstant;
 import com.zhengqing.system.entity.SysDict;
 import com.zhengqing.system.entity.SysDictType;
 import com.zhengqing.system.mapper.SysDictMapper;
 import com.zhengqing.system.model.dto.SysDictSaveBatchDTO;
 import com.zhengqing.system.model.dto.SysDictSaveDTO;
+import com.zhengqing.system.model.dto.SysDictTypeSaveDTO;
 import com.zhengqing.system.model.vo.SysDictTypeListVO;
 import com.zhengqing.system.model.vo.SysDictVO;
 import com.zhengqing.system.service.ISysDictService;
 import com.zhengqing.system.service.ISysDictTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -52,11 +53,11 @@ import java.util.stream.Collectors;
 @Validated
 public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> implements ISysDictService {
 
-    @Autowired
+    @Resource
     private SysDictMapper sysDictMapper;
 
     @Lazy
-    @Autowired
+    @Resource
     private ISysDictTypeService sysDictTypeService;
 
     @Override
@@ -175,7 +176,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateBatch(Map<String, ValidList<SysDictSaveBatchDTO>> dictDataMap) {
+    public void addOrUpdateBatch(Map<String, ValidList<SysDictSaveBatchDTO>> dictDataMap, Boolean isAddForNotExist) {
         if (CollectionUtils.isEmpty(dictDataMap)) {
             return;
         }
@@ -187,7 +188,20 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         dictDataMap.forEach((code, dictListItem) -> {
             MyValidatorUtil.validate(dictListItem);
             Integer dictTypeId = dictTypeIdMap.get(code);
-            Assert.notNull(dictTypeId, String.format("数据字典[%s]丢失或未启用，请联系系统管理员!", code));
+            if (dictTypeId == null) {
+                if (isAddForNotExist) {
+                    // 新增数据
+                    String dictTypeName = dictListItem.get(0).getDictTypeName();
+                    Assert.notBlank(dictTypeName, "新增字典类型数据时，字典类型名称值不能为空！");
+                    dictTypeId = this.sysDictTypeService.addOrUpdateData(SysDictTypeSaveDTO.builder()
+                            .code(code)
+                            .name(dictTypeName)
+                            .status(YesNoEnum.YES.getValue())
+                            .build());
+                } else {
+                    Assert.notNull(dictTypeId, String.format("数据字典[%s]丢失或未启用，请联系系统管理员!", code));
+                }
+            }
 
             // 删除该code关联字典
             this.sysDictMapper.deleteByCode(code);
@@ -210,12 +224,15 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
                     .collect(Collectors.toList());
             Assert.isTrue(CollectionUtils.isEmpty(repeatNameDataList), "字典名称重复，请重新输入！");
 
-            dictListItem.forEach(item -> {
+            for (SysDictSaveBatchDTO item : dictListItem) {
                 item.setId(null);
                 item.setDictTypeId(dictTypeId);
                 item.setCode(code);
-                item.setCurrentUserId(ContextHandler.getUserId());
-            });
+                item.setCurrentUserId(SysUserContext.getUserId());
+                if (item.getStatus() == null) {
+                    item.setStatus(YesNoEnum.YES.getValue());
+                }
+            }
             saveList.addAll(dictListItem);
         });
         // 保存数据

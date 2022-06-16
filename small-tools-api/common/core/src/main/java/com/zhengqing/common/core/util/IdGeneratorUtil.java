@@ -4,8 +4,8 @@ import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
-import com.zhengqing.common.core.constant.RedisConstant;
 import com.zhengqing.common.base.exception.MyException;
+import com.zhengqing.common.core.constant.RedisConstant;
 import com.zhengqing.common.redis.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -27,36 +27,43 @@ public class IdGeneratorUtil {
     /**
      * 终端ID
      */
-    private long workerId = 0;
+    private static long workerId = 0;
     /**
      * 数据中心ID
      */
-    private long datacenterId = 1;
+    private static long datacenterId = 1;
 
-    private Snowflake snowflake = IdUtil.createSnowflake(this.workerId, this.datacenterId);
+    private static Snowflake snowflake = IdUtil.createSnowflake(workerId, datacenterId);
 
     @PostConstruct
     public void init() {
         try {
-            this.workerId = NetUtil.ipv4ToLong(NetUtil.getLocalhostStr());
-            log.info("当前机器的IP:[{}], workerId:[{}]", NetUtil.getLocalhostStr(), this.workerId);
+            workerId = NetUtil.ipv4ToLong(NetUtil.getLocalhostStr());
+            log.info("当前机器的IP:[{}], workerId:[{}]", NetUtil.getLocalhostStr(), workerId);
         } catch (Exception e) {
             log.error("获取当前机器workerId 异常", e);
-            this.workerId = NetUtil.getLocalhostStr().hashCode();
+            workerId = NetUtil.getLocalhostStr().hashCode();
         }
     }
 
     /**
      * 使用默认的 workerId 和 datacenterId
      */
-    public synchronized long snowflakeId() {
-        return this.snowflake.nextId();
+    public synchronized static long snowflakeId() {
+        return snowflake.nextId();
+    }
+
+    /**
+     * 字符串类型
+     */
+    public static String nextStrId() {
+        return String.valueOf(snowflakeId());
     }
 
     /**
      * 使用自定义的 workerId 和 datacenterId
      */
-    public synchronized long snowflakeId(long workerId, long datacenterId) {
+    public synchronized static long snowflakeId(long workerId, long datacenterId) {
         return IdUtil.createSnowflake(workerId, datacenterId).nextId();
     }
 
@@ -87,10 +94,9 @@ public class IdGeneratorUtil {
     }
 
     public static void main(String[] args) {
-        IdGeneratorUtil idGeneratorUtil = new IdGeneratorUtil();
         for (int i = 0; i < 10; i++) {
 //            log.info("ID: {}", idGeneratorUtil.snowflakeId(i % 2, i % 2));
-            log.info("ID: {}", idGeneratorUtil.snowflakeId());
+            log.info("ID: {}", IdGeneratorUtil.snowflakeId());
         }
     }
 

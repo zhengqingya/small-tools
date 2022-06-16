@@ -1,5 +1,6 @@
 package com.zhengqing.common.core.config;
 
+import com.zhengqing.common.core.config.interceptor.HandlerInterceptorForJwtCustomUser;
 import com.zhengqing.common.core.config.interceptor.HandlerInterceptorForTenantId;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -21,6 +22,7 @@ public class WebAppConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // 可添加多个
         registry.addInterceptor(new HandlerInterceptorForTenantId()).addPathPatterns("/**");
+        registry.addInterceptor(new HandlerInterceptorForJwtCustomUser()).addPathPatterns("/**");
     }
 
 }

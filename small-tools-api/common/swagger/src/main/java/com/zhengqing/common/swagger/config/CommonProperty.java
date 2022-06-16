@@ -2,6 +2,8 @@ package com.zhengqing.common.swagger.config;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * <p>
  * 配置信息
@@ -30,6 +32,7 @@ public class CommonProperty {
     @Data
     public static class Swagger {
         private String groupName;
+        private List<String> scanPackageList;
         private String pathIncludePattern;
         private String title;
         private String description;

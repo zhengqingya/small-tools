@@ -4,8 +4,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.system.entity.SysUser;
 import com.zhengqing.system.model.dto.SysUserListDTO;
+import com.zhengqing.system.model.dto.SysUserPermDTO;
 import com.zhengqing.system.model.vo.SysUserDetailVO;
-import com.zhengqing.system.model.vo.SysUserVO;
+import com.zhengqing.system.model.vo.SysUserPermVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -24,8 +25,8 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     /**
      * 列表分页
      *
-     * @param page:
-     * @param filter:
+     * @param page   分页参数
+     * @param filter 过滤参数
      * @return 用户信息
      * @author zhengqingya
      * @date 2020/9/10 10:28
@@ -35,7 +36,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     /**
      * 列表
      *
-     * @param filter:
+     * @param filter 过滤参数
      * @return 用户信息
      * @author zhengqingya
      * @date 2020/9/10 10:34
@@ -45,7 +46,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     /**
      * 根据用户id查询用户信息
      *
-     * @param userId: 用户id
+     * @param userId 用户id
      * @return 用户信息
      * @author zhengqingya
      * @date 2020/9/10 10:49
@@ -53,23 +54,13 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     SysUserDetailVO selectUserByUserId(@Param("userId") Integer userId);
 
     /**
-     * 根据用户名查询用户信息
+     * 查询用户信息
      *
-     * @param username: 用户名
-     * @return 用户信息
-     * @author zhengqingya
-     * @date 2020/9/10 13:39
-     */
-    SysUserVO selectUserByUsername(@Param("username") String username);
-
-    /**
-     * 根据用户ids批量查询用户信息
-     *
-     * @param userIdList: 用户ids
+     * @param filter 过滤参数
      * @return 用户信息
      * @author zhengqingya
      * @date 2020/9/21 16:18
      */
-    List<SysUserVO> selectUserInfoByUserIds(@Param("userIdList") List<Integer> userIdList);
+    SysUserPermVO selectUserPerm(@Param("filter") SysUserPermDTO filter);
 
 }

@@ -13,11 +13,11 @@ import com.zhengqing.tool.other.model.dto.StOtherAnonymitySaveDTO;
 import com.zhengqing.tool.other.model.vo.StOtherAnonymityListVO;
 import com.zhengqing.tool.other.service.IStOtherAnonymityService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -36,21 +36,21 @@ import java.util.List;
 public class StOtherAnonymityServiceImpl extends ServiceImpl<StOtherAnonymityMapper, StOtherAnonymity>
         implements IStOtherAnonymityService {
 
-    @Autowired
+    @Resource
     private StOtherAnonymityMapper stOtherAnonymityMapper;
 
     @Override
     public IPage<StOtherAnonymityListVO> listPage(StOtherAnonymityListDTO params) {
-        IPage<StOtherAnonymityListVO> result = stOtherAnonymityMapper.selectStOtherAnonymitys(new Page<>(), params);
+        IPage<StOtherAnonymityListVO> result = this.stOtherAnonymityMapper.selectStOtherAnonymitys(new Page<>(), params);
         List<StOtherAnonymityListVO> list = result.getRecords();
-        handleResultData(list);
+        this.handleResultData(list);
         return result;
     }
 
     @Override
     public List<StOtherAnonymityListVO> list(StOtherAnonymityListDTO params) {
-        List<StOtherAnonymityListVO> list = stOtherAnonymityMapper.selectStOtherAnonymitys(params);
-        handleResultData(list);
+        List<StOtherAnonymityListVO> list = this.stOtherAnonymityMapper.selectStOtherAnonymitys(params);
+        this.handleResultData(list);
         return list;
     }
 

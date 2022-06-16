@@ -5,10 +5,10 @@ import com.zhengqing.common.core.util.QiniuFileUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 
 /**
@@ -26,7 +26,7 @@ import java.io.File;
 @Api(tags = "基础模块 - 上传文件接口")
 public class SysFileController extends BaseController {
 
-    @Autowired
+    @Resource
     private QiniuFileUtil qiniuFileUtil;
 
     @PostMapping("uploadMultipartFile")

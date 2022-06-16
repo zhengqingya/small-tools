@@ -14,11 +14,11 @@ import com.zhengqing.tool.crawler.pipeline.StCsdnPipeline;
 import com.zhengqing.tool.crawler.processor.StCsdnPageProcessor;
 import com.zhengqing.tool.crawler.service.IStCrawlerArticleInfoService;
 import com.zhengqing.tool.crawler.service.IStCrawlerWebsiteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import us.codecraft.webmagic.Spider;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -35,27 +35,27 @@ import java.util.List;
 public class StCrawlerWebsiteServiceImpl extends ServiceImpl<StCrawlerWebsiteMapper, StCrawlerWebsite>
         implements IStCrawlerWebsiteService {
 
-    @Autowired
+    @Resource
     private StCrawlerWebsiteMapper stCrawlerWebsiteMapper;
 
-    @Autowired
+    @Resource
     private IStCrawlerArticleInfoService stCrawlerArticleInfoService;
 
-    @Autowired
+    @Resource
     private StCsdnPipeline stCsdnPipeline;
 
     @Override
     public IPage<StCrawlerWebsiteListVO> listPage(StCrawlerWebsiteListDTO params) {
-        IPage<StCrawlerWebsiteListVO> result = stCrawlerWebsiteMapper.selectStCrawlerWebsites(new Page<>(), params);
+        IPage<StCrawlerWebsiteListVO> result = this.stCrawlerWebsiteMapper.selectStCrawlerWebsites(new Page<>(), params);
         result.getRecords()
-                .forEach(e -> e.setArticleSum(stCrawlerArticleInfoService.getArticleSumByWebsiteId(e.getWebsiteId())));
+                .forEach(e -> e.setArticleSum(this.stCrawlerArticleInfoService.getArticleSumByWebsiteId(e.getWebsiteId())));
         return result;
     }
 
     @Override
     public List<StCrawlerWebsiteListVO> list(StCrawlerWebsiteListDTO params) {
-        List<StCrawlerWebsiteListVO> result = stCrawlerWebsiteMapper.selectStCrawlerWebsites(params);
-        result.forEach(e -> e.setArticleSum(stCrawlerArticleInfoService.getArticleSumByWebsiteId(e.getWebsiteId())));
+        List<StCrawlerWebsiteListVO> result = this.stCrawlerWebsiteMapper.selectStCrawlerWebsites(params);
+        result.forEach(e -> e.setArticleSum(this.stCrawlerArticleInfoService.getArticleSumByWebsiteId(e.getWebsiteId())));
         return result;
     }
 
@@ -64,7 +64,7 @@ public class StCrawlerWebsiteServiceImpl extends ServiceImpl<StCrawlerWebsiteMap
         String url = params.getUrl();
         Spider.create(new StCsdnPageProcessor())
                 // 使用Pipeline保存结果
-                .addPipeline(stCsdnPipeline)
+                .addPipeline(this.stCsdnPipeline)
                 // 从指定的url地址开始抓
                 .addUrl(url)
                 // 开启5个线程抓取
@@ -78,16 +78,16 @@ public class StCrawlerWebsiteServiceImpl extends ServiceImpl<StCrawlerWebsiteMap
         Integer websiteId = params.getWebsiteId();
         StCrawlerWebsite website = MyBeanUtil.copyProperties(params, StCrawlerWebsite.class);
         if (websiteId == null) {
-            stCrawlerWebsiteMapper.insert(website);
+            this.stCrawlerWebsiteMapper.insert(website);
         } else {
-            stCrawlerWebsiteMapper.updateById(website);
+            this.stCrawlerWebsiteMapper.updateById(website);
         }
         return website.getWebsiteId();
     }
 
     @Override
     public void updateWebsiteInvalid(Integer websiteId) {
-        stCrawlerWebsiteMapper.updateWebsiteInvalid(websiteId);
+        this.stCrawlerWebsiteMapper.updateWebsiteInvalid(websiteId);
     }
 
 }

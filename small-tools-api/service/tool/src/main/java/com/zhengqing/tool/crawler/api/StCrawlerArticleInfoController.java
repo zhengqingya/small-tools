@@ -11,7 +11,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 @Api(tags = {"小工具 - 爬虫 - 文章信息接口"})
 public class StCrawlerArticleInfoController extends BaseController {
 
-    @Autowired
+    @Resource
     private IStCrawlerArticleInfoService stCrawlerArticleInfoService;
 
     @GetMapping("listPage")

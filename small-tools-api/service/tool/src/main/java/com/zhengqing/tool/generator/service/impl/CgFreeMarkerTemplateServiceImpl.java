@@ -3,10 +3,10 @@ package com.zhengqing.tool.generator.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhengqing.common.core.constant.AppConstant;
-import com.zhengqing.common.base.context.ContextHandler;
+import com.zhengqing.common.base.context.SysUserContext;
 import com.zhengqing.common.base.exception.MyException;
 import com.zhengqing.common.base.util.MyBeanUtil;
+import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.tool.generator.entity.CgFreeMarkerTemplate;
 import com.zhengqing.tool.generator.enums.CgFreeMarkerTemplateCommonTypeEnum;
 import com.zhengqing.tool.generator.mapper.CgFreeMarkerTemplateMapper;
@@ -17,11 +17,11 @@ import com.zhengqing.tool.generator.model.vo.CgFreeMarkerTemplateListVO;
 import com.zhengqing.tool.generator.service.ICgFreeMarkerTemplateService;
 import com.zhengqing.tool.generator.service.ICgGeneratorCodeService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,10 +41,10 @@ import java.util.stream.Collectors;
 public class CgFreeMarkerTemplateServiceImpl extends ServiceImpl<CgFreeMarkerTemplateMapper, CgFreeMarkerTemplate>
         implements ICgFreeMarkerTemplateService {
 
-    @Autowired
+    @Resource
     private CgFreeMarkerTemplateMapper cgFreeMarkerTemplateMapper;
 
-    @Autowired
+    @Resource
     private ICgGeneratorCodeService cgGeneratorCodeService;
 
     @Override
@@ -104,7 +104,7 @@ public class CgFreeMarkerTemplateServiceImpl extends ServiceImpl<CgFreeMarkerTem
     @Override
     public void deleteData(Integer freeMarkerTemplateId) {
         // 这里判断如果不是管理员则无法操作共用数据
-        if (!ContextHandler.getUserId().equals(AppConstant.SYSTEM_SUPER_ADMIN_USER_ID)) {
+        if (!SysUserContext.getUserId().equals(AppConstant.SYSTEM_SUPER_ADMIN_USER_ID)) {
             CgFreeMarkerTemplate template = this.getById(freeMarkerTemplateId);
             if (template.getIsCommon().equals(CgFreeMarkerTemplateCommonTypeEnum.公用.getType())) {
                 throw new MyException("您没有权限删除共有数据！");

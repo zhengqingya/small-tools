@@ -6,15 +6,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.enums.YesNoEnum;
 import com.zhengqing.common.base.exception.MyException;
-import com.zhengqing.common.core.model.bo.UserTokenInfo;
-import com.zhengqing.common.core.util.JwtUtil;
 import com.zhengqing.common.base.util.MyBeanUtil;
+import com.zhengqing.common.core.enums.UserSexEnum;
 import com.zhengqing.system.config.SystemProperty;
 import com.zhengqing.system.entity.SysOauth;
 import com.zhengqing.system.entity.SysUser;
 import com.zhengqing.system.enums.SysDictTypeEnum;
 import com.zhengqing.system.enums.SysOauthTypeEnum;
-import com.zhengqing.system.enums.SysUserSexEnum;
 import com.zhengqing.system.mapper.SysOauthMapper;
 import com.zhengqing.system.model.bo.SysGitHubUserInfoBO;
 import com.zhengqing.system.model.bo.SysGiteeUserInfoBO;
@@ -39,10 +37,10 @@ import me.zhyd.oauth.request.AuthGithubRequest;
 import me.zhyd.oauth.request.AuthQqRequest;
 import me.zhyd.oauth.request.AuthRequest;
 import me.zhyd.oauth.utils.AuthStateUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
@@ -62,16 +60,16 @@ import java.util.stream.Collectors;
 @Transactional(rollbackFor = Exception.class)
 public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> implements ISysOauthService {
 
-    @Autowired
+    @Resource
     private SysOauthMapper sysOauthMapper;
 
-    @Autowired
+    @Resource
     private SystemProperty systemProperty;
 
-    @Autowired
+    @Resource
     private ISysUserService sysUserService;
 
-    @Autowired
+    @Resource
     private ISysDictService dictService;
 
     @Override
@@ -104,7 +102,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
                 oauthUserInfoBO.setNickname(sysGiteeUserInfoBO.getNickname());
                 oauthUserInfoBO.setAvatar(sysGiteeUserInfoBO.getAvatar());
                 oauthUserInfoBO.setEmail(sysGiteeUserInfoBO.getEmail());
-                oauthUserInfoBO.setSex(SysUserSexEnum.未知.getType());
+                oauthUserInfoBO.setSex(UserSexEnum.未知.getType());
                 oauthUserInfoBO.setRemark(sysGiteeUserInfoBO.getRemark());
                 break;
             case GitHub:
@@ -117,7 +115,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
                 oauthUserInfoBO.setNickname(sysGitHubUserInfoBO.getNickname());
                 oauthUserInfoBO.setAvatar(sysGitHubUserInfoBO.getAvatar());
                 oauthUserInfoBO.setEmail(sysGitHubUserInfoBO.getEmail());
-                oauthUserInfoBO.setSex(SysUserSexEnum.未知.getType());
+                oauthUserInfoBO.setSex(UserSexEnum.未知.getType());
                 oauthUserInfoBO.setRemark(sysGitHubUserInfoBO.getRemark());
                 break;
             case QQ:
@@ -129,7 +127,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
                 oauthUserInfoBO.setNickname(sysQqUserInfoBO.getNickname());
                 oauthUserInfoBO.setAvatar(sysQqUserInfoBO.getAvatar());
                 oauthUserInfoBO.setEmail(sysQqUserInfoBO.getEmail());
-                oauthUserInfoBO.setSex(SysUserSexEnum.未知.getType());
+                oauthUserInfoBO.setSex(UserSexEnum.未知.getType());
                 oauthUserInfoBO.setRemark(sysQqUserInfoBO.getRemark());
                 break;
             default:
@@ -138,12 +136,12 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
 
         Integer userId = this.handleOauthThirdPartData(oauthUserInfoBO);
         SysUser sysUser = new SysUser().selectById(userId);
-        // 塞个token信息
-        UserTokenInfo userTokenInfo =
-                UserTokenInfo.buildUser(JSONObject.parseObject(JSONObject.toJSONString(sysUser), Map.class));
-        String jwtToken = JwtUtil.buildJWT(userTokenInfo);
-        sysUser.setToken(jwtToken);
-        sysUser.updateById();
+//        // 塞个token信息
+//        JwtUserBO jwtUserBO = JwtUserBO.buildUser(JSONObject.parseObject(JSONObject.toJSONString(sysUser), Map.class));
+//        String jwtToken = JwtUtil.buildJWT(jwtUserBO);
+//        sysUser.setToken(jwtToken);
+//        sysUser.updateById();
+        String jwtToken = "token...";
 
         String redirectUrl = this.systemProperty.getThirdpartOauth().getWebRedirectUrl() + jwtToken;
         response.sendRedirect(redirectUrl);
@@ -165,7 +163,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
      * 处理回调数据
      *
      * @param oauthType: 授权数据类型
-     * @param callback:  回调信息
+     * @param callback   回调信息
      * @return 回调响应map数据
      * @author zhengqingya
      * @date 2020/12/6 18:48
@@ -216,7 +214,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
         String nickname = params.getNickname();
         String avatar = params.getAvatar();
         String email = params.getEmail();
-        Integer sex = params.getSex();
+        Byte sex = params.getSex();
         String remark = params.getRemark();
 
         SysOauth oauthInfo = this.sysOauthMapper.selectOne(

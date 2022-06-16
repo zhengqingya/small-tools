@@ -2,8 +2,8 @@ package com.zhengqing.tool.db.service.impl;
 
 import cn.hutool.core.io.FileUtil;
 import com.google.common.collect.Lists;
-import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.base.exception.MyException;
+import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.core.util.QiniuFileUtil;
 import com.zhengqing.tool.db.enums.StDbDataSourceTypeEnum;
 import com.zhengqing.tool.db.enums.StDbOperateSqlEnum;
@@ -19,10 +19,10 @@ import com.zhengqing.tool.util.TableToWordUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -43,10 +43,10 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class StDbJdbcServiceImpl implements IStDbJdbcService {
 
-    @Autowired
+    @Resource
     private IStDbDataSourceService stDbDataSourceService;
 
-    @Autowired
+    @Resource
     private QiniuFileUtil qiniuFileUtil;
 
     @Override
@@ -262,7 +262,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
      * 根据数据源id+库名获取所有表+字段信息
      *
      * @param tableInfoList: 需装数据的表+字段信息
-     * @param dataSourceId:  数据源id
+     * @param dataSourceId   数据源id
      * @param dbName:库名
      * @return void
      * @author zhengqingya

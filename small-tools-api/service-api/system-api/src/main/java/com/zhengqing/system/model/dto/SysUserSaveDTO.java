@@ -1,7 +1,8 @@
 package com.zhengqing.system.model.dto;
 
-import com.zhengqing.common.core.custom.validator.common.UpdateGroup;
 import com.zhengqing.common.core.custom.fieldrepeat.FieldRepeatValidator;
+import com.zhengqing.common.core.custom.validator.common.UpdateGroup;
+import com.zhengqing.common.core.enums.UserSexEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -41,8 +42,11 @@ public class SysUserSaveDTO {
     @Pattern(regexp = "^[\\u4E00-\\u9FA5A-Za-z0-9\\*]*$", message = "账号限制：最多100字符，包含文字、字母和数字")
     private String nickname;
 
-    @ApiModelProperty(value = "性别(0:未知 1:男 2:女)")
-    private Integer sex;
+    /**
+     * {@link UserSexEnum}
+     */
+    @ApiModelProperty(value = "性别")
+    private Byte sex;
 
     @ApiModelProperty(value = "手机号码")
     // @NotBlank(message = "手机号不能为空")

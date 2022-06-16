@@ -21,7 +21,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @Slf4j
 @ApiIgnore()
 @RestController
-@RequestMapping(IBaseClient.API_PREFIX + "/" + AppConstant.APPLICATION_NAME_DEMO + "/sentinel")
+@RequestMapping(IBaseClient.API_PREFIX + "/" + AppConstant.RPC_DEMO + "/sentinel")
 @AllArgsConstructor
 public class DemoClient implements IDemoClient {
 

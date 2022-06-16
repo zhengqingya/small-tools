@@ -3,7 +3,7 @@ package com.zhengqing.system.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zhengqing.common.db.entity.BaseEntity;
+import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -24,7 +24,7 @@ import lombok.*;
 @NoArgsConstructor
 @TableName("t_sys_user_re_oauth")
 @ApiModel("系统管理 - 用户三方授权表")
-public class SysOauth extends BaseEntity<SysOauth> {
+public class SysOauth extends IsDeletedYesBaseEntity<SysOauth> {
 
     @ApiModelProperty(value = "主键ID")
     @TableId(value = "user_re_oauth_id", type = IdType.AUTO)

@@ -1,6 +1,8 @@
 package com.zhengqing.common.feign.constant;
 
-import org.assertj.core.util.Lists;
+
+import com.google.common.collect.Lists;
+import com.zhengqing.common.base.constant.BaseConstant;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
  * @description
  * @date 2021/7/20 18:16
  */
-public interface RpcConstant {
+public interface RpcConstant extends BaseConstant {
 
     // ===============================================================================
     // ============================ ↓↓↓↓↓↓ rpc ↓↓↓↓↓↓ ================================
@@ -24,7 +26,10 @@ public interface RpcConstant {
      */
     String RPC_DEMO = "demo";
     String RPC_SYSTEM = "system";
+    String RPC_UMS = "ums";
+    String RPC_PAY = "pay";
     String RPC_TOOL = "tool";
+    String RPC_BASIC = "basic";
     List<String> ALL_RPC_SERVICE_NAME_LIST = Lists.newArrayList(
             RPC_DEMO, RPC_SYSTEM, RPC_TOOL
     );
@@ -32,9 +37,21 @@ public interface RpcConstant {
     /**
      * rpc-api前缀
      */
-    String RPC_API_PREFIX_WEB = "/rpc/client/web";
-    String RPC_API_PREFIX_WEB_SYSTEM = RPC_API_PREFIX_WEB + "/system";
+    String RPC_API_PREFIX = "/rpc/client";
+    String RPC_API_PREFIX_WEB = RPC_API_PREFIX + "/web";
+    String RPC_API_PREFIX_SYSTEM = RPC_API_PREFIX + "/system";
+    String RPC_API_PREFIX_UMS = RPC_API_PREFIX + "/ums";
+    String RPC_API_PREFIX_PAY = RPC_API_PREFIX + "/pay";
 
+    /**
+     * rpc服务调用不需要封装返回值的api
+     */
+    List<String> RETURN_VALUE_HANDLER_EXCLUDE_API_LIST = Lists.newArrayList(
+            RPC_API_PREFIX_WEB,
+            "/hello",
+            "/index",
+            "/rpc/client"
+    );
 
     // ===============================================================================
     // ============================ ↓↓↓↓↓↓ other ↓↓↓↓↓↓ ==============================

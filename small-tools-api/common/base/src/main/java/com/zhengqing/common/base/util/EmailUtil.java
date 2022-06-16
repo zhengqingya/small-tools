@@ -2,13 +2,13 @@ package com.zhengqing.common.base.util;
 
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
 
@@ -31,13 +31,13 @@ public class EmailUtil {
     @Value("${spring.mail.form}")
     private String formEmail2;
 
-    @Autowired
+    @Resource
     private JavaMailSender javaMailSender2;
 
     @PostConstruct
     public void beforeInit() {
-        javaMailSender = javaMailSender2;
-        formEmail = formEmail2;
+        javaMailSender = this.javaMailSender2;
+        formEmail = this.formEmail2;
     }
 
     /**
@@ -45,7 +45,7 @@ public class EmailUtil {
      *
      * @param title：邮件标题
      * @param content：   邮件内容
-     * @param sendTo:    收件人
+     * @param sendTo     收件人
      * @return void
      * @author zhengqingya
      * @date 2020/8/14 19:28
@@ -74,7 +74,7 @@ public class EmailUtil {
      * @param content：                 邮件内容
      * @param attachmentFilename：附件文件名
      * @param file：附件
-     * @param sendTo:                  收件人
+     * @param sendTo                   收件人
      * @return void
      * @author zhengqingya
      * @date 2020/8/14 19:28

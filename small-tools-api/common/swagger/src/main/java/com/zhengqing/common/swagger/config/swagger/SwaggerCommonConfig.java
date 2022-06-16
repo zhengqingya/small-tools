@@ -1,6 +1,8 @@
 package com.zhengqing.common.swagger.config.swagger;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.swagger.config.CommonProperty;
@@ -12,8 +14,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
 import org.springframework.util.StopWatch;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
+import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -24,8 +29,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
-
-import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
  * <p>
@@ -55,14 +58,23 @@ public class SwaggerCommonConfig {
         StopWatch watch = new StopWatch();
         watch.start();
 
-        Docket docket = new Docket(DocumentationType.SWAGGER_2).apiInfo(this.apiInfo(commonProperty))
-                .forCodeGeneration(true).genericModelSubstitutes(ResponseEntity.class)
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(this.apiInfo(commonProperty))
+                .forCodeGeneration(true)
+                .genericModelSubstitutes(ResponseEntity.class)
                 // 对不同的api路径作分组展示
-                .groupName(Docket.DEFAULT_GROUP_NAME).select().apis(RequestHandlerSelectors.any()).paths(regex("/.*"))
+                .groupName(Docket.DEFAULT_GROUP_NAME).select()
+                // 扫描所有
+//                .apis(RequestHandlerSelectors.any())
+                // 多包扫描
+                .apis(basePackage(commonProperty.getSwagger().getScanPackageList()))
+                .paths(PathSelectors.any())
                 // 排除错误路径
                 .paths(Predicates.not(PathSelectors.regex("/error")))
                 .paths(Predicates.not(PathSelectors.regex("/actuator")))
-                .paths(Predicates.not(PathSelectors.regex("/actuator/.*"))).build().securitySchemes(this.securitySchemes())
+                .paths(Predicates.not(PathSelectors.regex("/actuator/.*")))
+                .build()
+                .securitySchemes(this.securitySchemes())
                 .securityContexts(this.securityContexts());
 
         watch.stop();
@@ -81,11 +93,20 @@ public class SwaggerCommonConfig {
         StopWatch watch = new StopWatch();
         watch.start();
 
-        Docket docket = new Docket(DocumentationType.SWAGGER_2).apiInfo(this.apiInfo(commonProperty))
-                .forCodeGeneration(true).genericModelSubstitutes(ResponseEntity.class)
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(this.apiInfo(commonProperty))
+                .forCodeGeneration(true)
+                .genericModelSubstitutes(ResponseEntity.class)
                 // 对不同的api路径作分组展示
-                .groupName(groupName).select().apis(RequestHandlerSelectors.any())
-                .paths(regex(swagger.getPathIncludePattern())).build().securitySchemes(this.securitySchemes())
+                .groupName(groupName)
+                .select()
+                // 扫描所有
+                .apis(RequestHandlerSelectors.any())
+                // 多包扫描
+//                .apis(basePackage(swagger.getScanPackageList()))
+//                .paths(regex(swagger.getPathIncludePattern()))
+                .build()
+                .securitySchemes(this.securitySchemes())
                 .securityContexts(this.securityContexts());
 
         watch.stop();
@@ -93,16 +114,41 @@ public class SwaggerCommonConfig {
         return docket;
     }
 
+    private static Predicate<RequestHandler> basePackage(List<String> scanPackageList) {
+        PathMatcher pathMatcher = new AntPathMatcher();
+        return input -> Optional.fromNullable(input.declaringClass()).transform(
+                e -> {
+                    // 循环判断是否匹配
+                    for (String strPackage : scanPackageList) {
+                        if (pathMatcher.match(strPackage, e.getPackage().getName())) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+        ).or(true);
+    }
+
     /**
      * swagger-api接口描述信息
      */
     private ApiInfo apiInfo(CommonProperty commonProperty) {
         Swagger swagger = commonProperty.getSwagger();
-        return new ApiInfoBuilder().title(swagger.getTitle()).description(swagger.getDescription())
-                .version(swagger.getVersion()).termsOfServiceUrl(swagger.getTermsOfServiceUrl())
-                .contact(new Contact(swagger.getContact().getName(), swagger.getContact().getUrl(),
-                        swagger.getContact().getEmail()))
-                .license(swagger.getLicense()).licenseUrl(swagger.getLicenseUrl()).build();
+        return new ApiInfoBuilder()
+                .title(swagger.getTitle())
+                .description(swagger.getDescription())
+                .version(swagger.getVersion())
+                .termsOfServiceUrl(swagger.getTermsOfServiceUrl())
+                .contact(
+                        new Contact(
+                                swagger.getContact().getName(),
+                                swagger.getContact().getUrl(),
+                                swagger.getContact().getEmail()
+                        )
+                )
+                .license(swagger.getLicense())
+                .licenseUrl(swagger.getLicenseUrl())
+                .build();
     }
 
     /**

@@ -1,0 +1,301 @@
+# ================================== ↓↓↓↓↓↓ small-tools配置 ↓↓↓↓↓↓ ==================================
+small-tools:
+  ip: 192.168.0.88 # 127.0.0.1、192.168.0.88
+  swagger:
+    groupName: ${spring.application.name}
+    pathIncludePattern: /web/api/.*
+    title: API接口文档 - ${small-tools.swagger.groupName}
+    description: API接口文档 - ${small-tools.swagger.groupName}
+    version: 1.0.0
+    termsOfServiceUrl: ${small-tools.ip}:${server.port}
+    license:
+    licenseUrl:
+    contact:
+      name: zhengqingya
+      url: www.zhengqingya.com
+      email: 960869719@qq.com
+
+# 系统配置开关
+on-off:
+  mybatis-plus-sql-log: true # 开启sql日志，默认关闭
+  swagger: true # 开启swagger，默认关闭
+
+
+spring:
+  cloud:
+    sentinel:
+      enabled: true # 自动化配置是否生效
+      eager: true   # 禁用控制台懒加载
+      transport:
+        dashboard: ${small-tools.ip}:8858 # 控制台地址
+        # client-ip: ${small-tools.ip} # ${spring.cloud.client.ip-address} # 获取本机IP地址
+        # port: 18719 # 启动该服务，会在应用程序的相应服务器上启动HTTP Server，并且该服务器将与Sentinel dashboard进行交互
+  #  cloud:
+  #    config:
+  #      # 相同配置下优先使用本地配置 (注：需在nacos上配置才生效！)
+  #      override-none: true
+  #      allow-override: true
+  #      override-system-properties: false
+  lifecycle:
+    timeout-per-shutdown-phase: 30s # 设置缓冲期，最大等待时间（即超时间后，无论线程任务是否执行完毕都会停机处理，需合理设置哦）
+  servlet:
+    multipart:
+      enabled: true # 是否开启文件上传支持，默认为true
+      #      location: E:/tmp # 指定文件上传路径 【注：文件路径必须存在！  windows： "E:/tmp" liunx： "/tmp"】
+      max-file-size: 50MB # 指定文件大小最大值，默认1MB
+      max-request-size: 100MB # 指定每次请求的最大值，默认为10MB
+      file-size-threshold: 0 # 设定文件写入磁盘的阈值，单位为MB或KB，默认为0。表示收到文件到达这么大后，不在放入缓存，而是写入临时文件
+  mvc:
+    throw-exception-if-no-handler-found: true # 关闭springboot的异常自动资源映射，让其抛出异常
+  resources:
+    add-mappings: true # 是否开启默认的资源处理，默认为true
+  # ========================== ↓↓↓↓↓↓ 发送邮件配置（QQ邮箱） ↓↓↓↓↓↓ ==========================
+  mail:
+    host: smtp.qq.com
+    username: 960869719@qq.com # TODO 账号
+    password: xxxxxx           # TODO 注：这里填写 在邮箱 设置 -> 账号 里面生成的`授权码` !!!
+    default-encoding: UTF-8
+    form: 960869719@qq.com     # TODO 邮件发送人地址
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+  # 多数据源配置 可参考 https://gitee.com/baomidou/dynamic-datasource-spring-boot-starter
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource   # 连接池类型，druid连接池springboot暂无法默认支持，需要自己配置bean
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候会抛出异常,不启动则使用默认数据源.
+      datasource:
+        master:
+          url: jdbc:mysql://${small-tools.ip}:3306/small-tools?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false  ； &serverTimezone=Asia/Shanghai ：解决fastjson时差13小时问题
+          name: small-tools
+          username: root
+          password: root
+          platform: mysql
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        db-test:
+          url: jdbc:mysql://${small-tools.ip}:3306/demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false  ； &serverTimezone=Asia/Shanghai ：解决fastjson时差13小时问题
+          username: root
+          password: root
+          driver-class-name: com.mysql.cj.jdbc.Driver
+      #  ===================== ↓↓↓↓↓↓  使用druid数据源【dynamic - 公共配置】  ↓↓↓↓↓↓ =====================
+      druid:
+        initialSize: 5   # 连接池初始化连接数量
+        minIdle: 5       # 连接池最小空闲数
+        maxActive: 20    # 连接池最大活跃连接数
+        maxWait: 60000                        # 配置获取连接等待超时的时间
+        timeBetweenEvictionRunsMillis: 60000  # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        minEvictableIdleTimeMillis: 300000    # 配置一个连接在池中最小生存的时间，单位是毫秒
+        validationQuery: SELECT 1 FROM DUAL   # 连接是否有效的查询语句
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        removeAbandoned: true
+        # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，【 'stat':监控统计  'wall'：用于防火墙，防御sql注入   'slf4j':日志 】
+        filters: stat,wall,slf4j
+        # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        #useGlobalDataSourceStat: true  # 合并多个DruidDataSource的监控数据
+        stat-view-servlet:
+          enabled: true          # 是否开启
+          login-username: admin  # SQL监控后台登录用户名
+          login-password: admin  # SQL监控后台登录用户密码
+
+  # Redis数据源
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 8
+    # Redis服务器地址
+    host: ${small-tools.ip}
+    # Redis服务器连接端口
+    port: 6379
+    timeout: 6000
+    # Redis服务器连接密码（默认为空）
+    password:
+    jedis:
+      pool:
+        max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 10      # 连接池中的最大空闲连接
+        min-idle: 5       # 连接池中的最小空闲连接
+
+  # RabbitMQ配置
+  rabbitmq:
+    addresses: ${small-tools.ip}:5672 # 指定client连接到的server的地址，多个以逗号分隔
+    # 填写自己安装rabbitmq时设置的账号密码，默认账号密码为`guest`
+    username: admin
+    password: admin
+    virtual-host: my_vhost # 填写自己的虚拟机名，对应可查看 `127.0.0.1:15672/#/users` 下Admin中的`Can access virtual hosts`信息
+    listener:
+      simple:
+        # 表示消息确认方式，其有三种配置方式，分别是none、manual和auto；默认auto
+        acknowledge-mode: auto
+        # 最小的消费者数量
+        concurrency: 5
+        # 最大的消费者数量
+        max-concurrency: 10
+        # 指定一个请求能处理多少个消息，如果有事务的话，必须大于等于transaction数量.
+        prefetch: 3
+        retry:
+          # 是否开启重试
+          enabled: true
+          # 最大重试次数
+          max-attempts: 5
+          # 第一次和第二次尝试发布或传递消息之间的间隔（单位：毫秒）
+          initial-interval: 30000
+
+#服务器配置
+server:
+  servlet:
+    #    context-path: /api
+    #    application-display-name: SmallTools
+    encoding:
+      charset: UTF-8
+      force: true
+  # 下面是配置undertow作为服务器的参数
+  undertow:
+    # 是否分配的直接内存(NIO直接分配的堆外内存)
+    direct-buffers: true
+    # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
+    # 每块buffer的空间大小,越小的空间被利用越充分，不要设置太大，以免影响其他应用，合适即可
+    buffer-size: 1024
+    threads:
+      io: 4        # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程 （不要设置过大，如果过大，启动项目会报错：打开文件数过多）
+      worker: 20   # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统线程执行任务的阻塞系数，默认值是IO线程数*8
+  shutdown: graceful # 开启优雅停机，默认`IMMEDIATE`是立即关机
+
+#配置日志地址
+logging:
+  #  config: classpath:log/logback.xml
+  config: classpath:logback.xml
+  log:
+    home: logs            # 日志文件保存位置
+    max-history-day: 30   # 日志文件保留天数
+
+# ========================== ↓↓↓↓↓↓ 七牛云配置 ↓↓↓↓↓↓ ==========================
+qiniu:
+  accessKey: xxxxxx
+  secretKey: xxxxxx
+  # 对象储存
+  bucket: zhengqingya            # 空间名称
+  zone: huadong                  # 存储区域
+  domain: oss.zhengqingya.com    # 访问域名
+  expireInSeconds: 3600          # 过期时间(默认1小时)
+
+# 关闭安全验证
+management:
+  security:
+    enabled: false
+
+# mybatis-plus相关配置
+mybatis-plus:
+  # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）
+  # -- classpath: 只会扫描当前module的class
+  # -- classpath*: 扫描所有jar
+  mapper-locations: classpath*:**/*Mapper.xml
+  # 实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.zhengqing.*.entity
+  # 配置扫描通用枚举, 支持统配符 * 或者 ; 分割
+  type-enums-package: com.zhengqing.*.enums,com.zhengqing.*.*.enums,com.zhengqing.*.*.*.enums
+  # 以下配置均有默认值,可以不设置
+  global-config:
+    # 关闭MP3.0+自带的banner
+    banner: false
+    db-config:
+      # 主键类型  0:"数据库ID自增", 1:"不操作", 2:"用户输入ID",3:"数字型snowflake", 4:"全局唯一ID UUID", 5:"字符串型snowflake";
+      id-type: auto
+      # 字段策略
+      insert-strategy: not_null
+      update-strategy: not_null
+      select-strategy: not_null
+      # 驼峰下划线转换
+      table-underline: true
+      # 逻辑删除配置
+      logic-delete-field: isDeleted  # 全局逻辑删除的实体字段名
+      logic-delete-value: 1          # 逻辑删除全局值（0表示已删除，默认为 1）
+      logic-not-delete-value: 0      # 逻辑未删除全局值（1表示未删除，默认为 0）
+  configuration:
+    # 是否开启自动驼峰命名规则映射:从数据库列名到Java属性驼峰命名的类似映射
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    # 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
+    call-setters-on-nulls: true
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 解决oracle更新数据为null时无法转换报错，mysql不会出现此情况
+    jdbc-type-for-null: 'null'
+
+# knife开源的swagger ui配置
+knife4j:
+  # 是否是生产环境，如果是生产环境会默认关闭swagger，即为true则会关闭Swagger页面
+  production: false
+  # 配置自定义markdown文件的位置
+  markdowns: classpath:markdown/*
+  # 配置认证功能 【 访问`http://127.0.0.1:1218/doc.html`需认证】
+  basic:
+    # 是否开启认证
+    enable: false
+    # 用户名
+    username: admin
+    # 密码
+    password: 123456
+
+
+# ========================== ↓↓↓↓↓↓  netty-socketio配置 ↓↓↓↓↓↓ ==========================
+socketio:
+  host: ${small-tools.ip}  # 【注： 部署时写真实ip，不要写127.0.0.1，前端连接不上】
+  port: 8888
+  # 设置最大每帧处理数据的长度，防止他人利用大数据来攻击服务器
+  maxFramePayloadLength: 1048576
+  # 设置http交互最大内容长度
+  maxHttpContentLength: 1048576
+  # socket连接数大小（如只监听一个端口boss线程组为1即可）
+  bossCount: 1
+  workCount: 100
+  allowCustomRequests: true
+  # 协议升级超时时间（毫秒），默认10秒。HTTP握手升级为ws协议超时时间
+  upgradeTimeout: 1000000
+  # Ping消息超时时间（毫秒），默认60秒，这个时间间隔内没有接收到心跳消息就会发送超时事件
+  pingTimeout: 6000000
+  # Ping消息间隔（毫秒），默认25秒。客户端向服务器发送一条心跳消息间隔
+  pingInterval: 25000
+
+# ====================== ↓↓↓↓↓↓ minio文件服务器 ↓↓↓↓↓↓ ======================
+minio:
+  url: http://${small-tools.ip}:9001
+  accessKey: root
+  secretKey: password
+  bucketName: test
+
+
+# feign配置
+feign:
+  sentinel:
+    enabled: true # 开启sentinel监控功能
+  hystrix:
+    enabled: true # 开启Feign的熔断功能 默认是关闭的
+
+
+# 此配置主要解决：在服务都成功启动的时候第一次访问会有报错的情况发生,但是之后又恢复正常访问！
+# 产生原因：主要是Ribbon进行客户端负载均衡的Client并不是在服务启动的时候就初始化好的，而是在调用的时候才会去创建相应的Client。
+#         所以第一次调用的耗时不仅仅包含发送HTTP请求的时间，还包含了创建RibbonClient的时间，
+#         这样一来如果创建时间速度较慢，同时设置的超时时间又比较短的话，很容易就会出现上面所描述的显现。
+# 可参考 https://cloud.spring.io/spring-cloud-static/Dalston.SR5/multi/multi_spring-cloud-ribbon.html#_customizing_the_ribbon_client
+ribbon:
+  # 配置饥饿加载模式
+  eager-load:
+    # 开启饥饿加载模式
+    enabled: true
+    # 指定需要饥饿加载的服务名
+    clients:
+      - "demo"
+      - "system"
+      - "tool"

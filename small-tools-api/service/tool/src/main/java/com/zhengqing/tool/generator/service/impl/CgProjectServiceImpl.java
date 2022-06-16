@@ -14,10 +14,10 @@ import com.zhengqing.tool.generator.service.ICgProjectPackageService;
 import com.zhengqing.tool.generator.service.ICgProjectService;
 import com.zhengqing.tool.generator.service.ICgProjectTemplateService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -33,13 +33,13 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class CgProjectServiceImpl extends ServiceImpl<CgProjectMapper, CgProject> implements ICgProjectService {
 
-    @Autowired
+    @Resource
     private CgProjectMapper cgProjectMapper;
 
-    @Autowired
+    @Resource
     private ICgProjectPackageService cgProjectPackageService;
 
-    @Autowired
+    @Resource
     private ICgProjectTemplateService cgProjectTemplateService;
 
     @Override

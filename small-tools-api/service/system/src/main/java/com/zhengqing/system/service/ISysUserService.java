@@ -4,11 +4,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhengqing.system.entity.SysUser;
 import com.zhengqing.system.model.dto.SysUserListDTO;
-import com.zhengqing.system.model.dto.SysUserLoginDTO;
+import com.zhengqing.system.model.dto.SysUserPermDTO;
 import com.zhengqing.system.model.dto.SysUserSaveDTO;
 import com.zhengqing.system.model.dto.SysUserUpdatePasswordDTO;
 import com.zhengqing.system.model.vo.SysUserDetailVO;
-import com.zhengqing.system.model.vo.SysUserVO;
+import com.zhengqing.system.model.vo.SysUserPermVO;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public interface ISysUserService extends IService<SysUser> {
     /**
      * 列表分页
      *
-     * @param params: 查询参数
+     * @param params 查询参数
      * @return 用戶信息
      * @author zhengqingya
      * @date 2020/9/10 10:11
@@ -36,7 +36,7 @@ public interface ISysUserService extends IService<SysUser> {
     /**
      * 列表
      *
-     * @param params: 查询参数
+     * @param params 查询参数
      * @return 用戶信息
      * @author zhengqingya
      * @date 2020/9/10 10:11
@@ -46,7 +46,7 @@ public interface ISysUserService extends IService<SysUser> {
     /**
      * 新增或更新
      *
-     * @param params: 提交参数
+     * @param params 提交参数
      * @return 用户id
      * @author zhengqingya
      * @date 2020/9/10 10:12
@@ -56,7 +56,7 @@ public interface ISysUserService extends IService<SysUser> {
     /**
      * 删除用户
      *
-     * @param userId: 用户id
+     * @param userId 用户id
      * @return void
      * @author zhengqingya
      * @date 2020/9/10 13:49
@@ -66,7 +66,7 @@ public interface ISysUserService extends IService<SysUser> {
     /**
      * 修改用户密码
      *
-     * @param params: 提交参数
+     * @param params 提交参数
      * @return void
      * @author zhengqingya
      * @date 2020/9/10 11:03
@@ -84,19 +84,9 @@ public interface ISysUserService extends IService<SysUser> {
     void resetPassword(Integer userId);
 
     /**
-     * 登录
-     *
-     * @param params: 登录参数
-     * @return token
-     * @author zhengqingya
-     * @date 2021/1/1 23:59
-     */
-    String login(SysUserLoginDTO params);
-
-    /**
      * 根据用户id查询用户信息
      *
-     * @param userId: 用户id
+     * @param userId 用户id
      * @return 用户信息
      * @author zhengqingya
      * @date 2020/9/10 10:53
@@ -104,23 +94,13 @@ public interface ISysUserService extends IService<SysUser> {
     SysUserDetailVO getUserInfoByUserId(Integer userId);
 
     /**
-     * 根据用户名查询用户信息
+     * 获取用户的基本信息+角色+权限...
      *
-     * @param username: 用户名
-     * @return 用户信息
-     * @author zhengqingya
-     * @date 2020/9/10 13:48
-     */
-    SysUserVO getUserInfoByUsername(String username);
-
-    /**
-     * 根据用户ids批量查询用户信息
-     *
-     * @param userIdList: 用户ids
-     * @return 用户信息
+     * @param params 查询参数
+     * @return 用户权限信息
      * @author zhengqingya
      * @date 2020/9/21 16:18
      */
-    List<SysUserVO> getUserInfoByUserIds(List<Integer> userIdList);
+    SysUserPermVO getUserPerm(SysUserPermDTO params);
 
 }

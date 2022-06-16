@@ -1,6 +1,7 @@
 package com.zhengqing.common.base.util;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.util.Strings;
 
 /**
  * <p> emoji表情符号处理工具类 </p>
@@ -189,7 +190,7 @@ public class EmojiCharacterUtil {
      */
     public static String filter(String srcStr) {
         if (StringUtils.isBlank(srcStr)) {
-            return "";
+            return Strings.EMPTY;
         }
         int cpCount = srcStr.codePointCount(0, srcStr.length());
         int firCodeIndex = srcStr.offsetByCodePoints(0, 0);

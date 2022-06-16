@@ -22,7 +22,7 @@ import static springfox.documentation.service.Parameter.DEFAULT_PRECEDENCE;
 
 /**
  * <p>
- * swagger - 分页列表api添加分页请求头参数`pageNum`、`pageSize`
+ * swagger 请求头参数
  * </p>
  *
  * @author zhengqingya
@@ -46,14 +46,45 @@ public class SwaggerOperationParameterRequestConditionReader extends AbstractOpe
     public void apply(OperationContext context) {
         Set<NameValueExpression<String>> headers = context.headers();
         List<Parameter> parameterList = this.getParameters(headers, "header");
+        // 分页列表api添加分页请求头参数`pageNum`、`pageSize`
         if (context.getReturnType().getErasedType() == IPage.class) {
-            parameterList.add(new ParameterBuilder().name(SwaggerConstant.PAGE_NUM).description("当前页").defaultValue("1")
-                    .required(true).allowMultiple(false).type(this.resolver.resolve(Integer.class))
-                    .modelRef(new ModelRef("Integer")).parameterType("header").order(DEFAULT_PRECEDENCE).build());
-            parameterList.add(new ParameterBuilder().name(SwaggerConstant.PAGE_SIZE).description("每页显示数量")
-                    .defaultValue("10").required(true).allowMultiple(false).type(this.resolver.resolve(Integer.class))
-                    .modelRef(new ModelRef("Integer")).parameterType("header").order(DEFAULT_PRECEDENCE).build());
+            parameterList.add(
+                    new ParameterBuilder()
+                            .name(SwaggerConstant.PAGE_NUM)
+                            .description("当前页")
+                            .defaultValue("1")
+                            .required(true)
+                            .allowMultiple(false)
+                            .type(this.resolver.resolve(Integer.class))
+                            .modelRef(new ModelRef("Integer"))
+                            .parameterType("header")
+                            .order(DEFAULT_PRECEDENCE).build()
+            );
+            parameterList.add(
+                    new ParameterBuilder()
+                            .name(SwaggerConstant.PAGE_SIZE)
+                            .description("每页显示数量")
+                            .defaultValue("10")
+                            .required(true)
+                            .allowMultiple(false)
+                            .type(this.resolver.resolve(Integer.class))
+                            .modelRef(new ModelRef("Integer"))
+                            .parameterType("header")
+                            .order(DEFAULT_PRECEDENCE).build());
         }
+        // 认证参数
+        parameterList.add(
+                new ParameterBuilder()
+                        .name(SwaggerConstant.AUTHORIZATION)
+                        .description("认证请求头")
+                        .defaultValue("")
+                        .required(false)
+                        .allowMultiple(false)
+                        .type(this.resolver.resolve(String.class))
+                        .modelRef(new ModelRef("String"))
+                        .parameterType("header")
+                        .order(DEFAULT_PRECEDENCE).build()
+        );
         context.operationBuilder().parameters(parameterList);
     }
 

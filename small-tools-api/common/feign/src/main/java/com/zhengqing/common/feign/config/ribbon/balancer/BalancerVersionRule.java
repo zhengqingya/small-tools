@@ -16,8 +16,8 @@ import com.zhengqing.common.feign.config.ribbon.WeightedBalancer;
 import com.zhengqing.common.feign.enums.BalancerRuleTypeEnum;
 import com.zhengqing.common.feign.util.BalancerInstanceUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -32,10 +32,10 @@ import java.util.List;
 @Slf4j
 public class BalancerVersionRule extends AbstractLoadBalancerRule {
 
-    @Autowired
+    @Resource
     private NacosServiceManager nacosServiceManager;
 
-    @Autowired
+    @Resource
     private NacosDiscoveryProperties nacosDiscoveryProperties;
 
     @Override

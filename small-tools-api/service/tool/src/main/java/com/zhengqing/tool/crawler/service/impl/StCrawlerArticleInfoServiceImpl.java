@@ -10,13 +10,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.youbenzi.md2.export.FileFactory;
 import com.youbenzi.md2.util.MDUtil;
+import com.zhengqing.common.base.exception.MyException;
+import com.zhengqing.common.base.util.MyDateUtil;
+import com.zhengqing.common.base.util.MyFileUtil;
 import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.core.enums.ExcelExportFileTypeEnum;
 import com.zhengqing.common.core.enums.ExcelImportFileTypeEnum;
-import com.zhengqing.common.base.exception.MyException;
 import com.zhengqing.common.core.util.ExcelReportUtil;
-import com.zhengqing.common.base.util.MyDateUtil;
-import com.zhengqing.common.base.util.MyFileUtil;
 import com.zhengqing.common.core.util.QiniuFileUtil;
 import com.zhengqing.tool.crawler.entity.StCrawlerArticleInfo;
 import com.zhengqing.tool.crawler.enums.StCrawlerExportDataTypeEnum;
@@ -30,13 +30,13 @@ import com.zhengqing.tool.crawler.service.IStCrawlerArticleInfoService;
 import com.zhengqing.tool.util.htmlToMd.HtmlToMd;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -58,13 +58,13 @@ import java.util.Map;
 public class StCrawlerArticleInfoServiceImpl extends ServiceImpl<StCrawlerArticleInfoMapper, StCrawlerArticleInfo>
         implements IStCrawlerArticleInfoService {
 
-    @Autowired
+    @Resource
     private StCrawlerArticleInfoMapper stCrawlerArticleInfoMapper;
 
-    @Autowired
+    @Resource
     private ExcelReportUtil excelReportUtil;
 
-    @Autowired
+    @Resource
     private QiniuFileUtil qiniuFileUtil;
 
     @Override

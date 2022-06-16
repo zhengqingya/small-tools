@@ -1,127 +1,80 @@
 package com.zhengqing.gateway.filter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zhengqing.common.core.constant.AppConstant;
-import com.zhengqing.common.base.http.ApiResult;
-import com.zhengqing.common.core.model.bo.UserTokenInfo;
+import cn.hutool.core.util.StrUtil;
+import com.zhengqing.common.base.constant.BaseConstant;
+import com.zhengqing.common.base.enums.ApiResultCodeEnum;
+import com.zhengqing.common.core.config.interceptor.HandlerInterceptorForTenantId;
+import com.zhengqing.common.core.constant.SecurityConstant;
+import com.zhengqing.common.core.model.bo.JwtUserBO;
 import com.zhengqing.common.core.util.JwtUtil;
-import com.zhengqing.gateway.config.GatewayProperty;
-import com.zhengqing.gateway.config.GatewayProperty.Auth;
+import com.zhengqing.common.redis.util.RedisUtil;
+import com.zhengqing.gateway.security.ResourceServerManager;
+import com.zhengqing.gateway.util.ResponseUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.annotation.Order;
-import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.security.web.server.authorization.AuthorizationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
+
 
 /**
- * <p>
- * 全局过滤器 - web
- * </p>
+ * <p> 安全拦截全局过滤器 </p>
  *
  * @author zhengqingya
- * @description
- * @date 2021/1/3 18:38
+ * @description 非网关鉴权的逻辑
+ * {@link ResourceServerManager#check(Mono, AuthorizationContext)} 鉴权通过后 -- 部分忽略接口直接放行不走鉴权
+ * 将JWT令牌中的用户信息解析出来，然后存入请求的Header中，这样后续服务就不需要解析JWT令牌了，可以直接从请求的Header中获取到用户信息。
+ * @date 2022/6/11 5:15 PM
  */
 @Slf4j
+@Order(2)
 @Component
-@Order(3)
 public class AuthFilter implements GlobalFilter {
-
-    @Autowired
-    private GatewayProperty gatewayProperty;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Override
     @SneakyThrows(Exception.class)
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
-        String requestUrl = request.getURI().getPath();
-
-        if (this.isSkip(requestUrl)) {
-            return chain.filter(exchange);
-        }
-
-        String tokenValue = request.getHeaders().getFirst(AppConstant.REQUEST_HEADER_TOKEN);
-        if (StringUtils.isBlank(tokenValue)) {
-            return this.unAuth(response, "token丢失!");
-        }
-        HttpHeaders headers = new HttpHeaders();
-
-        UserTokenInfo tokenInfo = null;
         try {
-            tokenInfo = JwtUtil.checkJWT(tokenValue);
+            String token = request.getHeaders().getFirst(SecurityConstant.AUTHORIZATION_KEY);
+            if (StrUtil.isBlank(token) || !StrUtil.startWithIgnoreCase(token, SecurityConstant.JWT_PREFIX)) {
+                // 部分忽略接口不走鉴权处&没有token 则放行
+                return chain.filter(exchange);
+            }
+
+            /**
+             * 解析token中的用户信息 & 写入请求头里传递给下游
+             * 解析上游数据 {@link HandlerInterceptorForTenantId#preHandle}
+             */
+            JwtUserBO jwtUserBO = JwtUtil.parse(token);
+            String userJson = RedisUtil.get(SecurityConstant.JWT_CUSTOM_USER + jwtUserBO.getJti());
+            if (StringUtils.isBlank(userJson)) {
+                // 校验redis中的token是否过期 -- 即是否注销或其他原因...
+                return ResponseUtil.writeErrorInfo(response, ApiResultCodeEnum.TOKEN_EXPIRED);
+            }
+
+            HttpHeaders headers = new HttpHeaders();
+            // URLEncoder.encode：解决下游获取中文乱码问题
+            headers.add(BaseConstant.REQUEST_HEADER_JWT_USER, URLEncoder.encode(userJson, "UTF-8"));
+            ServerHttpRequest nowRequest = request.mutate().headers(header -> header.addAll(headers)).build();
+            // 将现在的request 变成 change对象
+            ServerWebExchange build = exchange.mutate().request(nowRequest).build();
+            return chain.filter(build);
         } catch (Exception e) {
-            return this.unAuth(response, e.getMessage());
+            log.error("AuthFilter: ", e);
+            return ResponseUtil.writeErrorInfo(response, ApiResultCodeEnum.INTERNAL_SERVER_ERROR);
         }
-
-        headers.add(AppConstant.CONTEXT_KEY_USER_ID, String.valueOf(tokenInfo.getUserId()));
-        headers.add(AppConstant.CONTEXT_KEY_USERNAME, URLEncoder.encode(tokenInfo.getUsername(), "UTF-8"));
-        ServerHttpRequest nowRequest = request.mutate().headers(header -> header.addAll(headers)).build();
-        // 将现在的request 变成 change对象
-        ServerWebExchange build = exchange.mutate().request(nowRequest).build();
-        return chain.filter(build);
-    }
-
-    /**
-     * 安全认证
-     *
-     * @param requestUrl: 请求url
-     * @return boolean
-     * @author zhengqingya
-     * @date 2021/1/13 13:49
-     */
-    private boolean isSkip(String requestUrl) {
-        Auth auth = this.gatewayProperty.getAuth();
-        List<String> ignoreUrls = auth.getIgnoreUrls();
-        List<String> openApiUrls = auth.getOpenApiUrls();
-        List<String> webApiUrls = auth.getWebApiUrls();
-
-        boolean ifIgnoreUrl = ignoreUrls.stream().anyMatch(requestUrl::contains);
-        boolean ifOpenApiUrl = openApiUrls.stream().anyMatch(requestUrl::contains);
-        boolean ifWebApiUrl = webApiUrls.stream().anyMatch(requestUrl::contains);
-
-        return ifIgnoreUrl || ifOpenApiUrl || !ifWebApiUrl;
-    }
-
-    /**
-     * 未认证处理
-     *
-     * @param response: 响应
-     * @param msg:      响应消息
-     * @return reactor.core.publisher.Mono<java.lang.Void>
-     * @author zhengqingya
-     * @date 2021/1/13 14:23
-     */
-    private Mono<Void> unAuth(ServerHttpResponse response, String msg) {
-        response.setStatusCode(HttpStatus.UNAUTHORIZED);
-        response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-        String result = "";
-        try {
-            result = this.objectMapper.writeValueAsString(ApiResult.fail(msg));
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage(), e);
-        }
-        DataBuffer buffer = response.bufferFactory().wrap(result.getBytes(StandardCharsets.UTF_8));
-        return response.writeWith(Flux.just(buffer));
     }
 
 }

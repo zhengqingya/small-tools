@@ -3,7 +3,7 @@ package com.zhengqing.tool.generator.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zhengqing.common.db.entity.BaseEntity;
+import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -24,7 +24,7 @@ import lombok.*;
 @NoArgsConstructor
 @ApiModel("项目代码模板表")
 @TableName("t_cg_project_template")
-public class CgProjectTemplate extends BaseEntity<CgProjectTemplate> {
+public class CgProjectTemplate extends IsDeletedYesBaseEntity<CgProjectTemplate> {
 
     @ApiModelProperty(value = "模板ID")
     @TableId(value = "project_template_id", type = IdType.AUTO)

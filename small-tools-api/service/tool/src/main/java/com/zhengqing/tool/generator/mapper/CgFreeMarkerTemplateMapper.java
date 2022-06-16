@@ -23,7 +23,7 @@ public interface CgFreeMarkerTemplateMapper extends BaseMapper<CgFreeMarkerTempl
     /**
      * 列表分页
      *
-     * @param page:   分页数据
+     * @param page    分页数据
      * @param filter: 查询过滤参数
      * @return 查询结果
      * @author zhengqingya

@@ -1,6 +1,6 @@
 package com.zhengqing.common.core.api;
 
-import com.zhengqing.common.base.context.ContextHandler;
+import com.zhengqing.common.base.context.SysUserContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +26,7 @@ public class BaseController {
      * @date 2020/8/30 15:41
      */
     protected Integer appGetCurrentUserId() {
-        return ContextHandler.getUserId();
+        return SysUserContext.getUserId();
     }
 
 }

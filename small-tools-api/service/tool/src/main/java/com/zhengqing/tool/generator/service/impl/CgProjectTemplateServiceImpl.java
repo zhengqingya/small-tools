@@ -8,9 +8,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.base.exception.MyException;
 import com.zhengqing.common.base.util.MyBeanUtil;
+import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.tool.generator.entity.CgProjectPackage;
 import com.zhengqing.tool.generator.entity.CgProjectTemplate;
 import com.zhengqing.tool.generator.entity.CgProjectVelocityContext;
@@ -25,11 +25,11 @@ import com.zhengqing.tool.generator.service.ICgGeneratorCodeService;
 import com.zhengqing.tool.generator.service.ICgProjectPackageService;
 import com.zhengqing.tool.generator.service.ICgProjectTemplateService;
 import com.zhengqing.tool.generator.service.ICgTableConfigService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,19 +47,19 @@ import java.util.List;
 public class CgProjectTemplateServiceImpl extends ServiceImpl<CgProjectTemplateMapper, CgProjectTemplate>
         implements ICgProjectTemplateService {
 
-    @Autowired
+    @Resource
     private CgProjectTemplateMapper cgProjectTemplateMapper;
 
-    @Autowired
+    @Resource
     private ICgProjectPackageService cgProjectPackageService;
 
-    @Autowired
+    @Resource
     private CgProjectVelocityContextMapper contextMapper;
 
-    @Autowired
+    @Resource
     private ICgTableConfigService cgTableConfigService;
 
-    @Autowired
+    @Resource
     private ICgGeneratorCodeService cgGeneratorCodeService;
 
     @Override

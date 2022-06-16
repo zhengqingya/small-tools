@@ -12,10 +12,10 @@ import com.zhengqing.tool.generator.model.vo.CgFreeMarkerTemplateListVO;
 import com.zhengqing.tool.generator.service.ICgFreeMarkerTemplateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -32,7 +32,7 @@ import java.util.List;
 @Api(tags = {"代码生成器 - FreeMarker模板数据配置表接口"})
 public class CgFreeMarkerTemplateController extends BaseController {
 
-    @Autowired
+    @Resource
     private ICgFreeMarkerTemplateService cgFreeMarkerTemplateService;
 
     @GetMapping("listPage")

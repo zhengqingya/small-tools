@@ -42,10 +42,10 @@ public class GatewayController {
     @Value("${spring.cloud.nacos.discovery.group}")
     private String group;
 
-    @Autowired
+    @Resource
     private NacosServiceManager nacosServiceManager;
 
-    @Autowired
+    @Resource
     private NacosDiscoveryProperties nacosDiscoveryProperties;
 
     @Resource

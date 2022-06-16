@@ -15,8 +15,11 @@
     <description>小工具业务模块</description>
 
     <modules>
-        <module>system-api</module>
         <module>demo-api</module>
+        <module>mall-api</module>
+        <module>pay-api</module>
+        <module>system-api</module>
+        <module>ums-api</module>
     </modules>
 
     <dependencies>

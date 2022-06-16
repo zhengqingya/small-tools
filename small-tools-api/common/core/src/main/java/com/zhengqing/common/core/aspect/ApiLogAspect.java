@@ -1,8 +1,9 @@
 package com.zhengqing.common.core.aspect;
 
 import com.alibaba.fastjson.JSON;
-import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.base.util.ServletUtil;
+import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.core.util.JwtUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +12,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +30,12 @@ import java.util.Map;
 @Slf4j
 @Aspect
 @Component
+@ConditionalOnProperty(
+        value = {"on-off.api-log"},
+        havingValue = "true",
+        // true表示缺少`on-off.gateway-log`属性也会加载该bean
+        matchIfMissing = true
+)
 public class ApiLogAspect {
 
     /**
@@ -41,10 +49,8 @@ public class ApiLogAspect {
     public void doAround(JoinPoint joinPoint) throws Throwable {
         HttpServletRequest request = ServletUtil.getRequest();
         if (request != null) {
-            int userId =
-                    ServletUtil.getParameterToInt(AppConstant.CONTEXT_KEY_USER_ID, AppConstant.DEFAULT_CONTEXT_KEY_USER_ID);
-            String username =
-                    ServletUtil.getParameter(AppConstant.CONTEXT_KEY_USERNAME, AppConstant.DEFAULT_CONTEXT_KEY_USERNAME);
+            String userId = JwtUtil.getUserId();
+            String username = JwtUtil.getUsername();
 
             // 从切面织入点处通过反射机制获取织入点处的方法
             MethodSignature signature = (MethodSignature) joinPoint.getSignature();

@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.util.MyDateUtil;
+import com.zhengqing.common.core.enums.UserSexEnum;
 import com.zhengqing.common.core.util.IdGeneratorUtil;
 import com.zhengqing.common.db.config.mybatis.data.permission.second.UserPermissionInfo;
 import com.zhengqing.common.db.constant.DataSourceConstant;
@@ -20,7 +21,6 @@ import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.dto.DemoSaveDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
 import com.zhengqing.demo.service.IDemoService;
-import com.zhengqing.system.enums.SysUserSexEnum;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.ExecutorType;
@@ -57,8 +57,6 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     @Resource
     private DemoMapper demoMapper;
 
-    @Resource
-    private IdGeneratorUtil idGeneratorUtil;
 
     @Override
     public IPage<DemoListVO> testDataPermission(DemoListDTO params) {
@@ -130,15 +128,17 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         Long id = params.getId();
         String username = params.getUsername();
         String password = params.getPassword();
-        Integer sex = params.getSex();
+        Byte sex = params.getSex();
 
         Demo demo = Demo.builder()
                 .id(id)
                 .username(username)
                 .password(password)
-                .sexEnum(SysUserSexEnum.getEnum(sex))
+                .sexEnum(UserSexEnum.getEnum(sex))
                 .startTime(params.getStartTime())
                 .endTime(params.getEndTime())
+                .demoJson(params.getDemoJson())
+                .numJson(params.getNumJson())
                 .build();
 
         // FIXME 临时测试分页
@@ -148,7 +148,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         log.info("demoInfo ：{}", demoInfo);
 
         if (id == null) {
-            id = this.idGeneratorUtil.snowflakeId();
+            id = IdGeneratorUtil.snowflakeId();
             demo.setId(id);
             demo.insert();
         } else {
@@ -280,13 +280,13 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
             Demo item = new Demo();
             item.setUsername("insertData03 - " + i);
             item.setPassword("123456");
-            item.setSexEnum(SysUserSexEnum.getEnum(i % 2));
+            item.setSexEnum(UserSexEnum.getEnum((byte) (i % 2)));
             item.setStartTime(MyDateUtil.addTime(TimeUnit.MINUTES, -i));
             item.setEndTime(MyDateUtil.addTime(TimeUnit.MINUTES, i));
             item.setRemark("hello:" + i);
-            item.setCreateBy(1);
+            item.setCreateBy(1L);
             item.setCreateTime(now);
-            item.setUpdateBy(1);
+            item.setUpdateBy(1L);
             item.setUpdateTime(now);
             item.setIsDeleted(false);
             demoList.add(item);
@@ -294,7 +294,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         this.demoMapper.insertBatch(demoList);
     }
 
-    @Autowired
+    @Resource
     private SqlSessionFactory sqlSessionFactory;
 
     /**
@@ -308,9 +308,9 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
             Demo item = new Demo();
             item.setUsername("insertData04 - " + i);
             item.setPassword("123456");
-            item.setCreateBy(1);
+            item.setCreateBy(1L);
             item.setCreateTime(now);
-            item.setUpdateBy(1);
+            item.setUpdateBy(1L);
             item.setUpdateTime(now);
             item.setIsDeleted(false);
             demoList.add(item);

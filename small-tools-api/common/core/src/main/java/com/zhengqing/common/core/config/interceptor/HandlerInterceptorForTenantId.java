@@ -1,9 +1,8 @@
 package com.zhengqing.common.core.config.interceptor;
 
-import com.zhengqing.common.core.config.WebAppConfig;
-import com.zhengqing.common.base.context.ContextHandler;
-import com.zhengqing.common.db.context.DataPermissionThreadLocal;
 import com.zhengqing.common.base.context.TenantIdContext;
+import com.zhengqing.common.core.config.WebAppConfig;
+import com.zhengqing.common.db.context.DataPermissionThreadLocal;
 import com.zhengqing.common.feign.context.RequestHeaderHandler;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -37,7 +36,7 @@ public class HandlerInterceptorForTenantId implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String tenantId = request.getHeader(TENANT_ID);
         if (StringUtils.isNotBlank(tenantId) && StringUtils.isNumeric(tenantId)) {
-            TenantIdContext.setTenantId(Long.valueOf(tenantId));
+            TenantIdContext.setTenantId(Integer.valueOf(tenantId));
         }
         // 是否排除租户ID标识
         String tenantIdFlag = request.getHeader(TENANT_ID_FLAG);
@@ -63,7 +62,6 @@ public class HandlerInterceptorForTenantId implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
-        ContextHandler.remove();
         RequestHeaderHandler.remove();
         TenantIdContext.remove();
         DataPermissionThreadLocal.remove();

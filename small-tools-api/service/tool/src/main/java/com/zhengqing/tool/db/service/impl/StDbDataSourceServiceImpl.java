@@ -12,10 +12,10 @@ import com.zhengqing.tool.db.model.dto.StDbDataSourceSaveDTO;
 import com.zhengqing.tool.db.model.vo.StDbDataSourceListVO;
 import com.zhengqing.tool.db.service.IStDbDataSourceService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -33,21 +33,21 @@ import java.util.List;
 public class StDbDataSourceServiceImpl extends ServiceImpl<StDbDataSourceMapper, StDbDataSource>
         implements IStDbDataSourceService {
 
-    @Autowired
+    @Resource
     private StDbDataSourceMapper stDbDataSourceMapper;
 
     @Override
     public IPage<StDbDataSourceListVO> listPage(StDbDataSourceListDTO params) {
-        IPage<StDbDataSourceListVO> result = stDbDataSourceMapper.selectStDbDataSources(new Page<>(), params);
+        IPage<StDbDataSourceListVO> result = this.stDbDataSourceMapper.selectStDbDataSources(new Page<>(), params);
         List<StDbDataSourceListVO> list = result.getRecords();
-        handleResultData(list);
+        this.handleResultData(list);
         return result;
     }
 
     @Override
     public List<StDbDataSourceListVO> list(StDbDataSourceListDTO params) {
-        List<StDbDataSourceListVO> list = stDbDataSourceMapper.selectStDbDataSources(params);
-        handleResultData(list);
+        List<StDbDataSourceListVO> list = this.stDbDataSourceMapper.selectStDbDataSources(params);
+        this.handleResultData(list);
         return list;
     }
 
@@ -70,16 +70,16 @@ public class StDbDataSourceServiceImpl extends ServiceImpl<StDbDataSourceMapper,
         stDbDataSource
                 .setDriverClassName(StDbDataSourceTypeEnum.getEnum(stDbDataSource.getType()).getDriverClassName());
         if (stDbDataSourceId == null) {
-            stDbDataSourceMapper.insert(stDbDataSource);
+            this.stDbDataSourceMapper.insert(stDbDataSource);
         } else {
-            stDbDataSourceMapper.updateById(stDbDataSource);
+            this.stDbDataSourceMapper.updateById(stDbDataSource);
         }
         return stDbDataSource.getId();
     }
 
     @Override
     public StDbDataSourceListVO detail(Integer id) {
-        return stDbDataSourceMapper.detail(id);
+        return this.stDbDataSourceMapper.detail(id);
     }
 
 }

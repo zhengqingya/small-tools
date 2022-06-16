@@ -30,19 +30,16 @@ public interface ProjectConstant {
     String DEFAULT_FOLDER_TMP_GENERATE = PROJECT_ROOT_DIRECTORY + "/tmp-generate";
 
     // ===============================================================================
-    // ============================ ↓↓↓↓↓↓ service ↓↓↓↓↓↓ ============================
-    // ===============================================================================
-
-    String SERVICE_BASE_PACKAGE = "com.zhengqing";
-    /**
-     * api前缀
-     */
-    String SERVICE_API_PREFIX_WEB = "/web/api";
-    String SERVICE_API_PREFIX_WEB_SYSTEM = SERVICE_API_PREFIX_WEB + "/system";
-
-    // ===============================================================================
     // ============================ ↓↓↓↓↓↓ other ↓↓↓↓↓↓ ==============================
     // ===============================================================================
 
+    /**
+     * 实体类
+     */
+    String ENTITY_PACKAGE = "com.zhengqing.*.entity";
+    /**
+     * mapper
+     */
+    String MAPPER_PACKAGE = "com.zhengqing.*.mapper";
 
 }

@@ -1,84 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhengqing.system.mapper.SysUserMapper">
 
-  <select
-    id="selectUsers"
-    resultType="com.zhengqing.system.model.vo.SysUserDetailVO">
-    SELECT
-    u.*,
-    ur.role_ids roleIds,
-    (
-    CASE u.sex
-    WHEN 1 THEN '男'
-    WHEN 2 THEN '女'
-    ELSE '未知' END
-    ) sexName
-    FROM t_sys_user u
-    LEFT JOIN t_sys_user_role ur ON u.user_id=ur.user_id
-    WHERE
-    u.is_deleted = 0
-    <if test="filter.username!=null and filter.username!=''">
-      AND u.username LIKE CONCAT( '%', #{filter.username} , '%' )
-    </if>
-    <if test="filter.nickname!=null and filter.nickname!=''">
-      AND u.nickname LIKE CONCAT( '%', #{filter.nickname} , '%' )
-    </if>
-    ORDER BY u.user_id DESC
-  </select>
+    <select id="selectUsers" resultType="com.zhengqing.system.model.vo.SysUserDetailVO">
+        SELECT
+        u.*,
+        ur.role_ids roleIds,
+        (
+        CASE u.sex
+        WHEN 1 THEN '男'
+        WHEN 2 THEN '女'
+        ELSE '未知' END
+        ) sexName
+        FROM t_sys_user u
+        LEFT JOIN t_sys_user_role ur ON u.user_id=ur.user_id
+        WHERE
+        u.is_deleted = 0
+        <if test="filter.username!=null and filter.username!=''">
+            AND u.username LIKE CONCAT( '%', #{filter.username} , '%' )
+        </if>
+        <if test="filter.nickname!=null and filter.nickname!=''">
+            AND u.nickname LIKE CONCAT( '%', #{filter.nickname} , '%' )
+        </if>
+        ORDER BY u.user_id DESC
+    </select>
 
-  <select
-    id="selectUserByUserId"
-    resultType="com.zhengqing.system.model.vo.SysUserDetailVO">
-    SELECT u.*,
-    ur.role_ids roleIds,
-    (
-    CASE u.sex
-    WHEN 1 THEN '男'
-    WHEN 2 THEN '女'
-    ELSE '未知' END
-    ) sexName
-    FROM t_sys_user u
-    LEFT JOIN t_sys_user_role ur ON u.user_id = ur.user_id
-    WHERE u.is_deleted = 0
-    AND u.user_id = #{userId}
-  </select>
+    <select id="selectUserByUserId" resultType="com.zhengqing.system.model.vo.SysUserDetailVO">
+        SELECT u.*,
+               ur.role_ids roleIds,
+               (
+                   CASE u.sex
+                       WHEN 1 THEN '男'
+                       WHEN 2 THEN '女'
+                       ELSE '未知' END
+                   )       sexName
+        FROM t_sys_user u
+                 LEFT JOIN t_sys_user_role ur ON u.user_id = ur.user_id
+        WHERE u.is_deleted = 0
+          AND u.user_id = #{userId}
+    </select>
 
-  <select
-    id="selectUserByUsername"
-    resultType="com.zhengqing.system.model.vo.SysUserVO">
-    SELECT u.*,
-    ur.role_ids roleIds,
-    (
-    CASE u.sex
-    WHEN 1 THEN '男'
-    WHEN 2 THEN '女'
-    ELSE '未知' END
-    ) sexName
-    FROM t_sys_user u
-    LEFT JOIN t_sys_user_role ur ON u.user_id = ur.user_id
-    WHERE u.is_deleted = 0
-    AND u.username = #{username}
-  </select>
-
-  <select id="selectUserInfoByUserIds"
-    resultType="com.zhengqing.system.model.vo.SysUserVO">
-    SELECT
-    u.*,
-    ur.role_ids roleIds,
-    (
-    CASE u.sex
-    WHEN 1 THEN '男'
-    WHEN 2 THEN '女'
-    ELSE '未知' END
-    ) sexName
-    FROM t_sys_user u
-    LEFT JOIN t_sys_user_role ur ON u.user_id=ur.user_id
-    WHERE u.is_deleted = 0 AND u.user_id IN
-    <foreach collection="userIdList" item="userId" open="(" close=")" separator=",">
-      #{userId}
-    </foreach>
-  </select>
+    <select id="selectUserPerm" resultType="com.zhengqing.system.model.vo.SysUserPermVO">
+        SELECT *,
+        sex sexEnum
+        FROM t_sys_user
+        WHERE is_deleted = 0
+        <if test="filter.userId!=null">
+            AND user_id = #{filter.userId}
+        </if>
+        <if test="filter.username!=null and filter.username!=''">
+            AND username = #{filter.username}
+        </if>
+    </select>
 
 </mapper>

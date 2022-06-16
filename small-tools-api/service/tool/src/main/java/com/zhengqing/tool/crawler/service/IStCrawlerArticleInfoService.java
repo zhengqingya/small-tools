@@ -102,7 +102,7 @@ public interface IStCrawlerArticleInfoService extends IService<StCrawlerArticleI
     /**
      * 导入数据
      *
-     * @param file:      zip压缩文件数据
+     * @param file       zip压缩文件数据
      * @param websiteId: 网站id
      * @return java.lang.String
      * @author zhengqingya

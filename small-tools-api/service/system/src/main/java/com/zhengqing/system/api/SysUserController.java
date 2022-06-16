@@ -1,26 +1,24 @@
 package com.zhengqing.system.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.google.common.collect.Maps;
+import com.zhengqing.common.base.context.SysUserContext;
 import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.common.core.custom.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.common.core.custom.validator.common.UpdateGroup;
 import com.zhengqing.system.model.dto.*;
 import com.zhengqing.system.model.vo.SysUserDetailVO;
-import com.zhengqing.system.model.vo.SysUserVO;
-import com.zhengqing.system.service.ISysPermissionService;
+import com.zhengqing.system.model.vo.SysUserPermVO;
 import com.zhengqing.system.service.ISysUserRoleService;
 import com.zhengqing.system.service.ISysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -33,18 +31,14 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/web/api/user")
 @Api(tags = "系统管理 - 用户管理接口")
 public class SysUserController extends BaseController {
 
-    @Autowired
-    private ISysUserRoleService sysUserRoleService;
+    private final ISysUserService sysUserService;
 
-    @Autowired
-    private ISysUserService sysUserService;
-
-    @Autowired
-    private ISysPermissionService sysPermissionService;
+    private final ISysUserRoleService sysUserRoleService;
 
     @GetMapping("listPage")
     @ApiOperation("列表分页")
@@ -76,7 +70,6 @@ public class SysUserController extends BaseController {
     @ApiOperation("删除")
     public void delete(@RequestParam Integer userId) {
         this.sysUserService.deleteUser(userId);
-        // RedisUtil.delete(Constants.CACHE_SYS_USER_INFO_PREFIX + userId);
     }
 
     @GetMapping("getUserInfoById")
@@ -97,38 +90,22 @@ public class SysUserController extends BaseController {
         this.sysUserService.resetPassword(userId);
     }
 
-    @PostMapping("login")
-    @ApiOperation("登录")
-    public Map<String, String> login(@RequestBody SysUserLoginDTO params) {
-        String token = this.sysUserService.login(params);
-        Map<String, String> map = Maps.newHashMap();
-        map.put("token", token);
-        return map;
-    }
-
-    @GetMapping("logout")
-    @ApiOperation("登出")
-    public void logout() {
-        log.debug("登出:{}", this.appGetCurrentUserId());
-        // TODO 退出登录后清空缓存用户信息...
-        // RedisUtil.delete(Constants.CACHE_SYS_USER_INFO_PREFIX + appGetUserId());
-    }
-
     @GetMapping("getCurrentUserInfoAndPermission")
-    @ApiOperation("获取当前登录用户信息")
-    public SysUserVO getCurrentUserInfoAndPermission(@RequestParam(required = false) Integer systemSource) {
-        return this.sysPermissionService.appGetCurrentUserInfoAndPermission(systemSource);
+    @ApiOperation("获取当前登录用户权限信息")
+    public SysUserPermVO getUserPerm(@RequestParam(required = false) Integer userId) {
+        SysUserPermVO userPerm = this.sysUserService.getUserPerm(
+                SysUserPermDTO.builder()
+                        .userId(userId == null ? SysUserContext.getUserId() : userId)
+                        .build()
+        );
+        userPerm.setPassword(null);
+        return userPerm;
     }
 
     @PostMapping("saveRoleIds")
     @ApiOperation("保存用户角色ids")
     public void saveRoleIds(@Validated @RequestBody SysUserRoleSaveDTO params) {
         this.sysUserRoleService.addOrUpdateData(params);
-        // Integer userId = roleInfo.getUserId();
-        // if (userId.equals(appGetUserId())) {
-        // // 更新缓存
-        // sysPermissionService.updateCacheSysPermission(EnumCacheType.个人所有信息, userId);
-        // }
     }
 
 }

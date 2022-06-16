@@ -10,10 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>common</artifactId>
-    <name>${project.artifactId}</name>
-    <version>${small-tools-api.project.version}</version>
-
     <packaging>pom</packaging>
+
     <description>小工具公共模块</description>
 
     <modules>
@@ -48,7 +46,6 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>

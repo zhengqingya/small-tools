@@ -86,12 +86,13 @@ public interface ISysDictService extends IService<SysDict> {
     /**
      * 批量更新
      *
-     * @param dictDataMap 提交参数
+     * @param dictDataMap      提交参数
+     * @param isAddForNotExist 如果code不存在是否新增数据
      * @return void
      * @author zhengqingya
      * @date 2021/8/27 11:24 下午
      */
-    void updateBatch(Map<String, ValidList<SysDictSaveBatchDTO>> dictDataMap);
+    void addOrUpdateBatch(Map<String, ValidList<SysDictSaveBatchDTO>> dictDataMap, Boolean isAddForNotExist);
 
     /**
      * 根据id删除数据字典

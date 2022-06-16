@@ -9,17 +9,17 @@ import com.zhengqing.system.model.vo.SysMenuBtnListVO;
 import com.zhengqing.system.model.vo.SysRoleAllPermissionDetailVO;
 import com.zhengqing.system.model.vo.SysRoleListVO;
 import com.zhengqing.system.model.vo.SysRolePermissionDetailVO;
-import com.zhengqing.system.service.ISysMenuBtnService;
-import com.zhengqing.system.service.ISysRoleMenuBtnService;
+import com.zhengqing.system.service.ISysPermissionService;
 import com.zhengqing.system.service.ISysRoleMenuService;
+import com.zhengqing.system.service.ISysRolePermissionService;
 import com.zhengqing.system.service.ISysRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -37,17 +37,17 @@ import java.util.List;
 @Api(tags = "系统管理 - 角色管理接口")
 public class SysRoleController extends BaseController {
 
-    @Autowired
+    @Resource
     private ISysRoleService roleService;
 
-    @Autowired
-    private ISysMenuBtnService sysMenuBtnService;
+    @Resource
+    private ISysPermissionService sysMenuBtnService;
 
-    @Autowired
+    @Resource
     private ISysRoleMenuService sysRoleMenuService;
 
-    @Autowired
-    private ISysRoleMenuBtnService sysRoleMenuBtnService;
+    @Resource
+    private ISysRolePermissionService sysRoleMenuBtnService;
 
     @GetMapping("listPage")
     @ApiOperation("列表分页")
@@ -83,9 +83,8 @@ public class SysRoleController extends BaseController {
 
     @GetMapping("permissionDetail")
     @ApiOperation("详情(带树+按钮+所拥有的权限)")
-    public SysRoleAllPermissionDetailVO permissionDetail(@RequestParam Integer roleId,
-                                                         @RequestParam(required = false) Integer systemSource) {
-        return this.roleService.permissionDetail(roleId, systemSource);
+    public SysRoleAllPermissionDetailVO permissionDetail(@RequestParam Integer roleId) {
+        return this.roleService.permissionDetail(roleId);
     }
 
     @DeleteMapping("")

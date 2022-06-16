@@ -3,10 +3,11 @@ package com.zhengqing.common.feign.config.ribbon;
 import com.zhengqing.common.feign.constant.RpcConstant;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.ribbon.RibbonEagerLoadProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.Resource;
 
 
 /**
@@ -23,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MyRibbonEagerLoadProperties {
 
-    @Autowired
+    @Resource
     private RibbonEagerLoadProperties ribbonEagerLoadProperties;
 
     @Bean

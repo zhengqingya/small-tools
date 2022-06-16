@@ -62,7 +62,7 @@ public class DataPermissionInterceptor implements Interceptor {
         Object parameterObject = boundSql.getParameterObject();
 
         // TODO 这里对执行SQL进行自定义处理...
-        String finalSql = this.handleSql(originalSql);
+//        String finalSql = this.handleSql(originalSql);
 //        System.err.println("数据权限处理过后的SQL: " + finalSql);
 
         metaObject.setValue("delegate.boundSql.sql", originalSql);

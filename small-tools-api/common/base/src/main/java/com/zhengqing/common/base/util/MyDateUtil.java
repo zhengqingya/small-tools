@@ -28,6 +28,7 @@ public class MyDateUtil {
 
     public static final String GMT = "GMT+8";
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_TIME_MS_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final String DATE_TIME_START_FORMAT = "yyyy-MM-dd 00:00:00";
     public static final String DATE_TIME_END_FORMAT = "yyyy-MM-dd 23:59:59";
     public static final String MINUTE_FORMAT = "yyyy-MM-dd HH:mm";
@@ -40,7 +41,7 @@ public class MyDateUtil {
     public static final String MINUTE_JAVA_AUTHOR_FORMAT = "yyyy/MM/dd HH:mm";
 
     /**
-     * 获取当前时间的字符串格式时间
+     * 获取当前时间的字符串格式时间 -- 秒
      *
      * @return 字符串格式时间
      * @author zhengqingya
@@ -48,6 +49,17 @@ public class MyDateUtil {
      */
     public static String nowStr() {
         return new SimpleDateFormat(DATE_TIME_FORMAT).format(new Date());
+    }
+
+    /**
+     * 获取当前时间的字符串格式时间 -- 毫秒
+     *
+     * @return 字符串格式时间
+     * @author zhengqingya
+     * @date 2020/8/22 13:07
+     */
+    public static String nowMsStr() {
+        return new SimpleDateFormat(DATE_TIME_MS_FORMAT).format(new Date());
     }
 
     /**

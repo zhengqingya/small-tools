@@ -15,7 +15,7 @@ public class TenantIdContext {
     /**
      * 租户ID
      */
-    public static final ThreadLocal<Long> TENANT_ID_THREAD_LOCAL = new ThreadLocal<>();
+    public static final ThreadLocal<Integer> TENANT_ID_THREAD_LOCAL = new ThreadLocal<>();
     /**
      * 租户ID是否启用标识
      * true : 是 -> 执行sql时，自动拼接租户ID
@@ -23,12 +23,12 @@ public class TenantIdContext {
      */
     public static final ThreadLocal<Boolean> TENANT_ID_FLAG_THREAD_LOCAL = new ThreadLocal<>();
 
-    public static void setTenantId(Long tenantId) {
+    public static void setTenantId(Integer tenantId) {
         TENANT_ID_THREAD_LOCAL.set(tenantId);
         TENANT_ID_FLAG_THREAD_LOCAL.set(true);
     }
 
-    public static Long getTenantId() {
+    public static Integer getTenantId() {
         return TENANT_ID_THREAD_LOCAL.get();
     }
 

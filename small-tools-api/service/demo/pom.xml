@@ -67,44 +67,16 @@
 
     <build>
         <finalName>${project.name}</finalName>
-
-        <!-- 注：maven默认是不编译，因此加上如下resources才会生产对应的xml文件 目的：解决mybatis映射关系不对应问题  start =============== -->
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>false</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>false</filtering>
-            </testResource>
-        </testResources>
-        <!-- 注：maven默认是不编译，因此加上如上resources才会生产对应的xml文件 目的：解决mybatis映射关系不对应问题  end =============== -->
-
         <plugins>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
             <!-- 复制，删除，打包，重命名文件等...（详情见父pom） -->
             <!--      <plugin>-->
             <!--        <groupId>org.apache.maven.plugins</groupId>-->
             <!--        <artifactId>maven-antrun-plugin</artifactId>-->
             <!--      </plugin>-->
-
         </plugins>
     </build>
 

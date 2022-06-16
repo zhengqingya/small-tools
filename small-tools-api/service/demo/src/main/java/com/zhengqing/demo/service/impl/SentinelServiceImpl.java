@@ -3,12 +3,9 @@ package com.zhengqing.demo.service.impl;
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.zhengqing.common.core.util.IdGeneratorUtil;
 import com.zhengqing.demo.service.ISentinelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * <p> sentinel 服务实现类 </p>
@@ -21,8 +18,6 @@ import javax.annotation.Resource;
 @Service
 public class SentinelServiceImpl implements ISentinelService {
 
-    @Resource
-    private IdGeneratorUtil idGeneratorUtil;
 
     @Override
     // 此注解可放在方法上，针对方法进行流控，声明此注解之后，不会走sentinel统一异常处理，需要自定义

@@ -24,28 +24,12 @@
             <groupId>com.zhengqing</groupId>
             <artifactId>core</artifactId>
             <version>${small-tools-api.project.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-logging</artifactId>
-                    <groupId>commons-logging</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>slf4j-log4j12</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>system-api</artifactId>
             <version>${small-tools-api.project.version}</version>
         </dependency>
-
-        <!-- Spring Security依赖 -->
-        <!--    <dependency>-->
-        <!--      <groupId>org.springframework.boot</groupId>-->
-        <!--      <artifactId>spring-boot-starter-security</artifactId>-->
-        <!--    </dependency>-->
 
         <!-- justauth工具类 -->
         <!--    https://mvnrepository.com/artifact/me.zhyd.oauth/JustAuth-->
@@ -61,50 +45,21 @@
             <version>4.4.1</version>
         </dependency>
 
-
     </dependencies>
 
 
     <build>
         <finalName>${project.name}</finalName>
-
-        <!-- 注：maven默认是不编译，因此加上如下resources才会生产对应的xml文件 目的：解决mybatis映射关系不对应问题  start =============== -->
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>false</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>false</filtering>
-            </testResource>
-        </testResources>
-        <!-- 注：maven默认是不编译，因此加上如上resources才会生产对应的xml文件 目的：解决mybatis映射关系不对应问题  end =============== -->
-
         <plugins>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
             <!-- 复制，删除，打包，重命名文件等...（详情见父pom） -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
             </plugin>
-
         </plugins>
     </build>
 

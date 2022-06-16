@@ -6,15 +6,15 @@ import com.zhengqing.common.core.custom.validator.common.UpdateGroup;
 import com.zhengqing.system.model.dto.SysMenuBtnSaveDTO;
 import com.zhengqing.system.model.dto.SysMenuSaveDTO;
 import com.zhengqing.system.model.vo.SysMenuTreeVO;
-import com.zhengqing.system.service.ISysMenuBtnService;
 import com.zhengqing.system.service.ISysMenuService;
+import com.zhengqing.system.service.ISysPermissionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -32,11 +32,11 @@ import java.util.List;
 @Api(tags = "系统管理 - 菜单表接口")
 public class SysMenuController extends BaseController {
 
-    @Autowired
+    @Resource
     private ISysMenuService menuService;
 
-    @Autowired
-    private ISysMenuBtnService sysMenuBtnService;
+    @Resource
+    private ISysPermissionService sysMenuBtnService;
 
     // @GetMapping("/listPage")
     // @ApiOperation("列表分页")
@@ -52,8 +52,8 @@ public class SysMenuController extends BaseController {
 
     @GetMapping("menuTree")
     @ApiOperation("菜单树")
-    public List<SysMenuTreeVO> menuTree(@RequestParam(required = false) Integer systemSource) {
-        return this.menuService.tree(systemSource);
+    public List<SysMenuTreeVO> menuTree() {
+        return this.menuService.tree();
     }
 
     @NoRepeatSubmit

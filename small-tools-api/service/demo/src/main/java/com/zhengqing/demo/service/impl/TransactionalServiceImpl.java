@@ -4,7 +4,6 @@ import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.service.IDemoService;
 import com.zhengqing.demo.service.ITransactionalService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,11 +11,13 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.transaction.support.TransactionSynchronizationAdapter;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+import javax.annotation.Resource;
+
 @Slf4j
 @Service
 public class TransactionalServiceImpl implements ITransactionalService {
 
-    @Autowired
+    @Resource
     private IDemoService demoService;
 
     @Transactional(rollbackFor = Exception.class)

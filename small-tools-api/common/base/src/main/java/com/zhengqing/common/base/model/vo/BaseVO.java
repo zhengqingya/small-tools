@@ -27,8 +27,8 @@ public class BaseVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
+    @JsonIgnore  // jackson
+    @JSONField(serialize = false, deserialize = false) // fastjson
     @ApiModelProperty(value = "隐藏字段-解决子类lombok部分注解(ex:构造器@NoArgsConstructor、@AllArgsConstructor)无法使用问题", hidden = true)
     private String xxx;
 

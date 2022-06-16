@@ -1,15 +1,13 @@
 package com.zhengqing.common.base.http;
 
 import com.zhengqing.common.base.enums.ApiResultCodeEnum;
+import com.zhengqing.common.base.exception.MyException;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 /**
  * <p>
@@ -34,62 +32,40 @@ public class ApiResult<T> {
     private String msg;
 
     @ApiModelProperty(value = "响应数据", required = false)
-    private Object data;
+    private T data;
 
-    /***
-     * 过期
-     *
-     * @param msg 消息内容
-     * @return 响应体
-     */
-    public static ApiResult expired(String msg) {
-        return new ApiResult(ApiResultCodeEnum.TOKEN_EXPIRED.getCode(), msg, null);
+    public ApiResult(T data) {
+        this.code = ApiResultCodeEnum.SUCCESS.getCode();
+        this.msg = "OK";
+        this.data = data;
     }
 
-    public static ApiResult fail(String msg) {
-        return new ApiResult(ApiResultCodeEnum.FAILURE.getCode(), msg, null);
-    }
-
-    /***
-     * 自定义错误返回码
-     *
-     * @param code 验证码
-     * @param msg 消息内容
-     * @return 响应体
-     */
-    public static ApiResult fail(Integer code, String msg) {
-        return new ApiResult(code, msg, null);
-    }
-
-    public static ApiResult ok(String msg) {
-        return new ApiResult(ApiResultCodeEnum.SUCCESS.getCode(), msg, null);
-    }
-
-    public static final Object ok(Object obj) {
-        // 支持Controller层直接返回ApiResult
-        ApiResult result = new ApiResult(ApiResultCodeEnum.SUCCESS);
-        if (obj instanceof ApiResult) {
-            result = ((ApiResult) obj);
-        } else {
-            // 其他obj封装进data,保持返回格式统一
-            result.setData(obj);
-        }
-        return result;
+    public ApiResult(Integer code, String msg) {
+        this.code = code;
+        this.msg = msg;
     }
 
     public static ApiResult ok() {
         return new ApiResult(ApiResultCodeEnum.SUCCESS.getCode(), "OK", null);
     }
 
-    public static ApiResult build(Object data) {
-        return new ApiResult(ApiResultCodeEnum.SUCCESS.getCode(), "OK", data);
+    public static <E> ApiResult<E> ok(E o) {
+        // 支持Controller层直接返回ApiResult
+        ApiResult result = new ApiResult(ApiResultCodeEnum.SUCCESS);
+        if (o instanceof ApiResult) {
+            result = ((ApiResult) o);
+        } else {
+            // 其他obj封装进data,保持返回格式统一
+            result.setData(o);
+        }
+        return result;
     }
 
-    public static ApiResult build(Integer code, String msg, Object data) {
-        return new ApiResult(ApiResultCodeEnum.SUCCESS.getCode(), msg, data);
+    public static ApiResult ok(String msg) {
+        return new ApiResult(ApiResultCodeEnum.SUCCESS.getCode(), msg, null);
     }
 
-    public static ApiResult ok(String msg, Object data) {
+    public static ApiResult ok(Object data, String msg) {
         return new ApiResult(ApiResultCodeEnum.SUCCESS.getCode(), msg, data);
     }
 
@@ -112,30 +88,68 @@ public class ApiResult<T> {
         return new ApiResult(code, msg, data);
     }
 
-    public static ApiResult build(Integer code, String msg) {
+    /**
+     * 过期
+     *
+     * @param msg 消息内容
+     * @return 响应体
+     */
+    public static ApiResult expired(String msg) {
+        return new ApiResult(ApiResultCodeEnum.TOKEN_EXPIRED.getCode(), msg, null);
+    }
+
+    public static ApiResult fail(String msg) {
+        return new ApiResult(ApiResultCodeEnum.FAILURE.getCode(), msg, null);
+    }
+
+    public static ApiResult busy() {
+        return new ApiResult(ApiResultCodeEnum.FAILURE.getCode(), "服务繁忙", null);
+    }
+
+    /***
+     * 自定义错误返回码
+     *
+     * @param code 验证码
+     * @param msg 消息内容
+     * @return 响应体
+     */
+    public static ApiResult fail(Integer code, String msg) {
         return new ApiResult(code, msg, null);
     }
 
-    public ApiResult(Object data) {
-        this.code = ApiResultCodeEnum.SUCCESS.getCode();
-        this.msg = "OK";
-        this.data = data;
+    /**
+     * 是否成功
+     *
+     * @return true->成功，false->失败
+     * @author zhengqingya
+     * @date 2022/6/1 12:45
+     */
+    public boolean checkIsSuccess() {
+        return ApiResultCodeEnum.SUCCESS.getCode() == this.code;
     }
 
-    public ApiResult(Integer code, String msg) {
-        this.code = code;
-        this.msg = msg;
+    /**
+     * 是否失败
+     *
+     * @return true->失败，false->成功
+     * @author zhengqingya
+     * @date 2022/6/1 12:45
+     */
+    public boolean checkIsFail() {
+        return ApiResultCodeEnum.SUCCESS.getCode() != this.code;
     }
 
-    public static String buildErrorMessage(Throwable ex) {
-        StringBuilder msg = new StringBuilder();
-        if (ex != null) {
-            StringWriter stringWriter = new StringWriter();
-            PrintWriter writer = new PrintWriter(stringWriter);
-            ex.printStackTrace(writer);
-            msg.append(stringWriter.getBuffer());
+    /**
+     * rpc校验结果是否异常
+     *
+     * @return void
+     * @author zhengqingya
+     * @date 2021/10/14 16:21
+     */
+    public void checkForRpc() {
+        if (this.checkIsFail()) {
+            throw new MyException(this.msg);
         }
-        return msg.toString();
     }
 
 }

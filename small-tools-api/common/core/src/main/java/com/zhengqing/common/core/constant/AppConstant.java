@@ -1,10 +1,8 @@
 package com.zhengqing.common.core.constant;
 
-import com.google.common.collect.Lists;
-import com.zhengqing.common.base.constant.BaseConstant;
+import com.zhengqing.common.feign.constant.RpcConstant;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,7 +14,7 @@ import java.util.Map;
  * @description
  * @date 2019/10/12 14:47
  */
-public interface AppConstant extends BaseConstant {
+public interface AppConstant extends RpcConstant {
 
     /**
      * 解决返回json字符串中文乱码问题
@@ -59,11 +57,6 @@ public interface AppConstant extends BaseConstant {
      * 登录者角色
      */
     String ROLE_LOGIN = "role_login";
-
-    /**
-     * 所有第一级菜单父类id
-     */
-    Integer MENU_PARENT_ID = 0;
 
     /**
      * 所有第一级项目关联包父类id、父包名
@@ -160,20 +153,6 @@ public interface AppConstant extends BaseConstant {
      * 缓存默认过期时间 - 24小时
      */
     Long DEFAULT_EXPIRES_TIME = 24 * 60 * 60 * 1000L;
-
-    // ===============================================================================
-    // ============================ ↓↓↓↓↓↓ rpc服务 ↓↓↓↓↓↓ ============================
-    // ===============================================================================
-
-    String BASE_PACKAGES = "com.zhengqing";
-    String APPLICATION_NAME_DEMO = "demo";
-    String APPLICATION_NAME_SYSTEM = "system";
-    String APPLICATION_NAME_BASIC = "basic";
-
-    /**
-     * rpc服务调用不需要封装返回值的api
-     */
-    List<String> RETURN_VALUE_HANDLER_EXCLUDE_API_LIST = Lists.newArrayList("/hello", "/index", "/rpc/client");
 
     // ===============================================================================
     // ============================ ↓↓↓↓↓↓ 其它 ↓↓↓↓↓↓ ============================

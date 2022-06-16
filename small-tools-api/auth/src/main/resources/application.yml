@@ -1,0 +1,23 @@
+server:
+  port: 1219
+
+small-tools:
+  # 安全认证
+  auth:
+    # 忽略安全认证的url
+    ignoreUrls:
+      # 认证接口
+      - /oauth/**
+      - /hello
+      # Knife4j
+      - /webjars/**
+      - /doc.html
+      - /swagger-resources/**
+      - /v2/api-docs
+      - /favicon.ico
+  security-jwt:
+    key-store-location: jwt.jks
+    key-store-secret: 123456
+    key-pair-alias: small-tools
+    key-pair-password: 123456
+

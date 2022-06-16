@@ -11,10 +11,10 @@ import com.zhengqing.system.service.ISysDictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +33,7 @@ import java.util.Map;
 @Api(tags = "基础模块 - 数据字典接口")
 public class SysDictController extends BaseController {
 
-    @Autowired
+    @Resource
     private ISysDictService sysDictService;
 
     @PostMapping("initCache")
@@ -82,7 +82,7 @@ public class SysDictController extends BaseController {
     @PutMapping("updateBatch")
     @ApiOperation("批量更新")
     public void updateBatch(@Validated @RequestBody Map<String, ValidList<SysDictSaveBatchDTO>> dictDataMap) {
-        this.sysDictService.updateBatch(dictDataMap);
+        this.sysDictService.addOrUpdateBatch(dictDataMap, false);
     }
 
     @DeleteMapping("")

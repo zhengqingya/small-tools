@@ -9,10 +9,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.model.AuthCallback;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -31,7 +31,7 @@ import java.util.List;
 @Api(tags = "系统管理 - 三方登录接口")
 public class SysOauthController extends BaseController {
 
-    @Autowired
+    @Resource
     private ISysOauthService sysOauthService;
 
     @RequestMapping("{oauthType}")

@@ -21,8 +21,8 @@ public interface MyBaseMapper<T> extends BaseMapper<T> {
     /**
      * 根据指定条件，查询总记录数 【注：${key} 不能使用 #{key}】
      *
-     * @param tableName: 表名
-     * @param columnMap: 查询校验字段组值
+     * @param tableName 表名
+     * @param columnMap 查询校验字段组值
      * @return 总记录数
      * @author zhengqingya
      * @date 2020/8/3 18:41
@@ -36,8 +36,8 @@ public interface MyBaseMapper<T> extends BaseMapper<T> {
     /**
      * 根据指定条件，查询全部记录 【注：${key} 不能使用 #{key}】
      *
-     * @param tableName: 表名
-     * @param columnMap: 查询校验字段组值
+     * @param tableName 表名
+     * @param columnMap 查询校验字段组值
      * @return 全部记录
      * @author zhengqingya
      * @date 2020/8/3 18:41

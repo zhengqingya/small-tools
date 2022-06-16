@@ -15,12 +15,12 @@ import com.zhengqing.system.model.vo.SysDictTypeListVO;
 import com.zhengqing.system.service.ISysDictService;
 import com.zhengqing.system.service.ISysDictTypeService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -40,10 +40,10 @@ import java.util.stream.Collectors;
 public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDictType> implements ISysDictTypeService {
 
     @Lazy
-    @Autowired
+    @Resource
     private ISysDictService sysDictService;
 
-    @Autowired
+    @Resource
     private SysDictTypeMapper sysDictTypeMapper;
 
     @Override

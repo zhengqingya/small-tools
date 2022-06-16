@@ -159,6 +159,27 @@ public class MyBeanUtil {
      * @date 2021/1/26 16:09
      */
     @SneakyThrows(Exception.class)
+    public static Map<String, String> objToMapStr(Object obj) {
+        Map<String, String> map = Maps.newHashMap();
+        Class<?> clazz = obj.getClass();
+        for (Field field : clazz.getDeclaredFields()) {
+            field.setAccessible(true);
+            String fieldName = field.getName();
+            Object value = field.get(obj);
+            map.put(fieldName, value == null ? "" : value.toString());
+        }
+        return map;
+    }
+
+    /**
+     * 对象 转 map （通过反射获取类里面的值和名称）
+     *
+     * @param obj 对象
+     * @return map
+     * @author zhengqingya
+     * @date 2021/1/26 16:09
+     */
+    @SneakyThrows(Exception.class)
     public static Map<String, Object> objToMap(Object obj) {
         Map<String, Object> map = Maps.newHashMap();
         Class<?> clazz = obj.getClass();

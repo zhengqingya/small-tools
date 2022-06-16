@@ -48,8 +48,6 @@ public class ErrorExceptionHandler extends DefaultErrorWebExceptionHandler {
 
     /**
      * 指定响应处理方法为JSON处理的方法
-     *
-     * @param errorAttributes
      */
     @Override
     protected RouterFunction<ServerResponse> getRoutingFunction(ErrorAttributes errorAttributes) {
@@ -58,9 +56,6 @@ public class ErrorExceptionHandler extends DefaultErrorWebExceptionHandler {
 
     /**
      * 根据status获取对应的HttpStatus
-     *
-     * @param errorAttributes
-     * @return
      */
     @Override
     protected int getHttpStatus(Map<String, Object> errorAttributes) {
@@ -69,10 +64,6 @@ public class ErrorExceptionHandler extends DefaultErrorWebExceptionHandler {
 
     /**
      * 构建异常信息
-     *
-     * @param request
-     * @param ex
-     * @return
      */
     private String buildMessage(ServerRequest request, Throwable ex) {
         StringBuilder message = new StringBuilder("Failed to handle request [");

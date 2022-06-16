@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.base.exception.MyException;
+import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.tool.generator.entity.CgProjectPackage;
 import com.zhengqing.tool.generator.mapper.CgProjectPackageMapper;
 import com.zhengqing.tool.generator.model.dto.CgProjectPackageListDTO;
@@ -15,11 +15,11 @@ import com.zhengqing.tool.generator.model.vo.CgProjectPackageListVO;
 import com.zhengqing.tool.generator.model.vo.CgProjectPackageTreeVO;
 import com.zhengqing.tool.generator.service.ICgProjectPackageService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +36,7 @@ import java.util.Map;
 public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMapper, CgProjectPackage>
         implements ICgProjectPackageService {
 
-    @Autowired
+    @Resource
     private CgProjectPackageMapper cgProjectPackageMapper;
 
     @Override
@@ -160,9 +160,9 @@ public class CgProjectPackageServiceImpl extends ServiceImpl<CgProjectPackageMap
     /**
      * 递归树子包数据
      *
-     * @param id:                包id
+     * @param id                 包id
      * @param parentPackageName: 包名
-     * @param allPackage:        包数据
+     * @param allPackage         包数据
      * @return 子包数据
      * @author zhengqingya
      * @date 2020/11/15 12:45

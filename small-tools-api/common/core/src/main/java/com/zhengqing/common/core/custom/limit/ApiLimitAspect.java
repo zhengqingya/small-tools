@@ -37,7 +37,7 @@ public class ApiLimitAspect {
     /**
      * 【环绕通知】 用于拦截指定方法，判断用户表单保存操作是否属于重复提交
      * 定义切入点表达式： execution(public * (…)) 表达式解释： execution：主体 public:可省略 *：标识方法的任意返回值 任意包+类+方法(…) 任意参数
-     * com.ysd.joint.controller.*Controller.*(..)) ： 标识AOP所切服务的包名，即需要进行横切的业务类 .*Controller ： 标识类名，*即所有类 .*(..) ：
+     * com.zhengqing.mall.controller.*Controller.*(..)) ： 标识AOP所切服务的包名，即需要进行横切的业务类 .*Controller ： 标识类名，*即所有类 .*(..) ：
      * 标识任何方法名，括号表示参数，两个点表示任何参数类型
      *
      * @param pjp      切入点对象

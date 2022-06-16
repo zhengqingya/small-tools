@@ -9,9 +9,9 @@ import com.zhengqing.tool.db.model.vo.StDbTableListVO;
 import com.zhengqing.tool.db.service.IStDbJdbcService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -29,7 +29,7 @@ import java.util.List;
 @Api(tags = {"小工具 - 数据库 - 数据库操作处理 接口"})
 public class StDbOperateController extends BaseController {
 
-    @Autowired
+    @Resource
     private IStDbJdbcService stDbJdbcService;
 
     @GetMapping("connectTest")

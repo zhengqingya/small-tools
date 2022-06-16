@@ -1,8 +1,8 @@
 package com.zhengqing.system.feign;
 
 import com.google.common.collect.Lists;
-import com.zhengqing.common.feign.util.RequestContextUtil;
 import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.feign.util.RequestContextUtil;
 import com.zhengqing.system.model.dto.SysUserSaveDTO;
 import com.zhengqing.system.model.vo.SysDictVO;
 import com.zhengqing.system.service.ISysDictService;
@@ -45,7 +45,7 @@ public class SystemClient implements ISystemClient {
     @Override
     @PostMapping(API_USER)
     public ApiResult<Integer> addOrUpdateData(SysUserSaveDTO params) {
-        return ApiResult.build(this.sysUserService.addOrUpdateData(params));
+        return ApiResult.ok(this.sysUserService.addOrUpdateData(params));
     }
 
     @Override

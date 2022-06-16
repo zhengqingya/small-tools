@@ -1,12 +1,13 @@
 package com.zhengqing.demo.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zhengqing.common.base.context.SysUserContext;
+import com.zhengqing.common.base.model.dto.BaseDTO;
 import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.common.core.custom.post.RequestPostSingleParam;
 import com.zhengqing.common.core.custom.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.common.core.custom.validator.common.UpdateGroup;
 import com.zhengqing.common.core.custom.validator.common.ValidList;
-import com.zhengqing.common.base.model.dto.BaseDTO;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.dto.DemoSaveDTO;
@@ -108,6 +109,7 @@ public class DemoController extends BaseController {
     @PostMapping("")
     @ApiOperation("新增")
     public Long add(@Validated @RequestBody DemoSaveDTO params) {
+        params.setId(null);
         return this.demoService.addOrUpdateData(params);
     }
 
@@ -124,10 +126,11 @@ public class DemoController extends BaseController {
         this.demoService.removeById(demoId);
     }
 
-    @GetMapping("detail")
+    @GetMapping("{id}")
     @ApiOperation("详情")
-    public Demo detail(@RequestParam Integer demoId) {
-        return this.demoService.getById(demoId);
+    public Demo detail(@ApiParam("主键ID") @PathVariable Long id) {
+        log.info("系统用户：{}", SysUserContext.getUsername());
+        return this.demoService.getById(id);
     }
 
     /**

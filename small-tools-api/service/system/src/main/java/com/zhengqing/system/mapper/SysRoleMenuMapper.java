@@ -22,7 +22,7 @@ public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
     /**
      * 批量保存角色菜单对应关系
      *
-     * @param roleId:     角色id
+     * @param roleId      角色id
      * @param menuIdList: 菜单ids
      * @return void
      * @author zhengqingya

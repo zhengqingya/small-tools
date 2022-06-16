@@ -2,20 +2,15 @@ package com.zhengqing.demo;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.zhengqing.common.core.model.bo.UserTokenInfo.UserInfo;
 import com.zhengqing.demo.entity.Demo;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 @Slf4j
 public class AppTest {
@@ -48,15 +43,15 @@ public class AppTest {
 
     @Test
     public void test01() throws Exception {
-        UserInfo userInfo = new UserInfo();
-        userInfo.setUserId(1);
-        Optional.ofNullable(userInfo).ifPresent(e -> {
+        Demo demo = new Demo();
+        demo.setId(1L);
+        Optional.ofNullable(demo).ifPresent(e -> {
             System.out.println(1);
             System.out.println(2);
         });
-        userInfo = null;
-        Optional.ofNullable(userInfo).ifPresent(userInfo1 -> userInfo1.setUserId(3));
-        Optional.ofNullable(userInfo).orElseThrow(() -> new RuntimeException("xx"));
+        demo = null;
+        Optional.ofNullable(demo).ifPresent(userInfo1 -> userInfo1.setId(3L));
+        Optional.ofNullable(demo).orElseThrow(() -> new RuntimeException("xx"));
         if (1 == 1) {
             System.out.println(111);
         } else {

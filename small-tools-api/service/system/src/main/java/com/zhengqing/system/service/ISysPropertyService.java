@@ -27,7 +27,7 @@ public interface ISysPropertyService extends IService<SysProperty> {
      * @author zhengqingya
      * @date 2021/09/06 22:57
      */
-    Map<String, SysPropertyVO> listByKey(@NotEmpty(message = "属性key不能为空!") List<String> keyList);
+    Map<String, SysPropertyVO> mapByKey(@NotEmpty(message = "属性key不能为空!") List<String> keyList);
 
     /**
      * 列表
@@ -37,7 +37,7 @@ public interface ISysPropertyService extends IService<SysProperty> {
      * @author zhengqingya
      * @date 2021/9/7 11:04
      */
-    List<SysPropertyVO> list(@NotEmpty(message = "属性key不能为空!") List<String> keyList);
+    List<SysPropertyVO> listByKey(@NotEmpty(message = "属性key不能为空!") List<String> keyList);
 
     /**
      * 通过属性key查询数据 - 数据库方式

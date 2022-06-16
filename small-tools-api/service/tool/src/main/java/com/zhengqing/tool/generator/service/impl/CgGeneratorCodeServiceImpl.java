@@ -5,9 +5,9 @@ import cn.hutool.core.lang.Assert;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.google.common.collect.Lists;
-import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.base.util.FreeMarkerUtil;
 import com.zhengqing.common.base.util.MyFileUtil;
+import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.core.util.QiniuFileUtil;
 import com.zhengqing.tool.db.model.vo.StDbTableColumnListVO;
 import com.zhengqing.tool.db.service.IStDbJdbcService;
@@ -25,11 +25,11 @@ import com.zhengqing.tool.generator.service.*;
 import com.zhengqing.tool.util.GenerateCodeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
@@ -49,25 +49,25 @@ import java.util.Map;
 @Transactional(rollbackFor = Exception.class)
 public class CgGeneratorCodeServiceImpl implements ICgGeneratorCodeService {
 
-    @Autowired
+    @Resource
     private ICgProjectReDbService cgProjectReDbService;
 
-    @Autowired
+    @Resource
     private ICgProjectTemplateService cgProjectTemplateService;
 
-    @Autowired
+    @Resource
     private IStDbJdbcService stDbJdbcService;
 
-    @Autowired
+    @Resource
     private ICgProjectPackageService cgProjectPackageService;
 
-    @Autowired
+    @Resource
     private ICgFreeMarkerTemplateService cgFreeMarkerTemplateService;
 
-    @Autowired
+    @Resource
     private QiniuFileUtil qiniuFileUtil;
 
-    @Autowired
+    @Resource
     private ICgTableConfigService cgTableConfigService;
 
     @Override

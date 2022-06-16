@@ -35,7 +35,7 @@
         <!-- 版本参考：https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E -->
         <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
-        <alibaba.cloud.version>2.2.3.RELEASE</alibaba.cloud.version>
+        <spring-cloud-alibaba.version>2.2.3.RELEASE</spring-cloud-alibaba.version>
 
         <spring.platform.version>Cairo-SR8</spring.platform.version>
 
@@ -93,11 +93,14 @@
         <!-- 打包时跳过测试 (maven.test.skip:不生成test的所有.class， skipTests；会编译测试类，即生成.class文件，只是不运行测试类) -->
         <!-- <maven.test.skip>true</maven.test.skip> -->
         <skipTests>true</skipTests>
+
+        <weixin-java-pay.version>4.2.0</weixin-java-pay.version>
     </properties>
 
     <modules>
-        <module>gateway</module>
+        <module>auth</module>
         <module>common</module>
+        <module>gateway</module>
         <module>service</module>
         <module>service-api</module>
         <module>test</module>
@@ -130,7 +133,7 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${alibaba.cloud.version}</version>
+                <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.zhengqing.common.base.context.SysUserContext;
 import com.zhengqing.common.db.constant.MybatisConstant;
-import com.zhengqing.common.base.context.ContextHandler;
 import com.zhengqing.common.redis.util.RedisUtil;
 import com.zhengqing.system.constant.SystemConstant;
 import com.zhengqing.system.entity.SysProperty;
@@ -18,11 +18,11 @@ import com.zhengqing.system.model.vo.SysPropertyVO;
 import com.zhengqing.system.service.ISysPropertyService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,14 +38,14 @@ import java.util.stream.Collectors;
 @Service
 public class SysPropertyServiceImpl extends ServiceImpl<SysPropertyMapper, SysProperty> implements ISysPropertyService {
 
-    @Autowired
+    @Resource
     private SysPropertyMapper sysPropertyMapper;
 
     @Override
-    public Map<String, SysPropertyVO> listByKey(List<String> keyList) {
+    public Map<String, SysPropertyVO> mapByKey(List<String> keyList) {
         this.checkKey(keyList);
         Map<String, SysPropertyVO> dataMap = Maps.newHashMap();
-        List<SysPropertyVO> dataList = this.list(keyList);
+        List<SysPropertyVO> dataList = this.listByKey(keyList);
         for (SysPropertyVO item : dataList) {
             dataMap.put(item.getKey(), item);
         }
@@ -53,7 +53,7 @@ public class SysPropertyServiceImpl extends ServiceImpl<SysPropertyMapper, SysPr
     }
 
     @Override
-    public List<SysPropertyVO> list(List<String> keyList) {
+    public List<SysPropertyVO> listByKey(List<String> keyList) {
         List<SysPropertyVO> dataList = this.listFromCacheByKey(keyList);
         if (CollectionUtils.isEmpty(dataList)) {
             log.warn("[系统管理] 系统属性缓存丢失，请检查：{}", keyList);
@@ -134,7 +134,7 @@ public class SysPropertyServiceImpl extends ServiceImpl<SysPropertyMapper, SysPr
             if (StringUtils.isBlank(item.getRemark())) {
                 item.setRemark("");
             }
-            item.setCurrentUserId(ContextHandler.getUserId());
+            item.setCurrentUserId(SysUserContext.getUserId());
         });
         // 删除旧数据
         this.sysPropertyMapper.deleteByKeyList(keyList);

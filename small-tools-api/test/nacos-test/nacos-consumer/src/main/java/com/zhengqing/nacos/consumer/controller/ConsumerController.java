@@ -1,9 +1,10 @@
 package com.zhengqing.nacos.consumer.controller;
 
 import com.zhengqing.nacos.consumer.feign.ProviderClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ConsumerController {
 
-    @Autowired
+    @Resource
     private ProviderClient providerClient;
 
     @GetMapping("/hello")

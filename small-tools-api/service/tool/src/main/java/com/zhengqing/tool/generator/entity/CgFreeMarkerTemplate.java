@@ -3,7 +3,7 @@ package com.zhengqing.tool.generator.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zhengqing.common.db.entity.BaseEntity;
+import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -24,7 +24,7 @@ import lombok.*;
 @NoArgsConstructor
 @TableName("t_cg_free_marker_template")
 @ApiModel("代码生成器 - FreeMarker模板数据配置表")
-public class CgFreeMarkerTemplate extends BaseEntity<CgFreeMarkerTemplate> {
+public class CgFreeMarkerTemplate extends IsDeletedYesBaseEntity<CgFreeMarkerTemplate> {
 
     @ApiModelProperty(value = "主键ID")
     @TableId(value = "free_marker_template_id", type = IdType.AUTO)

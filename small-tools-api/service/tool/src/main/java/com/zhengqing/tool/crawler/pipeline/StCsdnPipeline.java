@@ -1,7 +1,7 @@
 package com.zhengqing.tool.crawler.pipeline;
 
-import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.base.util.DateTimeUtil;
+import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.tool.crawler.entity.StCrawlerArticleInfo;
 import com.zhengqing.tool.crawler.model.bo.StCrawlerCsdnBO;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerArticleInfoQueryDTO;
@@ -10,13 +10,13 @@ import com.zhengqing.tool.crawler.model.vo.StCrawlerArticleInfoListVO;
 import com.zhengqing.tool.crawler.model.vo.StCrawlerWebsiteListVO;
 import com.zhengqing.tool.crawler.service.IStCrawlerArticleInfoService;
 import com.zhengqing.tool.crawler.service.IStCrawlerWebsiteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 
+import javax.annotation.Resource;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -34,10 +34,10 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class StCsdnPipeline implements Pipeline {
 
-    @Autowired
+    @Resource
     private IStCrawlerWebsiteService stCrawlerWebsiteService;
 
-    @Autowired
+    @Resource
     private IStCrawlerArticleInfoService stCrawlerArticleInfoService;
 
     // ResultItems保存了抽取结果，它是一个Map结构，

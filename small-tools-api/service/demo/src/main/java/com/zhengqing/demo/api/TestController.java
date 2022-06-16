@@ -2,15 +2,15 @@ package com.zhengqing.demo.api;
 
 import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
+import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.model.dto.BaseDTO;
+import com.zhengqing.common.base.util.EmailUtil;
+import com.zhengqing.common.base.util.RestTemplateUtil;
 import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.common.core.aspect.config.BeanSelfAware;
 import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.core.custom.limit.ApiLimit;
-import com.zhengqing.common.base.http.ApiResult;
-import com.zhengqing.common.base.model.dto.BaseDTO;
 import com.zhengqing.common.redis.util.RedisUtil;
-import com.zhengqing.common.base.util.EmailUtil;
-import com.zhengqing.common.base.util.RestTemplateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.SneakyThrows;
@@ -80,7 +80,7 @@ public class TestController extends BaseController implements BeanSelfAware {
     @ApiOperation("testHandleReturnValue")
     @GetMapping("testHandleReturnValue")
     public ApiResult<List<String>> testHandleReturnValue() {
-        return ApiResult.ok("SUCCESS", Lists.newArrayList("hello world"));
+        return ApiResult.ok(Lists.newArrayList("hello world"), "SUCCESS");
     }
 
 

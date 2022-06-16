@@ -33,7 +33,7 @@ public interface ISysMenuService extends IService<SysMenu> {
     /**
      * 列表
      *
-     * @param params: 查询参数
+     * @param params 查询参数
      * @return 菜单信息
      * @author zhengqingya
      * @date 2020/9/10 19:18
@@ -43,7 +43,7 @@ public interface ISysMenuService extends IService<SysMenu> {
     /**
      * 新增或更新
      *
-     * @param params: 提交参数
+     * @param params 提交参数
      * @return 菜单id
      * @author zhengqingya
      * @date 2021/1/13 20:46
@@ -53,21 +53,10 @@ public interface ISysMenuService extends IService<SysMenu> {
     /**
      * 获取菜单树
      *
-     * @param systemSource: 系统来源
      * @return 菜单树信息
      * @author zhengqingya
      * @date 2021/1/13 20:44
      */
-    List<SysMenuTreeVO> tree(Integer systemSource);
-
-    /**
-     * 拿到所有菜单 - 只供菜单树使用
-     *
-     * @param systemSource: 系统来源
-     * @return 菜单信息
-     * @author zhengqingya
-     * @date 2020/9/10 20:33
-     */
-    List<SysMenuTreeVO> selectMenuTree(Integer systemSource);
+    List<SysMenuTreeVO> tree();
 
 }

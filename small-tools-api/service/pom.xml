@@ -15,9 +15,12 @@
     <description>小工具业务模块</description>
 
     <modules>
+        <module>demo</module>
+        <module>mall</module>
+        <module>pay</module>
         <module>system</module>
         <module>tool</module>
-        <module>demo</module>
+        <module>ums</module>
     </modules>
 
     <dependencies>

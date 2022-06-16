@@ -16,7 +16,7 @@ import java.util.Date;
  *
  * @author zhengqingya
  * @description
- * @date 2019/8/18 0018 12:57
+ * @date 2019/8/18 12:57
  */
 public class DateTimeUtil {
 
@@ -36,8 +36,8 @@ public class DateTimeUtil {
     /**
      * 时间格式化成字符串
      *
-     * @param date:    Date时间
-     * @param pattern: DATE_TIME_PATTERN || DATE_PATTERN， 如果为空，则为 DATE_PATTERN（yyyy-MM-dd）
+     * @param date    Date时间
+     * @param pattern DATE_TIME_PATTERN || DATE_PATTERN， 如果为空，则为 DATE_PATTERN（yyyy-MM-dd）
      * @return 字符串时间
      */
     public static String dateFormat(Date date, String pattern) {
@@ -60,7 +60,7 @@ public class DateTimeUtil {
     /**
      * 将Date日期时间格式转成指定字符串格式 yyyy-MM-dd HH:mm:ss
      *
-     * @param date: Date时间
+     * @param date Date时间
      * @return yyyy-MM-dd HH:mm:ss
      */
     public static String dateToDateTimeStr(Date date) {
@@ -70,8 +70,8 @@ public class DateTimeUtil {
     /**
      * Date类型转字符串时间
      *
-     * @param date:   Date时间
-     * @param format: 时间格式
+     * @param date   Date时间
+     * @param format 时间格式
      * @return 字符串时间
      * @author zhengqingya
      * @date 2021/7/23 10:14
@@ -95,8 +95,8 @@ public class DateTimeUtil {
     /**
      * 计算两个时间差
      *
-     * @param startDate: 开始时间
-     * @param endDate:   结束时间
+     * @param startDate 开始时间
+     * @param endDate   结束时间
      * @return 时间差
      * @author zhengqingya
      * @date 2021/7/23 10:17
@@ -122,7 +122,7 @@ public class DateTimeUtil {
     /**
      * 当前日期相加减天数
      *
-     * @param days: 加减天数
+     * @param days 加减天数
      * @return 时间 yyyy-MM-dd HH:mm:ss
      * @author zhengqingya
      * @date 2021/7/23 10:23
@@ -136,8 +136,8 @@ public class DateTimeUtil {
     /**
      * 当前日期相加减天数
      *
-     * @param days:        加减天数
-     * @param includeTime: 是否包括时分秒,true表示包含
+     * @param days        加减天数
+     * @param includeTime 是否包括时分秒,true表示包含
      * @return 时间
      * @author zhengqingya
      * @date 2021/7/23 10:23
@@ -150,9 +150,9 @@ public class DateTimeUtil {
     /**
      * 日期相加减天数
      *
-     * @param date:        如果为Null，则为当前时间
-     * @param days:        加减天数
-     * @param includeTime: 是否包括时分秒,true表示包含
+     * @param date        如果为Null，则为当前时间
+     * @param days        加减天数
+     * @param includeTime 是否包括时分秒,true表示包含
      * @return 时间
      * @author zhengqingya
      * @date 2021/7/23 10:23

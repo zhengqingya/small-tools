@@ -25,6 +25,6 @@ spring:
         #        refreshable-dataids: ${spring.cloud.nacos.config.shared-dataids}
         # 指定共享配置文件+自动刷新配置
         extension-configs:
-          - data-id: common-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          - data-id: common.${spring.cloud.nacos.config.file-extension}
             group: common
             refresh: true

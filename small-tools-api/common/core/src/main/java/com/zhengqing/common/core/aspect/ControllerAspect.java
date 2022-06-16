@@ -1,10 +1,8 @@
 package com.zhengqing.common.core.aspect;
 
-import com.zhengqing.common.core.constant.AppConstant;
-import com.zhengqing.common.base.context.ContextHandler;
-import com.zhengqing.common.core.custom.parameter.ParameterVerify;
 import com.zhengqing.common.base.model.dto.BaseDTO;
-import com.zhengqing.common.base.util.ServletUtil;
+import com.zhengqing.common.core.custom.parameter.ParameterVerify;
+import com.zhengqing.common.core.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -40,23 +38,15 @@ public class ControllerAspect {
      */
     @Before("controllerPointCut()")
     public void controllerPointCut(JoinPoint joinPoint) {
-        // 1、装入当前操作人id&名称
-        int userId =
-                ServletUtil.getParameterToInt(AppConstant.CONTEXT_KEY_USER_ID, AppConstant.DEFAULT_CONTEXT_KEY_USER_ID);
-        String username =
-                ServletUtil.getParameter(AppConstant.CONTEXT_KEY_USERNAME, AppConstant.DEFAULT_CONTEXT_KEY_USERNAME);
-        ContextHandler.setUserId(userId);
-        ContextHandler.setUsername(username);
-
-        // 2、参数处理
+        // 参数处理
         Object[] paramObjArray = joinPoint.getArgs();
         // 遍历所有传入参数,赋值
         for (Object paramObj : paramObjArray) {
             // dto参数处理
             if (paramObj instanceof BaseDTO) {
                 BaseDTO baseDTO = (BaseDTO) paramObj;
-                baseDTO.setCurrentUserId(userId);
-                baseDTO.setCurrentUsername(username);
+                baseDTO.setCurrentUserId(Integer.valueOf(JwtUtil.getUserId()));
+                baseDTO.setCurrentUsername(JwtUtil.getUsername());
             }
 
             // 参数校验处理

@@ -5,11 +5,11 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.google.common.collect.Lists;
+import com.zhengqing.common.base.exception.MyException;
+import com.zhengqing.common.base.util.MyFileUtil;
 import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.core.enums.ExcelExportFileTypeEnum;
 import com.zhengqing.common.core.enums.ExcelImportFileTypeEnum;
-import com.zhengqing.common.base.exception.MyException;
-import com.zhengqing.common.base.util.MyFileUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,6 @@ import org.jxls.reader.XLSReadStatus;
 import org.jxls.reader.XLSReader;
 import org.jxls.transform.poi.PoiTransformer;
 import org.jxls.util.JxlsHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
@@ -51,16 +50,16 @@ import java.util.Map;
 @Component
 public class ExcelReportUtil {
 
-    @Autowired
+    @javax.annotation.Resource
     private QiniuFileUtil qiniuFileUtil;
 
     /**
      * 读取上传文件数据
      *
-     * @param dataList:                数据
+     * @param dataList                 数据
      * @param excelImportFileTypeEnum: 导入报表模板类型
-     * @param file:                    上传文件数据
-     * @param isThrowException:        遇到错误是否抛出异常信息 true:抛出 false：不抛，继续处理数据
+     * @param file                     上传文件数据
+     * @param isThrowException         遇到错误是否抛出异常信息 true:抛出 false：不抛，继续处理数据
      * @return 装满数据的dataList
      * @author zhengqingya
      * @date 2020/9/7 13:59
@@ -126,9 +125,9 @@ public class ExcelReportUtil {
     /**
      * 导出EXCEL到指定路径
      *
-     * @param dataList:                数据
+     * @param dataList                 数据
      * @param excelExportFileTypeEnum: 导出报表模板类型
-     * @param exportPath:              导出路径
+     * @param exportPath               导出路径
      * @return 文件下载地址信息
      * @author zhengqingya
      * @date 2020/9/7 13:59
@@ -149,9 +148,9 @@ public class ExcelReportUtil {
     /**
      * 导出EXCEL给前端直接下载
      *
-     * @param dataList:                数据
+     * @param dataList                 数据
      * @param excelExportFileTypeEnum: 导出报表模板类型
-     * @param exportPath:              导出路径
+     * @param exportPath               导出路径
      * @param response:
      * @return void
      * @author zhengqingya
@@ -242,9 +241,9 @@ public class ExcelReportUtil {
     /**
      * 处理导出数据逻辑
      *
-     * @param dataList:                数据
+     * @param dataList                 数据
      * @param excelExportFileTypeEnum: 导出报表模板类型
-     * @param exportPath:              导出路径
+     * @param exportPath               导出路径
      * @return 导出数据文件
      * @author zhengqingya
      * @date 2020/9/8 15:49

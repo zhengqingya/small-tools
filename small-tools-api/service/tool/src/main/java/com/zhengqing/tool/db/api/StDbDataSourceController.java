@@ -11,10 +11,10 @@ import com.zhengqing.tool.db.model.vo.StDbDataSourceListVO;
 import com.zhengqing.tool.db.service.IStDbDataSourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -31,7 +31,7 @@ import java.util.List;
 @Api(tags = {"小工具 - 数据库 - 数据源配置信息表接口"})
 public class StDbDataSourceController extends BaseController {
 
-    @Autowired
+    @Resource
     private IStDbDataSourceService stDbDataSourceService;
 
     @GetMapping("listPage")

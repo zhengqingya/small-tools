@@ -18,20 +18,20 @@ public interface SystemConstant {
     /**
      * 数据字典缓存
      */
-    String CACHE_SYS_DICT_PREFIX = "SYSTEM:DICT:";
+    String CACHE_SYS_DICT_PREFIX = "small-tools:system:dict:";
     /**
      * 系统属性缓存
      */
-    String CACHE_SYS_PROPERTY_PREFIX = "SYSTEM:PROPERTY:";
+    String CACHE_SYS_PROPERTY_PREFIX = "small-tools:system:property:";
     /**
      * 系统缓存
      */
-    String CACHE_SYS_MENU_TREE = "SYS_MENU_TREE";
+    String CACHE_SYS_MENU_TREE = "small-tools:system:sys_menu_tree";
     /**
      * 个人缓存
      */
-    String CACHE_SYS_USER_INFO_PREFIX = "SYS_USER_INFO_";
-    String CACHE_SYS_PERMISSION_PREFIX = "SYS_PERMISSION_";
+    String CACHE_SYS_USER_INFO_PREFIX = "small-tools:system:sys_user_info_";
+    String CACHE_SYS_PERMISSION_PREFIX = "small-tools:system:sys_permission_";
 
 
 }

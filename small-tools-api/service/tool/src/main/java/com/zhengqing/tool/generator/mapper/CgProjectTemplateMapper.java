@@ -23,7 +23,7 @@ public interface CgProjectTemplateMapper extends BaseMapper<CgProjectTemplate> {
     /**
      * 列表分页
      *
-     * @param page:   分页参数
+     * @param page    分页参数
      * @param filter: 过滤参数
      * @return 分页列表
      * @author zhengqingya

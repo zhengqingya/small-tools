@@ -64,6 +64,13 @@ public class ServletUtil {
     }
 
     /**
+     * 获取long参数
+     */
+    public static Long getParameterToLong(String name, Long defaultValue) {
+        return Convert.toLong(getParameter(name), defaultValue);
+    }
+
+    /**
      * 获取request
      */
     public static HttpServletRequest getRequest() {

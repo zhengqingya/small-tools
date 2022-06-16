@@ -1,18 +1,27 @@
 package com.zhengqing.common.core.util;
 
-import com.alibaba.fastjson.JSON;
-import com.nimbusds.jose.*;
-import com.nimbusds.jose.crypto.MACSigner;
-import com.nimbusds.jose.crypto.MACVerifier;
-import com.zhengqing.common.core.constant.AppConstant;
-import com.zhengqing.common.core.model.bo.UserTokenInfo;
-import com.zhengqing.common.base.exception.MyException;
-import com.zhengqing.common.base.exception.ParameterException;
+import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSONObject;
+import com.nimbusds.jose.JWSObject;
+import com.zhengqing.common.base.constant.BaseConstant;
+import com.zhengqing.common.base.context.AuthSourceContext;
+import com.zhengqing.common.base.context.SysUserContext;
+import com.zhengqing.common.base.context.UmsUserContext;
+import com.zhengqing.common.base.util.MyDateUtil;
+import com.zhengqing.common.core.constant.SecurityConstant;
+import com.zhengqing.common.core.enums.AuthGrantTypeEnum;
+import com.zhengqing.common.core.enums.AuthSourceEnum;
+import com.zhengqing.common.core.model.bo.JwtUserBO;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import net.minidev.json.JSONObject;
-import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * <p>
@@ -26,96 +35,102 @@ import java.util.Map;
 @Slf4j
 public class JwtUtil {
 
-    /**
-     * 创建秘钥
-     */
-    private static final byte[] SECRET = "www.zhengqingya.com.java.20200801".getBytes();
 
     /**
-     * 生成 jwt
+     * 解析token
      *
-     * @param userInfo
-     * @return
-     * @throws MyException
+     * @param token jwt
+     * @return 用户信息
+     * @author zhengqingya
+     * @date 2022/6/14 10:35 PM
      */
-    public static String buildJWT(UserTokenInfo userInfo) {
-        try {
-            Map<String, String> map = BeanUtils.describe(userInfo);
-            // 创建JWS头，设置签名算法和类型
-            JWSHeader jwsHeader = new JWSHeader.Builder(JWSAlgorithm.HS256).type(JOSEObjectType.JWT).build();
-            // 将负载信息封装到Payload中
-            Payload payload = new Payload(new JSONObject(map));
-            // 创建JWS对象
-            JWSObject jwsObject = new JWSObject(jwsHeader, payload);
-            // 创建HMAC签名器
-            JWSSigner jwsSigner = new MACSigner(SECRET);
-            // 签名
-            jwsObject.sign(jwsSigner);
-            return jwsObject.serialize();
-        } catch (Exception e) {
-            throw new MyException("JWT生成失败!");
-        }
+    @SneakyThrows(Exception.class)
+    public static JwtUserBO parse(String token) {
+        token = StrUtil.replaceIgnoreCase(token, SecurityConstant.JWT_PREFIX, Strings.EMPTY);
+        String payload = StrUtil.toString(JWSObject.parse(token).getPayload());
+        Assert.notBlank(payload, "token失效");
+        JwtUserBO jwtUserBO = JSONObject.parseObject(payload, JwtUserBO.class);
+        jwtUserBO.setExpireTime(MyDateUtil.dateToStr(new Date(jwtUserBO.getExp() * 1000)));
+        return jwtUserBO;
     }
 
     /**
-     * 解析并验证jwt
+     * 获取用户id
      *
-     * @param token
-     * @return
-     * @throws MyException
+     * @return 用户id
+     * @author zhengqingya
+     * @date 2022/6/15 13:03
      */
-    public static UserTokenInfo checkJWT(String token) {
-        try {
-            // 从token中解析JWS对象
-            JWSObject jwsObject = JWSObject.parse(token);
-            // 创建HMAC验证器
-            JWSVerifier jwsVerifier = new MACVerifier(SECRET);
-            if (!jwsObject.verify(jwsVerifier)) {
-                throw new ParameterException("token签名不合法!");
-            }
-            JSONObject map = verify(jwsObject, jwsVerifier);
-            UserTokenInfo userInfo = JSON.parseObject(map.toJSONString(), UserTokenInfo.class);
-            if (userInfo.getUserId() <= 0) {
-                throw new ParameterException("token失效");
-            }
-            if (userInfo.getExpirationTime() < System.currentTimeMillis()) {
-                throw new ParameterException("token已过期");
-            }
-            return userInfo;
-        } catch (Exception e) {
-            throw new ParameterException("token不合法");
+    public static String getUserId() {
+        String authType = AuthSourceContext.get();
+        if (StringUtils.isBlank(authType)) {
+            return BaseConstant.DEFAULT_CONTEXT_KEY_USER_ID;
         }
+        return String.valueOf(
+                AuthSourceEnum.B.getValue().equals(authType)
+                        ? SysUserContext.getUserId()
+                        : UmsUserContext.getUserId()
+        );
     }
 
     /**
-     * 验证token信息
+     * 获取用户名
      *
-     * @param jwsObject
-     * @param jwsVerifier
-     * @return
-     * @throws JOSEException
+     * @return 用户名
+     * @author zhengqingya
+     * @date 2022/6/15 13:03
      */
-    private static JSONObject verify(JWSObject jwsObject, JWSVerifier jwsVerifier) throws JOSEException {
-        // 获取到载荷
-        Payload payload = jwsObject.getPayload();
-        // 判断token
-        if (jwsObject.verify(jwsVerifier)) {
-            return payload.toJSONObject();
+    public static String getUsername() {
+        String authType = AuthSourceContext.get();
+        if (StringUtils.isBlank(authType)) {
+            return BaseConstant.DEFAULT_CONTEXT_KEY_USERNAME;
         }
-        throw new ParameterException("token不合法");
+        return String.valueOf(
+                AuthSourceEnum.B.getValue().equals(authType)
+                        ? SysUserContext.getUsername()
+                        : UmsUserContext.getUsername()
+        );
     }
 
-    public static void main(String[] args) {
-        UserTokenInfo userTokenInfo = new UserTokenInfo(1, "zhengqingya", "zhengqingya",
-                System.currentTimeMillis() + AppConstant.DEFAULT_EXPIRES_TIME);
-        try {
-            String jwt = buildJWT(userTokenInfo);
-            log.debug("生成的jwt：【{}】", jwt);
-            UserTokenInfo userTokenInfoNew = checkJWT(jwt);
-            log.debug("用户信息：【{}】", userTokenInfoNew);
-        } catch (Exception e) {
-            e.printStackTrace();
+    /**
+     * 获取客户端ID
+     *
+     * @return 客户端ID
+     * @author zhengqingya
+     * @date 2022/6/16 14:14
+     */
+    @SneakyThrows
+    public static String getClientId() {
+        // 方式一：从请求路径中获取
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String clientId = request.getParameter(SecurityConstant.CLIENT_ID_KEY);
+        if (StrUtil.isNotBlank(clientId)) {
+            return clientId;
         }
+
+        // 方式二：从请求头获取
+        String token = request.getHeader(SecurityConstant.AUTHORIZATION_KEY);
+        return parse(token).getClientId();
+    }
+
+    /**
+     * 获取认证身份标识
+     *
+     * @return {@link AuthGrantTypeEnum}
+     * @author zhengqingya
+     * @date 2022/6/16 14:14
+     */
+    @SneakyThrows
+    public static String getAuthGrantType() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String refreshToken = request.getParameter(SecurityConstant.REFRESH_TOKEN_KEY);
+        String payload = StrUtil.toString(JWSObject.parse(refreshToken).getPayload());
+        JSONObject jsonObject = JSONObject.parseObject(payload);
+        String authGrantType = jsonObject.getString(SecurityConstant.GRANT_TYPE);
+        if (StrUtil.isBlank(authGrantType)) {
+            authGrantType = AuthGrantTypeEnum.USERNAME.getValue();
+        }
+        return authGrantType;
     }
 
 }

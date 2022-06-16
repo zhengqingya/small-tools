@@ -7,10 +7,10 @@ import com.zhengqing.system.model.vo.SysPropertyVO;
 import com.zhengqing.system.service.ISysPropertyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -27,19 +27,19 @@ import java.util.Map;
 @Api(tags = {"系统管理 - 系统属性接口"})
 public class SysPropertyController extends BaseController {
 
-    @Autowired
+    @Resource
     private ISysPropertyService sysPropertyService;
 
     @GetMapping("listByKey")
     @ApiOperation("根据属性key查询")
     public Map<String, SysPropertyVO> listByKey(@RequestParam List<String> keyList) {
-        return this.sysPropertyService.listByKey(keyList);
+        return this.sysPropertyService.mapByKey(keyList);
     }
 
     @GetMapping("list")
     @ApiOperation("列表")
     public List<SysPropertyVO> list(@RequestParam List<String> keyList) {
-        return this.sysPropertyService.list(keyList);
+        return this.sysPropertyService.listByKey(keyList);
     }
 
     @NoRepeatSubmit

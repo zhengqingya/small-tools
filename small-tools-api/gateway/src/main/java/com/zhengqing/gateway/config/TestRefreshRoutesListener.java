@@ -1,7 +1,6 @@
 package com.zhengqing.gateway.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.cloud.gateway.config.GatewayProperties;
 import org.springframework.cloud.gateway.route.RouteDefinition;
@@ -9,6 +8,7 @@ import org.springframework.cloud.netflix.ribbon.SpringClientFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URI;
@@ -24,10 +24,10 @@ import java.net.URI;
 @Component
 public class TestRefreshRoutesListener implements ApplicationListener<ApplicationReadyEvent> {
 
-    @Autowired
+    @Resource
     private SpringClientFactory springClientFactory;
 
-    @Autowired
+    @Resource
     private GatewayProperties gatewayProperties;
 
     @Override

@@ -9,11 +9,11 @@ import com.zhengqing.tool.generator.model.dto.CgTableConfigListDTO;
 import com.zhengqing.tool.generator.model.dto.CgTableConfigSaveDTO;
 import com.zhengqing.tool.generator.service.ICgTableConfigService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -32,12 +32,12 @@ import java.util.StringJoiner;
 public class CgTableConfigServiceImpl extends ServiceImpl<CgTableConfigMapper, CgTableConfig>
         implements ICgTableConfigService {
 
-    @Autowired
+    @Resource
     private CgTableConfigMapper cgTableConfigMapper;
 
     @Override
     public List<CgTableConfig> list(CgTableConfigListDTO params) {
-        return cgTableConfigMapper.selectDataList(params);
+        return this.cgTableConfigMapper.selectDataList(params);
     }
 
     @Override
@@ -57,7 +57,8 @@ public class CgTableConfigServiceImpl extends ServiceImpl<CgTableConfigMapper, C
         }
 
         // 1、先删除旧数据
-        cgTableConfigMapper.delete(new LambdaQueryWrapper<CgTableConfig>().eq(CgTableConfig::getProjectId, projectId)
+        this.cgTableConfigMapper.delete(new LambdaQueryWrapper<CgTableConfig>()
+                .eq(CgTableConfig::getProjectId, projectId)
                 .eq(CgTableConfig::getTableName, tableName));
 
         // 将所有数据都先设置为默认数据

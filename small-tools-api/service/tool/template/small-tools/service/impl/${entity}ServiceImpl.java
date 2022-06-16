@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class ${entity}ServiceImpl extends ServiceImpl<${entity}Mapper, ${entity}> implements I${entity}Service {
 
-    @Autowired
+    @Resource
     private ${entity}Mapper ${entityNameLower}Mapper;
 
     @Override

@@ -15,4 +15,9 @@ public interface SwaggerConstant {
     String PAGE_NUM = "pageNum";
     String PAGE_SIZE = "pageSize";
 
+    /**
+     * 认证请求头
+     */
+    String AUTHORIZATION = "Authorization";
+
 }

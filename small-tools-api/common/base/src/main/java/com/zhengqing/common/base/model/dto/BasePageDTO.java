@@ -22,13 +22,13 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@ApiModel("后台基础传入参数")
+@ApiModel("基础分页检索参数")
 public class BasePageDTO extends BaseDTO {
 
-    @ApiModelProperty(value = "当前页", required = true, position = 0)
-    private Integer pageNum = 1;
+    @ApiModelProperty(value = "当前页", required = true, position = 0, example = "1")
+    private int pageNum = 1;
 
-    @ApiModelProperty(value = "每页显示数量", required = true, position = 1)
-    private Integer pageSize = Integer.MAX_VALUE;
+    @ApiModelProperty(value = "每页显示数量", required = true, position = 1, example = "10")
+    private int pageSize = 10;
 
 }

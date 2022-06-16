@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Getter
 @AllArgsConstructor
-public enum YesNoEnum {
+public enum YesNoEnum implements IBaseEnum<Integer> {
 
     /**
      * 是
@@ -33,7 +33,7 @@ public enum YesNoEnum {
     /**
      * 类型
      */
-    private final int value;
+    private final Integer value;
     /**
      * 描述
      */
@@ -48,9 +48,9 @@ public enum YesNoEnum {
     /**
      * 根据指定类型查找相应枚举类
      */
-    public static YesNoEnum getEnum(int value) {
+    public static YesNoEnum getEnum(Integer value) {
         for (YesNoEnum itemEnum : LIST) {
-            if (itemEnum.getValue() == value) {
+            if (itemEnum.getValue().equals(value)) {
                 return itemEnum;
             }
         }

@@ -3,7 +3,7 @@ package com.zhengqing.tool.generator.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zhengqing.common.db.entity.BaseEntity;
+import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -24,7 +24,7 @@ import lombok.*;
 @NoArgsConstructor
 @ApiModel("项目数据库信息表")
 @TableName("t_cg_table_config")
-public class CgTableConfig extends BaseEntity<CgTableConfig> {
+public class CgTableConfig extends IsDeletedYesBaseEntity<CgTableConfig> {
 
     @ApiModelProperty(value = "ID")
     @TableId(value = "id", type = IdType.AUTO)

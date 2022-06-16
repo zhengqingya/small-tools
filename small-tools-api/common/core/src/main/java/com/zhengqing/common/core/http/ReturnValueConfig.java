@@ -1,12 +1,12 @@
 package com.zhengqing.common.core.http;
 
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +22,7 @@ import java.util.List;
 @Configuration
 public class ReturnValueConfig implements InitializingBean {
 
-    @Autowired
+    @Resource
     RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
     @Override
