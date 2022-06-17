@@ -903,6 +903,22 @@ public class RedisUtil {
         return redisTemplate.opsForZSet().scan(key, options);
     }
 
+    // ============================ ↓↓↓↓↓↓ 发布订阅 ↓↓↓↓↓↓ ============================
+
+
+    /**
+     * 发布消息
+     *
+     * @param channel 通道
+     * @param msg     消息内容
+     * @return void
+     * @author zhengqingya
+     * @date 2022/6/17 17:29
+     */
+    public static void publish(String channel, String msg) {
+        redisTemplate.convertAndSend(channel, msg);
+    }
+
     // ============================ ↓↓↓↓↓↓ 操作 GEO ↓↓↓↓↓↓ ============================
 
     /**

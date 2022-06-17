@@ -1,10 +1,12 @@
 package com.zhengqing.demo.api;
 
+import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
-import com.zhengqing.common.core.api.BaseController;
-import com.zhengqing.common.redis.util.RedisUtil;
-import com.zhengqing.common.core.util.IdGeneratorUtil;
 import com.zhengqing.common.base.util.MyDateUtil;
+import com.zhengqing.common.core.api.BaseController;
+import com.zhengqing.common.core.util.IdGeneratorUtil;
+import com.zhengqing.common.redis.util.RedisUtil;
+import com.zhengqing.demo.constant.DemoConstant;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.service.IDemoService;
 import io.swagger.annotations.Api;
@@ -75,6 +77,13 @@ public class RedisController extends BaseController {
             codeList.add(IdGeneratorUtil.generateRandomCode());
         }
         return codeList;
+    }
+
+    @ApiOperation("发布订阅")
+    @GetMapping("publishSubscribe")
+    public String publishSubscribe() {
+        RedisUtil.publish(DemoConstant.REDIS_CHANNEL_TEST, RandomUtil.randomString(10));
+        return "success";
     }
 
 }
