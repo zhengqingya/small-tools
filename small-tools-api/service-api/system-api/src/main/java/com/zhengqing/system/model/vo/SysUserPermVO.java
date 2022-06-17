@@ -55,6 +55,9 @@ public class SysUserPermVO extends BaseVO {
 
     // ================= ↓↓↓↓↓↓ 角色信息 ↓↓↓↓↓↓ =================
 
+    @ApiModelProperty("角色名")
+    private String roleNames;
+
     @ApiModelProperty("角色编码")
     private List<String> roleCodeList;
 

@@ -32,7 +32,7 @@ export default {
   },
   data() {
     return {
-      dataToken: { "ZQ-X-TOKEN": getToken() },
+      dataToken: { "Authorization": getToken() },
       // uploadUrl: process.env.VUE_APP_BASE_API + this.uploadUrlApi,
       // uploadUrl: process.env.VUE_APP_BASE_API + "/api/smallTools/crawler/articleInfo/importData",
       loadingInstance: "",

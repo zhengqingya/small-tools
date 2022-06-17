@@ -15,11 +15,12 @@ service.interceptors.request.use(
   config => {
     // do something before request is sent
 
-    if (store.getters.token) {
+    if (store.getters.token)
+    {
       // let each request carry token
-      // ['ZQ-X-TOKEN'] is a custom headers key
+      // ['Authorization'] is a custom headers key
       // please modify it according to the actual situation
-      config.headers["ZQ-X-TOKEN"] = getToken();
+      config.headers["Authorization"] = getToken();
     }
     return config;
   },
@@ -44,13 +45,15 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data;
-    if (res.code !== 200) {
+    if (res.code !== 200)
+    {
       Message({
         message: res.msg || "接口请求报错",
         type: "error",
         duration: 5 * 1000
       });
-      if (res.code === -1) {
+      if (res.code === -1)
+      {
         // token过期
         // to re-login
         MessageBox.confirm("您的登录账号已失效，请重新登录", {
@@ -64,7 +67,8 @@ service.interceptors.response.use(
         });
       }
       return Promise.reject(new Error(res.msg || "Error"));
-    } else {
+    } else
+    {
       return res;
     }
   },

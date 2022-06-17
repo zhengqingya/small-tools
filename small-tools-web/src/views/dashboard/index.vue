@@ -1,9 +1,9 @@
 <template>
   <my-base-wraper class="content">
     <hr />
-    <span>打赏</span>
+    <span>HelloWord</span>
     <div>
-      <img src="./payee_code_WeChat.jpg" />
+      <!-- <img src="./payee_code_WeChat.jpg" /> -->
     </div>
   </my-base-wraper>
 </template>

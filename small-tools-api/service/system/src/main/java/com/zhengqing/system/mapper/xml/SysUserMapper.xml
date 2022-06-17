@@ -6,7 +6,7 @@
     <select id="selectUsers" resultType="com.zhengqing.system.model.vo.SysUserDetailVO">
         SELECT
         u.*,
-        ur.role_ids roleIds,
+        GROUP_CONCAT(ur.role_id) roleIds,
         (
         CASE u.sex
         WHEN 1 THEN '男'
@@ -23,6 +23,7 @@
         <if test="filter.nickname!=null and filter.nickname!=''">
             AND u.nickname LIKE CONCAT( '%', #{filter.nickname} , '%' )
         </if>
+        GROUP BY u.user_id
         ORDER BY u.user_id DESC
     </select>
 

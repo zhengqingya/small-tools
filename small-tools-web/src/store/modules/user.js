@@ -35,20 +35,25 @@ const mutations = {
 };
 
 const actions = {
-  login({ commit, state }, userInfo) {
+  login ({ commit, state }, userInfo) {
     const { username, password, token, ifThirdpartOauth } = userInfo;
     return new Promise(async (resolve, reject) => {
-      if (ifThirdpartOauth === "true") {
+      if (ifThirdpartOauth === "true")
+      {
         commit("SET_TOKEN", token);
         setToken(token);
         resolve();
-      } else {
+      } else
+      {
+
+
         await api_sys_user
-          .login(username.trim(), encryptByDES(password, state.DES_KEY))
+          .login(username.trim(), password) // encryptByDES(password, state.DES_KEY)
           .then(res => {
             const { data } = res;
-            commit("SET_TOKEN", data.token);
-            setToken(data.token);
+            let token = data.tokenType + " " + data.value
+            commit("SET_TOKEN", token);
+            setToken(token);
             resolve();
           })
           .catch(error => {
@@ -58,24 +63,25 @@ const actions = {
     });
   },
 
-  getInfo({ commit, state, dispatch }) {
+  getInfo ({ commit, state, dispatch }) {
     return new Promise(async (resolve, reject) => {
       let res = await api_sys_user.getInfo(state.token);
       const { data } = res;
-      if (!data) {
+      if (!data)
+      {
         reject("Verification failed, please Login again.");
       }
-      const { roleNames, username, nickname, userId, avatar } = data;
+      const { roleNames, username, nickname, userId, avatarUrl } = data;
       commit("SET_ROLES", roleNames);
       commit("SET_NAME", username);
       commit("SET_USER_ID", userId);
-      commit("SET_AVATAR", avatar);
+      commit("SET_AVATAR", avatarUrl);
       commit("SET_NICKNAME", nickname);
       resolve(data);
     });
   },
 
-  logout({ commit, state }) {
+  logout ({ commit, state }) {
     return new Promise(async (resolve, reject) => {
       await api_sys_user.logout();
       commit("SET_TOKEN", "");
@@ -88,7 +94,7 @@ const actions = {
   },
 
   // remove token
-  resetToken({ commit }) {
+  resetToken ({ commit }) {
     return new Promise(resolve => {
       commit("SET_TOKEN", "");
       commit("SET_ROLES", []);

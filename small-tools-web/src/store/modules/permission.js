@@ -6,10 +6,12 @@ import parentView from "@/components/Layout/parentView";
  * @param roles
  * @param route
  */
-function hasPermission(roles, route) {
-  if (route.meta && route.meta.roles) {
+function hasPermission (roles, route) {
+  if (route.meta && route.meta.roles)
+  {
     return roles.some(role => route.meta.roles.includes(role));
-  } else {
+  } else
+  {
     return true;
   }
 }
@@ -19,13 +21,15 @@ function hasPermission(roles, route) {
  * @param routes asyncRoutes
  * @param roles
  */
-export function filterAsyncRoutes(routes, roles) {
+export function filterAsyncRoutes (routes, roles) {
   const res = [];
 
   routes.forEach(route => {
     const tmp = { ...route };
-    if (hasPermission(roles, tmp)) {
-      if (tmp.children) {
+    if (hasPermission(roles, tmp))
+    {
+      if (tmp.children)
+      {
         tmp.children = filterAsyncRoutes(tmp.children, roles);
       }
       res.push(tmp);
@@ -38,31 +42,40 @@ export function filterAsyncRoutes(routes, roles) {
  * 根据后台返回的侧边栏权限路由表生成新的路由表
  * @param {arr} roleMenus
  */
-function createRouter(roleMenus) {
+function createRouter (roleMenus) {
   const accessedRoutes = [];
   roleMenus.length &&
     roleMenus.forEach(menu => {
       var component = null;
-      if (menu.component === "Layout") {
+      if (menu.component === "Layout")
+      {
         component = Layout;
-      } else if (menu.component === "parentView") {
+      } else if (menu.component === "parentView")
+      {
         component = parentView;
-      } else if (menu.component) {
-        try {
+      } else if (menu.component)
+      {
+        try
+        {
           component = require("@/views/" + menu.component + ".vue").default;
-        } catch (err) {
+        } catch (err)
+        {
           console.log(err);
           component = null;
         }
-      } else {
+      } else
+      {
         component = null;
       }
-      if (component != null) {
+      if (component != null)
+      {
         var childRouter = [];
-        if (menu.children.length > 0) {
+        if (menu.children.length > 0)
+        {
           childRouter = createRouter(menu.children);
         }
-        if (childRouter.length) {
+        if (childRouter.length)
+        {
           accessedRoutes.push({
             path: menu.path,
             component: component,
@@ -78,7 +91,8 @@ function createRouter(roleMenus) {
             hidden: menu.hidden,
             alwaysShow: menu.alwaysShow
           });
-        } else {
+        } else
+        {
           accessedRoutes.push({
             path: menu.path,
             component: component,
@@ -113,7 +127,7 @@ const mutations = {
 };
 
 const actions = {
-  generateRoutes({ commit }, roles) {
+  generateRoutes ({ commit }, roles) {
     return new Promise(resolve => {
       const accessedRoutes = createRouter(roles).concat(asyncRoutes);
       // console.log(accessedRoutes)

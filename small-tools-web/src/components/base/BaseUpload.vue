@@ -37,7 +37,7 @@ export default {
     const upload_url = this.$store.state.app.uploadFileUrl;
     return {
       uploadUrl: upload_url,
-      dataToken: { "ZQ-X-TOKEN": getToken() },
+      dataToken: { "Authorization": getToken() },
       fileList: []
     };
   },

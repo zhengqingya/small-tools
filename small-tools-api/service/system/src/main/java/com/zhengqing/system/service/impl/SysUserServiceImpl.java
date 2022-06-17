@@ -192,6 +192,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         Assert.notEmpty(roleIdList, "请联系管理员为其分配角色!");
         List<SysRole> roleList = this.sysRoleService.listByIds(roleIdList);
         Assert.notEmpty(roleList, "请联系管理员为其分配角色!");
+        StringJoiner roleNameSj = new StringJoiner(",", "[", "]");
+        roleList.forEach(item -> roleNameSj.add(item.getName()));
+        userPerm.setRoleNames(roleNameSj.toString());
         List<String> roleCodeList = roleList.stream().map(e -> e.getCode()).collect(Collectors.toList());
         userPerm.setRoleCodeList(roleCodeList);
 

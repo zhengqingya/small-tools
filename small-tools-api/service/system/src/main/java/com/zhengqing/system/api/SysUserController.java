@@ -90,7 +90,7 @@ public class SysUserController extends BaseController {
         this.sysUserService.resetPassword(userId);
     }
 
-    @GetMapping("getCurrentUserInfoAndPermission")
+    @GetMapping("getUserPerm")
     @ApiOperation("获取当前登录用户权限信息")
     public SysUserPermVO getUserPerm(@RequestParam(required = false) Integer userId) {
         SysUserPermVO userPerm = this.sysUserService.getUserPerm(
