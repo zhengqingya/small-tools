@@ -47,7 +47,7 @@ public class ResponseUtil {
         response.getHeaders().set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         response.getHeaders().set("Access-Control-Allow-Origin", "*");
         response.getHeaders().set("Cache-Control", "no-cache");
-        String result = JSON.toJSONString(ApiResult.fail(apiResultCodeEnum.getDesc()));
+        String result = JSON.toJSONString(ApiResult.fail(apiResultCodeEnum.getCode(), apiResultCodeEnum.getDesc()));
         DataBuffer buffer = response.bufferFactory().wrap(result.getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(buffer)).doOnError(error -> DataBufferUtils.release(buffer));
     }

@@ -45,6 +45,7 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data;
+
     if (res.code !== 200)
     {
       Message({
@@ -73,6 +74,7 @@ service.interceptors.response.use(
     }
   },
   error => {
+
     // 接口反爬虫处理 509状态码
     // if (error.response.status === 509) {
     //   const html = error.response.data
@@ -80,14 +82,32 @@ service.interceptors.response.use(
     //   verifyWindow.document.write(html)
     //   verifyWindow.document.getElementById('baseUrl').value = process.env.VUE_APP_BASE_API
     // }
-    console.log("err" + error); // for debug
-    Message({
-      message: "网络异常，请稍后再试",
-      type: "error",
-      duration: 5 * 1000
-    });
-    // this.submitFail(res.msg)
-    return Promise.reject(error);
+
+    if (error.response.status === 401)
+    {
+      // token过期
+      // to re-login
+      MessageBox.confirm("您的登录账号已失效，请重新登录", {
+        confirmButtonText: "再次登录",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        store.dispatch("user/resetToken").then(() => {
+          location.reload();
+        });
+      });
+    } else
+    {
+      console.log("错误：" + error); // for debug
+      Message({
+        message: "网络异常，请稍后再试!",
+        type: "error",
+        duration: 5 * 1000
+      });
+      // this.submitFail(res.msg)
+      return Promise.reject(error);
+    }
+
   }
 );
 

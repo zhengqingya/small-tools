@@ -29,13 +29,13 @@
 
     <select id="selectUserByUserId" resultType="com.zhengqing.system.model.vo.SysUserDetailVO">
         SELECT u.*,
-               ur.role_ids roleIds,
+               GROUP_CONCAT(ur.role_id) roleIds,
                (
                    CASE u.sex
                        WHEN 1 THEN '男'
                        WHEN 2 THEN '女'
                        ELSE '未知' END
-                   )       sexName
+                   )                    sexName
         FROM t_sys_user u
                  LEFT JOIN t_sys_user_role ur ON u.user_id = ur.user_id
         WHERE u.is_deleted = 0
