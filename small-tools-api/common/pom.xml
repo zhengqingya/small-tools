@@ -19,6 +19,7 @@
         <module>core</module>
         <module>db</module>
         <module>feign</module>
+        <module>file</module>
         <module>log</module>
         <module>mq</module>
         <module>redis</module>

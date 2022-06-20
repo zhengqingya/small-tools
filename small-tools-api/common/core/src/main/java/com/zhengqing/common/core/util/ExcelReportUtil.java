@@ -10,6 +10,7 @@ import com.zhengqing.common.base.util.MyFileUtil;
 import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.core.enums.ExcelExportFileTypeEnum;
 import com.zhengqing.common.core.enums.ExcelImportFileTypeEnum;
+import com.zhengqing.common.file.util.QiniuFileUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

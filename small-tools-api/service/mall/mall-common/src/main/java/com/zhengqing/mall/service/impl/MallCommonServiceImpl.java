@@ -6,7 +6,7 @@ import com.google.common.collect.Maps;
 import com.zhengqing.common.base.exception.MyException;
 import com.zhengqing.common.base.http.ApiResult;
 import com.zhengqing.common.core.custom.validator.common.ValidList;
-import com.zhengqing.common.core.util.QiniuFileUtil;
+import com.zhengqing.common.file.util.QiniuFileUtil;
 import com.zhengqing.mall.common.model.bo.PmsSpuBuyNumInfoBO;
 import com.zhengqing.mall.common.model.enums.*;
 import com.zhengqing.mall.common.model.vo.MallFileVO;

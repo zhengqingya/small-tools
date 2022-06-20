@@ -75,28 +75,6 @@
             <version>${hibernate-validator.version}</version>
         </dependency>
 
-        <!-- File转MultipartFile所需 -->
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-mock -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-mock</artifactId>
-            <version>${spring-mock.version}</version>
-        </dependency>
-
-        <!-- 解决文件上传报错：org.springframework.web.util.NestedServletException: Handler dispatch failed; nested exception is java.lang.NoClassDefFoundError: org/apache/commons/fileupload/disk/DiskFileItemFactory -->
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>${commons-fileupload.version}</version>
-        </dependency>
-
         <!-- WebMagic：爬虫 -->
         <dependency>
             <groupId>us.codecraft</groupId>

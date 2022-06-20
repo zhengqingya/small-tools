@@ -4,7 +4,7 @@ import cn.hutool.core.io.FileUtil;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.exception.MyException;
 import com.zhengqing.common.core.constant.AppConstant;
-import com.zhengqing.common.core.util.QiniuFileUtil;
+import com.zhengqing.common.file.util.QiniuFileUtil;
 import com.zhengqing.tool.db.enums.StDbDataSourceTypeEnum;
 import com.zhengqing.tool.db.enums.StDbOperateSqlEnum;
 import com.zhengqing.tool.db.model.bo.StDbTableColumnBO;

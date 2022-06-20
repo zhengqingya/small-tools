@@ -1,4 +1,4 @@
-package com.zhengqing.common.core.util;
+package com.zhengqing.common.file.util;
 
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;

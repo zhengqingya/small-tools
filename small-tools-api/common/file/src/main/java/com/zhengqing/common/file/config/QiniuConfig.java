@@ -1,11 +1,11 @@
-package com.zhengqing.common.core.config;
+package com.zhengqing.common.file.config;
 
 import com.google.gson.Gson;
 import com.qiniu.common.Zone;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
-import com.zhengqing.common.base.exception.MyException;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,8 +35,9 @@ public class QiniuConfig {
      * 配置空间的存储区域
      */
     @Bean
+    @SneakyThrows(Exception.class)
     public com.qiniu.storage.Configuration qiNiuConfig() {
-        switch (zone) {
+        switch (this.zone) {
             case "huadong":
                 return new com.qiniu.storage.Configuration(Zone.huadong());
             case "huabei":
@@ -46,7 +47,7 @@ public class QiniuConfig {
             case "beimei":
                 return new com.qiniu.storage.Configuration(Zone.beimei());
             default:
-                throw new MyException("存储区域配置错误");
+                throw new Exception("存储区域配置错误");
         }
     }
 
@@ -55,7 +56,7 @@ public class QiniuConfig {
      */
     @Bean
     public UploadManager uploadManager() {
-        return new UploadManager(qiNiuConfig());
+        return new UploadManager(this.qiNiuConfig());
     }
 
     /**
@@ -63,7 +64,7 @@ public class QiniuConfig {
      */
     @Bean
     public Auth auth() {
-        return Auth.create(accessKey, secretKey);
+        return Auth.create(this.accessKey, this.secretKey);
     }
 
     /**
@@ -71,7 +72,7 @@ public class QiniuConfig {
      */
     @Bean
     public BucketManager bucketManager() {
-        return new BucketManager(auth(), qiNiuConfig());
+        return new BucketManager(this.auth(), this.qiNiuConfig());
     }
 
     @Bean

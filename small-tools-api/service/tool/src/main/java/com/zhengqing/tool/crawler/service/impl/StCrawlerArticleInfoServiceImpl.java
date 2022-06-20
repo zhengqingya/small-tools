@@ -17,7 +17,7 @@ import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.core.enums.ExcelExportFileTypeEnum;
 import com.zhengqing.common.core.enums.ExcelImportFileTypeEnum;
 import com.zhengqing.common.core.util.ExcelReportUtil;
-import com.zhengqing.common.core.util.QiniuFileUtil;
+import com.zhengqing.common.file.util.QiniuFileUtil;
 import com.zhengqing.tool.crawler.entity.StCrawlerArticleInfo;
 import com.zhengqing.tool.crawler.enums.StCrawlerExportDataTypeEnum;
 import com.zhengqing.tool.crawler.mapper.StCrawlerArticleInfoMapper;

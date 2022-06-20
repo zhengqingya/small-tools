@@ -1,7 +1,7 @@
 package com.zhengqing.system.api;
 
 import com.zhengqing.common.core.api.BaseController;
-import com.zhengqing.common.core.util.QiniuFileUtil;
+import com.zhengqing.common.file.util.QiniuFileUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

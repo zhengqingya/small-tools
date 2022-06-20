@@ -8,7 +8,7 @@ import com.google.common.collect.Lists;
 import com.zhengqing.common.base.util.FreeMarkerUtil;
 import com.zhengqing.common.base.util.MyFileUtil;
 import com.zhengqing.common.core.constant.AppConstant;
-import com.zhengqing.common.core.util.QiniuFileUtil;
+import com.zhengqing.common.file.util.QiniuFileUtil;
 import com.zhengqing.tool.db.model.vo.StDbTableColumnListVO;
 import com.zhengqing.tool.db.service.IStDbJdbcService;
 import com.zhengqing.tool.generator.entity.CgProjectReDb;
