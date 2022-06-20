@@ -36,7 +36,7 @@
 
 
     <!-- 1、设置日志控制台输出 -->
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <!--此日志appender是为开发使用，只配置最底级别，控制台输出的日志级别是大于或等于此级别的日志信息-->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>DEBUG</level>
@@ -76,12 +76,19 @@
             <!-- 日志文件保留天数 -->
             <maxHistory>${LOG_MAX_HISTORY_DAY}</maxHistory>
         </rollingPolicy>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <!-- 设置字符集 -->
-            <charset>UTF-8</charset>
-            <!-- 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+
+        <!--        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+        <!--            &lt;!&ndash; 设置字符集 &ndash;&gt;-->
+        <!--            <charset>UTF-8</charset>-->
+        <!--            &lt;!&ndash; 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 &ndash;&gt;-->
+        <!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>-->
+        <!--        </encoder>-->
+
+        <!-- 使用TLog:这里替换成AspectLogbackEncoder -->
+        <encoder class="com.yomahub.tlog.core.enhance.logback.AspectLogbackEncoder">
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
         </encoder>
+
         <!-- 日志文件最大的大小 -->
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>100MB</MaxFileSize>
@@ -99,12 +106,23 @@
         <resetJUL>true</resetJUL>
     </contextListener>
 
-    <!-- 日志输出级别 -->
-    <root level="DEBUG">
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
-        <!--        <appender-ref ref="LOGSTASH"/>-->
-    </root>
+
+    <!-- 开发或测试环境：仅输出到控制台即可 -->
+    <springProfile name="dev | test">
+        <!-- 日志输出级别 -->
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <!-- 生产环境：输出到文件 -->
+    <springProfile name="prod">
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <!--        <appender-ref ref="LOGSTASH"/>-->
+        </root>
+    </springProfile>
 
     <!-- 减少部分日志 -->
     <!-- 业务日志 -->
