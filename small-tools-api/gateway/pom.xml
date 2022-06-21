@@ -24,6 +24,10 @@
             <version>${small-tools-api.project.version}</version>
             <exclusions>
                 <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-web</artifactId>
                 </exclusion>
@@ -38,10 +42,6 @@
                 <exclusion>
                     <groupId>com.github.tobato</groupId>
                     <artifactId>fastdfs-client</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>slf4j-log4j12</artifactId>
-                    <groupId>org.slf4j</groupId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>

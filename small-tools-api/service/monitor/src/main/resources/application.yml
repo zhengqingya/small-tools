@@ -1,0 +1,10 @@
+# http://localhost:30020/actuator
+server:
+  port: 30020
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

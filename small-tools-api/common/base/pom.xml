@@ -25,7 +25,7 @@
             <version>${small-tools-api.project.version}</version>
         </dependency>
 
-        <!-- SpringBoot使用Undertow代替tomcat -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -36,6 +36,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- SpringBoot使用Undertow代替tomcat -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-undertow</artifactId>
@@ -52,18 +53,6 @@
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
             <version>${spring.boot.admin.version}</version>
-        </dependency>
-
-        <!-- 添加适用于生产环境的功能，如性能指标和监测等功能 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>HdrHistogram</artifactId>
-                    <groupId>org.hdrhistogram</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
 

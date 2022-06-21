@@ -1,6 +1,5 @@
 package com.zhengqing.common.base.constant;
 
-import com.zhengqing.common.swagger.config.swagger.SwaggerCommonConfig;
 
 /**
  * <p>

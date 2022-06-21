@@ -22,22 +22,6 @@
     <dependencies>
         <dependency>
             <groupId>com.zhengqing</groupId>
-            <artifactId>core</artifactId>
-            <version>${small-tools-api.project.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-logging</artifactId>
-                    <groupId>commons-logging</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>slf4j-log4j12</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.zhengqing</groupId>
             <artifactId>xxl-job</artifactId>
             <version>${small-tools-api.project.version}</version>
         </dependency>

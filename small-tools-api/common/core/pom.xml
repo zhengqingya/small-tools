@@ -37,6 +37,7 @@
             <version>${small-tools-api.project.version}</version>
         </dependency>
 
+
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>db</artifactId>
@@ -55,11 +56,11 @@
             <version>${small-tools-api.project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.zhengqing</groupId>
-            <artifactId>sentinel</artifactId>
-            <version>${small-tools-api.project.version}</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.zhengqing</groupId>-->
+        <!--            <artifactId>sentinel</artifactId>-->
+        <!--            <version>${small-tools-api.project.version}</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>com.zhengqing</groupId>

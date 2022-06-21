@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration scan="true">
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <!-- 注释则不引入base.xml，使用自定义的Console -->
+    <!--    <include resource="org/springframework/boot/logging/logback/base.xml"/>-->
 
     <!-- ============================= ↓↓↓↓↓↓ 外部变量 ↓↓↓↓↓↓ ============================= -->
 
@@ -53,7 +54,11 @@
 
         <!-- 使用TLog:这里替换成AspectLogbackEncoder -->
         <encoder class="com.yomahub.tlog.core.enhance.logback.AspectLogbackEncoder">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <!-- 彩色日志 -->
+            <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
+            <!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>-->
+            <!-- 日志显示详细包名使用下面这个 -->
+            <!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>-->
         </encoder>
     </appender>
 
@@ -102,9 +107,9 @@
     <!--    </appender>-->
 
 
-    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
-        <resetJUL>true</resetJUL>
-    </contextListener>
+    <!--    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">-->
+    <!--        <resetJUL>true</resetJUL>-->
+    <!--    </contextListener>-->
 
 
     <!-- 开发或测试环境：仅输出到控制台即可 -->
@@ -151,15 +156,17 @@
     <logger name="com.sun" level="WARN"/>
     <logger name="javax" level="WARN"/>
     <logger name="sun.net.www" level="WARN"/>
-    <logger name="org.springframework" level="WARN"/>
     <logger name="org.hibernate.validator" level="WARN"/>
     <logger name="reactor" level="WARN"/>
     <logger name="ConditionEvaluationReportLoggingListener" level="WARN"/>
     <logger name="org.mybatis" level="WARN"/>
     <logger name="com.baomidou" level="WARN"/>
-    <logger name="org.apache.http" level="WARN"/>
     <logger name="jdk.event.security" level="WARN"/>
     <logger name="org.jxls" level="WARN"/>
     <logger name="org.redisson" level="WARN"/>
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.apache" level="WARN"/>
+    <logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="WARN"/>
+    <logger name="Validator" level="WARN"/>
 
 </configuration>
