@@ -33,14 +33,11 @@
         <spring.boot.admin.version>2.3.0</spring.boot.admin.version>
 
         <!-- 版本参考：https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E -->
-        <!--        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>-->
-        <!--        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>-->
-        <!--        <spring-cloud-alibaba.version>2.2.3.RELEASE</spring-cloud-alibaba.version>-->
-        <spring-boot.version>2.7.0</spring-boot.version>
-        <spring-cloud.version>2021.0.2</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
-
+        <spring-boot.version>2.6.7</spring-boot.version>
+        <spring-cloud.version>2021.0.1</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
         <spring.platform.version>Cairo-SR8</spring.platform.version>
+        <spring-boot-admin.version>2.6.7</spring-boot-admin.version>
 
         <mybatis-plus-boot-starter.version>3.4.3.1</mybatis-plus-boot-starter.version>
         <dynamic-datasource-spring-boot-starter.version>3.3.2</dynamic-datasource-spring-boot-starter.version>
@@ -102,6 +99,7 @@
         <module>auth</module>
         <module>common</module>
         <module>gateway</module>
+        <module>ops</module>
         <module>service</module>
         <module>service-api</module>
         <module>test</module>

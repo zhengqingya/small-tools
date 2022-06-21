@@ -168,5 +168,8 @@
     <logger name="org.apache" level="WARN"/>
     <logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="WARN"/>
     <logger name="Validator" level="WARN"/>
+    <logger name="org.jboss.logging" level="WARN"/>
+    <logger name="de.codecentric" level="WARN"/>
+    <logger name="org.thymeleaf" level="WARN"/>
 
 </configuration>

@@ -1,0 +1,20 @@
+# http://localhost:30020/actuator
+server:
+  port: 30020
+
+spring:
+  security:
+    user:
+      name: admin
+      password: 123456
+  boot:
+    admin:
+      ui:
+        title: small-tools服务状态监控
+
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

@@ -17,7 +17,6 @@
     <modules>
         <module>demo</module>
         <module>mall</module>
-        <module>monitor</module>
         <module>pay</module>
         <module>system</module>
         <module>tool</module>
@@ -72,18 +71,17 @@
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
 
+
+        <!--  SpringBoot 监控客户端 -->
+        <!--        <dependency>-->
+        <!--            <groupId>de.codecentric</groupId>-->
+        <!--            <artifactId>spring-boot-admin-starter-client</artifactId>-->
+        <!--            <version>${spring-boot-admin.version}</version>-->
+        <!--        </dependency>-->
         <!-- SpringBoot Actuator：性能指标和监测等功能 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-
-        <!--  SpringBoot 监控客户端 -->
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
 
     </dependencies>

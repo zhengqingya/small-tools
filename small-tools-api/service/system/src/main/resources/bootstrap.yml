@@ -35,9 +35,3 @@ spring:
             refresh: true
         username: ${spring.cloud.nacos.discovery.username}
         password: ${spring.cloud.nacos.discovery.password}
-
-  # 配置服务端地址
-#  boot:
-#    admin:
-#      client:
-#        url: http://localhost:30020

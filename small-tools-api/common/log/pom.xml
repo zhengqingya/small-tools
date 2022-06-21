@@ -19,24 +19,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.zhengqing</groupId>
-            <artifactId>base</artifactId>
-            <version>${small-tools-api.project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.zhengqing</groupId>
-            <artifactId>swagger</artifactId>
-            <version>${small-tools-api.project.version}</version>
-        </dependency>
-
-        <!-- AOP依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-
         <!-- TLog: https://tlog.yomahub.com -->
         <dependency>
             <groupId>com.yomahub</groupId>
