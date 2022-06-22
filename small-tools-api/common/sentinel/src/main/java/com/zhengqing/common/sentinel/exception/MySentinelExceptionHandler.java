@@ -8,11 +8,11 @@ import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;
 import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
 import com.alibaba.fastjson.JSON;
-import com.zhengqing.common.base.http.ApiResult;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 
 /**
  * <p> sentinel 统一异常处理 </p>
@@ -26,7 +26,7 @@ public class MySentinelExceptionHandler implements BlockExceptionHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, BlockException ex) throws Exception {
-        String msg = null;
+        final String msg;
         if (ex instanceof FlowException) {
             msg = "访问频繁，请稍候再试";
         } else if (ex instanceof DegradeException) {
@@ -46,7 +46,18 @@ public class MySentinelExceptionHandler implements BlockExceptionHandler {
         response.setCharacterEncoding("utf-8");
         response.setHeader("Content-Type", "application/json;charset=utf-8");
         response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write(JSON.toJSONString(ApiResult.fail(msg)));
+        /**
+         * {@link com.zhengqing.common.base.http.ApiResult#fail(String)}
+         */
+        response.getWriter().write(
+                JSON.toJSONString(
+                        new HashMap<String, String>(3) {{
+                            this.put("code", "400");
+                            this.put("msg", msg);
+                            this.put("data", "");
+                        }}
+                )
+        );
     }
 
 }

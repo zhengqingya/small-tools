@@ -1,6 +1,6 @@
-# http://localhost:30020/actuator
+# http://localhost:30000/actuator
 server:
-  port: 30020
+  port: 30000
 
 spring:
   security:
@@ -17,4 +17,5 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: '*
+'

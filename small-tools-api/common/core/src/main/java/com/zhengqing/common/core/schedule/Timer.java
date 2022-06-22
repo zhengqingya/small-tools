@@ -22,7 +22,7 @@ public class Timer {
      * 每1小时执行一次
      */
     @Scheduled(cron = "0 0 0/1 * * ? ")
-    public void reportCurrentTime() {
+    public void printCurrentTime() {
         log.debug("现在时间：【{}】", MyDateUtil.nowStr());
     }
 

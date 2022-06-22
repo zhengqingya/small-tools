@@ -25,23 +25,18 @@
         <module>redis</module>
         <module>sentinel</module>
         <module>swagger</module>
+        <module>web</module>
         <module>xxl-job</module>
     </modules>
 
     <dependencies>
-        <!-- SpringCloud Ailibaba Nacos Discovery -->
+        <!-- SpringCloud Alibaba Nacos Discovery -->
         <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-lang3</artifactId>
-                    <groupId>org.apache.commons</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
-        <!-- SpringCloud Ailibaba Nacos Config -->
+        <!-- SpringCloud Alibaba Nacos Config -->
         <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

@@ -66,18 +66,21 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-        </dependency>
-
-
-        <!--  SpringBoot 监控客户端 -->
+        <!--
+        *** SpringBoot 监控客户端 (tips:如果集成了nacos则无需引入客户端依赖和如下配置)
+        # application.yml配置
+        spring:
+          boot:
+            admin:
+              client:
+                url: http://127.0.0.1:30000
+        -->
         <!--        <dependency>-->
         <!--            <groupId>de.codecentric</groupId>-->
         <!--            <artifactId>spring-boot-admin-starter-client</artifactId>-->
         <!--            <version>${spring-boot-admin.version}</version>-->
         <!--        </dependency>-->
+
         <!-- SpringBoot Actuator：性能指标和监测等功能 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

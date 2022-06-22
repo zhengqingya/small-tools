@@ -19,27 +19,24 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.zhengqing</groupId>
-            <artifactId>base</artifactId>
-            <version>${small-tools-api.project.version}</version>
-        </dependency>
-
         <!-- Sentinel -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>fastjson</artifactId>
-                    <groupId>com.alibaba</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
+
         <!-- Sentinel规则持久化至Nacos -->
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>3.0-alpha-1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

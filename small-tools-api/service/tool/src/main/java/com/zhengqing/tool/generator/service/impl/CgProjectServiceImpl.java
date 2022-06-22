@@ -14,6 +14,7 @@ import com.zhengqing.tool.generator.service.ICgProjectPackageService;
 import com.zhengqing.tool.generator.service.ICgProjectService;
 import com.zhengqing.tool.generator.service.ICgProjectTemplateService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +40,7 @@ public class CgProjectServiceImpl extends ServiceImpl<CgProjectMapper, CgProject
     @Resource
     private ICgProjectPackageService cgProjectPackageService;
 
+    @Lazy
     @Resource
     private ICgProjectTemplateService cgProjectTemplateService;
 

@@ -51,13 +51,13 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- SpringCloud Ailibaba Nacos Discovery -->
+        <!-- SpringCloud Alibaba Nacos Discovery -->
         <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-        <!-- SpringCloud Ailibaba Nacos Config -->
+        <!-- SpringCloud Alibaba Nacos Config -->
         <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

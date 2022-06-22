@@ -10,6 +10,7 @@ import com.zhengqing.tool.crawler.model.vo.StCrawlerArticleInfoListVO;
 import com.zhengqing.tool.crawler.model.vo.StCrawlerWebsiteListVO;
 import com.zhengqing.tool.crawler.service.IStCrawlerArticleInfoService;
 import com.zhengqing.tool.crawler.service.IStCrawlerWebsiteService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import us.codecraft.webmagic.ResultItems;
@@ -34,6 +35,7 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class StCsdnPipeline implements Pipeline {
 
+    @Lazy
     @Resource
     private IStCrawlerWebsiteService stCrawlerWebsiteService;
 

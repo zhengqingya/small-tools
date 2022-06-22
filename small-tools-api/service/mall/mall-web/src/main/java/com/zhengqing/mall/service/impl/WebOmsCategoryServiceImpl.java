@@ -17,6 +17,7 @@ import com.zhengqing.mall.web.model.dto.WebPmsCategorySaveDTO;
 import com.zhengqing.mall.web.model.vo.WebPmsCategoryListVO;
 import com.zhengqing.mall.web.model.vo.WebPmsCategoryPageVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -39,6 +40,7 @@ public class WebOmsCategoryServiceImpl extends OmsCategoryServiceImpl<PmsCategor
     private PmsCategoryMapper pmsCategoryMapper;
 
 
+    @Lazy
     @Resource
     private WebPmsCategorySpuRelationService webPmsCategorySpuRelationService;
 

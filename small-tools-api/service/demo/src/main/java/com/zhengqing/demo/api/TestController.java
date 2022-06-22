@@ -4,7 +4,6 @@ import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.http.ApiResult;
 import com.zhengqing.common.base.model.dto.BaseDTO;
-import com.zhengqing.common.base.util.EmailUtil;
 import com.zhengqing.common.base.util.RestTemplateUtil;
 import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.common.core.aspect.config.BeanSelfAware;
@@ -68,13 +67,6 @@ public class TestController extends BaseController implements BeanSelfAware {
     @ApiOperation("restTemplate")
     public String restTemplate() {
         return RestTemplateUtil.get("http://127.0.0.1:20040/web/api/demo/test", String.class).getBody();
-    }
-
-    @PostMapping("sendMail")
-    @ApiOperation("sendMail")
-    public String sendMail(@RequestParam String sendTo) {
-        EmailUtil.sendMail("test", "content", sendTo);
-        return "SUCCESS";
     }
 
     @ApiOperation("testHandleReturnValue")

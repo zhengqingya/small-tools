@@ -16,6 +16,7 @@ import com.zhengqing.mall.web.model.dto.*;
 import com.zhengqing.mall.web.model.vo.WebPmsCategorySpuRelationListVO;
 import com.zhengqing.mall.web.model.vo.WebPmsCategorySpuRelationPageVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -37,7 +38,7 @@ public class WebPmsCategorySpuRelationServiceImpl extends PmsCategorySpuRelation
     @Resource
     private PmsCategorySpuRelationMapper pmsCategorySpuRelationMapper;
 
-
+    @Lazy
     @Resource
     private WebPmsSpuService webPmsSpuService;
 
