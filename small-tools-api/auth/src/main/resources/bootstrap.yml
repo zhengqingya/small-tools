@@ -3,4 +3,12 @@ spring:
     name: auth # 应用名称
   profiles:
     active: dev # 环境配置
-
+  # 数据源配置
+  datasource:
+    dynamic:
+      datasource:
+        master:
+          url: jdbc:mysql://${small-tools.mysql.master.ip}:${small-tools.mysql.master.port}/small-tools${small-tools.mysql.master.url-params}
+          username: ${small-tools.mysql.master.username}
+          password: ${small-tools.mysql.master.password}
+          driver-class-name: com.mysql.cj.jdbc.Driver
