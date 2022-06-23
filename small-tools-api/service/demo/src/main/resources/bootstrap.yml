@@ -3,161 +3,20 @@ spring:
     name: demo # 应用名称
   profiles:
     active: dev # 环境配置
-
-  redis:
-    # Redis数据库索引（默认为0）
-    database: 1
-    # Redis服务器地址
-    host: ${small-tools.ip}
-    # Redis服务器连接端口
-    port: 6379
-    time: 6000
-    connect-timeout: 6000
-    # Redis服务器连接密码（默认为空）
-    password: 123456
-    jedis:
-      pool:
-        max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
-        max-wait: -1      # 连接池最大阻塞等待时间（使用负值表示没有限制）
-        max-idle: 10      # 连接池中的最大空闲连接
-        min-idle: 5       # 连接池中的最小空闲连接
-
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848 # nacos服务注册地址
-        register-enabled: true # 是否注册到注册中心上，默认true，若为false则不会注册到注册中心，但是可以从注册中心获取服务列表
-        namespace: ${spring.profiles.active}   # 命名空间
-        group: small-tools                     # 分组
-        username: nacos
-        password: nacos
-        metadata:
-          #当前实例版本
-          version: ${spring.cloud.client.ip-address}
-      config:
-        server-addr: ${spring.cloud.nacos.discovery.server-addr}  # 配置中心地址
-        namespace: ${spring.cloud.nacos.discovery.namespace}      # 命名空间
-        group: ${spring.cloud.nacos.discovery.group}              # 分组
-        # dataId完整格式: ${prefix}-${spring.profiles.active}.${file-extension}
-        prefix: ${spring.application.name}  # 默认为`spring.application.name`的值
-        file-extension: yml                 # 配置文件格式
-        refresh-enabled: true               # 开启自动刷新配置
-        # 指定要读取共享配置文件的DataID,多个文件用`,`分隔
-        #        shared-dataids: common-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
-        # 指定共享配置文件支持自动刷新
-        #        refreshable-dataids: ${spring.cloud.nacos.config.shared-dataids}
-        # 指定共享配置文件+自动刷新配置
-        extension-configs:
-          - data-id: common.${spring.cloud.nacos.config.file-extension}
-            group: ${spring.cloud.nacos.discovery.group}
-            refresh: true
-        username: ${spring.cloud.nacos.discovery.username}
-        password: ${spring.cloud.nacos.discovery.password}
-
-    sentinel:
-      enabled: true # 自动化配置是否生效
-      eager: true   # 禁用控制台懒加载
-      web-context-unify: false # 关闭调用链路收敛 => 实现链路流控
-      transport:
-        dashboard: 172.16.2.244:8858 # www.zhengqingya.com:8858 # 控制台地址
-        client-ip: ${spring.cloud.client.ip-address} # 获取本机IP地址
-        port: 18719 # 启动该服务，会在应用程序的相应服务器上启动HTTP Server，并且该服务器将与Sentinel dashboard进行交互
-      #      log:
-      #        switch-pid: true
-
-      # ============== ↓↓↓↓↓↓ 增加规则持久化配置到nacos ↓↓↓↓↓↓ ==============
+  # 数据源配置
+  datasource:
+    dynamic:
       datasource:
-        # 流控规则
-        flow:
-          nacos:
-            server-addr: ${spring.cloud.nacos.config.server-addr}
-            username: ${spring.cloud.nacos.config.username}
-            password: ${spring.cloud.nacos.config.password}
-            namespace: ${spring.cloud.nacos.config.namespace}
-            group-id: sentinel-group
-            data-id: ${spring.application.name}-sentinel-flow-rules
-            # 规则类型：flow、degrade、param-flow、system、authority
-            rule-type: flow
-        # 熔断降级
-        degrade:
-          nacos:
-            server-addr: ${spring.cloud.nacos.config.server-addr}
-            username: ${spring.cloud.nacos.config.username}
-            password: ${spring.cloud.nacos.config.password}
-            namespace: ${spring.cloud.nacos.config.namespace}
-            group-id: sentinel-group
-            data-id: ${spring.application.name}-sentinel-degrade-rules
-            rule-type: degrade
-        # 热点规则
-        param-flow:
-          nacos:
-            server-addr: ${spring.cloud.nacos.config.server-addr}
-            username: ${spring.cloud.nacos.config.username}
-            password: ${spring.cloud.nacos.config.password}
-            namespace: ${spring.cloud.nacos.config.namespace}
-            group-id: sentinel-group
-            data-id: ${spring.application.name}-sentinel-param-flow-rules
-            rule-type: param-flow
-        # 系统规则
-        system:
-          nacos:
-            server-addr: ${spring.cloud.nacos.config.server-addr}
-            username: ${spring.cloud.nacos.config.username}
-            password: ${spring.cloud.nacos.config.password}
-            namespace: ${spring.cloud.nacos.config.namespace}
-            group-id: sentinel-group
-            data-id: ${spring.application.name}-sentinel-system-rules
-            rule-type: system
-        # 授权规则
-        authority:
-          nacos:
-            server-addr: ${spring.cloud.nacos.config.server-addr}
-            username: ${spring.cloud.nacos.config.username}
-            password: ${spring.cloud.nacos.config.password}
-            namespace: ${spring.cloud.nacos.config.namespace}
-            group-id: sentinel-group
-            data-id: ${spring.application.name}-sentinel-authority-rules
-            rule-type: authority
+        master:
+          url: jdbc:mysql://${small-tools.mysql.master.ip}:${small-tools.mysql.master.port}/small-tools${small-tools.mysql.master.url-params}
+          username: ${small-tools.mysql.master.username}
+          password: ${small-tools.mysql.master.password}
+          driver-class-name: com.mysql.cj.jdbc.Driver
 
-
-
-#    config:
-#      # 相同配置下优先使用本地配置 (注：需在nacos上配置才生效！)
-#      override-none: true
-#      allow-override: true
-#      override-system-properties: false
-
-
-# ================================== ↓↓↓↓↓↓ small-tools配置 ↓↓↓↓↓↓ ==================================
-small-tools:
-  swagger:
-    groupName: demo-localhost
-
-
-ribbon:
-  rule-type: version
-  eager-load:
-    enabled: true # 开启饥饿加载模式
-
-
-# feign配置
-feign:
-  sentinel:
-    enabled: true # openfeign整合sentinel，开启sentinel监控功能
-  hystrix:
-    enabled: true # 开启Feign的熔断功能 默认是关闭的
 
 
 # XXL-JOB 配置
 xxl:
   job:
     admin:
-      addresses: http://172.16.2.244:9003/xxl-job-admin # 调度中心部署跟地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"；为空则关闭自动注册；
-    accessToken:  # 执行器通讯TOKEN [选填]：非空时启用；
-    executor:
-      appname: xxl-job-executor-sample # 执行器AppName [选填]：执行器心跳注册分组依据；为空则关闭自动注册
-      address: # 执行器注册 [选填]：优先使用该配置作为注册地址，为空时使用内嵌服务 ”IP:PORT“ 作为注册地址。从而更灵活的支持容器类型执行器动态IP和动态映射端口问题。
-      ip: # 执行器IP [选填]：默认为空表示自动获取IP，多网卡时可手动设置指定IP，该IP不会绑定Host仅作为通讯实用；地址信息用于 "执行器注册" 和 "调度中心请求并触发任务"；
-      port: 9999 # 执行器端口号 [选填]：小于等于0则自动获取；默认端口为9999，单机部署多个执行器时，注意要配置不同执行器端口；
-      logpath: /applogs/xxl-job/jobhandler # 执行器运行日志文件存储磁盘路径 [选填] ：需要对该路径拥有读写权限；为空则使用默认路径；
-      logretentiondays: 30 # 执行器日志文件保存天数 [选填] ： 过期日志自动清理, 限制值大于等于3时生效; 否则, 如-1, 关闭自动清理功能；
+      addresses: 172.16.2.244:9003/xxl-job-admin # 调度中心部署跟地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"；为空则关闭自动注册；

@@ -1,6 +1,6 @@
 package com.zhengqing.tool.config;
 
-import com.zhengqing.common.swagger.config.CommonProperty;
+import com.zhengqing.common.web.config.CommonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "small-tools", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "small-tools")
 public class ToolProperty extends CommonProperty {
 
 }

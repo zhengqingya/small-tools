@@ -1,0 +1,15 @@
+# 配置日志地址
+logging:
+  #  config: classpath:log/logback.xml
+  config: classpath:logback-spring.xml
+  log:
+    home: logs            # 日志文件保存位置
+    max-history-day: 30   # 日志文件保留天数
+#  file:
+#    name: ${logging.log.home}/${spring.application.name}.log  # Spring Boot Admin提供了基于Web页面的方式实时查看服务输出的本地日志，前提是服务中配置了`logging.file.name`
+
+tlog:
+  # 自动打印调用参数和时间
+  enable-invoke-time-print: true
+  # 日志标签模板自定义：打印上游微服务节点名称、上游微服务的IP地址、链路spanId、全局唯一跟踪ID
+  pattern: '[$preApp][$preIp][$spanId][$traceId]'

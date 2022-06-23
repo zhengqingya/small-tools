@@ -5,7 +5,7 @@
     <parent>
         <artifactId>common</artifactId>
         <groupId>com.zhengqing</groupId>
-        <version>0.0.1</version>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -22,56 +22,51 @@
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>base</artifactId>
-            <version>${small-tools-api.project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>log</artifactId>
-            <version>${small-tools-api.project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>swagger</artifactId>
-            <version>${small-tools-api.project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>web</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>db</artifactId>
-            <version>${small-tools-api.project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>redis</artifactId>
-            <version>${small-tools-api.project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>feign</artifactId>
-            <version>${small-tools-api.project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>sentinel</artifactId>
-            <version>${small-tools-api.project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>mq</artifactId>
-            <version>${small-tools-api.project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>file</artifactId>
-            <version>${small-tools-api.project.version}</version>
         </dependency>
 
         <!-- jwt依赖: https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->

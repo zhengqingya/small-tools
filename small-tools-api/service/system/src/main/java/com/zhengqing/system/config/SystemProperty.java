@@ -1,6 +1,6 @@
 package com.zhengqing.system.config;
 
-import com.zhengqing.common.swagger.config.CommonProperty;
+import com.zhengqing.common.web.config.CommonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import me.zhyd.oauth.config.AuthConfig;
@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Configuration
-@ConfigurationProperties(prefix = "small-tools", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "small-tools")
 public class SystemProperty extends CommonProperty {
 
     /**

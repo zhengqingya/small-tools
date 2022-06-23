@@ -20,7 +20,7 @@
     <!-- 日志文件保存位置 注：前面加/ 表示以盘符为绝对路径，不加则是以项目为相对路径 -->
     <springProperty scope="context" name="LOG_HOME" source="logging.log.home" defaultValue="logs"/>
     <!-- 日志文件保留天数 -->
-    <springProperty scope="context" name="LOG_MAX_HISTORY_DAY" source="logging.log.max-history-day" defaultValue="30"/>
+    <springProperty scope="context" name="LOG_MAX_HISTORY_DAY" source="logging.log.max-history-day" defaultValue="7"/>
 
     <!-- logstash -->
     <springProperty scope="context" name="LOGSTASH_HOST" source="logstash.host" defaultValue="127.0.0.1"/>

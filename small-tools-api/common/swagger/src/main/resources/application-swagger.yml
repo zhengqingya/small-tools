@@ -1,0 +1,22 @@
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER # 解决springboot高版本Knife4j报错问题
+
+# https://doc.xiaominfo.com/knife4j
+knife4j:
+  # 开启增强配置 
+  enable: true
+  # 是否开启生产环境屏蔽   true:关闭swagger，false:开启swagger
+  production: false
+  # 配置自定义markdown文件的位置 -- tips: 此配置在新版本无效
+  #  markdowns: classpath:markdown/*
+  # 开启Swagger的Basic认证功能,默认是false
+  basic:
+    # 是否开启认证
+    enable: false
+    # Basic认证用户名
+    username: admin
+    # Basic认证密码
+    password: 123456
+  passwordTokenUrl: http://127.0.0.1:1218/auth/oauth/token

@@ -1,0 +1,10 @@
+# http://localhost:30000/actuator
+server:
+  port: 30000
+  
+spring:
+  application:
+    name: monitor # 应用名称
+  profiles:
+    active: dev # 环境配置
+

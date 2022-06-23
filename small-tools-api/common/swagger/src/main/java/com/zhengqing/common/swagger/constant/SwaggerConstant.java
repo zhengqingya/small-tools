@@ -20,4 +20,9 @@ public interface SwaggerConstant {
      */
     String AUTHORIZATION = "Authorization";
 
+    /**
+     * 网关端口
+     */
+    String GATEWAY_PORT = "1218";
+
 }

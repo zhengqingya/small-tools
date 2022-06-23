@@ -31,9 +31,9 @@ import java.util.Map;
 @Aspect
 @Component
 @ConditionalOnProperty(
-        value = {"on-off.api-log"},
+        value = {"small-tools.api-log"},
         havingValue = "true",
-        // true表示缺少`on-off.gateway-log`属性也会加载该bean
+        // true表示缺少此配置属性时也会加载该bean
         matchIfMissing = true
 )
 public class ApiLogAspect {

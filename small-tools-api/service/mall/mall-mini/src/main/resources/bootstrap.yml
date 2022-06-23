@@ -1,0 +1,7 @@
+server:
+  port: 20060
+spring:
+  application:
+    name: mall-mini # 应用名称
+  profiles:
+    active: dev # 环境配置

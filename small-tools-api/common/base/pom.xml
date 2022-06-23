@@ -5,7 +5,7 @@
     <parent>
         <artifactId>common</artifactId>
         <groupId>com.zhengqing</groupId>
-        <version>0.0.1</version>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -22,7 +22,6 @@
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>swagger</artifactId>
-            <version>${small-tools-api.project.version}</version>
         </dependency>
 
 

@@ -1,7 +1,3 @@
-# http://localhost:30000/actuator
-server:
-  port: 30000
-
 spring:
   security:
     user:
@@ -17,5 +13,11 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*
-'
+        include: '*'
+
+# 如果没有集成nacos则需引入客户端依赖`spring-boot-admin-starter-client`和如下配置 配置服务端地址
+#spring:
+# boot:
+#   admin:
+#     client:
+#       url: http://127.0.0.1:30000

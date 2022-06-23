@@ -1,6 +1,6 @@
 package com.zhengqing.gateway.config;
 
-import com.zhengqing.common.swagger.config.CommonProperty;
+import com.zhengqing.common.web.config.CommonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Configuration
-@ConfigurationProperties(prefix = "small-tools", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "small-tools")
 public class GatewayProperty extends CommonProperty {
 
     /**

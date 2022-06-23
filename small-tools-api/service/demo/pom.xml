@@ -6,7 +6,7 @@
     <parent>
         <artifactId>service</artifactId>
         <groupId>com.zhengqing</groupId>
-        <version>0.0.1</version>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -23,19 +23,16 @@
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>xxl-job</artifactId>
-            <version>${small-tools-api.project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>system-api</artifactId>
-            <version>${small-tools-api.project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>demo-api</artifactId>
-            <version>${small-tools-api.project.version}</version>
         </dependency>
 
         <!-- 该模块属于 mybatis （MP） 的扩展库 https://baomidou.com/pages/1864e1/ -->

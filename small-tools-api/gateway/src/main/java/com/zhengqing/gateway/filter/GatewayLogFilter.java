@@ -45,9 +45,9 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 @ConditionalOnProperty(
-        value = {"on-off.gateway-log"},
+        value = {"small-tools.gateway-log"},
         havingValue = "true",
-        // true表示缺少`on-off.gateway-log`属性也会加载该bean
+        // true表示缺少此配置属性时也会加载该bean
         matchIfMissing = true
 )
 public class GatewayLogFilter implements GlobalFilter, Ordered {
@@ -267,5 +267,5 @@ public class GatewayLogFilter implements GlobalFilter, Ordered {
                     "执行耗时:" + this.executeTime + "毫秒";
         }
     }
-    
+
 }

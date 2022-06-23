@@ -1,0 +1,17 @@
+# ====================== ↓↓↓↓↓↓ minio文件服务器 ↓↓↓↓↓↓ ======================
+minio:
+  url: ${small-tools.ip}:9001
+  accessKey: root
+  secretKey: password
+  bucketName: test
+
+
+# ========================== ↓↓↓↓↓↓ 七牛云配置 ↓↓↓↓↓↓ ==========================
+qiniu:
+  accessKey: xxx
+  secretKey: xxx
+  # 对象储存
+  bucket: zhengqingya            # 空间名称
+  zone: huadong                  # 存储区域
+  domain: oss.zhengqingya.com    # 访问域名
+  expireInSeconds: 3600          # 过期时间(默认1小时)
