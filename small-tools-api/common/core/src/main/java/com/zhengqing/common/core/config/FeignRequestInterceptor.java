@@ -1,7 +1,7 @@
-package com.zhengqing.common.feign.config;
+package com.zhengqing.common.core.config;
 
 import com.zhengqing.common.feign.context.RequestHeaderHandler;
-import com.zhengqing.common.feign.util.RequestContextUtil;
+import com.zhengqing.common.web.util.RequestContextUtil;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.SneakyThrows;

@@ -18,17 +18,6 @@
     </properties>
 
     <dependencies>
-        <!--        <dependency>-->
-        <!--            <groupId>com.zhengqing</groupId>-->
-        <!--            <artifactId>core</artifactId>-->
-        <!--            <exclusions>-->
-        <!--                <exclusion>-->
-        <!--                    <artifactId>spring-boot-starter-web</artifactId>-->
-        <!--                    <groupId>org.springframework.boot</groupId>-->
-        <!--                </exclusion>-->
-        <!--            </exclusions>-->
-        <!--        </dependency>-->
-
         <!-- 全局排除 SpringBoot Web 依赖 -->
         <!--        <dependency>-->
         <!--            <groupId>org.springframework.boot</groupId>--><!---->
@@ -45,11 +34,6 @@
             <groupId>com.zhengqing</groupId>
             <artifactId>base</artifactId>
         </dependency>
-
-        <!--        <dependency>-->
-        <!--            <groupId>com.zhengqing</groupId>-->
-        <!--            <artifactId>web</artifactId>-->
-        <!--        </dependency>-->
 
         <!--        <dependency>-->
         <!--            <groupId>com.zhengqing</groupId>-->
@@ -79,36 +63,25 @@
             <artifactId>feign</artifactId>
         </dependency>
 
+
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>security</artifactId>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>com.zhengqing</groupId>-->
-        <!--            <artifactId>web</artifactId>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>com.zhengqing</groupId>-->
-        <!--            <artifactId>sentinel</artifactId>-->
-        <!--        </dependency>-->
+        <!-- JWT -->
+        <!-- https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt -->
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>9.23</version>
+        </dependency>
 
 
         <!-- SpringCloud Gateway -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
-            <exclusions>
-                <!--                <exclusion>-->
-                <!--                    <groupId>org.springframework.boot</groupId>-->
-                <!--                    <artifactId>spring-boot-starter-web</artifactId>-->
-                <!--                </exclusion>-->
-                <!--                <exclusion>-->
-                <!--                    <groupId>org.springframework.boot</groupId>-->
-                <!--                    <artifactId>spring-boot-starter-webflux</artifactId>-->
-                <!--                </exclusion>-->
-            </exclusions>
         </dependency>
 
 

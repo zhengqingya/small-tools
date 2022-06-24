@@ -146,7 +146,7 @@
     <logger name="com.zhengqing.mall.mapper" level="INFO"/>
     <logger name="com.zhengqing.common.db.config.mybatis.data.permission.second.MyDataPermissionInterceptor"
             level="INFO"/>
-    <logger name="com.zhengqing.common.feign.config.FeignRequestInterceptor"
+    <logger name="com.zhengqing.common.core.config.FeignRequestInterceptor"
             level="INFO"/>
     <logger name="com.zhengqing.tool.generator.mapper" level="INFO"/>
     <logger name="com.zhengqing.tool.crawler.mapper" level="INFO"/>
@@ -176,7 +176,7 @@
     <logger name="org.redisson" level="WARN"/>
     <logger name="org.springframework" level="WARN"/>
     <logger name="org.apache" level="WARN"/>
-    <logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="WARN"/>
+    <logger name="_org.springframework.web" level="WARN"/>
     <logger name="Validator" level="WARN"/>
     <logger name="org.jboss.logging" level="WARN"/>
     <logger name="de.codecentric" level="WARN"/>

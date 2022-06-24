@@ -1,7 +1,7 @@
 package com.zhengqing.demo.api;
 
 import com.zhengqing.common.core.api.BaseController;
-import com.zhengqing.common.feign.util.RequestContextUtil;
+import com.zhengqing.common.web.util.RequestContextUtil;
 import com.zhengqing.demo.threadpool.SystemTaskThread;
 import com.zhengqing.system.feign.ISystemClient;
 import com.zhengqing.system.model.vo.SysDictVO;

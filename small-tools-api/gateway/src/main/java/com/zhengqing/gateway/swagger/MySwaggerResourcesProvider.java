@@ -55,8 +55,9 @@ public class MySwaggerResourcesProvider implements SwaggerResourcesProvider {
         // 记录已经添加过的server，存在同一个应用注册了多个服务在nacos上
         Set<String> dealed = new HashSet<>();
         routeHosts.forEach(instance -> {
-            // 拼接url，样式为/serviceId/v2/api-info，当网关调用这个接口时，会自动通过负载均衡寻找对应的主机
-            String url = "/" + instance.toLowerCase() + SWAGGER2URL;
+            String instanceName = instance.toLowerCase();
+            // 拼接swagger访问url，样式为`/serviceId/v2/api-info?group=serviceId`，当网关调用这个接口时，会自动通过负载均衡寻找对应的主机
+            String url = "/" + instanceName + SWAGGER2URL + "?group=" + instanceName;
             // 无group时 使用默认
             if (!dealed.contains(url)) {
                 dealed.add(url);

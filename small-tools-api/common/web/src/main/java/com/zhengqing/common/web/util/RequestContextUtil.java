@@ -1,4 +1,4 @@
-package com.zhengqing.common.feign.util;
+package com.zhengqing.common.web.util;
 
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;

@@ -73,7 +73,7 @@ public class Knife4jConfig {
 
     @Bean
     public Docket defaultApi() {
-        Docket docket = new Docket(DocumentationType.OAS_30)
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(this.apiInfo())
                 .groupName(this.applicationName)
                 .select()

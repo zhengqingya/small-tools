@@ -19,18 +19,18 @@ small-tools:
       - /webjars/**
       - /doc.html
       - /swagger-resources/**
+      - /*/v2/api-docs
       - /v2/api-docs
       - /v3/api-docs
-      - /**/v2/api-docs
       - /favicon.ico
       # 登陆、登出
       - /login
       - /logout
       # 静态资源
-      - /**/*.js
-      - /**/*.css
-      - /**/*.png
-      - /**/*.ico
+      - /*/*.js
+      - /*/*.css
+      - /*/*.png
+      - /*/*.ico
       # 通用接口
       - /common/
       - /web/api/dict/listFromCacheByCode
