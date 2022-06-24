@@ -2,11 +2,13 @@ package com.zhengqing.common.swagger.config;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.swagger.constant.SwaggerConstant;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
@@ -25,6 +27,8 @@ import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.RequestParameterBuilder;
+import springfox.documentation.schema.Example;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -60,6 +64,13 @@ public class Knife4jConfig {
     @Value("${knife4j.passwordTokenUrl}")
     private String passwordTokenUrl;
 
+    private final OpenApiExtensionResolver openApiExtensionResolver;
+
+    @Autowired
+    public Knife4jConfig(OpenApiExtensionResolver openApiExtensionResolver) {
+        this.openApiExtensionResolver = openApiExtensionResolver;
+    }
+
     @Bean
     public Docket defaultApi() {
         Docket docket = new Docket(DocumentationType.OAS_30)
@@ -71,18 +82,22 @@ public class Knife4jConfig {
 //                .apis(RequestHandlerSelectors.basePackage("com.zhengqing"))
                 .paths(PathSelectors.any())
                 .build()
+                // 插件扩展 -- ex:自定义md文档
+                .extensions(this.openApiExtensionResolver.buildExtensions(this.applicationName))
                 // 默认全局参数
-//                .globalRequestParameters(
-//                        Lists.newArrayList(
-//                                new RequestParameterBuilder()
-//                                        .name("test")
-//                                        .description("测试")
-//                                        .in(ParameterType.HEADER)
-//                                        .required(true)
-//                                        .build()
-//                        )
-//                )
-                ;
+                .globalRequestParameters(
+                        Lists.newArrayList(
+                                new RequestParameterBuilder()
+                                        .name(SwaggerConstant.TENANT_ID)
+                                        .description("租户ID")
+                                        .in(ParameterType.HEADER)
+                                        .required(true)
+                                        .example(
+                                                new Example(null, null, "租户ID", 1, null, null)
+                                        )
+                                        .build()
+                        )
+                );
 
         // 网关开启授权认证请求头
         if (SwaggerConstant.GATEWAY_PORT.equals(this.port)) {

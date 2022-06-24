@@ -29,7 +29,36 @@ small-tools:
   mybatis-plus-sql-log: true
   # 关闭api日志，默认关闭
   api-log: false
-
+  # ========================== ↓↓↓↓↓↓  第三方授权配置 ↓↓↓↓↓↓ ==========================
+  #  gitee申请地址：https://gitee.com/oauth/applications
+  #  github申请地址：https://github.com/settings/developers
+  #  qq申请地址：https://connect.qq.com/manage.html#/
+  thirdpartOauth:
+    redirectUrlPrefix: http://${small-tools.ip}:1218
+    webRedirectUrl: http://${small-tools.ip}:8080/#/login?redirect=dashboard&ifThirdpartOauth=true&token=
+    webBindRedirectUrl: http://${small-tools.ip}:8080/#/system/personal-center?oauthType=%s&openId=%s
+    # 授权账号使用
+    gitee:
+      clientId: xxxxxx
+      clientSecret: xxxxxx
+      redirectUri: ${small-tools.thirdpartOauth.redirectUrlPrefix}/system/web/api/oauth/gitee/callback
+    github:
+      clientId: xxxxxx
+      clientSecret: xxxxxx
+      redirectUri: ${small-tools.thirdpartOauth.redirectUrlPrefix}/system/web/api/oauth/github/callback
+    qq:
+      clientId: xxxxxx
+      clientSecret: xxxxxx
+      redirectUri: ${small-tools.thirdpartOauth.redirectUrlPrefix}/system/web/api/oauth/qq/callback
+    # 绑定账号使用
+    giteeBind:
+      clientId: xxxxxx
+      clientSecret: xxxxxx
+      redirectUri: ${small-tools.thirdpartOauth.redirectUrlPrefix}/system/web/api/oauth/giteeBind/callback
+    githubBind:
+      clientId: xxxxxx
+      clientSecret: xxxxxx
+      redirectUri: ${small-tools.thirdpartOauth.redirectUrlPrefix}/system/web/api/oauth/githubBind/callback
 
 
 spring:

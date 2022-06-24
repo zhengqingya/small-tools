@@ -1,5 +1,5 @@
 server:
-  port: 20060
+  port: 10020
 spring:
   application:
     name: mall-mini # 应用名称

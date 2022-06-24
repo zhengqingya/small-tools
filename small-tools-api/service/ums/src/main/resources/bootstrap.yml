@@ -1,5 +1,5 @@
 server:
-  port: 30010
+  port: 10010
 spring:
   application:
     name: ums # 应用名称

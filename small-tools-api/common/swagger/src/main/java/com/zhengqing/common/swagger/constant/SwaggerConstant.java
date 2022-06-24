@@ -21,6 +21,11 @@ public interface SwaggerConstant {
     String AUTHORIZATION = "Authorization";
 
     /**
+     * 租户ID
+     */
+    String TENANT_ID = "TENANT_ID";
+
+    /**
      * 网关端口
      */
     String GATEWAY_PORT = "1218";
