@@ -21,6 +21,12 @@
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- 全局排除 SpringBoot Web 依赖 -->
