@@ -54,7 +54,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>${hutool-all.version}</version>
+            <version>5.8.3</version>
         </dependency>
 
         <!-- google-guava工具包 -->
@@ -62,7 +62,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
+            <version>29.0-jre</version>
         </dependency>
 
     </dependencies>

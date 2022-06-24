@@ -1,7 +1,7 @@
 package com.zhengqing.common.sentinel.config;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.RequestOriginParser;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +20,7 @@ public class SentinelRequestOriginParser implements RequestOriginParser {
     public String parseOrigin(HttpServletRequest request) {
         // 这里怎么去取值可自定义
         String origin = request.getParameter("origin");
-        if (StringUtils.isBlank(origin)) {
+        if (StrUtil.isBlank(origin)) {
             origin = " ";
         }
         return origin;

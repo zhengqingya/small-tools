@@ -1,6 +1,5 @@
 package com.zhengqing.common.file.config;
 
-import com.google.gson.Gson;
 import com.qiniu.common.Zone;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.UploadManager;
@@ -73,11 +72,6 @@ public class QiniuConfig {
     @Bean
     public BucketManager bucketManager() {
         return new BucketManager(this.auth(), this.qiNiuConfig());
-    }
-
-    @Bean
-    public Gson gson() {
-        return new Gson();
     }
 
 }
