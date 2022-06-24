@@ -22,6 +22,7 @@
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>base</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- SpringBoot Web -->

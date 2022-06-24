@@ -1,4 +1,4 @@
-package com.zhengqing.common.base.util;
+package com.zhengqing.common.web.util;
 
 import cn.hutool.core.convert.Convert;
 import org.apache.commons.lang3.StringUtils;

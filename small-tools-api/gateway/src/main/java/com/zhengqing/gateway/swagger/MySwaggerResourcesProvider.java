@@ -2,6 +2,7 @@ package com.zhengqing.gateway.swagger;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.route.RouteLocator;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
@@ -21,6 +22,7 @@ import java.util.Set;
  * @description
  * @date 2020/12/19 18:06
  */
+@Primary
 @Component
 public class MySwaggerResourcesProvider implements SwaggerResourcesProvider {
 
@@ -46,8 +48,8 @@ public class MySwaggerResourcesProvider implements SwaggerResourcesProvider {
         List<SwaggerResource> resources = new ArrayList<>();
         List<String> routeHosts = new ArrayList<>();
         // 获取所有可用的host：serviceId
-        routeLocator.getRoutes().filter(route -> route.getUri().getHost() != null)
-                .filter(route -> !self.equals(route.getUri().getHost()))
+        this.routeLocator.getRoutes().filter(route -> route.getUri().getHost() != null)
+                .filter(route -> !this.self.equals(route.getUri().getHost()))
                 .subscribe(route -> routeHosts.add(route.getUri().getHost()));
 
         // 记录已经添加过的server，存在同一个应用注册了多个服务在nacos上

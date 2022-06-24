@@ -1,4 +1,4 @@
-package com.zhengqing.common.base.util;
+package com.zhengqing.common.web.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,7 +35,7 @@ public class MultiReadHttpServletResponse extends HttpServletResponseWrapper {
     }
 
     public byte[] getBody() {
-        return byteArrayOutputStream.toByteArray();
+        return this.byteArrayOutputStream.toByteArray();
     }
 
     @Override
@@ -45,7 +45,7 @@ public class MultiReadHttpServletResponse extends HttpServletResponseWrapper {
 
     @Override
     public PrintWriter getWriter() throws IOException {
-        return new PrintWriter(new OutputStreamWriter(getOutputStream(), this.response.getCharacterEncoding()));
+        return new PrintWriter(new OutputStreamWriter(this.getOutputStream(), this.response.getCharacterEncoding()));
     }
 
     @EqualsAndHashCode(callSuper = true)

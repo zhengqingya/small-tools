@@ -24,6 +24,7 @@
         <module>log</module>
         <module>mq</module>
         <module>redis</module>
+        <module>security</module>
         <module>sentinel</module>
         <module>swagger</module>
         <module>web</module>

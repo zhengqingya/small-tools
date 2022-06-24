@@ -3,7 +3,7 @@ package com.zhengqing.common.core.aspect;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.base.exception.ParameterException;
 import com.zhengqing.common.swagger.constant.SwaggerConstant;
-import com.zhengqing.common.base.util.ServletUtil;
+import com.zhengqing.common.web.util.ServletUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

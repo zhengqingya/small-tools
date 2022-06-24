@@ -6,7 +6,6 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.constant.SecurityConstant;
 import com.zhengqing.common.base.constant.ServiceConstant;
-import com.zhengqing.common.core.util.JwtUtil;
 import com.zhengqing.common.redis.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
@@ -92,7 +91,7 @@ public class ResourceServerManager implements ReactiveAuthorizationManager<Autho
                     /**
                      * B端校验角色取之前授权在auth服务存入的角色信息值
                      * {@link com.zhengqing.auth.security.core.userdetails.sys.SysUserDetails#SysUserDetails(com.zhengqing.system.model.vo.SysUserPermVO)}
-                     * 也可以通过 {@link JwtUtil#parse(String)} 解析token查看其中的角色权限
+                     * 也可以通过 {@link com.zhengqing.common.core.util.JwtUtil#parse(String)} 解析token查看其中的角色权限
                      * {"exp":1655219213,"user_name":"郑清","authorities":["persion","super_admin"],"jti":"091b6ad0-1ca3-4ad9-a756-f55f65979e3a","client_id":"demo","scope":["all"]}
                      */
                     // ROLE_ADMIN 移除前缀 ROLE_ 得到用户的角色编码 ADMIN

@@ -4,10 +4,9 @@ import cn.hutool.core.util.StrUtil;
 import com.zhengqing.common.base.constant.BaseConstant;
 import com.zhengqing.common.base.constant.SecurityConstant;
 import com.zhengqing.common.base.enums.ApiResultCodeEnum;
-import com.zhengqing.common.core.config.interceptor.HandlerInterceptorForTenantId;
-import com.zhengqing.common.core.model.bo.JwtUserBO;
-import com.zhengqing.common.core.util.JwtUtil;
 import com.zhengqing.common.redis.util.RedisUtil;
+import com.zhengqing.common.security.model.bo.JwtUserBO;
+import com.zhengqing.common.security.util.JwtUtil;
 import com.zhengqing.gateway.security.ResourceServerManager;
 import com.zhengqing.gateway.util.ResponseUtil;
 import lombok.SneakyThrows;
@@ -55,7 +54,7 @@ public class AuthFilter implements GlobalFilter {
 
             /**
              * 解析token中的用户信息 & 写入请求头里传递给下游
-             * 解析上游数据 {@link HandlerInterceptorForTenantId#preHandle}
+             * 解析上游数据 {@link com.zhengqing.common.core.config.interceptor.HandlerInterceptorForTenantId#preHandle}
              */
             JwtUserBO jwtUserBO = JwtUtil.parse(token);
             String userJson = RedisUtil.get(SecurityConstant.JWT_CUSTOM_USER + jwtUserBO.getJti());

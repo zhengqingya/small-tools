@@ -1,4 +1,4 @@
-package com.zhengqing.common.base.util;
+package com.zhengqing.common.web.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

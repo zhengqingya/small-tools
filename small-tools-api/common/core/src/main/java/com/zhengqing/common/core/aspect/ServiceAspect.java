@@ -1,7 +1,7 @@
 package com.zhengqing.common.core.aspect;
 
 import com.zhengqing.common.base.model.dto.BaseDTO;
-import com.zhengqing.common.core.util.JwtUtil;
+import com.zhengqing.common.security.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;

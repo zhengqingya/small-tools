@@ -8,7 +8,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.config.PropertiesRouteDefinitionLocator;
 import org.springframework.cloud.gateway.route.RouteDefinition;
@@ -36,9 +35,6 @@ public class GatewayController {
     @Value("${server.port}")
     private String port;
 
-    @Value("${logging.config}")
-    private String loggingConfig;
-
     @Value("${spring.cloud.nacos.discovery.group}")
     private String group;
 
@@ -63,7 +59,7 @@ public class GatewayController {
     @GetMapping("/index")
     @ApiOperation("index")
     public String hello() {
-        return "port:" + port + "loggingConfig:" + loggingConfig;
+        return "port:" + this.port;
     }
 
     @GetMapping("/hi")

@@ -1,4 +1,4 @@
-package com.zhengqing.common.base.util;
+package com.zhengqing.common.web.util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;

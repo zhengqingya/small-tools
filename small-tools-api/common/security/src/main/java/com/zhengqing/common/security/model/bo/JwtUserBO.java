@@ -1,4 +1,4 @@
-package com.zhengqing.common.core.model.bo;
+package com.zhengqing.common.security.model.bo;
 
 import com.zhengqing.common.base.model.bo.BaseBO;
 import io.swagger.annotations.ApiModelProperty;

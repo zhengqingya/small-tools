@@ -1,9 +1,9 @@
 package com.zhengqing.common.core.aspect;
 
 import com.alibaba.fastjson.JSON;
-import com.zhengqing.common.base.util.ServletUtil;
-import com.zhengqing.common.core.util.JwtUtil;
+import com.zhengqing.common.security.util.JwtUtil;
 import com.zhengqing.common.swagger.constant.SwaggerConstant;
+import com.zhengqing.common.web.util.ServletUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

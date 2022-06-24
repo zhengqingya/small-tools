@@ -18,35 +18,99 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.zhengqing</groupId>
-            <artifactId>core</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-boot-starter-web</artifactId>
-                    <groupId>org.springframework.boot</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.zhengqing</groupId>-->
+        <!--            <artifactId>core</artifactId>-->
+        <!--            <exclusions>-->
+        <!--                <exclusion>-->
+        <!--                    <artifactId>spring-boot-starter-web</artifactId>-->
+        <!--                    <groupId>org.springframework.boot</groupId>-->
+        <!--                </exclusion>-->
+        <!--            </exclusions>-->
+        <!--        </dependency>-->
 
         <!-- 全局排除 SpringBoot Web 依赖 -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>--><!---->
+        <!--            <artifactId>spring-boot-starter-web</artifactId>-->
+        <!--            <exclusions>-->
+        <!--                <exclusion>-->
+        <!--                    <groupId>*</groupId>-->
+        <!--                    <artifactId>*</artifactId>-->
+        <!--                </exclusion>-->
+        <!--            </exclusions>-->
+        <!--        </dependency>-->
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>base</artifactId>
         </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.zhengqing</groupId>-->
+        <!--            <artifactId>web</artifactId>-->
+        <!--        </dependency>-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.zhengqing</groupId>-->
+        <!--            <artifactId>swagger</artifactId>-->
+        <!--        </dependency>-->
+
+        <!-- knife4j -->
+        <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>3.0.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>log</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>feign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>security</artifactId>
+        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.zhengqing</groupId>-->
+        <!--            <artifactId>web</artifactId>-->
+        <!--        </dependency>-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.zhengqing</groupId>-->
+        <!--            <artifactId>sentinel</artifactId>-->
+        <!--        </dependency>-->
 
 
         <!-- SpringCloud Gateway -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
+            <exclusions>
+                <!--                <exclusion>-->
+                <!--                    <groupId>org.springframework.boot</groupId>-->
+                <!--                    <artifactId>spring-boot-starter-web</artifactId>-->
+                <!--                </exclusion>-->
+                <!--                <exclusion>-->
+                <!--                    <groupId>org.springframework.boot</groupId>-->
+                <!--                    <artifactId>spring-boot-starter-webflux</artifactId>-->
+                <!--                </exclusion>-->
+            </exclusions>
         </dependency>
+
 
         <!-- OAuth2资源服务器-->
         <dependency>

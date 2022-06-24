@@ -2,7 +2,7 @@ package com.zhengqing.auth.security.core.userdetails.sys;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.zhengqing.auth.enums.PasswordEncoderTypeEnum;
-import com.zhengqing.common.core.enums.AuthGrantTypeEnum;
+import com.zhengqing.common.security.enums.AuthGrantTypeEnum;
 import com.zhengqing.system.model.vo.SysUserPermVO;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,4 +1,4 @@
-package com.zhengqing.common.base.util;
+package com.zhengqing.common.web.util;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
@@ -37,19 +37,19 @@ public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
 
     public MultiReadHttpServletRequest(HttpServletRequest request) throws IOException {
         super(request);
-        body = StreamUtils.copyToByteArray(request.getInputStream());
+        this.body = StreamUtils.copyToByteArray(request.getInputStream());
         // this.bodyString = StreamUtils.copyToString(request.getInputStream(), Charset.forName("UTF-8"));
         // body = bodyString.getBytes("UTF-8");
     }
 
     @Override
     public BufferedReader getReader() throws IOException {
-        return new BufferedReader(new InputStreamReader(getInputStream()));
+        return new BufferedReader(new InputStreamReader(this.getInputStream()));
     }
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
-        final ByteArrayInputStream bais = new ByteArrayInputStream(body);
+        final ByteArrayInputStream bais = new ByteArrayInputStream(this.body);
         return new ServletInputStream() {
             @Override
             public int read() throws IOException {
@@ -103,7 +103,7 @@ public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
         StringBuilder json = new StringBuilder();
         String line = null;
         try {
-            BufferedReader reader = getReader();
+            BufferedReader reader = this.getReader();
             while ((line = reader.readLine()) != null) {
                 json.append(line);
             }

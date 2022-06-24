@@ -11,7 +11,7 @@ import com.zhengqing.auth.security.extension.grant.captcha.CaptchaTokenGranter;
 import com.zhengqing.auth.security.extension.refresh.PreAuthenticatedUserDetailsService;
 import com.zhengqing.common.base.enums.ApiResultCodeEnum;
 import com.zhengqing.common.base.model.vo.ApiResult;
-import com.zhengqing.common.core.enums.AuthClientIdEnum;
+import com.zhengqing.common.security.enums.AuthClientIdEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;

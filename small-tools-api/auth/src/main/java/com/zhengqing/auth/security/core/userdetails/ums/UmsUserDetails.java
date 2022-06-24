@@ -1,6 +1,6 @@
 package com.zhengqing.auth.security.core.userdetails.ums;
 
-import com.zhengqing.common.core.enums.AuthGrantTypeEnum;
+import com.zhengqing.common.security.enums.AuthGrantTypeEnum;
 import com.zhengqing.ums.model.vo.UmsUserVO;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

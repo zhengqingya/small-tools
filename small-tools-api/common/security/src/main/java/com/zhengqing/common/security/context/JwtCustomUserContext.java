@@ -1,6 +1,6 @@
-package com.zhengqing.common.core.context;
+package com.zhengqing.common.security.context;
 
-import com.zhengqing.common.core.model.bo.JwtCustomUserBO;
+import com.zhengqing.common.security.model.bo.JwtCustomUserBO;
 
 /**
  * <p> jwt自定义用户信息上下文 </p>

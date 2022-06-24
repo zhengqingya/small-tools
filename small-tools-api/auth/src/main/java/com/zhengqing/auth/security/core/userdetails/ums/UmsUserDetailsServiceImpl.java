@@ -2,7 +2,7 @@ package com.zhengqing.auth.security.core.userdetails.ums;
 
 import com.zhengqing.common.base.enums.ApiResultCodeEnum;
 import com.zhengqing.common.base.model.vo.ApiResult;
-import com.zhengqing.common.core.enums.AuthGrantTypeEnum;
+import com.zhengqing.common.security.enums.AuthGrantTypeEnum;
 import com.zhengqing.ums.feign.IUmsUserFeignApi;
 import com.zhengqing.ums.model.dto.UmsUserDTO;
 import com.zhengqing.ums.model.vo.UmsUserVO;

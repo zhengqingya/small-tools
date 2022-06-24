@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>feign</artifactId>
+    <artifactId>security</artifactId>
 
     <name>${project.artifactId}</name>
     <version>${small-tools-api.project.version}</version>
@@ -25,27 +25,25 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Feign:远程调用服务 -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>swagger</artifactId>
+            <scope>provided</scope>
         </dependency>
 
-        <!-- Netflix Hystrix -->
-        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-hystrix -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.cloud</groupId>-->
-        <!--            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>-->
-        <!--            <version>2.2.10.RELEASE</version>-->
-        <!--        </dependency>-->
-
-        <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>3.0-alpha-1</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <scope>provided</scope>
         </dependency>
 
+        <!-- JWT -->
+        <!-- https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt -->
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>9.23</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -1,4 +1,4 @@
-package com.zhengqing.common.core.util;
+package com.zhengqing.common.security.util;
 
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
@@ -10,9 +10,9 @@ import com.zhengqing.common.base.context.AuthSourceContext;
 import com.zhengqing.common.base.context.SysUserContext;
 import com.zhengqing.common.base.context.UmsUserContext;
 import com.zhengqing.common.base.util.MyDateUtil;
-import com.zhengqing.common.core.enums.AuthGrantTypeEnum;
-import com.zhengqing.common.core.enums.AuthSourceEnum;
-import com.zhengqing.common.core.model.bo.JwtUserBO;
+import com.zhengqing.common.security.enums.AuthGrantTypeEnum;
+import com.zhengqing.common.security.enums.AuthSourceEnum;
+import com.zhengqing.common.security.model.bo.JwtUserBO;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

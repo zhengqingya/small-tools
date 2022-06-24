@@ -74,6 +74,7 @@ spring:
       - swagger
       - sentinel
       - xxl-job
+      - web
       - common # 每个业务服务中的common模块配置文件
 
   # cloud:

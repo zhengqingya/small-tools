@@ -1,6 +1,6 @@
-package com.zhengqing.common.core.model.bo;
+package com.zhengqing.common.security.model.bo;
 
-import com.zhengqing.common.core.enums.AuthSourceEnum;
+import com.zhengqing.common.security.enums.AuthSourceEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
