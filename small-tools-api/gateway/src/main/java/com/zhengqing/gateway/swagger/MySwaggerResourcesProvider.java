@@ -27,9 +27,10 @@ import java.util.Set;
 public class MySwaggerResourcesProvider implements SwaggerResourcesProvider {
 
     /**
-     * swagger2默认的url后缀
+     * swagger3默认的url后缀
+     * {@link com.zhengqing.common.swagger.config.Knife4jConfig}
      */
-    private static final String SWAGGER2URL = "/v2/api-docs";
+    private static final String SWAGGER_3_URL = "/v3/api-docs?group=";
 
     /**
      * 网关路由
@@ -56,8 +57,8 @@ public class MySwaggerResourcesProvider implements SwaggerResourcesProvider {
         Set<String> dealed = new HashSet<>();
         routeHosts.forEach(instance -> {
             String instanceName = instance.toLowerCase();
-            // 拼接swagger访问url，样式为`/serviceId/v2/api-info?group=serviceId`，当网关调用这个接口时，会自动通过负载均衡寻找对应的主机
-            String url = "/" + instanceName + SWAGGER2URL + "?group=" + instanceName;
+            // 拼接swagger访问url，样式为`/demo/v3/api-info?group=demo`，当网关调用这个接口时，会自动通过负载均衡寻找对应的主机
+            String url = "/" + instanceName + SWAGGER_3_URL + instanceName;
             // 无group时 使用默认
             if (!dealed.contains(url)) {
                 dealed.add(url);

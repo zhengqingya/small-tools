@@ -19,9 +19,7 @@ small-tools:
       - /webjars/**
       - /doc.html
       - /swagger-resources/**
-      - /*/v2/api-docs
-      - /v2/api-docs
-      - /v3/api-docs
+      - /*/v3/api-docs
       - /favicon.ico
       # 登陆、登出
       - /login
