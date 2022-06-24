@@ -1,4 +1,4 @@
-package com.zhengqing.common.web.config;
+package com.zhengqing.common.core.config;
 
 import lombok.Data;
 
