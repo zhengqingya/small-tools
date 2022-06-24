@@ -39,10 +39,6 @@
         <spring.platform.version>Cairo-SR8</spring.platform.version>
         <spring-boot-admin.version>2.6.7</spring-boot-admin.version>
 
-        <mybatis-plus-boot-starter.version>3.4.3.1</mybatis-plus-boot-starter.version>
-        <dynamic-datasource-spring-boot-starter.version>3.3.2</dynamic-datasource-spring-boot-starter.version>
-        <mysql.version>8.0.25</mysql.version>
-        <druid-spring-boot-starter.version>1.1.18</druid-spring-boot-starter.version>
         <commons-lang3.version>3.6</commons-lang3.version>
         <hutool-all.version>5.8.3</hutool-all.version>
         <guava.version>29.0-jre</guava.version>
@@ -91,8 +87,6 @@
         <!-- 打包时跳过测试 (maven.test.skip:不生成test的所有.class， skipTests；会编译测试类，即生成.class文件，只是不运行测试类) -->
         <!-- <maven.test.skip>true</maven.test.skip> -->
         <skipTests>true</skipTests>
-
-        <weixin-java-pay.version>4.2.0</weixin-java-pay.version>
     </properties>
 
     <modules>
