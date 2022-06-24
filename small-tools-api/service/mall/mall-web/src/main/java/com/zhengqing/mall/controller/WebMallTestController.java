@@ -1,7 +1,7 @@
 package com.zhengqing.mall.controller;
 
-import com.zhengqing.common.base.http.ApiResult;
-import com.zhengqing.common.core.constant.ServiceConstant;
+import com.zhengqing.common.base.constant.ServiceConstant;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.mall.service.WebOmsOrderAfterSaleService;
 import com.zhengqing.pay.model.bo.PayOrderNotifyBO;
 import com.zhengqing.system.enums.SysPropertyKeyEnum;

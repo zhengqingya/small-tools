@@ -132,5 +132,10 @@ public class AppTest {
         Optional.ofNullable(list).ifPresent(e -> log.info(e.toString()));
     }
 
+    @Test
+    public void test06() throws Exception {
+
+    }
+
 
 }

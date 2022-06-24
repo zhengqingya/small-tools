@@ -1,6 +1,6 @@
 package com.zhengqing.common.core.config.threadpool;
 
-import com.zhengqing.common.core.constant.ThreadPoolConstant;
+import com.zhengqing.common.base.constant.ThreadPoolConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;

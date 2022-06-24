@@ -274,6 +274,33 @@ public class MyDateUtil {
     }
 
     /**
+     * 计算两个时间差
+     *
+     * @param startDate 开始时间
+     * @param endDate   结束时间
+     * @return 时间差
+     * @author zhengqingya
+     * @date 2021/7/23 10:17
+     */
+    public static String getDateDiffStr(Date startDate, Date endDate) {
+        long nd = 1000 * 24 * 60 * 60;
+        long nh = 1000 * 60 * 60;
+        long nm = 1000 * 60;
+        // long ns = 1000;
+        // 获得两个时间的毫秒时间差异
+        long diff = endDate.getTime() - startDate.getTime();
+        // 计算差多少天
+        long day = diff / nd;
+        // 计算差多少小时
+        long hour = diff % nd / nh;
+        // 计算差多少分钟
+        long min = diff % nd % nh / nm;
+        // 计算差多少秒//输出结果
+        // long sec = diff % nd % nh % nm / ns;
+        return day + "天" + hour + "小时" + min + "分钟";
+    }
+
+    /**
      * 在当前时间上加指定时间
      *
      * @param timeUnit 时间单位
@@ -347,6 +374,7 @@ public class MyDateUtil {
         return calendar.getTime();
     }
 
+
     public static void main(String[] args) {
         Date nowDateTime = new Date();
         String dateStr = dateToStr(nowDateTime, DATE_TIME_FORMAT);
@@ -385,6 +413,8 @@ public class MyDateUtil {
         log.info("--------------------------------");
 
         log.info("nowTime:{} timeAddAndsubTime: {}", nowStr(), dateToStr(timeAddAndSubTime(todayStartTime, TimeUnit.MINUTES, 10), DATE_TIME_FORMAT));
+
+        log.info("当前时间到今天开始时间差：{}", MyDateUtil.getDateDiffStr(MyDateUtil.todayStartTime(), new Date()));
     }
 
 }

@@ -1,7 +1,7 @@
 package com.zhengqing.system.feign;
 
-import com.zhengqing.common.base.http.ApiResult;
-import com.zhengqing.common.feign.constant.RpcConstant;
+import com.zhengqing.common.base.constant.RpcConstant;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.system.model.vo.SysOauthClientVO;
 import com.zhengqing.system.service.ISysOauthClientService;
 import io.swagger.annotations.Api;

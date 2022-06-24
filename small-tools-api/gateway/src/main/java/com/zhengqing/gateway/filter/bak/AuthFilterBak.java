@@ -2,7 +2,7 @@
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //import com.zhengqing.common.base.enums.ApiResultCodeEnum;
-//import com.zhengqing.common.core.constant.AppConstant;
+//import com.zhengqing.common.base.constant.AppConstant;
 //import com.zhengqing.common.core.model.bo.JwtUserBO;
 //import com.zhengqing.common.core.util.JwtUtil;
 //import com.zhengqing.gateway.a.util.ResponseUtil;

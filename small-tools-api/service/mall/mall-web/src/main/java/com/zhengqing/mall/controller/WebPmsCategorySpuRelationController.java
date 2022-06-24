@@ -1,7 +1,7 @@
 package com.zhengqing.mall.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zhengqing.common.core.constant.ServiceConstant;
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.common.core.custom.validator.common.ValidList;
 import com.zhengqing.mall.service.WebPmsCategorySpuRelationService;
 import com.zhengqing.mall.web.model.dto.*;

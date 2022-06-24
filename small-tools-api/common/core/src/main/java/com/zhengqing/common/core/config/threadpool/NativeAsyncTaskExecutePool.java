@@ -1,6 +1,6 @@
 package com.zhengqing.common.core.config.threadpool;
 
-import com.zhengqing.common.core.constant.ThreadPoolConstant;
+import com.zhengqing.common.base.constant.ThreadPoolConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Configuration;

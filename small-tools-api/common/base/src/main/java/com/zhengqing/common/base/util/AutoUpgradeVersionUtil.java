@@ -6,19 +6,19 @@ import java.util.Arrays;
 
 /**
  * <p>
- * 自增版本号工具类$
+ * 自增版本号工具类
  * </p>
  *
  * @author zhengqingya
  * @description
- * @date 2020/10/13$ 14:08$
+ * @date 2020/10/13 14:08
  */
 public class AutoUpgradeVersionUtil {
 
     /**
      * 自动自增版本号 ex:0.0.1 -> 0.0.2
      *
-     * @param version: 版本号
+     * @param version 版本号
      * @return 自增后的版本号
      * @author zhengqingya
      * @date 2020/10/13 14:13

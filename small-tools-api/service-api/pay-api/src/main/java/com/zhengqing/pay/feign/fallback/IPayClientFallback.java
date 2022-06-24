@@ -2,7 +2,7 @@ package com.zhengqing.pay.feign.fallback;
 
 import com.github.binarywang.wxpay.bean.result.WxPayOrderQueryResult;
 import com.github.binarywang.wxpay.bean.result.WxPayUnifiedOrderResult;
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.pay.feign.IPayClient;
 import com.zhengqing.pay.model.dto.PayOrderCreateDTO;
 import com.zhengqing.pay.model.dto.PayOrderQueryDTO;

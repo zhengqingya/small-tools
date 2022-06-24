@@ -49,6 +49,27 @@
             <version>4.1.0</version>
         </dependency>
 
+
+        <!-- WebMagic：爬虫 -->
+        <dependency>
+            <groupId>us.codecraft</groupId>
+            <artifactId>webmagic-core</artifactId>
+            <version>0.7.3</version>
+        </dependency>
+        <dependency>
+            <groupId>us.codecraft</groupId>
+            <artifactId>webmagic-extension</artifactId>
+            <version>0.7.3</version>
+        </dependency>
+
+
+        <!-- md转html https://gitee.com/cevin15/MD2File -->
+        <dependency>
+            <groupId>com.youbenzi</groupId>
+            <artifactId>MD2File</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
     </dependencies>
 
 

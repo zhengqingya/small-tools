@@ -1,6 +1,6 @@
 package com.zhengqing.mall.controller;
 
-import com.zhengqing.common.core.constant.ServiceConstant;
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.common.core.custom.validator.common.UpdateGroup;
 import com.zhengqing.mall.service.WebPmsAttrKeyService;
 import com.zhengqing.mall.web.model.dto.WebPmsAttrListDTO;

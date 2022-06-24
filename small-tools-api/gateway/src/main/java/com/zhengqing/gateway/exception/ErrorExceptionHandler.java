@@ -1,7 +1,7 @@
 //package com.zhengqing.gateway.exception;
 //
 //import com.alibaba.fastjson.JSONObject;
-//import com.zhengqing.common.base.http.ApiResult;
+//import com.zhengqing.common.base.model.vo.ApiResult;
 //import org.springframework.boot.autoconfigure.web.ErrorProperties;
 //import org.springframework.boot.autoconfigure.web.ResourceProperties;
 //import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;

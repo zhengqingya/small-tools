@@ -11,8 +11,6 @@ package com.zhengqing.common.base.exception;
  */
 public class ParameterException extends MyException {
 
-    private static final long serialVersionUID = 1L;
-
     public ParameterException(String message) {
         super(message);
     }

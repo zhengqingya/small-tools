@@ -4,7 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.exception.MyException;
 import com.zhengqing.common.base.model.dto.BasePageDTO;
-import com.zhengqing.common.core.custom.parameter.ParameterVerify;
+import com.zhengqing.common.core.custom.parameter.ParamCheck;
 import com.zhengqing.mall.common.model.enums.MiniOmsOrderTabEnum;
 import com.zhengqing.mall.common.model.enums.OmsOrderStatusEnum;
 import io.swagger.annotations.ApiModel;
@@ -30,7 +30,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ApiModel("mini-商城-订单分页列表-查询参数")
-public class MiniOmsOrderPageDTO extends BasePageDTO implements ParameterVerify {
+public class MiniOmsOrderPageDTO extends BasePageDTO implements ParamCheck {
 
     @ApiModelProperty("搜索关键字（订单号或商品名称）")
     private String keyWord;

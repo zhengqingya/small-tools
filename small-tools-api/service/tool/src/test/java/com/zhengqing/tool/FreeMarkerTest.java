@@ -1,9 +1,9 @@
 package com.zhengqing.tool;
 
 import com.google.common.collect.Maps;
-import com.zhengqing.common.core.constant.AppConstant;
-import com.zhengqing.common.base.util.FreeMarkerUtil;
+import com.zhengqing.common.base.constant.AppConstant;
 import com.zhengqing.common.base.util.MyFileUtil;
+import com.zhengqing.common.web.util.FreeMarkerUtil;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.junit.Test;

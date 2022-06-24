@@ -1,6 +1,6 @@
 package com.zhengqing.mall.controller;
 
-import com.zhengqing.common.core.constant.ServiceConstant;
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.mall.service.MallCommonService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,7 +1,7 @@
 package com.zhengqing.ums.feign;
 
-import com.zhengqing.common.base.http.ApiResult;
-import com.zhengqing.common.feign.constant.RpcConstant;
+import com.zhengqing.common.base.constant.RpcConstant;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.ums.model.dto.UmsUserDTO;
 import com.zhengqing.ums.model.vo.UmsUserVO;
 import com.zhengqing.ums.service.IUmsUserService;

@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>
- * 自增编号工具类$
+ * 自增编号工具类
  * </p>
  *
  * @author zhengqingya

@@ -1,6 +1,6 @@
 package com.zhengqing.mall.web.model.dto;
 
-import com.zhengqing.common.core.custom.parameter.ParameterVerify;
+import com.zhengqing.common.core.custom.parameter.ParamCheck;
 import com.zhengqing.common.core.custom.validator.common.ValidList;
 import com.zhengqing.mall.common.model.enums.OmsOrderStockCheckTypeEnum;
 import com.zhengqing.system.enums.SysPropertyKeyEnum;
@@ -31,7 +31,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("web-商城-订单设置-提交参数")
-public class WebOmsOrderSetDTO implements ParameterVerify {
+public class WebOmsOrderSetDTO implements ParamCheck {
 
     @Valid
     @NotEmpty(message = "发货微信消息通知不能为空！")

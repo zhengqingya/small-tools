@@ -3,7 +3,7 @@ package com.zhengqing.tool.generator.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.base.constant.AppConstant;
 import com.zhengqing.tool.generator.entity.CgProject;
 import com.zhengqing.tool.generator.mapper.CgProjectMapper;
 import com.zhengqing.tool.generator.model.dto.CgProjectListDTO;

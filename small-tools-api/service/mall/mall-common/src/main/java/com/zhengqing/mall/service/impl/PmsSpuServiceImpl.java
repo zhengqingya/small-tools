@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.mall.common.model.bo.MallDictBO;
 import com.zhengqing.mall.common.model.bo.PmsSkuStockBO;
 import com.zhengqing.mall.common.model.dto.PmsSkuDTO;

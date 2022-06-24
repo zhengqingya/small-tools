@@ -1,6 +1,6 @@
 //package com.zhengqing.common.pay.feign;
 //
-//import com.zhengqing.common.feign.constant.RpcConstant;
+//import com.zhengqing.common.base.constant.RpcConstant;
 //import com.zhengqing.pay.feign.IPayClient;
 //import io.swagger.annotations.Api;
 //import org.springframework.web.bind.annotation.RequestMapping;

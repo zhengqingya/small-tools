@@ -2,7 +2,7 @@ package com.zhengqing.gateway.util;
 
 import com.alibaba.fastjson.JSON;
 import com.zhengqing.common.base.enums.ApiResultCodeEnum;
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpHeaders;

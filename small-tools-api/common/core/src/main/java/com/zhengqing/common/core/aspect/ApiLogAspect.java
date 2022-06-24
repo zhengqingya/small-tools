@@ -2,8 +2,8 @@ package com.zhengqing.common.core.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.zhengqing.common.base.util.ServletUtil;
-import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.core.util.JwtUtil;
+import com.zhengqing.common.swagger.constant.SwaggerConstant;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -65,7 +65,7 @@ public class ApiLogAspect {
             }
             log.debug("《ApiLogAspect》 operatorId: {}", userId);
             log.debug("《ApiLogAspect》 operatorName: {}", username);
-            log.debug("《ApiLogAspect》 request header: {}", request.getHeader(AppConstant.REQUEST_HEADER_TOKEN));
+            log.debug("《ApiLogAspect》 request header: {}", request.getHeader(SwaggerConstant.REQUEST_HEADER_AUTHORIZATION));
             log.debug("《ApiLogAspect》 request ip: {}", request.getRemoteAddr());
             log.debug("《ApiLogAspect》 request url: {}", request.getRequestURL().toString());
             log.debug("《ApiLogAspect》 request http method: {}", request.getMethod());

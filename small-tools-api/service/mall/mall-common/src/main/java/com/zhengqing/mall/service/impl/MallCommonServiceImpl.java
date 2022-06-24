@@ -4,7 +4,7 @@ import cn.hutool.core.lang.Assert;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zhengqing.common.base.exception.MyException;
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.common.core.custom.validator.common.ValidList;
 import com.zhengqing.common.file.util.QiniuFileUtil;
 import com.zhengqing.mall.common.model.bo.PmsSpuBuyNumInfoBO;

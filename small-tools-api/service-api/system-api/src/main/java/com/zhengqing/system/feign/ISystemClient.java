@@ -1,8 +1,8 @@
 package com.zhengqing.system.feign;
 
-import com.zhengqing.common.base.http.ApiResult;
-import com.zhengqing.common.core.constant.AppConstant;
-import com.zhengqing.common.feign.constant.RpcConstant;
+import com.zhengqing.common.base.constant.AppConstant;
+import com.zhengqing.common.base.constant.RpcConstant;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.common.feign.rpc.IBaseClient;
 import com.zhengqing.system.feign.fallback.ISystemClientFallback;
 import com.zhengqing.system.model.dto.SysUserSaveDTO;

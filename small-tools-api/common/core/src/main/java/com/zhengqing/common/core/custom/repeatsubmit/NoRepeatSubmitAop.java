@@ -1,9 +1,8 @@
 package com.zhengqing.common.core.custom.repeatsubmit;
 
-import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.base.exception.MyException;
-import com.zhengqing.common.redis.util.RedisUtil;
 import com.zhengqing.common.base.util.IpUtil;
+import com.zhengqing.common.redis.util.RedisUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -31,17 +30,17 @@ import java.util.Objects;
 public class NoRepeatSubmitAop {
 
     /**
-     * <p>
      * 【环绕通知】 用于拦截指定方法，判断用户表单保存操作是否属于重复提交
-     * <p>
-     * <p>
-     * 定义切入点表达式： execution(public * (…)) 表达式解释： execution：主体 public:可省略 *：标识方法的任意返回值 任意包+类+方法(…) 任意参数
-     * <p>
-     * com.zhengqing.modules.*.api ： 标识AOP所切服务的包名，即需要进行横切的业务类 .*Controller ： 标识类名，*即所有类 .*(..) ：
-     * 标识任何方法名，括号表示参数，两个点表示任何参数类型
+     * 定义切入点表达式： execution(public * (…)) 表达式解释：
+     * -                          execution => 主体
+     * -                          public => 可省略
+     * -                          * => 标识方法的任意返回值 任意包+类+方法(…) 任意参数
+     * -                 com.zhengqing.*.*.api => 标识AOP所切服务的包名，即需要进行横切的业务类
+     * -                          .*Controller => 标识类名，*即所有类
+     * -                          .*(..) => 标识任何方法名，括号表示参数，两个点表示任何参数类型
      *
-     * @param pjp：切入点对象
-     * @param noRepeatSubmit:自定义的注解对象
+     * @param pjp            切入点对象
+     * @param noRepeatSubmit 自定义的注解对象
      * @return java.lang.Object
      */
     @SneakyThrows
@@ -51,10 +50,9 @@ public class NoRepeatSubmitAop {
                 ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
                         .getRequest();
 
-        // 拿到ip地址、请求路径、token
+        // 拿到ip地址、请求路径
         String ip = IpUtil.getIpAdrress(request);
         String url = request.getRequestURL().toString();
-        String token = request.getHeader(AppConstant.REQUEST_HEADER_TOKEN);
 
         // 现在时间
         long now = System.currentTimeMillis();

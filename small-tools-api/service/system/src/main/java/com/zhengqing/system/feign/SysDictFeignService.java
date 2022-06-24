@@ -1,9 +1,9 @@
 package com.zhengqing.system.feign;
 
 import com.google.common.collect.Lists;
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.constant.RpcConstant;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.common.core.custom.validator.common.ValidList;
-import com.zhengqing.common.feign.constant.RpcConstant;
 import com.zhengqing.system.model.dto.SysDictSaveBatchDTO;
 import com.zhengqing.system.model.vo.SysDictVO;
 import com.zhengqing.system.service.ISysDictService;

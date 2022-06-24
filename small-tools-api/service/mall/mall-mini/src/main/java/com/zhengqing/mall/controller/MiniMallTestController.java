@@ -1,7 +1,7 @@
 package com.zhengqing.mall.controller;
 
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.common.base.context.TenantIdContext;
-import com.zhengqing.common.core.constant.ServiceConstant;
 import com.zhengqing.mall.service.MiniOmsOrderService;
 import com.zhengqing.pay.model.bo.PayOrderNotifyBO;
 import io.swagger.annotations.Api;

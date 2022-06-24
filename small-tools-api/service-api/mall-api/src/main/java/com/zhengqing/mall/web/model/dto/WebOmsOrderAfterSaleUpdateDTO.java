@@ -4,7 +4,7 @@ import cn.hutool.core.lang.Assert;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.exception.MyException;
-import com.zhengqing.common.core.custom.parameter.ParameterVerify;
+import com.zhengqing.common.core.custom.parameter.ParamCheck;
 import com.zhengqing.mall.common.model.enums.MallResultCodeEnum;
 import com.zhengqing.mall.common.model.enums.OmsOrderAfterSaleStatusEnum;
 import com.zhengqing.mall.common.model.enums.OmsOrderSaleTypeEnum;
@@ -33,7 +33,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("web-商城-售后-更新-提交参数")
-public class WebOmsOrderAfterSaleUpdateDTO implements ParameterVerify {
+public class WebOmsOrderAfterSaleUpdateDTO implements ParamCheck {
 
     @NotBlank(message = "售后编号不能为空！")
     @ApiModelProperty(value = "售后编号", required = true, example = "1")

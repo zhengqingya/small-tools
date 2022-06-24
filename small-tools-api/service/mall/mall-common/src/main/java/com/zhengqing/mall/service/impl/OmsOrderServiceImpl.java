@@ -8,7 +8,7 @@ import com.github.binarywang.wxpay.bean.result.WxPayOrderQueryResult;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.context.TenantIdContext;
 import com.zhengqing.common.base.exception.MyException;
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.common.core.util.IdGeneratorUtil;
 import com.zhengqing.mall.common.model.bo.PmsSkuStockBO;
 import com.zhengqing.mall.common.model.dto.OmsOrderCancelDTO;

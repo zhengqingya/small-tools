@@ -1,7 +1,7 @@
 package com.zhengqing.ums.api;
 
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.common.core.api.BaseController;
-import com.zhengqing.common.core.constant.ServiceConstant;
 import com.zhengqing.ums.service.IUmsUserService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;

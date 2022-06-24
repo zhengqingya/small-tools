@@ -1,7 +1,7 @@
 package com.zhengqing.auth.exception;
 
 import com.zhengqing.common.base.enums.ApiResultCodeEnum;
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;

@@ -1,6 +1,6 @@
 package com.zhengqing.mall.controller;
 
-import com.zhengqing.common.core.constant.ServiceConstant;
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.mall.mini.model.dto.MiniOmsCartDeleteDTO;
 import com.zhengqing.mall.mini.model.dto.MiniOmsCartSaveDTO;
 import com.zhengqing.mall.mini.model.dto.MiniOmsCartUpdateNumDTO;

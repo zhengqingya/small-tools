@@ -2,7 +2,7 @@ package com.zhengqing.mall.mini.model.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.zhengqing.common.core.custom.parameter.ParameterVerify;
+import com.zhengqing.common.core.custom.parameter.ParamCheck;
 import com.zhengqing.mall.common.model.bo.OmsOrderReceiverAddressBO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("mini-商城-订单-修改地址-提交参数")
-public class MiniOmsOrderUpdateReceiverAddressDTO implements ParameterVerify {
+public class MiniOmsOrderUpdateReceiverAddressDTO implements ParamCheck {
 
     @NotNull(message = "订单号不能为空！")
     @ApiModelProperty(value = "订单号", required = true, example = "1624623037698")

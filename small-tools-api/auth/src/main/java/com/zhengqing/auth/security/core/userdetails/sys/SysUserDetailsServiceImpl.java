@@ -1,7 +1,7 @@
 package com.zhengqing.auth.security.core.userdetails.sys;
 
 import com.zhengqing.common.base.enums.ApiResultCodeEnum;
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.system.feign.ISysUserFeignApi;
 import com.zhengqing.system.model.vo.SysUserPermVO;
 import lombok.RequiredArgsConstructor;

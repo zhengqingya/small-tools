@@ -33,7 +33,7 @@ public class SpringElUtil {
      * @param key    表达式
      * @param method 方法
      * @param args   方法参数
-     * @return java.lang.String
+     * @return 结果
      * @author zhengqingya
      * @date 2022/1/18 14:35
      */

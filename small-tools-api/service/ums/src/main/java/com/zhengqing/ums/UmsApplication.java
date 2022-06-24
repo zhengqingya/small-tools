@@ -1,7 +1,7 @@
 package com.zhengqing.ums;
 
-import com.zhengqing.common.core.constant.AppConstant;
-import com.zhengqing.common.core.constant.ServiceConstant;
+import com.zhengqing.common.base.constant.AppConstant;
+import com.zhengqing.common.base.constant.ServiceConstant;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;

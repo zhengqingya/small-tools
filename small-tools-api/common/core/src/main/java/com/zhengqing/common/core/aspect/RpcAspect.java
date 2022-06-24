@@ -1,6 +1,6 @@
 package com.zhengqing.common.core.aspect;
 
-import com.zhengqing.common.core.custom.parameter.ParameterVerify;
+import com.zhengqing.common.core.custom.parameter.ParamCheck;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -38,9 +38,9 @@ public class RpcAspect {
         // 遍历所有传入参数,赋值
         for (Object paramObj : paramObjArray) {
             // 参数校验处理
-            if (paramObj instanceof ParameterVerify) {
-                ParameterVerify parameterVerify = (ParameterVerify) paramObj;
-                parameterVerify.checkParam();
+            if (paramObj instanceof ParamCheck) {
+                ParamCheck paramCheck = (ParamCheck) paramObj;
+                paramCheck.checkParam();
             }
         }
     }

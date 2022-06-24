@@ -2,9 +2,9 @@ package com.zhengqing.gateway.filter;
 
 import cn.hutool.core.util.StrUtil;
 import com.zhengqing.common.base.constant.BaseConstant;
+import com.zhengqing.common.base.constant.SecurityConstant;
 import com.zhengqing.common.base.enums.ApiResultCodeEnum;
 import com.zhengqing.common.core.config.interceptor.HandlerInterceptorForTenantId;
-import com.zhengqing.common.core.constant.SecurityConstant;
 import com.zhengqing.common.core.model.bo.JwtUserBO;
 import com.zhengqing.common.core.util.JwtUtil;
 import com.zhengqing.common.redis.util.RedisUtil;

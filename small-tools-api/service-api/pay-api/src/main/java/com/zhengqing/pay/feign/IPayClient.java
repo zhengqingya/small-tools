@@ -2,8 +2,8 @@ package com.zhengqing.pay.feign;
 
 import com.github.binarywang.wxpay.bean.result.WxPayOrderQueryResult;
 import com.github.binarywang.wxpay.bean.result.WxPayUnifiedOrderResult;
-import com.zhengqing.common.base.http.ApiResult;
-import com.zhengqing.common.feign.constant.RpcConstant;
+import com.zhengqing.common.base.model.vo.ApiResult;
+import com.zhengqing.common.base.constant.RpcConstant;
 import com.zhengqing.pay.feign.fallback.IPayClientFallback;
 import com.zhengqing.pay.model.dto.PayOrderCreateDTO;
 import com.zhengqing.pay.model.dto.PayOrderQueryDTO;

@@ -23,7 +23,9 @@ public class InjectBeanSelfProcessor implements BeanPostProcessor, ApplicationCo
 
     private ApplicationContext applicationContext;
 
-    // ① 注入ApplicationContext
+    /**
+     * 1、注入ApplicationContext
+     */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
@@ -31,7 +33,7 @@ public class InjectBeanSelfProcessor implements BeanPostProcessor, ApplicationCo
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        // ② 如果Bean没有实现BeanSelfAware标识接口 跳过
+        // 2、如果Bean没有实现BeanSelfAware标识接口 跳过
         if (!(bean instanceof BeanSelfAware)) {
             return bean;
         }
@@ -39,10 +41,10 @@ public class InjectBeanSelfProcessor implements BeanPostProcessor, ApplicationCo
         log.debug("inject proxy：【{}】", bean.getClass());
 
         if (AopUtils.isAopProxy(bean)) {
-            // ③ 如果当前对象是AOP代理对象，直接注入
+            // 3、如果当前对象是AOP代理对象，直接注入
             ((BeanSelfAware) bean).setSelf(bean);
         } else {
-            // ④ 如果当前对象不是AOP代理，则通过context.getBean(beanName)获取代理对象并注入
+            // 4、如果当前对象不是AOP代理，则通过context.getBean(beanName)获取代理对象并注入
             // 此种方式不适合解决prototype Bean的代理对象注入
             ((BeanSelfAware) bean).setSelf(this.applicationContext.getBean(beanName));
         }

@@ -1,7 +1,7 @@
 package com.zhengqing.mall.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zhengqing.common.core.constant.ServiceConstant;
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.mall.common.model.vo.MallTabConditionListVO;
 import com.zhengqing.mall.service.WebOmsOrderAfterSaleService;
 import com.zhengqing.mall.web.model.dto.WebOmsOrderAfterSalePageDTO;

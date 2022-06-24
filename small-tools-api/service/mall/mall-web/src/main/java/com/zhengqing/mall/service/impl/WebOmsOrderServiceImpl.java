@@ -11,12 +11,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.context.TenantIdContext;
 import com.zhengqing.common.base.exception.MyException;
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.common.base.util.BigDecimalUtil;
-import com.zhengqing.common.base.util.DateTimeUtil;
+import com.zhengqing.common.base.util.MyDateUtil;
 import com.zhengqing.common.base.util.MyValidatorUtil;
 import com.zhengqing.common.core.custom.validator.common.ValidList;
-import com.zhengqing.common.core.util.EasyExcelUtil;
+import com.zhengqing.common.excel.util.EasyExcelUtil;
 import com.zhengqing.mall.common.model.bo.PmsSkuSpecBO;
 import com.zhengqing.mall.common.model.dto.OmsOrderItemDTO;
 import com.zhengqing.mall.common.model.enums.MallResultCodeEnum;
@@ -346,7 +346,7 @@ public class WebOmsOrderServiceImpl extends OmsOrderServiceImpl<OmsOrderMapper, 
             }
         }
         // 2、导出
-        String fileName = "订单-" + DateTimeUtil.nowDateTimeStr();
+        String fileName = "订单-" + MyDateUtil.nowStr();
         //需要合并的列
         int[] mergeColIndex = {1, 2, 3, 4, 5, 6, 7, 16, 17, 18, 19, 20, 21, 22};
         //从第二行后开始合并

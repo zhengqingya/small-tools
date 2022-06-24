@@ -1,7 +1,7 @@
 package com.zhengqing.mall.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zhengqing.common.core.constant.ServiceConstant;
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.mall.mini.model.dto.MiniPmsSpuPageDTO;
 import com.zhengqing.mall.mini.model.dto.MiniPmsSpuPresellRemindDTO;
 import com.zhengqing.mall.mini.model.vo.MiniPmsSpuDetailVO;

@@ -1,6 +1,6 @@
 package com.zhengqing.demo.threadpool;
 
-import com.zhengqing.common.core.constant.ThreadPoolConstant;
+import com.zhengqing.common.base.constant.ThreadPoolConstant;
 import com.zhengqing.demo.entity.Demo;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

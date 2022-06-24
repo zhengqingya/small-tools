@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
-import com.zhengqing.common.core.custom.parameter.ParameterVerify;
+import com.zhengqing.common.core.custom.parameter.ParamCheck;
 import com.zhengqing.mall.common.model.bo.MallFileBO;
 import com.zhengqing.mall.common.model.enums.MallResultCodeEnum;
 import com.zhengqing.mall.common.model.enums.OmsOrderAfterSaleStatusEnum;
@@ -39,7 +39,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("mini-商城-申请售后（退款/退货/退货退款）-提交参数")
-public class MiniOmsOrderApplyAfterSaleDTO implements ParameterVerify {
+public class MiniOmsOrderApplyAfterSaleDTO implements ParamCheck {
 
     @NotNull(message = "操作用户id不能为空")
     @ApiModelProperty(value = "操作用户id", required = true, example = "1435486752507736065")

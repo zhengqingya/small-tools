@@ -2,7 +2,7 @@ package com.zhengqing.system.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
-import com.zhengqing.common.core.constant.SecurityConstant;
+import com.zhengqing.common.base.constant.SecurityConstant;
 import com.zhengqing.common.redis.util.RedisUtil;
 import com.zhengqing.system.model.vo.SysRoleRePermListVO;
 import com.zhengqing.system.service.ISysPermissionBusinessService;

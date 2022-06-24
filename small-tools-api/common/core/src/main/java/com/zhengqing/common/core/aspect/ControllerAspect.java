@@ -1,7 +1,7 @@
 package com.zhengqing.common.core.aspect;
 
 import com.zhengqing.common.base.model.dto.BaseDTO;
-import com.zhengqing.common.core.custom.parameter.ParameterVerify;
+import com.zhengqing.common.core.custom.parameter.ParamCheck;
 import com.zhengqing.common.core.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -50,9 +50,9 @@ public class ControllerAspect {
             }
 
             // 参数校验处理
-            if (paramObj instanceof ParameterVerify) {
-                ParameterVerify parameterVerify = (ParameterVerify) paramObj;
-                parameterVerify.checkParam();
+            if (paramObj instanceof ParamCheck) {
+                ParamCheck paramCheck = (ParamCheck) paramObj;
+                paramCheck.checkParam();
             }
         }
     }

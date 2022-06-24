@@ -2,6 +2,7 @@ package com.zhengqing.auth.security.config;
 
 import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONUtil;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zhengqing.auth.security.core.clientdetails.ClientDetailsServiceImpl;
 import com.zhengqing.auth.security.core.userdetails.sys.SysUserDetailsServiceImpl;
@@ -9,11 +10,10 @@ import com.zhengqing.auth.security.core.userdetails.ums.UmsUserDetailsServiceImp
 import com.zhengqing.auth.security.extension.grant.captcha.CaptchaTokenGranter;
 import com.zhengqing.auth.security.extension.refresh.PreAuthenticatedUserDetailsService;
 import com.zhengqing.common.base.enums.ApiResultCodeEnum;
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.common.core.enums.AuthClientIdEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.assertj.core.util.Lists;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;

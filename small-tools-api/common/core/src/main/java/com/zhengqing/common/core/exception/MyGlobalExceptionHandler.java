@@ -2,7 +2,7 @@ package com.zhengqing.common.core.exception;
 
 import com.zhengqing.common.base.exception.MyException;
 import com.zhengqing.common.base.exception.ParameterException;
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.validation.BindException;

@@ -1,7 +1,7 @@
 package com.zhengqing.demo.feign;
 
 import cn.hutool.core.util.RandomUtil;
-import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.base.constant.AppConstant;
 import com.zhengqing.common.feign.rpc.IBaseClient;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

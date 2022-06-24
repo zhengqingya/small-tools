@@ -145,7 +145,7 @@ public class Knife4jConfig {
 
             List<SecurityScheme> securitySchemes = Lists.newArrayList(
                     HttpAuthenticationScheme.JWT_BEARER_BUILDER
-                            .name(SwaggerConstant.AUTHORIZATION)
+                            .name(SwaggerConstant.REQUEST_HEADER_AUTHORIZATION)
                             .description("Bearer Token")
                             .build()
             );

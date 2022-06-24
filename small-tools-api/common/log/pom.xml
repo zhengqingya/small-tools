@@ -25,6 +25,15 @@
             <artifactId>tlog-all-spring-boot-starter</artifactId>
             <version>1.4.3</version>
         </dependency>
+
+        <!-- elk日志链路追踪工具 -->
+        <!-- https://mvnrepository.com/artifact/net.logstash.logback/logstash-logback-encoder -->
+        <!--        <dependency>-->
+        <!--            <groupId>net.logstash.logback</groupId>-->
+        <!--            <artifactId>logstash-logback-encoder</artifactId>-->
+        <!--            <version>6.6</version>-->
+        <!--        </dependency>-->
+
     </dependencies>
 
 </project>

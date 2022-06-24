@@ -1,6 +1,6 @@
 package com.zhengqing.common.core.util;
 
-import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.base.constant.AppConstant;
 import lombok.SneakyThrows;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;

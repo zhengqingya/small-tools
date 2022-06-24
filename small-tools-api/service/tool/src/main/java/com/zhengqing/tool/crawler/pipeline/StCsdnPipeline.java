@@ -1,7 +1,7 @@
 package com.zhengqing.tool.crawler.pipeline;
 
-import com.zhengqing.common.base.util.DateTimeUtil;
-import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.base.constant.AppConstant;
+import com.zhengqing.common.base.util.MyDateUtil;
 import com.zhengqing.tool.crawler.entity.StCrawlerArticleInfo;
 import com.zhengqing.tool.crawler.model.bo.StCrawlerCsdnBO;
 import com.zhengqing.tool.crawler.model.dto.StCrawlerArticleInfoQueryDTO;
@@ -18,7 +18,6 @@ import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 
 import javax.annotation.Resource;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -69,24 +68,23 @@ public class StCsdnPipeline implements Pipeline {
                     stCrawlerArticleInfo.setCategory(stCrawlerCsdnBO.getCategory().trim());
                     stCrawlerArticleInfo.setContent(stCrawlerCsdnBO.getContent());
                     stCrawlerArticleInfo.setUrl(stCrawlerCsdnBO.getUrl());
-                    try {
-                        Date publishTime =
-                                DateTimeUtil.dateParse(stCrawlerCsdnBO.getTime(), DateTimeUtil.DATE_TIME_PATTERN);
-                        stCrawlerArticleInfo.setPublishTime(publishTime);
-                        // 这里判断是否已经有解析过的数据，如果有走更新数据，否则走插入
-                        // Integer articleInfoId = stCrawlerArticleInfoService.getArticleInfoId(articleId);
-                        StCrawlerArticleInfoListVO articleDetail =
-                                this.stCrawlerArticleInfoService.getArticleDetail(StCrawlerArticleInfoQueryDTO.builder()
-                                        .websiteId(websiteId).title(stCrawlerArticleInfo.getTitle())
-                                        .category(stCrawlerArticleInfo.getCategory()).build());
-                        if (articleDetail == null) {
-                            this.stCrawlerArticleInfoService.save(stCrawlerArticleInfo);
-                        } else {
-                            stCrawlerArticleInfo.setArticleInfoId(articleDetail.getArticleInfoId());
-                            this.stCrawlerArticleInfoService.updateById(stCrawlerArticleInfo);
-                        }
-                    } catch (ParseException parseException) {
-                        parseException.printStackTrace();
+                    Date publishTime = MyDateUtil.strToDateTime(stCrawlerCsdnBO.getTime());
+                    stCrawlerArticleInfo.setPublishTime(publishTime);
+                    // 这里判断是否已经有解析过的数据，如果有走更新数据，否则走插入
+                    // Integer articleInfoId = stCrawlerArticleInfoService.getArticleInfoId(articleId);
+                    StCrawlerArticleInfoListVO articleDetail =
+                            this.stCrawlerArticleInfoService.getArticleDetail(
+                                    StCrawlerArticleInfoQueryDTO.builder()
+                                            .websiteId(websiteId)
+                                            .title(stCrawlerArticleInfo.getTitle())
+                                            .category(stCrawlerArticleInfo.getCategory())
+                                            .build()
+                            );
+                    if (articleDetail == null) {
+                        this.stCrawlerArticleInfoService.save(stCrawlerArticleInfo);
+                    } else {
+                        stCrawlerArticleInfo.setArticleInfoId(articleDetail.getArticleInfoId());
+                        this.stCrawlerArticleInfoService.updateById(stCrawlerArticleInfo);
                     }
                 }
             });

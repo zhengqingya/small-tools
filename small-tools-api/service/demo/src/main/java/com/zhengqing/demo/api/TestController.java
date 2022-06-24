@@ -2,12 +2,12 @@ package com.zhengqing.demo.api;
 
 import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.constant.AppConstant;
 import com.zhengqing.common.base.model.dto.BaseDTO;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.common.base.util.RestTemplateUtil;
 import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.common.core.aspect.config.BeanSelfAware;
-import com.zhengqing.common.core.constant.AppConstant;
 import com.zhengqing.common.core.custom.limit.ApiLimit;
 import com.zhengqing.common.redis.util.RedisUtil;
 import io.swagger.annotations.Api;

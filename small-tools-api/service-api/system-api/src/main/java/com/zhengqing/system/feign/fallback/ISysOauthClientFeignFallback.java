@@ -1,6 +1,6 @@
 package com.zhengqing.system.feign.fallback;
 
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.system.feign.ISysOauthClientFeignApi;
 import com.zhengqing.system.model.vo.SysOauthClientVO;
 import org.springframework.stereotype.Component;

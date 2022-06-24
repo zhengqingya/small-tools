@@ -31,10 +31,4 @@ public interface BaseConstant {
      */
     String REQUEST_HEADER_JWT_USER = "JWT_USER";
 
-    /**
-     * 请求头 - token
-     * 修改值时需修改 {@link SwaggerCommonConfig#securitySchemes()}
-     */
-    String REQUEST_HEADER_TOKEN = "ZQ-X-TOKEN";
-
 }

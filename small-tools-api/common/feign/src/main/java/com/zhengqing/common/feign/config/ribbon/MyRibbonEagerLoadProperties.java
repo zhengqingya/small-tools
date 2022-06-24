@@ -1,6 +1,6 @@
 //package com.zhengqing.common.feign.config.ribbon;
 //
-//import com.zhengqing.common.feign.constant.RpcConstant;
+//import com.zhengqing.common.base.constant.RpcConstant;
 //import lombok.Data;
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.cloud.netflix.ribbon.RibbonEagerLoadProperties;

@@ -18,7 +18,7 @@ public interface SwaggerConstant {
     /**
      * 认证请求头
      */
-    String AUTHORIZATION = "Authorization";
+    String REQUEST_HEADER_AUTHORIZATION = "Authorization";
 
     /**
      * 租户ID

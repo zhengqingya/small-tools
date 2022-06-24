@@ -1,6 +1,6 @@
 package com.zhengqing.system.util;
 
-import com.zhengqing.common.core.constant.AppConstant;
+import com.zhengqing.common.base.constant.AppConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.codec.Hex;
 

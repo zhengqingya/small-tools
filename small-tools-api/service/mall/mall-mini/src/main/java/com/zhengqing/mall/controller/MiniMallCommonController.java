@@ -1,6 +1,6 @@
 package com.zhengqing.mall.controller;
 
-import com.zhengqing.common.core.constant.ServiceConstant;
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.mall.common.model.dto.OmsLogisticDTO;
 import com.zhengqing.mall.common.model.vo.MallFileVO;
 import com.zhengqing.mall.common.model.vo.OmsLogisticVO;

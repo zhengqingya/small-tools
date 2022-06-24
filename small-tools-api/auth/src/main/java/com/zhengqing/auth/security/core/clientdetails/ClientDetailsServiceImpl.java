@@ -1,7 +1,7 @@
 package com.zhengqing.auth.security.core.clientdetails;
 
 import com.zhengqing.auth.enums.PasswordEncoderTypeEnum;
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.system.feign.ISysOauthClientFeignApi;
 import com.zhengqing.system.model.vo.SysOauthClientVO;
 import lombok.RequiredArgsConstructor;

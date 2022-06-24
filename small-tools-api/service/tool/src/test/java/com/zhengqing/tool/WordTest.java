@@ -1,9 +1,9 @@
 package com.zhengqing.tool;
 
 import com.google.common.collect.Maps;
-import com.zhengqing.common.core.constant.AppConstant;
-import com.zhengqing.common.base.util.DocUtil;
+import com.zhengqing.common.base.constant.AppConstant;
 import com.zhengqing.common.base.util.MyFileUtil;
+import com.zhengqing.tool.util.DocUtil;
 import org.junit.Test;
 
 import java.util.Map;

@@ -1,8 +1,8 @@
 package com.zhengqing.system.feign;
 
 import com.google.common.collect.Lists;
-import com.zhengqing.common.base.http.ApiResult;
-import com.zhengqing.common.feign.constant.RpcConstant;
+import com.zhengqing.common.base.constant.RpcConstant;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.system.model.dto.SysPropertySaveDTO;
 import com.zhengqing.system.model.vo.SysPropertyVO;
 import com.zhengqing.system.service.ISysPropertyService;

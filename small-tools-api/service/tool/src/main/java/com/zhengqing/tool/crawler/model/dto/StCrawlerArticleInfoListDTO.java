@@ -1,8 +1,8 @@
 package com.zhengqing.tool.crawler.model.dto;
 
-import com.zhengqing.common.core.custom.parameter.ParameterVerify;
 import com.zhengqing.common.base.exception.ParameterException;
 import com.zhengqing.common.base.util.MyDateUtil;
+import com.zhengqing.common.core.custom.parameter.ParamCheck;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("小工具 - 爬虫 - 文章信息查询参数")
-public class StCrawlerArticleInfoListDTO implements ParameterVerify {
+public class StCrawlerArticleInfoListDTO implements ParamCheck {
 
     @ApiModelProperty(value = "网站id")
     private Integer websiteId;

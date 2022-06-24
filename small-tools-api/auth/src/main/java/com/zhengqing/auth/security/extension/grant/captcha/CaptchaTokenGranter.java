@@ -2,7 +2,7 @@ package com.zhengqing.auth.security.extension.grant.captcha;
 
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
-import com.zhengqing.common.core.constant.SecurityConstant;
+import com.zhengqing.common.base.constant.SecurityConstant;
 import com.zhengqing.common.core.enums.AuthGrantTypeEnum;
 import com.zhengqing.common.redis.util.RedisUtil;
 import org.springframework.security.authentication.*;

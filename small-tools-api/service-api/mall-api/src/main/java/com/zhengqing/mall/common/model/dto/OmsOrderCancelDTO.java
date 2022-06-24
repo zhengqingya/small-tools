@@ -1,6 +1,6 @@
 package com.zhengqing.mall.common.model.dto;
 
-import com.zhengqing.common.core.custom.parameter.ParameterVerify;
+import com.zhengqing.common.core.custom.parameter.ParamCheck;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("商城-订单取消-提交参数")
-public class OmsOrderCancelDTO implements ParameterVerify {
+public class OmsOrderCancelDTO implements ParamCheck {
 
     @NotBlank(message = "订单编号不能为空！")
     @ApiModelProperty(value = "订单编号", required = true, example = "1624623037698")

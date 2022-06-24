@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.context.TenantIdContext;
 import com.zhengqing.common.base.exception.MyException;
-import com.zhengqing.common.base.http.ApiResult;
+import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.mall.common.model.bo.OmsOrderAfterSaleCloseBO;
 import com.zhengqing.mall.common.model.bo.PmsSkuStockBO;
 import com.zhengqing.mall.common.model.dto.OmsOrderItemDTO;
