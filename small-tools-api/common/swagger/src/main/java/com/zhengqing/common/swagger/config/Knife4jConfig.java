@@ -7,7 +7,6 @@ import com.google.common.collect.Lists;
 import com.zhengqing.common.swagger.constant.SwaggerConstant;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
@@ -25,14 +24,14 @@ import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.builders.RequestParameterBuilder;
-import springfox.documentation.schema.Example;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,6 +47,7 @@ import java.util.List;
 @Slf4j
 @Configuration
 @EnableKnife4j
+@EnableSwagger2WebMvc
 // 对JSR303提供支持
 @Import(BeanValidatorPluginsConfiguration.class)
 public class Knife4jConfig {
@@ -73,7 +73,7 @@ public class Knife4jConfig {
 
     @Bean
     public Docket defaultApi() {
-        Docket docket = new Docket(DocumentationType.OAS_30)
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(this.apiInfo())
                 .groupName(this.applicationName)
                 .select()
@@ -85,70 +85,69 @@ public class Knife4jConfig {
                 // 插件扩展 -- ex:自定义md文档
                 .extensions(this.openApiExtensionResolver.buildExtensions(this.applicationName))
                 // 默认全局参数
-                .globalRequestParameters(
-                        Lists.newArrayList(
-                                new RequestParameterBuilder()
-                                        .name(SwaggerConstant.TENANT_ID)
-                                        .description("租户ID")
-                                        .in(ParameterType.HEADER)
-                                        .required(true)
-                                        .example(
-                                                new Example(null, null, "租户ID", 1, null, null)
-                                        )
-                                        .build()
-                        )
-                );
-
-        // 网关开启授权认证请求头
-        if (SwaggerConstant.GATEWAY_PORT.equals(this.port)) {
-            // 3.0.3版本好像不支持此方式了...
-//        // context
-//        List<SecurityContext> securityContexts = Lists.newArrayList(
-//                SecurityContext.builder()
-//                        .securityReferences(
-//                                CollectionUtil.newArrayList(
-//                                        new SecurityReference("oauth2",
-//                                                Lists.newArrayList(
-//                                                        new AuthorizationScope("read", "read  resources"),
-//                                                        new AuthorizationScope("write", "write resources"),
-//                                                        new AuthorizationScope("reads", "read all resources"),
-//                                                        new AuthorizationScope("writes", "write all resources")
-//                                                ).toArray(new AuthorizationScope[]{})
-//                                        )
-//                                )
+//                .globalRequestParameters(
+//                        Lists.newArrayList(
+//                                new RequestParameterBuilder()
+//                                        .name(SwaggerConstant.TENANT_ID)
+//                                        .description("租户ID")
+//                                        .in(ParameterType.HEADER)
+//                                        .required(true)
+//                                        .build()
 //                        )
-//                        .forPaths(PathSelectors.ant("/**"))
-//                        .build()
-//        );
-//        // 密码模式
-//        List<SecurityScheme> securitySchemes = Lists.newArrayList(
-//                new OAuthBuilder().name("oauth2")
-//                        .grantTypes(Lists.newArrayList(new ResourceOwnerPasswordCredentialsGrant(this.passwordTokenUrl)))
-//                        .build()
-//        );
+//                );
+                ;
 
-
-            // 参考 https://gitee.com/xiaoym/swagger-bootstrap-ui-demo/blob/master/knife4j-springfox-boot-v3-demo/src/main/java/com/xiaominfo/knife4j/config/Knife4jConfig.java
-            AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
-            AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-            authorizationScopes[0] = authorizationScope;
-
+        // 网关|授权服务开启授权认证请求头
+        if (SwaggerConstant.GATEWAY_PORT.equals(this.port) || SwaggerConstant.AUTH_PORT.equals(this.port)) {
+            // 2.0.9版本
+            // context
             List<SecurityContext> securityContexts = Lists.newArrayList(
                     SecurityContext.builder()
                             .securityReferences(
                                     CollectionUtil.newArrayList(
-                                            new SecurityReference(HttpHeaders.AUTHORIZATION, authorizationScopes)
+                                            new SecurityReference("oauth2",
+                                                    Lists.newArrayList(
+                                                            new AuthorizationScope("read", "read  resources"),
+                                                            new AuthorizationScope("write", "write resources"),
+                                                            new AuthorizationScope("reads", "read all resources"),
+                                                            new AuthorizationScope("writes", "write all resources")
+                                                    ).toArray(new AuthorizationScope[]{})
+                                            )
                                     )
                             )
-                            .forPaths(PathSelectors.regex("/.*"))
-                            .build());
-
-            List<SecurityScheme> securitySchemes = Lists.newArrayList(
-                    HttpAuthenticationScheme.JWT_BEARER_BUILDER
-                            .name(SwaggerConstant.REQUEST_HEADER_AUTHORIZATION)
-                            .description("Bearer Token")
+                            .forPaths(PathSelectors.ant("/**"))
                             .build()
             );
+            // 密码模式
+            List<SecurityScheme> securitySchemes = Lists.newArrayList(
+                    new OAuthBuilder()
+                            .name("oauth2")
+                            .grantTypes(Lists.newArrayList(new ResourceOwnerPasswordCredentialsGrant(this.passwordTokenUrl)))
+                            .build()
+            );
+
+
+            // 3.0.3版本  参考 https://gitee.com/xiaoym/swagger-bootstrap-ui-demo/blob/master/knife4j-springfox-boot-v3-demo/src/main/java/com/xiaominfo/knife4j/config/Knife4jConfig.java
+//            AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+//            AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+//            authorizationScopes[0] = authorizationScope;
+//
+//            List<SecurityContext> securityContexts = Lists.newArrayList(
+//                    SecurityContext.builder()
+//                            .securityReferences(
+//                                    CollectionUtil.newArrayList(
+//                                            new SecurityReference(HttpHeaders.AUTHORIZATION, authorizationScopes)
+//                                    )
+//                            )
+//                            .forPaths(PathSelectors.regex("/.*"))
+//                            .build());
+//
+//            List<SecurityScheme> securitySchemes = Lists.newArrayList(
+//                    HttpAuthenticationScheme.JWT_BEARER_BUILDER
+//                            .name(SwaggerConstant.REQUEST_HEADER_AUTHORIZATION)
+//                            .description("Bearer Token")
+//                            .build()
+//            );
 
             docket.securityContexts(securityContexts).securitySchemes(securitySchemes);
         }

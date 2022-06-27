@@ -26,8 +26,13 @@ public interface SwaggerConstant {
     String TENANT_ID = "TENANT_ID";
 
     /**
-     * 网关端口
+     * 网关服务端口
      */
     String GATEWAY_PORT = "1218";
+
+    /**
+     * 授权服务端口
+     */
+    String AUTH_PORT = "1219";
 
 }

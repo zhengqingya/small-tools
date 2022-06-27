@@ -1,6 +1,5 @@
 package com.zhengqing.auth.api;
 
-import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -47,6 +46,7 @@ public class AuthController {
     private KeyPair keyPair;
 
     /**
+     * headers: Authorization: "Basic d2ViOjEyMzQ1Ng=="   [ base64解密后为web/123456 ]
      * auth服务直接调用登录 =》 http://127.0.0.1:1219/oauth/token?client_id=web&client_secret=123456&grant_type=password&username=admin&password=123456
      * gateway服务调用登录 =》 http://127.0.0.1:1218/auth/oauth/token?client_id=web&client_secret=123456&grant_type=password&username=admin&password=123456
      * 刷新令牌 =》 http://127.0.0.1:1218/auth/oauth/token?client_id=web&client_secret=123456&grant_type=refresh_token&refresh_token=xxx
@@ -54,10 +54,22 @@ public class AuthController {
      */
     @ApiOperation("登录")
     @GetMapping("token")
-    @SneakyThrows(Exception.class)
     public OAuth2AccessToken getAccessToken(@ApiIgnore Principal principal, @ModelAttribute AuthDTO parameters) {
-        String clientId = JwtUtil.getClientId();
-        log.info("OAuth认证授权 客户端ID:{}，请求参数：{}", clientId, JSONUtil.toJsonStr(parameters));
+        return this.accessToken(principal, parameters);
+    }
+
+    @ApiOperation("登录")
+    @PostMapping("token")
+    public OAuth2AccessToken postAccessToken(@ApiIgnore Principal principal, @ModelAttribute AuthDTO parameters) {
+        // swagger集成认证时会post请求进行base64加密
+        parameters.setClient_id(JwtUtil.getClientId());
+        parameters.setClient_secret(JwtUtil.getClientSecretForBasic());
+        return this.accessToken(principal, parameters);
+    }
+
+    @SneakyThrows(Exception.class)
+    private OAuth2AccessToken accessToken(@ApiIgnore Principal principal, @ModelAttribute AuthDTO parameters) {
+        log.info("OAuth认证授权 请求参数：{}", JSON.toJSONString(parameters));
 
         // 1、认证
         OAuth2AccessToken accessToken = this.tokenEndpoint.postAccessToken(principal, MyBeanUtil.objToMapStr(parameters)).getBody();

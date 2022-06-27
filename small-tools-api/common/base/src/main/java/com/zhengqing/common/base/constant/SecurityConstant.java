@@ -15,6 +15,11 @@ public interface SecurityConstant {
     String AUTHORIZATION_KEY = "Authorization";
 
     /**
+     * Basic认证前缀
+     */
+    String BASIC_PREFIX = "Basic ";
+
+    /**
      * JWT令牌前缀
      */
     String JWT_PREFIX = "Bearer ";

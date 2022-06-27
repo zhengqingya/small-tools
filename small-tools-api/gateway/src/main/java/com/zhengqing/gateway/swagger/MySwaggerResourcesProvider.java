@@ -25,10 +25,10 @@ import java.util.List;
 public class MySwaggerResourcesProvider implements SwaggerResourcesProvider {
 
     /**
-     * swagger3默认的url后缀
+     * swagger默认的url后缀
      * {@link com.zhengqing.common.swagger.config.Knife4jConfig}
      */
-    private static final String SWAGGER_3_URL = "/v3/api-docs?group=";
+    private static final String SWAGGER_URL = "/v2/api-docs?group=";
 
     /**
      * nacos注册中心
@@ -53,8 +53,8 @@ public class MySwaggerResourcesProvider implements SwaggerResourcesProvider {
             if (this.gatewayServiceName.equals(instanceName)) {
                 continue;
             }
-            // 拼接swagger访问url，样式为`/demo/v3/api-info?group=demo`，当网关调用这个接口时，会自动通过负载均衡寻找对应的主机
-            String url = "/" + instanceName + SWAGGER_3_URL + instanceName;
+            // 拼接swagger访问url，样式为`/demo/v2/api-info?group=demo`，当网关调用这个接口时，会自动通过负载均衡寻找对应的主机
+            String url = "/" + instanceName + SWAGGER_URL + instanceName;
             SwaggerResource swaggerResource = new SwaggerResource();
             swaggerResource.setUrl(url);
             swaggerResource.setName(instance);

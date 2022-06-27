@@ -21,6 +21,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Date;
 
 /**
@@ -108,9 +110,50 @@ public class JwtUtil {
             return clientId;
         }
 
-        // 方式二：从请求头获取
+        // 方式二：从请求头获取 -- tips:swagger集成认证时会进行base64加密
         String token = request.getHeader(SecurityConstant.AUTHORIZATION_KEY);
+        if (token.startsWith(SecurityConstant.BASIC_PREFIX)) {
+            return getClientIdForBasic();
+        }
+        // 如果从请求头获取的是认证过后的token，则解析token中的数据
         return parse(token).getClientId();
+    }
+
+    /**
+     * 从请求头中获取clientId
+     *
+     * @return clientId
+     * @author zhengqingya
+     * @date 2022/6/27 17:49
+     */
+    public static String getClientIdForBasic() {
+        return getClientIdAndSecret().split(":")[0];
+    }
+
+    /**
+     * 从请求头中获取clientSecret
+     *
+     * @return clientSecret
+     * @author zhengqingya
+     * @date 2022/6/27 17:49
+     */
+    public static String getClientSecretForBasic() {
+        return getClientIdAndSecret().split(":")[1];
+    }
+
+    /**
+     * 从请求头中获取clientId和clientSecret
+     * headers: Authorization: "Basic d2ViOjEyMzQ1Ng=="   [ base64解密后为web/123456 ]
+     *
+     * @return clientId:clientSecret
+     * @author zhengqingya
+     * @date 2022/6/27 17:48
+     */
+    private static String getClientIdAndSecret() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String basic = request.getHeader(SecurityConstant.AUTHORIZATION_KEY);
+        basic = basic.replace(SecurityConstant.BASIC_PREFIX, Strings.EMPTY);
+        return new String(Base64.getDecoder().decode(basic.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
     }
 
     /**

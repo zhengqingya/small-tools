@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Past;
 import java.util.Date;
 
 /**
@@ -33,7 +32,7 @@ public abstract class BaseEntity<T extends Model<T>> extends Model<T> {
 
     @ApiModelProperty(value = "创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)
-    @Past(message = "创建时间必须是过去时间")
+//    @Past(message = "创建时间必须是过去时间")
     private Date createTime;
 
     @ApiModelProperty(value = "更新人id")
