@@ -25,6 +25,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import java.security.KeyPair;
 import java.security.Principal;
 import java.security.interfaces.RSAPublicKey;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -58,13 +59,22 @@ public class AuthController {
         return this.accessToken(principal, parameters);
     }
 
-    @ApiOperation("登录")
+    @ApiOperation("登录(swagger授权使用)")
     @PostMapping("token")
-    public OAuth2AccessToken postAccessToken(@ApiIgnore Principal principal, @ModelAttribute AuthDTO parameters) {
+    public Map<String, String> postAccessToken(@ApiIgnore Principal principal, @ModelAttribute AuthDTO parameters) {
         // swagger集成认证时会post请求进行base64加密
         parameters.setClient_id(JwtUtil.getClientId());
         parameters.setClient_secret(JwtUtil.getClientSecretForBasic());
-        return this.accessToken(principal, parameters);
+        OAuth2AccessToken oAuth2AccessToken = this.accessToken(principal, parameters);
+        /**
+         * UI授权成功后取值逻辑见：{@see /knife4j-spring-ui/3.0.3/knife4j-spring-ui-3.0.3.jar!/META-INF/resources/webjars/oauth/oauth2.html}
+         *                 that.cacheValue.accessToken=data.token_type+" "+data.access_token;
+         *                 that.cacheValue.tokenType=data.token_type;
+         */
+        return new HashMap<String, String>(2) {{
+            this.put("token_type", oAuth2AccessToken.getTokenType());
+            this.put("access_token", oAuth2AccessToken.getValue());
+        }};
     }
 
     @SneakyThrows(Exception.class)

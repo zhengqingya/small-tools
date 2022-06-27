@@ -47,6 +47,8 @@ public interface RpcConstant extends BaseConstant {
      */
     List<String> RETURN_VALUE_HANDLER_EXCLUDE_API_LIST = Lists.newArrayList(
             RPC_API_PREFIX_WEB,
+            "/oauth/token",
+            "/auth/oauth/token",
             "/hello",
             "/index",
             "/rpc/client"

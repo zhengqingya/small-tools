@@ -5,7 +5,7 @@ spring:
 
 # https://doc.xiaominfo.com/knife4j
 knife4j:
-  # 开启增强配置 
+  # 开启增强配置
   enable: true
   # 是否开启生产环境屏蔽   true:关闭swagger，false:开启swagger
   production: false
@@ -23,5 +23,5 @@ knife4j:
     username: admin
     # Basic认证密码
     password: 123456
-  #  passwordTokenUrl: http://127.0.0.1:1218/auth/oauth/token
-  passwordTokenUrl: http://127.0.0.1:1219/oauth/token
+  passwordTokenUrl: http://127.0.0.1:1218/auth/oauth/token # 网关服务api
+#  passwordTokenUrl: http://127.0.0.1:1219/oauth/token # 授权服务api
