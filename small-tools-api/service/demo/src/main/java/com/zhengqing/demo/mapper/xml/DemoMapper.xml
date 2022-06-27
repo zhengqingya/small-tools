@@ -27,7 +27,7 @@
         td.username username2,
         td.password password2
         FROM t_demo td
-        WHERE td.is_deleted = 0
+        WHERE td.is_deleted = ${@com.zhengqing.common.db.enums.IsDeletedEnum@NO.getValue()}
         <if test="filter.id!=null">
             AND td.id = #{filter.id}
         </if>
