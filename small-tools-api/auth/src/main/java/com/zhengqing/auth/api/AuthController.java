@@ -55,17 +55,17 @@ public class AuthController {
      */
     @ApiOperation("登录")
     @GetMapping("token")
-    public OAuth2AccessToken getAccessToken(@ApiIgnore Principal principal, @ModelAttribute AuthDTO parameters) {
-        return this.accessToken(principal, parameters);
+    public OAuth2AccessToken getAccessToken(@ApiIgnore Principal principal, @ModelAttribute AuthDTO params) {
+        return this.accessToken(principal, params);
     }
 
     @ApiOperation("登录(swagger授权使用)")
     @PostMapping("token")
-    public Map<String, String> postAccessToken(@ApiIgnore Principal principal, @ModelAttribute AuthDTO parameters) {
+    public Map<String, String> postAccessToken(@ApiIgnore Principal principal, @ModelAttribute AuthDTO params) {
         // swagger集成认证时会post请求进行base64加密
-        parameters.setClient_id(JwtUtil.getClientId());
-        parameters.setClient_secret(JwtUtil.getClientSecretForBasic());
-        OAuth2AccessToken oAuth2AccessToken = this.accessToken(principal, parameters);
+        params.setClient_id(JwtUtil.getClientId());
+        params.setClient_secret(JwtUtil.getClientSecretForBasic());
+        OAuth2AccessToken oAuth2AccessToken = this.accessToken(principal, params);
         /**
          * UI授权成功后取值逻辑见：{@see /knife4j-spring-ui/3.0.3/knife4j-spring-ui-3.0.3.jar!/META-INF/resources/webjars/oauth/oauth2.html}
          *                 that.cacheValue.accessToken=data.token_type+" "+data.access_token;
@@ -78,11 +78,11 @@ public class AuthController {
     }
 
     @SneakyThrows(Exception.class)
-    private OAuth2AccessToken accessToken(@ApiIgnore Principal principal, @ModelAttribute AuthDTO parameters) {
-        log.info("OAuth认证授权 请求参数：{}", JSON.toJSONString(parameters));
+    private OAuth2AccessToken accessToken(@ApiIgnore Principal principal, @ModelAttribute AuthDTO params) {
+        log.info("OAuth认证授权 请求参数：{}", JSON.toJSONString(params));
 
         // 1、认证
-        OAuth2AccessToken accessToken = this.tokenEndpoint.postAccessToken(principal, MyBeanUtil.objToMapStr(parameters)).getBody();
+        OAuth2AccessToken accessToken = this.tokenEndpoint.postAccessToken(principal, MyBeanUtil.objToMapStr(params)).getBody();
 
         // 2、拿到其中的自定义用户信息存入redis中
         Map<String, Object> additionalInformation = accessToken.getAdditionalInformation();
