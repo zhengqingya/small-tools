@@ -32,7 +32,6 @@ small-tools:
       - /*/*.ico
       # 通用接口
       - /common/
-      - /web/api/dict/listFromCacheByCode
       - /system/web/api/dict/listFromCacheByCode
       - /web/api/oauth
       - /web/api/test
