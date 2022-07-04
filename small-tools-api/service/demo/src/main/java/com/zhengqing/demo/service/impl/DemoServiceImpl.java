@@ -147,7 +147,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         log.info("demoInfo ：{}", demoInfo);
 
         if (id == null) {
-            id = IdGeneratorUtil.snowflakeId();
+            id = IdGeneratorUtil.nextId();
             demo.setId(id);
             demo.insert();
         } else {

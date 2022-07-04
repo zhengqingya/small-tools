@@ -12,6 +12,15 @@ package com.zhengqing.common.base.constant;
 public interface RedisConstant {
 
     /**
+     * ID生成
+     */
+    String ID_GENERATE_KEY_PREFIX = "small-tools:id_generate:";
+    /**
+     * 记录重复ID
+     */
+    String ID_GENERATE_REPEAT_KEY = "small-tools:id_generate_repeat";
+
+    /**
      * 随机code码生成
      */
     String GENERATE_RANDOM_CODE_KEY = "small-tools:generate-random-code";

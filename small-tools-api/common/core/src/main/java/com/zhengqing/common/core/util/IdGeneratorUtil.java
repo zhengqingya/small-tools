@@ -6,11 +6,13 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.zhengqing.common.base.constant.RedisConstant;
 import com.zhengqing.common.base.exception.MyException;
+import com.zhengqing.common.base.util.MyDateUtil;
 import com.zhengqing.common.redis.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -64,7 +66,28 @@ public class IdGeneratorUtil {
      * 使用自定义的 workerId 和 datacenterId
      */
     public synchronized static long snowflakeId(long workerId, long datacenterId) {
-        return IdUtil.createSnowflake(workerId, datacenterId).nextId();
+        return IdUtil.getSnowflake(workerId, datacenterId).nextId();
+    }
+
+    /**
+     * 使用redis确保分布式系统主键ID唯一性
+     *
+     * @return ID
+     * @author zhengqingya
+     * @date 2022/7/4 12:47
+     */
+    public synchronized static long nextId() {
+        long id = snowflake.nextId();
+        String key = RedisConstant.ID_GENERATE_KEY_PREFIX + id;
+        if (!RedisUtil.setIfAbsent(key, String.valueOf(id))) {
+            // 记录下重复数据
+            RedisUtil.hPutIfAbsent(RedisConstant.ID_GENERATE_REPEAT_KEY, String.valueOf(id), MyDateUtil.nowStr());
+            // 循环继续获取
+            return snowflakeId();
+        }
+        // 设置3分钟过期
+        RedisUtil.expire(key, 3, TimeUnit.MINUTES);
+        return id;
     }
 
     /**
@@ -95,7 +118,7 @@ public class IdGeneratorUtil {
 
     public static void main(String[] args) {
         for (int i = 0; i < 10; i++) {
-//            log.info("ID: {}", idGeneratorUtil.snowflakeId(i % 2, i % 2));
+//            log.info("ID: {}", IdGeneratorUtil.snowflakeId(i % 2, i % 2));
             log.info("ID: {}", IdGeneratorUtil.snowflakeId());
         }
     }
