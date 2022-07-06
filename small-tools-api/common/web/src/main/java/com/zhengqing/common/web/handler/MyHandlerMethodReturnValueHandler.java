@@ -2,6 +2,8 @@ package com.zhengqing.common.web.handler;
 
 import com.zhengqing.common.base.constant.AppConstant;
 import com.zhengqing.common.base.model.vo.ApiResult;
+import com.zhengqing.common.base.model.vo.PageVO;
+import com.zhengqing.common.base.util.MyBeanUtil;
 import org.springframework.core.MethodParameter;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
@@ -21,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2020/8/1 18:40
  */
 public class MyHandlerMethodReturnValueHandler implements HandlerMethodReturnValueHandler {
+
+    private final String IPAGE_CLASS_NAME = "com.baomidou.mybatisplus.extension.plugins.pagination.Page";
 
     private final HandlerMethodReturnValueHandler returnValueHandler;
 
@@ -53,6 +57,10 @@ public class MyHandlerMethodReturnValueHandler implements HandlerMethodReturnVal
                 ifHandleReturnValue = false;
                 break;
             }
+        }
+        if (this.IPAGE_CLASS_NAME.equals(returnType.getNestedParameterType().getName())) {
+            // 转换一下只保留前端有效使用字段
+            returnValue = MyBeanUtil.copyProperties(returnValue, PageVO.class);
         }
         this.returnValueHandler.handleReturnValue(ifHandleReturnValue ? ApiResult.ok(returnValue) : returnValue, returnType, mavContainer, webRequest);
     }
