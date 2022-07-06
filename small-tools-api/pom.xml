@@ -27,11 +27,11 @@
         <!--        <small-tools.basedir>${session.executionRootDirectory}</small-tools.basedir>-->
 
         <!-- 版本参考：https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E -->
-        <spring-boot.version>2.6.7</spring-boot.version>
-        <spring-cloud.version>2021.0.1</spring-cloud.version>
+        <spring-boot.version>2.7.0</spring-boot.version>
+        <spring-cloud.version>2021.0.2</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
         <spring.platform.version>Cairo-SR8</spring.platform.version>
-        <spring-boot-admin.version>2.6.7</spring-boot-admin.version>
+        <spring-boot-admin.version>2.7.0</spring-boot-admin.version>
 
 
         <!--        <docker.plugin.version>1.1.0</docker.plugin.version>-->
