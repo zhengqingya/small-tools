@@ -61,12 +61,12 @@
       <el-button
         :loading="loading"
         type="primary"
-        style="width:100%;margin-bottom:30px;"
+        style="width: 100%; margin-bottom: 30px"
         @click.native.prevent="handleLogin(true)"
         >Login</el-button
       >
 
-      <div style="position:relative; float: right;">
+      <div style="position: relative; float: right">
         <!-- <div class="tips">
           <span>Username : test</span>
           <span>Password : 123456</span>
@@ -80,7 +80,7 @@
           >
             <img
               :src="require(`../../../assets/images/${item.name}.png`)"
-              style="width: 28px;"
+              style="width: 28px"
               :alt="item.name"
             />
           </a>
@@ -100,65 +100,65 @@
 </template>
 
 <script>
-import SocialSign from "./components/SocialSignin";
+import SocialSign from './components/SocialSignin'
 // import openWindow from "@/utils/open-window";
 
 export default {
-  name: "Login",
+  name: 'Login',
   components: { SocialSign },
   data() {
     return {
       loginForm: {
-        username: "admin",
-        password: "123456",
-        token: "",
-        ifThirdpartOauth: false
+        username: 'admin',
+        password: '123456',
+        token: '',
+        ifThirdpartOauth: false,
       },
       loginRules: {
-        username: [{ required: true, trigger: "blur" }],
-        password: [{ required: true, trigger: "blur" }]
+        username: [{ required: true, trigger: 'blur' }],
+        password: [{ required: true, trigger: 'blur' }],
       },
-      passwordType: "password",
+      passwordType: 'password',
       capsTooltip: false,
       loading: false,
       showDialog: false,
       redirect: undefined,
       otherQuery: {},
-      oauthUrl: process.env.VUE_APP_BASE_API + "/system/web/api/oauth/",
+      oauthUrl: process.env.VUE_APP_BASE_API + '/system/web/api/oauth/',
       oauthTypeList: [],
-      token: ""
-    };
+      token: '',
+    }
   },
   watch: {
     $route: {
-      handler: function(route) {
-        const query = route.query;
+      handler: function (route) {
+        const query = route.query
         if (query) {
-          this.redirect = query.redirect;
-          this.otherQuery = this.getOtherQuery(query);
+          this.redirect = query.redirect
+          this.otherQuery = this.getOtherQuery(query)
 
           // 处理第三方登录逻辑
-          let token = query.token;
-          let ifThirdpartOauth = query.ifThirdpartOauth;
-          this.loginForm.ifThirdpartOauth = ifThirdpartOauth;
+          let token = query.token
+          let ifThirdpartOauth = query.ifThirdpartOauth
+          this.loginForm.ifThirdpartOauth = ifThirdpartOauth
           if (ifThirdpartOauth) {
-            this.loginForm.token = token;
-            this.handleLogin(false);
+            this.loginForm.token = token
+            this.handleLogin(false)
           }
         }
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   created() {
     // window.addEventListener('storage', this.afterQRScan)
-    this.getOauthTypeList();
+    this.getOauthTypeList()
   },
   mounted() {
-    if (this.loginForm.username === "") {
-      this.$refs.username.focus();
-    } else if (this.loginForm.password === "") {
-      this.$refs.password.focus();
+    if (this.loginForm.username === '') {
+      this.$refs.username.focus()
+    } else if (this.loginForm.password === '') {
+      this.$refs.password.focus()
     }
   },
   destroyed() {
@@ -166,62 +166,62 @@ export default {
   },
   methods: {
     async getOauthTypeList() {
-      let res = await this.$api.sys_dict.listFromCacheByCode("oauth_type");
-      this.oauthTypeList = res.data;
+      let res = await this.$api.sys_dict.listFromCacheByCode('oauth_type')
+      this.oauthTypeList = res.data
     },
     checkCapslock(e) {
-      const { key } = e;
-      this.capsTooltip = key && key.length === 1 && key >= "A" && key <= "Z";
+      const { key } = e
+      this.capsTooltip = key && key.length === 1 && key >= 'A' && key <= 'Z'
     },
     showPwd() {
-      if (this.passwordType === "password") {
-        this.passwordType = "";
+      if (this.passwordType === 'password') {
+        this.passwordType = ''
       } else {
-        this.passwordType = "password";
+        this.passwordType = 'password'
       }
       this.$nextTick(() => {
-        this.$refs.password.focus();
-      });
+        this.$refs.password.focus()
+      })
     },
     handleLogin(ifCheckParams) {
-      let checkResult = true;
+      let checkResult = true
       if (ifCheckParams) {
-        this.loginForm.ifThirdpartOauth = false;
-        this.$refs.loginForm.validate(valid => {
-          checkResult = valid;
-        });
+        this.loginForm.ifThirdpartOauth = false
+        this.$refs.loginForm.validate((valid) => {
+          checkResult = valid
+        })
       }
       if (checkResult) {
-        this.loading = true;
+        this.loading = true
         this.$store
-          .dispatch("user/login", this.loginForm)
+          .dispatch('user/login', this.loginForm)
           .then(() => {
             this.$router.push({
-              path: this.redirect || "/",
-              query: this.otherQuery
-            });
-            this.loading = false;
+              path: this.redirect || '/',
+              query: this.otherQuery,
+            })
+            this.loading = false
           })
           .catch(() => {
-            this.loading = false;
-          });
+            this.loading = false
+          })
       } else {
-        console.log("error submit!!");
-        return false;
+        console.log('error submit!!')
+        return false
       }
     },
     getOtherQuery(query) {
       return Object.keys(query).reduce((acc, cur) => {
         if (
-          cur !== "redirect" &&
-          cur !== "ifThirdpartOauth" &&
-          cur !== "token"
+          cur !== 'redirect' &&
+          cur !== 'ifThirdpartOauth' &&
+          cur !== 'token'
         ) {
-          acc[cur] = query[cur];
+          acc[cur] = query[cur]
         }
-        return acc;
-      }, {});
-    }
+        return acc
+      }, {})
+    },
     // afterQRScan() {
     //   if (e.key === 'x-admin-oauth-code') {
     //     const code = getQueryObject(e.newValue)
@@ -240,8 +240,8 @@ export default {
     //     }
     //   }
     // }
-  }
-};
+  },
+}
 </script>
 
 <style lang="scss">

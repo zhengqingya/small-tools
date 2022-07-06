@@ -51,7 +51,7 @@
               <el-checkbox
                 v-model="checkAll"
                 :indeterminate="isIndeterminate"
-                style="margin-bottom:10px"
+                style="margin-bottom: 10px"
                 @change="handleCheckAllBtnsChange"
                 >全选</el-checkbox
               >
@@ -86,152 +86,152 @@ export default {
       roleForm: {
         // 表单数据
         roleId: undefined, // 角色id
-        name: "", // 角色名称
-        code: "", // 角色编号
-        status: "", // 状态
-        menuIdList: "", // 角色菜单权限
-        menuList: undefined
+        name: '', // 角色名称
+        code: '', // 角色编号
+        status: '', // 状态
+        menuIdList: '', // 角色菜单权限
+        menuList: undefined,
       },
       allMenus: [],
       defaultProps: {
-        children: "children",
-        label: "title"
+        children: 'children',
+        label: 'title',
       },
       rules: {
         // 表单验证
-        code: [{ required: true, message: "请输入用户ID", trigger: "blur" }],
-        name: [{ required: true, message: "请输入用户名称", trigger: "blur" }],
+        code: [{ required: true, message: '请输入用户ID', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入用户名称', trigger: 'blur' }],
         accountNum: [
-          { required: true, message: "请输入用户账号", trigger: "blur" }
+          { required: true, message: '请输入用户账号', trigger: 'blur' },
         ],
-        contact: [{ required: true, message: "请输入联系人", trigger: "blur" }],
+        contact: [{ required: true, message: '请输入联系人', trigger: 'blur' }],
         contactPhone: [
-          { required: true, message: "请输入联系手机", trigger: "blur" }
+          { required: true, message: '请输入联系手机', trigger: 'blur' },
         ],
-        roleId: [{ required: true, message: "请选择角色" }]
+        roleId: [{ required: true, message: '请选择角色' }],
       },
       checkAll: false,
       isIndeterminate: true,
       currentClickMenu: [],
       permissionBtns: [],
       currentSelectedBtns: [],
-      showConfigContainer: false
-    };
+      showConfigContainer: false,
+    }
   },
   computed: {
     isEdit() {
-      return !(this.$route.fullPath.indexOf("id") === -1); // 根据路由判断
+      return !(this.$route.fullPath.indexOf('id') === -1) // 根据路由判断
     },
     hasEditBtnPermission() {
       // 是否有编辑按钮的权限
       const hasChildren =
-        this.currentClickMenu && this.currentClickMenu.children.length === 0;
-      return hasChildren;
-    }
+        this.currentClickMenu && this.currentClickMenu.children.length === 0
+      return hasChildren
+    },
   },
   mounted() {
-    this.getMenuTree();
+    this.getMenuTree()
   },
   methods: {
     async getMenuTree() {
-      let res = await this.$api.sys_menu.menuTree();
-      this.allMenus = res.data;
+      let res = await this.$api.sys_menu.menuTree()
+      this.allMenus = res.data
       if (this.isEdit) {
-        let res = await this.$api.sys_role.detail(this.$route.query.id);
-        this.roleForm = res.data;
+        let res = await this.$api.sys_role.detail(this.$route.query.id)
+        this.roleForm = res.data
         if (this.roleForm.menuIdList) {
           const roleMenus = this.filterLeafNode(
             this.allMenus,
             this.roleForm.menuIdList
-          );
-          this.$refs.menuTree.setCheckedKeys(roleMenus);
+          )
+          this.$refs.menuTree.setCheckedKeys(roleMenus)
         }
       }
     },
     filterLeafNode(allMenus, roleMenu) {
-      var result = [];
-      var leafNodes = [];
-      this.getLeafNode(allMenus, leafNodes);
+      var result = []
+      var leafNodes = []
+      this.getLeafNode(allMenus, leafNodes)
       if (leafNodes && roleMenu) {
-        leafNodes.forEach(nodeId => {
-          roleMenu.forEach(roleMenuId => {
+        leafNodes.forEach((nodeId) => {
+          roleMenu.forEach((roleMenuId) => {
             if (nodeId === roleMenuId) {
-              result.push(nodeId);
+              result.push(nodeId)
             }
-          });
-        });
+          })
+        })
       }
-      return result;
+      return result
     },
     getLeafNode(menuIdList, result) {
-      menuIdList.forEach(item => {
+      menuIdList.forEach((item) => {
         if (item.children == null || item.children.length === 0) {
-          result.push(item.menuId);
-          return result;
+          result.push(item.menuId)
+          return result
         } else {
-          this.getLeafNode(item.children, result);
+          this.getLeafNode(item.children, result)
         }
-      });
+      })
     },
     saveData() {
       // 获取选中的菜单
       this.roleForm.menuIdList = this.$refs.menuTree
         .getCheckedKeys()
-        .concat(this.$refs.menuTree.getHalfCheckedKeys());
-      this.roleForm.menuList = this.$refs.menuTree.getCheckedNodes(false, true);
-      this.$refs.roleForm.validate(async valid => {
+        .concat(this.$refs.menuTree.getHalfCheckedKeys())
+      this.roleForm.menuList = this.$refs.menuTree.getCheckedNodes(false, true)
+      this.$refs.roleForm.validate(async (valid) => {
         if (valid) {
           let res = await this.$api.sys_role.savePermissionMenuIds(
             this.roleForm
-          );
-          this.submitOk(res.msg);
-          this.$router.push("/system/role");
+          )
+          this.submitOk(res.msg)
+          this.$router.push('/system/role')
         }
-      });
+      })
     },
     handleNodeClick(data) {
-      this.currentClickMenu = data;
+      this.currentClickMenu = data
       if (this.hasEditBtnPermission) {
-        this.showConfigContainer = true;
-        this.getCurrentPagePermissionBtns(data.menuId);
-        this.getSelectedPermissionBtn(data.menuId);
+        this.showConfigContainer = true
+        this.getCurrentPagePermissionBtns(data.menuId)
+        this.getSelectedPermissionBtn(data.menuId)
       } else {
-        this.showConfigContainer = false;
+        this.showConfigContainer = false
       }
     },
     async getCurrentPagePermissionBtns(menuId) {
-      let res = await this.$api.sys_role.getBtnsByMenuId(menuId);
-      this.permissionBtns = res.data;
+      let res = await this.$api.sys_role.getBtnsByMenuId(menuId)
+      this.permissionBtns = res.data
     },
     async getSelectedPermissionBtn(menuId) {
-      const roleId = this.$route.query.id;
+      const roleId = this.$route.query.id
       let res = await this.$api.sys_role.getPermissionBtnsByRoleIdAndMenuId({
         roleId: roleId,
-        menuId: menuId
-      });
-      this.currentSelectedBtns = res.data;
+        menuId: menuId,
+      })
+      this.currentSelectedBtns = res.data
     },
     async handleSavePermissionBtns() {
       const submitObj = {
         roleId: this.$route.query.id,
         menuId: this.currentClickMenu.menuId,
-        btnIdList: this.currentSelectedBtns
-      };
-      let res = await this.$api.sys_role.savePermissionBtnIds(submitObj);
-      this.submitOk(res.msg);
+        btnIdList: this.currentSelectedBtns,
+      }
+      let res = await this.$api.sys_role.savePermissionBtnIds(submitObj)
+      this.submitOk(res.msg)
     },
     handleCheckAllBtnsChange(val) {
-      const allBtnsId = this.permissionBtns.map(item => item.btnId);
-      this.currentSelectedBtns = val ? allBtnsId : [];
-      this.isIndeterminate = false;
+      const allBtnsId = this.permissionBtns.map((item) => item.btnId)
+      this.currentSelectedBtns = val ? allBtnsId : []
+      this.isIndeterminate = false
     },
     handleCheckedBtnsChange(value) {
-      const checkedCount = value.length;
-      this.checkAll = checkedCount === this.permissionBtns.length;
+      const checkedCount = value.length
+      this.checkAll = checkedCount === this.permissionBtns.length
       this.isIndeterminate =
-        checkedCount > 0 && checkedCount < this.permissionBtns.length;
-    }
-  }
-};
+        checkedCount > 0 && checkedCount < this.permissionBtns.length
+    },
+  },
+}
 </script>
 <style lang="scss" scoped></style>

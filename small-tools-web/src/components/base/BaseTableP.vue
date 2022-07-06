@@ -8,9 +8,9 @@
       ref="baseTable"
       v-loading="
         loading &&
-          (isPage
-            ? res.records == null || res.records.length == 0
-            : res == null || res.length == 0)
+        (isPage
+          ? res.records == null || res.records.length == 0
+          : res == null || res.length == 0)
       "
       v-bind="$attrs"
       :data="isPage ? res.records : res"
@@ -62,105 +62,105 @@
 </template>
 <script>
 export default {
-  name: "BaseTableP",
+  name: 'BaseTableP',
   model: {
-    event: "load"
+    event: 'load',
   },
   props: {
     indexCode: {
       type: Boolean,
-      default: false
+      default: false,
     },
     selection: {
       type: Boolean,
-      default: false
+      default: false,
     },
     columns: {
       type: Array,
       default() {
-        return [];
-      }
+        return []
+      },
     },
     params: {
       type: Object,
       default() {
-        return {};
-      }
+        return {}
+      },
     },
     api: {
       type: String,
-      default: ""
+      default: '',
     },
     pointer: {
       //行是否显示手指的手势
       type: Boolean,
-      default: false
+      default: false,
     },
     isHeader: {
       //行是否显示手指的手势
       type: Boolean,
-      default: false
+      default: false,
     },
     data: {
       type: Array,
       default() {
-        return [];
-      }
+        return []
+      },
     },
     isPage: {
       //是否分页
       type: Boolean,
       default() {
-        return true;
-      }
-    }
+        return true
+      },
+    },
   },
   data() {
     return {
       loading: true,
       pageParams: {
         pageNum: 1,
-        pageSize: 10
+        pageSize: 10,
       },
       res: {
         current: 1,
         pages: 2,
         size: 10,
         total: 0,
-        records: []
+        records: [],
       },
-      isCli: false
-    };
+      isCli: false,
+    }
   },
   computed: {
     apiMethod() {
-      return this.api.split(".").reduce((acc, item) => {
-        return acc[item];
-      }, this.$api);
-    }
+      return this.api.split('.').reduce((acc, item) => {
+        return acc[item]
+      }, this.$api)
+    },
   },
   watch: {
     data: {
       handler(val) {
-        this.res = [];
+        this.res = []
         if (!this.isPage || (this.data && this.data.length > 0)) {
-          this.res = val;
+          this.res = val
         }
       },
       deep: true, // 是否深度监听
-      immediate: true // true代表如果在 wacth 里声明了之后，就会立即先去执行里面的handler方法，如果为 false就跟我们以前的效果一样，不会在绑定的时候就执行
-    }
+      immediate: true, // true代表如果在 wacth 里声明了之后，就会立即先去执行里面的handler方法，如果为 false就跟我们以前的效果一样，不会在绑定的时候就执行
+    },
   },
   created() {
     if (this.data && this.data.length > 0) {
       // 情况①：走父组件传值过来
-      this.handleData();
+      this.handleData()
     } else {
       // 情况②：走api接口数据
       if (this.isPage) {
-        this.getListPage();
+        this.getListPage()
       } else {
-        this.getList();
+        this.getList()
       }
     }
   },
@@ -168,22 +168,22 @@ export default {
     // 分页列表
     async getListPage() {
       if (this.api) {
-        this.loading = true;
+        this.loading = true
         // 处理分页参数
         // this.params.pageNum = this.pageParams.pageNum;
         // this.params.pageSize = this.pageParams.pageSize;
-        let response = await this.apiMethod(this.params, this.pageParams);
-        this.res = response.data;
-        this.loading = false;
+        let response = await this.apiMethod(this.params, this.pageParams)
+        this.res = response.data
+        this.loading = false
       }
     },
     // 列表
     async getList() {
       if (this.api) {
-        this.loading = true;
-        let response = await this.apiMethod(this.params);
-        this.res = response.data;
-        this.loading = false;
+        this.loading = true
+        let response = await this.apiMethod(this.params)
+        this.res = response.data
+        this.loading = false
       }
     },
     // 父组件直接传data值过来的处理方式
@@ -193,23 +193,23 @@ export default {
     //刷新
     async refresh() {
       if (this.data && this.data.length > 0) {
-        this.loading = true;
-        this.res = this.data;
-        this.loading = false;
+        this.loading = true
+        this.res = this.data
+        this.loading = false
       } else {
         this.res = {
           current: 1,
           pages: 2,
           size: 10,
           total: 0,
-          records: []
-        };
-        this.pageParams.pageNum = 1;
-        await this.getListPage();
+          records: [],
+        }
+        this.pageParams.pageNum = 1
+        await this.getListPage()
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
 <style lang="scss" scoped>
 .pointer /deep/ .el-table__row {

@@ -10,12 +10,12 @@
 </template>
 <script>
 export default {
-  name: "Card",
+  name: 'Card',
   data() {
-    return {};
+    return {}
   },
-  methods: {}
-};
+  methods: {},
+}
 </script>
 <style lang="scss" scoped>
 .card {

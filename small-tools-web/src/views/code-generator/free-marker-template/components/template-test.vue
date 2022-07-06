@@ -33,28 +33,28 @@
 
 <script>
 export default {
-  name: "TemplateTest",
+  name: 'TemplateTest',
   data() {
     return {
       dialogVisible: false,
-      templateContent: "",
-      templateData: ""
-    };
+      templateContent: '',
+      templateData: '',
+    }
   },
   created() {},
   methods: {
     show() {
-      this.dialogVisible = true;
+      this.dialogVisible = true
     },
     async submitForm() {
       let res = await this.$api.cg_free_marker_template.testTemplateData({
-        templateContent: this.templateContent
-      });
-      this.submitOk(res.message);
-      this.templateData = res.data;
+        templateContent: this.templateContent,
+      })
+      this.submitOk(res.message)
+      this.templateData = res.data
       // this.dialogVisible = false;
-    }
-  }
-};
+    },
+  },
+}
 </script>
 <style scoped></style>

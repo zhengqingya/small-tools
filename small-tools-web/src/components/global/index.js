@@ -1,17 +1,17 @@
-import Vue from "vue";
+import Vue from 'vue'
 
 function registerAllComponents(requireContext) {
-  return requireContext.keys().forEach(comp => {
-    const vueComp = requireContext(comp);
+  return requireContext.keys().forEach((comp) => {
+    const vueComp = requireContext(comp)
     const compName = vueComp.default.name
       ? vueComp.default.name
-      : /\/([\w-]+)\.vue$/.exec(comp)[1];
-    Vue.component(`my-base${getKebabCase(compName)}`, vueComp.default);
-  });
+      : /\/([\w-]+)\.vue$/.exec(comp)[1]
+    Vue.component(`my-base${getKebabCase(compName)}`, vueComp.default)
+  })
 }
 function getKebabCase(str) {
-  return str.replace(/[A-Z]/g, function(i) {
-    return "-" + i.toLowerCase();
-  });
+  return str.replace(/[A-Z]/g, function (i) {
+    return '-' + i.toLowerCase()
+  })
 }
-registerAllComponents(require.context("./", true, /\.vue$/));
+registerAllComponents(require.context('./', true, /\.vue$/))

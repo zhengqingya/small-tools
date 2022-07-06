@@ -47,108 +47,108 @@
 </template>
 <script>
 //树形结构转为一维数组
-const getAll = function(data, children = "children", arr = []) {
+const getAll = function (data, children = 'children', arr = []) {
   for (let item of data) {
-    arr.push(item);
+    arr.push(item)
     if (item[children] && item[children].length > 0) {
-      getAll(item[children], children, arr);
+      getAll(item[children], children, arr)
     }
   }
-  return arr;
-};
+  return arr
+}
 export default {
-  name: "BaseTreeSelect",
+  name: 'BaseTreeSelect',
   model: {
-    event: "change"
+    event: 'change',
   },
   props: {
     props: {
       type: Object,
       default() {
-        return {};
-      }
+        return {}
+      },
     },
     data: {
       type: Array,
       default() {
-        return [];
-      }
-    }
+        return []
+      },
+    },
   },
   data() {
     return {
       options: [],
-      filterText: ""
-    };
+      filterText: '',
+    }
   },
   computed: {
-    multiple: function() {
-      let type = Object.prototype.toString.call(this.$attrs.value).slice(8, -1);
-      return type === "Array";
+    multiple: function () {
+      let type = Object.prototype.toString.call(this.$attrs.value).slice(8, -1)
+      return type === 'Array'
     },
-    defaultProps: function() {
+    defaultProps: function () {
       return Object.assign(
         {},
         {
           checkStrictly: false,
-          value: "id", // ID字段名
-          label: "label", // 显示名称
-          children: "children" // 子级字段名
+          value: 'id', // ID字段名
+          label: 'label', // 显示名称
+          children: 'children', // 子级字段名
         },
         this.props
-      );
-    }
+      )
+    },
   },
   watch: {
-    data: function() {
-      this.init();
+    data: function () {
+      this.init()
     },
     filterText(val) {
-      this.$refs.treeBox.filter(val);
-    }
+      this.$refs.treeBox.filter(val)
+    },
   },
   mounted() {
-    this.init();
+    this.init()
   },
   methods: {
     init() {
       if (this.multiple) {
-        this.$refs.treeBox.setCheckedKeys(this.$attrs.value); // 设置默认选中
+        this.$refs.treeBox.setCheckedKeys(this.$attrs.value) // 设置默认选中
       } else {
-        this.$refs.treeBox.setCurrentKey(this.$attrs.value);
+        this.$refs.treeBox.setCurrentKey(this.$attrs.value)
       }
-      this.options = getAll(this.data, this.defaultProps.children);
+      this.options = getAll(this.data, this.defaultProps.children)
     },
     handerCheckChange() {
       if (this.multiple) {
-        this.handerMultiple();
+        this.handerMultiple()
       } else {
-        this.handerSingle();
+        this.handerSingle()
       }
     },
     handerSingle() {
-      let key = this.$refs.treeBox.getCurrentKey();
-      this.$emit("change", key);
-      this.$refs.select.blur();
+      let key = this.$refs.treeBox.getCurrentKey()
+      this.$emit('change', key)
+      this.$refs.select.blur()
     },
     handerMultiple() {
-      let nodes = this.$refs.treeBox.getCheckedNodes();
+      let nodes = this.$refs.treeBox.getCheckedNodes()
       let keys = nodes.reduce((acc, item) => {
         //如果父子不关联则选中所有的，如果父子关联，则只选中叶子节点
-        let bol = this.defaultProps.checkStrictly ? true : !item.children;
-        return bol ? [...acc, item[this.defaultProps.value]] : acc;
-      }, []);
-      this.$emit("change", keys);
+        let bol = this.defaultProps.checkStrictly ? true : !item.children
+        return bol ? [...acc, item[this.defaultProps.value]] : acc
+      }, [])
+      this.$emit('change', keys)
     },
     valueChange(v) {
-      this.$refs.treeBox.setCheckedKeys(v);
+      this.$refs.treeBox.setCheckedKeys(v)
     },
     filterNode(value, data) {
-      if (!value) return true;
-      return data.label.indexOf(value) !== -1;
-    }
-  }
-};
+      if (!value) return true
+      return data.label.indexOf(value) !== -1
+    },
+  },
+}
 </script>
 <style>
 .hidden {

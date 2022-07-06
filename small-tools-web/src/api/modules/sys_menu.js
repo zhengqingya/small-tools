@@ -1,37 +1,37 @@
-import request from "@/utils/request";
+import request from '@/utils/request'
 
-const BASE_API = "/system/web/api/menu";
+const BASE_API = '/system/web/api/menu'
 
 export default {
   menuTree() {
     return request({
-      url: BASE_API + "/menuTree",
-      method: "get",
-      params: { systemSource: 0 }
-    });
+      url: BASE_API + '/menuTree',
+      method: 'get',
+      params: { systemSource: 0 },
+    })
   },
   add(data) {
     return request({
       url: BASE_API,
-      method: "post",
-      data
-    });
+      method: 'post',
+      data,
+    })
   },
   update(data) {
     return request({
       url: BASE_API,
-      method: "put",
-      data
-    });
+      method: 'put',
+      data,
+    })
   },
   delete(menuId) {
     return request({
       url: BASE_API,
-      method: "delete",
+      method: 'delete',
       params: {
-        menuId: menuId
-      }
-    });
+        menuId: menuId,
+      },
+    })
   },
   /**
    * 保存页面中的按钮
@@ -39,10 +39,10 @@ export default {
    */
   saveMenuBtnIds(data) {
     return request({
-      url: BASE_API + "/saveMenuBtnIds",
-      method: "post",
-      data
-    });
+      url: BASE_API + '/saveMenuBtnIds',
+      method: 'post',
+      data,
+    })
   },
   /**
    * 获取页面中的按钮ids
@@ -50,11 +50,11 @@ export default {
    */
   getBtnIdsByMenuId(id) {
     return request({
-      url: BASE_API + "/getBtnIdsByMenuId",
-      method: "get",
+      url: BASE_API + '/getBtnIdsByMenuId',
+      method: 'get',
       params: {
-        menuId: id
-      }
-    });
-  }
-};
+        menuId: id,
+      },
+    })
+  },
+}

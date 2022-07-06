@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
-    <el-row style="height:100%;" :gutter="15">
-      <el-col :span="6" style="height:100%;">
+    <el-row style="height: 100%" :gutter="15">
+      <el-col :span="6" style="height: 100%">
         <my-base-wraper full-height>
           <my-base-title-card title="字典类型">
             <el-button
@@ -59,7 +59,7 @@
             </my-base-table-cell>
           </my-base-title-card>
           <hr />
-          <my-base-title-card style="margin-top: 10px;" title="字典列表">
+          <my-base-title-card style="margin-top: 10px" title="字典列表">
             <el-button
               v-if="isShowAddDictButton"
               slot="append"
@@ -96,92 +96,98 @@
   </div>
 </template>
 <script>
-import editDict from "./edit-dict";
-import editDictType from "./edit-dict-type";
+import editDict from './edit-dict'
+import editDictType from './edit-dict-type'
 export default {
-  name: "Dict",
+  name: 'Dict',
   components: { editDict, editDictType },
   data() {
     return {
       isShowAddDictButton: false,
       dictionaryTree: [],
       defaultProps: {
-        children: "children",
-        label: "name"
+        children: 'children',
+        label: 'name',
       },
       dicList: [], // 字典列表
       dictTypeData: {},
-      listLoading: false
-    };
+      listLoading: false,
+    }
   },
   computed: {
     calcTableHeight() {
-      const winHeight = document.documentElement.clientHeight;
-      return Math.abs(winHeight - 360);
-    }
+      const winHeight = document.documentElement.clientHeight
+      return Math.abs(winHeight - 360)
+    },
   },
   mounted() {
-    this.getDictTree();
+    this.getDictTree()
   },
   methods: {
     async getDictTree() {
-      let res = await this.$api.sys_dict_type.list();
-      this.dictionaryTree = res.data;
-      this.dictTypeData = {};
-      this.dicList = [];
-      this.isShowAddDictButton = false;
+      let res = await this.$api.sys_dict_type.list()
+      this.dictionaryTree = res.data
+      this.dictTypeData = {}
+      this.dicList = []
+      this.isShowAddDictButton = false
     },
     handleNodeClick(data) {
-      this.dictTypeData = data;
-      this.getDicList(this.dictTypeData);
-      this.isShowAddDictButton = true;
+      this.dictTypeData = data
+      this.getDicList(this.dictTypeData)
+      this.isShowAddDictButton = true
     },
     async getDicList(data) {
-      let res = await this.$api.sys_dict.listByCode(data.code);
-      this.dicList = res.data;
+      let res = await this.$api.sys_dict.listByCode(data.code)
+      this.dicList = res.data
     },
     addDict() {
       if (!this.dictTypeData.name) {
-        this.$message.warning("请先选中要添加的字典类型");
-        return;
+        this.$message.warning('请先选中要添加的字典类型')
+        return
       }
-      var maxSort = 1;
+      var maxSort = 1
       if (this.dicList.length > 0) {
-        maxSort = Math.max(...this.dicList.map(e => e.sort)) + 1;
+        maxSort = Math.max(...this.dicList.map((e) => e.sort)) + 1
       }
-      this.$refs.editDict.open("create", null, this.dictTypeData.id,this.dictTypeData.code, maxSort);
+      this.$refs.editDict.open(
+        'create',
+        null,
+        this.dictTypeData.id,
+        this.dictTypeData.code,
+        maxSort
+      )
     },
     updateDict(row) {
-      this.$refs.editDict.open("update", row);
+      this.$refs.editDict.open('update', row)
     },
     async deleteDict({ id }) {
-      let res = await this.$api.sys_dict.delete(id);
-      this.submitOk(res.msg);
-      this.getDicList(this.dictTypeData);
+      let res = await this.$api.sys_dict.delete(id)
+      this.submitOk(res.msg)
+      this.getDicList(this.dictTypeData)
     },
     // 下：数据字典类型操作 ======================
     addDictType() {
-      this.$refs.editDictType.open("create");
+      this.$refs.editDictType.open('create')
     },
     updateDictType(row) {
-      this.$refs.editDictType.open("update", row);
+      this.$refs.editDictType.open('update', row)
     },
     deleteDictType() {
       if (!this.dictTypeData.name) {
-        this.$message.warning("请先选中要删除的字典类型");
-        return;
+        this.$message.warning('请先选中要删除的字典类型')
+        return
       }
-      this.$confirm("确定删除数据字典?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
+      this.$confirm('确定删除数据字典?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
       }).then(async () => {
-        let res = await this.$api.sys_dict_type.delete(this.dictTypeData.id);
-        this.submitOk(res.msg);
-        this.getDictTree();
-      });
-    }
-  }
-};
+        let res = await this.$api.sys_dict_type.delete(this.dictTypeData.id)
+        this.submitOk(res.msg)
+        this.getDictTree()
+      })
+    },
+  },
+}
 </script>
 <style scoped></style>

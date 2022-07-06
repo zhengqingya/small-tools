@@ -1,42 +1,42 @@
-import request from "@/utils/request";
+import request from '@/utils/request'
 
-const BASE_API = "/tool/web/api/other/anonymity";
+const BASE_API = '/tool/web/api/other/anonymity'
 
 export default {
   listPage(query, headers) {
     return request({
-      url: BASE_API + "/listPage",
-      method: "get",
+      url: BASE_API + '/listPage',
+      method: 'get',
       params: query,
-      headers
-    });
+      headers,
+    })
   },
   add(form) {
     return request({
       url: BASE_API,
-      method: "post",
-      data: form
-    });
+      method: 'post',
+      data: form,
+    })
   },
   update(form) {
     return request({
       url: BASE_API,
-      method: "put",
-      data: form
-    });
+      method: 'put',
+      data: form,
+    })
   },
   handle(form) {
     return request({
-      url: BASE_API + "/handle",
-      method: "put",
-      data: form
-    });
+      url: BASE_API + '/handle',
+      method: 'put',
+      data: form,
+    })
   },
   delete(id) {
     return request({
       url: BASE_API,
-      method: "delete",
-      params: { id: id }
-    });
-  }
-};
+      method: 'delete',
+      params: { id: id },
+    })
+  },
+}

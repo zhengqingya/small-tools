@@ -3,11 +3,11 @@
 </template>
 <script>
 export default {
-  name: "ParentView",
+  name: 'ParentView',
   data() {
-    return {};
+    return {}
   },
-  methods: {}
-};
+  methods: {},
+}
 </script>
 <style lang="scss" scoped></style>

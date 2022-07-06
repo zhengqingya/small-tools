@@ -8,17 +8,17 @@
 
 <script>
 export default {
-  name: "AppMain",
+  name: 'AppMain',
   computed: {
     key() {
-      return this.$route.path;
+      return this.$route.path
     },
     isNoCrumb() {
-      const isHome = this.$route.path.indexOf("dashboard") > -1;
-      return isHome;
-    }
-  }
-};
+      const isHome = this.$route.path.indexOf('dashboard') > -1
+      return isHome
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>

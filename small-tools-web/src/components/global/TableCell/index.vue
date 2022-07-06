@@ -3,7 +3,7 @@
     class="table-cell"
     :class="[
       App.isDarkTheme ? 'table-cell-dark-theme' : '',
-      labelPosition ? 'table-cell__label-' + labelPosition : ''
+      labelPosition ? 'table-cell__label-' + labelPosition : '',
     ]"
   >
     <slot />
@@ -11,28 +11,28 @@
 </template>
 <script>
 export default {
-  name: "TableCell",
-  inject: ["App"],
+  name: 'TableCell',
+  inject: ['App'],
   props: {
     labelPosition: {
       type: String,
-      default: "left"
+      default: 'left',
     },
     labelWidth: {
       type: String,
-      default: "200px"
-    }
+      default: '200px',
+    },
   },
   provide() {
     return {
-      tableCell: this
-    };
+      tableCell: this,
+    }
   },
   data() {
-    return {};
+    return {}
   },
-  methods: {}
-};
+  methods: {},
+}
 </script>
 <style lang="scss" scoped>
 ul.table-cell {

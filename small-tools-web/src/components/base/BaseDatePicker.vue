@@ -11,9 +11,9 @@
 </template>
 <script>
 export default {
-  name: "BaseDatePicker",
+  name: 'BaseDatePicker',
   data() {
-    return {};
-  }
-};
+    return {}
+  },
+}
 </script>

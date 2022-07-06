@@ -71,8 +71,8 @@
             :to="{
               path: '/codeGenerator/project-re-db/table',
               query: {
-                projectReDbDataSourceId: scope.row.projectReDbDataSourceId
-              }
+                projectReDbDataSourceId: scope.row.projectReDbDataSourceId,
+              },
             }"
           >
             <el-button type="text" plain>查看表</el-button>
@@ -131,7 +131,7 @@
 
 <script>
 export default {
-  name: "CgProjectReDb",
+  name: 'CgProjectReDb',
   data() {
     return {
       dialogVisible: false,
@@ -139,77 +139,77 @@ export default {
       dataSourceList: [], // 数据源列表
       listQuery: {
         projectId: undefined, // 所属项目ID
-        dbDataSourceId: undefined // 数据源id
+        dbDataSourceId: undefined, // 数据源id
       },
       form: {
         projectReDbDataSourceId: undefined, // 数据库ID
         projectId: undefined, // 所属项目ID
         dbDataSourceId: undefined, // 数据源id
-        dbName: "", // 数据库名称
-        remark: "" // 备注
+        dbName: '', // 数据库名称
+        remark: '', // 备注
       },
-      dialogStatus: "",
+      dialogStatus: '',
       titleMap: {
-        add: "添加",
-        update: "编辑",
-        detail: "详情"
+        add: '添加',
+        update: '编辑',
+        detail: '详情',
       },
-      rules: {}
-    };
+      rules: {},
+    }
   },
   created() {
-    this.getProjectList();
-    this.getDataSourceList();
+    this.getProjectList()
+    this.getDataSourceList()
   },
   methods: {
     refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     async getProjectList() {
-      let res = await this.$api.cg_project.list({});
-      this.projectList = res.data;
+      let res = await this.$api.cg_project.list({})
+      this.projectList = res.data
     },
     async getDataSourceList() {
-      let res = await this.$api.st_db_data_source.list();
-      this.dataSourceList = res.data;
+      let res = await this.$api.st_db_data_source.list()
+      this.dataSourceList = res.data
     },
     async handleConnectTest(row) {
       let res = await this.$api.st_db_operate.connectTest(
         row.dbDataSourceId,
         row.dbName
-      );
-      this.submitOk(res.msg);
+      )
+      this.submitOk(res.msg)
     },
     handleAdd() {
-      this.form = Object.assign({}, {});
-      this.dialogStatus = "add";
-      this.dialogVisible = true;
+      this.form = Object.assign({}, {})
+      this.dialogStatus = 'add'
+      this.dialogVisible = true
     },
     handleUpdate(row) {
-      this.form = Object.assign({}, row);
-      this.dialogStatus = "update";
-      this.dialogVisible = true;
+      this.form = Object.assign({}, row)
+      this.dialogStatus = 'update'
+      this.dialogVisible = true
     },
     async handleDelete(row) {
       const res = await this.$api.cg_project_re_db.delete(
         row.projectReDbDataSourceId
-      );
-      this.refreshTableData();
-      this.submitOk(res.message);
+      )
+      this.refreshTableData()
+      this.submitOk(res.message)
     },
     submitForm() {
-      this.$refs.dataForm.validate(async valid => {
+      this.$refs.dataForm.validate(async (valid) => {
         if (valid) {
           const res = await this.$api.cg_project_re_db[
-            this.form.projectReDbDataSourceId ? "update" : "add"
-          ](this.form);
-          this.refreshTableData();
-          this.submitOk(res.message);
-          this.dialogVisible = false;
+            this.form.projectReDbDataSourceId ? 'update' : 'add'
+          ](this.form)
+          this.refreshTableData()
+          this.submitOk(res.message)
+          this.dialogVisible = false
         }
-      });
-    }
-  }
-};
+      })
+    },
+  },
+}
 </script>
 <style scoped></style>

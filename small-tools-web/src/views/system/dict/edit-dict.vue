@@ -23,67 +23,67 @@
 </template>
 <script>
 export default {
-  name: "EditDict",
+  name: 'EditDict',
   data() {
     return {
       titleMap: {
-        create: "添加",
-        update: "编辑"
+        create: '添加',
+        update: '编辑',
       },
-      dialogStatus: "",
+      dialogStatus: '',
       dialogVisible: false,
       form: {
         id: undefined,
-        name: "",
+        name: '',
         sort: 0,
-        value: "",
-        dictTypeId: undefined
+        value: '',
+        dictTypeId: undefined,
       },
       rules: {
         name: [
-          { required: true, message: "字典名称不得为空", trigger: "blur" }
+          { required: true, message: '字典名称不得为空', trigger: 'blur' },
         ],
-        value: [{ required: true, message: "字典值不得为空", trigger: "blur" }]
-      }
-    };
+        value: [{ required: true, message: '字典值不得为空', trigger: 'blur' }],
+      },
+    }
   },
   methods: {
-    open(type, data, dictTypeId,code, maxSort) {
-      this.dialogStatus = type;
-      if (type === "create") {
-        this.resetForm();
-        this.form.dictTypeId = dictTypeId;
-        this.form.code = code;
-        this.form.sort = maxSort;
-      } else if (type === "update") {
-        this.form = Object.assign({}, data);
+    open(type, data, dictTypeId, code, maxSort) {
+      this.dialogStatus = type
+      if (type === 'create') {
+        this.resetForm()
+        this.form.dictTypeId = dictTypeId
+        this.form.code = code
+        this.form.sort = maxSort
+      } else if (type === 'update') {
+        this.form = Object.assign({}, data)
       }
-      this.dialogVisible = true;
+      this.dialogVisible = true
     },
     handleSave() {
-      this.$refs.form.validate(async valid => {
+      this.$refs.form.validate(async (valid) => {
         if (valid) {
-          let res = await this.$api.sys_dict[this.form.id ? "update" : "add"](
+          let res = await this.$api.sys_dict[this.form.id ? 'update' : 'add'](
             this.form
-          );
-          this.$emit("saveSucc");
-          this.dialogVisible = false;
-          this.submitOk(res.msg);
+          )
+          this.$emit('saveSucc')
+          this.dialogVisible = false
+          this.submitOk(res.msg)
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
     resetForm() {
       this.form = {
         id: undefined,
-        name: "",
+        name: '',
         sort: 0,
-        value: "",
-        dictTypeId: undefined
-      };
-    }
-  }
-};
+        value: '',
+        dictTypeId: undefined,
+      }
+    },
+  },
+}
 </script>
 <style lang="scss" scoped></style>

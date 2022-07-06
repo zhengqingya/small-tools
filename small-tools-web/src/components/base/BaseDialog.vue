@@ -25,11 +25,11 @@
 </template>
 <script>
 export default {
-  name: "BaseDialog",
+  name: 'BaseDialog',
   data() {
-    return {};
-  }
-};
+    return {}
+  },
+}
 </script>
 <style lang="scss" scoped>
 /deep/ .el-dialog {

@@ -5,7 +5,7 @@
         v-model="listQuery.projectId"
         placeholder="项目"
         filterable
-        style="width:200px"
+        style="width: 200px"
         @change="handleProjectChooseChange()"
       >
         <el-option value="" label="全部" />
@@ -124,7 +124,7 @@
               </el-select>
             </el-form-item>
             <el-form-item label="生成文件名:" prop="fileName">
-              <el-input v-model="form.fileName" style="width: 200px;" />
+              <el-input v-model="form.fileName" style="width: 200px" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -183,10 +183,10 @@
               ></m-ace-editor>
             </my-base-title-card>
           </el-col>
-          <el-col :span="2" style="height: 400px;text-align: center;">
+          <el-col :span="2" style="height: 400px; text-align: center">
             <el-button
               type="primary"
-              style="margin-top: 200px;"
+              style="margin-top: 200px"
               @click="handleTestTemplateData"
               >测试生成数据</el-button
             >
@@ -257,10 +257,10 @@
 </template>
 
 <script>
-import Markdown from "vue-meditor";
+import Markdown from 'vue-meditor'
 
 export default {
-  name: "ProjectTemplate",
+  name: 'ProjectTemplate',
   components: { Markdown },
   data() {
     return {
@@ -270,21 +270,21 @@ export default {
       totalVelocityContext: 0,
       listQuery: {
         isBasic: 0, // 项目模板数据
-        projectId: ""
+        projectId: '',
       },
       listQueryVelocityContext: {
         isBasic: 0, // 项目模板数据
-        projectId: 0
+        projectId: 0,
       },
       form: {},
-      templateData: "",
+      templateData: '',
       dialogFormVisible: false,
       dialogVelocityContextVisible: false,
-      dialogStatus: "",
+      dialogStatus: '',
       textMap: {
-        update: "编辑",
-        create: "创建",
-        showVelocityContext: "项目模板数据源"
+        update: '编辑',
+        create: '创建',
+        showVelocityContext: '项目模板数据源',
       },
       rules: {},
       toolbars: {
@@ -312,94 +312,94 @@ export default {
         h3: false,
         clear: false,
         scroll: false,
-        theme: false
-      }
-    };
+        theme: false,
+      },
+    }
   },
   created() {
-    this.getFileSuffixList("file_suffix");
-    this.getProjectList();
+    this.getFileSuffixList('file_suffix')
+    this.getProjectList()
   },
   methods: {
     async refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     async getProjectList() {
-      let res = await this.$api.cg_project.list({});
-      this.projectList = res.data;
+      let res = await this.$api.cg_project.list({})
+      this.projectList = res.data
     },
     async getPackageList(id) {
-      let res = await this.$api.cg_project_package.list(id);
-      this.templateTypeList = res.data;
+      let res = await this.$api.cg_project_package.list(id)
+      this.templateTypeList = res.data
     },
     async getFileSuffixList(data) {
-      let res = await this.$api.sys_dict.listFromCacheByCode(data);
-      this.fileSuffixList = res.data;
+      let res = await this.$api.sys_dict.listFromCacheByCode(data)
+      this.fileSuffixList = res.data
     },
     async getVelocityContextList() {
       if (!this.listQuery.projectId) {
-        this.$message({ message: "请先选择项目!", type: "warning" });
-        return;
+        this.$message({ message: '请先选择项目!', type: 'warning' })
+        return
       }
-      this.dialogStatus = "showVelocityContext";
-      this.dialogVelocityContextVisible = true;
-      this.listQueryVelocityContext.projectId = this.listQuery.projectId;
-      this.$refs.projectVelocityContextTable.refresh();
+      this.dialogStatus = 'showVelocityContext'
+      this.dialogVelocityContextVisible = true
+      this.listQueryVelocityContext.projectId = this.listQuery.projectId
+      this.$refs.projectVelocityContextTable.refresh()
     },
     handleProjectChooseChange() {
-      this.refreshTableData();
+      this.refreshTableData()
     },
     handleProjectChange(projectId) {
-      this.getPackageList(projectId);
+      this.getPackageList(projectId)
     },
     handleCreate() {
-      this.templateData = "";
-      this.templateTypeList = [];
-      this.form = Object.assign({}, {});
-      this.dialogStatus = "create";
-      this.dialogFormVisible = true;
+      this.templateData = ''
+      this.templateTypeList = []
+      this.form = Object.assign({}, {})
+      this.dialogStatus = 'create'
+      this.dialogFormVisible = true
     },
     handleUpdate(row) {
-      this.templateData = "";
-      this.getPackageList(row.projectId);
-      this.form = Object.assign({}, row);
-      this.dialogStatus = "update";
-      this.dialogFormVisible = true;
+      this.templateData = ''
+      this.getPackageList(row.projectId)
+      this.form = Object.assign({}, row)
+      this.dialogStatus = 'update'
+      this.dialogFormVisible = true
     },
     async handleDelete(row) {
       let res = await this.$api.cg_project_template.delete(
         row.projectTemplateId
-      );
-      this.refreshTableData();
-      this.submitOk(res.msg);
+      )
+      this.refreshTableData()
+      this.submitOk(res.msg)
     },
     async handleTestTemplateData() {
-      this.form.isBasic = 0;
-      let res = await this.$api.cg_project_template.testTemplateData(this.form);
-      this.submitOk(res.message);
-      this.templateData = res.data;
+      this.form.isBasic = 0
+      let res = await this.$api.cg_project_template.testTemplateData(this.form)
+      this.submitOk(res.message)
+      this.templateData = res.data
     },
     submitForm() {
-      this.form.projectName = undefined;
-      this.$refs.dataForm.validate(async valid => {
+      this.form.projectName = undefined
+      this.$refs.dataForm.validate(async (valid) => {
         if (valid) {
-          this.form.isBasic = 0;
+          this.form.isBasic = 0
           let res = await this.$api.cg_project_template[
-            this.form.projectTemplateId ? "update" : "add"
-          ](this.form);
-          this.refreshTableData();
-          this.submitOk(res.msg);
-          this.dialogFormVisible = false;
+            this.form.projectTemplateId ? 'update' : 'add'
+          ](this.form)
+          this.refreshTableData()
+          this.submitOk(res.msg)
+          this.dialogFormVisible = false
         }
-      });
+      })
     },
     // 监听dialog关闭时的处理事件
     handleDialogClose() {
-      if (this.$refs["dataForm"]) {
-        this.$refs["dataForm"].clearValidate(); // 清除整个表单的校验
+      if (this.$refs['dataForm']) {
+        this.$refs['dataForm'].clearValidate() // 清除整个表单的校验
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
 <style scoped></style>

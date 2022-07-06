@@ -1,38 +1,38 @@
-import request from "@/utils/request";
+import request from '@/utils/request'
 
-const BASE_API = "/tool/web/api/generator/projectTemplate";
+const BASE_API = '/tool/web/api/generator/projectTemplate'
 
 export default {
   listPage(query, headers) {
     return request({
-      url: BASE_API + "/listPage",
-      method: "get",
+      url: BASE_API + '/listPage',
+      method: 'get',
       params: query,
-      headers
-    });
+      headers,
+    })
   },
   add(data) {
     return request({
       url: BASE_API,
-      method: "post",
-      data
-    });
+      method: 'post',
+      data,
+    })
   },
   update(data) {
     return request({
       url: BASE_API,
-      method: "put",
-      data
-    });
+      method: 'put',
+      data,
+    })
   },
   delete(projectTemplateId) {
     return request({
       url: BASE_API,
-      method: "delete",
+      method: 'delete',
       params: {
-        projectTemplateId
-      }
-    });
+        projectTemplateId,
+      },
+    })
   },
   // generateTemplate(projectId) {
   //   return request({
@@ -45,17 +45,17 @@ export default {
   // },
   listPageCodeProjectVelocityContext(query, headers) {
     return request({
-      url: BASE_API + "/listPageCodeProjectVelocityContext",
-      method: "get",
+      url: BASE_API + '/listPageCodeProjectVelocityContext',
+      method: 'get',
       params: query,
-      headers
-    });
+      headers,
+    })
   },
   testTemplateData(form) {
     return request({
-      url: BASE_API + "/testTemplateData",
-      method: "post",
-      data: form
-    });
-  }
-};
+      url: BASE_API + '/testTemplateData',
+      method: 'post',
+      data: form,
+    })
+  },
+}

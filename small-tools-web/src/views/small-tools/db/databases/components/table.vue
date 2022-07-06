@@ -21,7 +21,7 @@
         <el-table-column label="表名" align="left">
           <template slot-scope="scope">
             <span
-              style="font-weight: bold; color: #409EFF;"
+              style="font-weight: bold; color: #409eff"
               @click="showTableColumnList(scope.row.tableName)"
             >
               {{ scope.row.tableName }}</span
@@ -54,50 +54,51 @@
 </template>
 <script>
 export default {
-  name: "MyTable",
+  name: 'MyTable',
   props: {
     // 数据源id
     dataSourceId: {
       type: Number,
-      default: undefined
+      default: undefined,
     },
     // 数据库名
     dbName: {
       type: String,
-      default: ""
-    }
+      default: '',
+    },
   },
   data() {
     return {
       isShow: false,
       tableLoading: true,
-      tableList: [] // 数据表列表
-    };
+      tableList: [], // 数据表列表
+    }
   },
   created() {},
   methods: {
     // 刷新表格数据
     open(tableList) {
-      this.isShow = true;
-      this.tableLoading = true;
-      this.tableList = tableList;
-      this.tableLoading = false;
+      this.isShow = true
+      this.tableLoading = true
+      this.tableList = tableList
+      this.tableLoading = false
     },
     showTableColumnList(tableName) {
-      this.$emit("showTableColumnList", tableName);
+      this.$emit('showTableColumnList', tableName)
     },
     async handleTableInfoToWord() {
-      let res = await this.$api.st_db_operate.tableInfoToWordByDataSourceIdAndDbName(
-        this.dataSourceId,
-        this.dbName
-      );
-      this.submitOk(res.msg);
-      document.location.href = res.data;
+      let res =
+        await this.$api.st_db_operate.tableInfoToWordByDataSourceIdAndDbName(
+          this.dataSourceId,
+          this.dbName
+        )
+      this.submitOk(res.msg)
+      document.location.href = res.data
     },
     close() {
-      this.isShow = false;
-    }
-  }
-};
+      this.isShow = false
+    },
+  },
+}
 </script>
 <style lang="scss" scoped></style>

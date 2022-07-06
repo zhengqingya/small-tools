@@ -5,34 +5,34 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 export default {
-  name: "App",
+  name: 'App',
   computed: {
-    ...mapGetters(["isDarkTheme"])
+    ...mapGetters(['isDarkTheme']),
   },
   provide() {
     return {
-      App: this
-    };
+      App: this,
+    }
   },
   watch: {
     isDarkTheme(val) {
-      const bodyEle = document.querySelector("body");
+      const bodyEle = document.querySelector('body')
       if (val) {
-        bodyEle.classList.add("cus-dark-theme");
+        bodyEle.classList.add('cus-dark-theme')
       } else {
-        bodyEle.classList.remove("cus-dark-theme");
+        bodyEle.classList.remove('cus-dark-theme')
       }
-    }
+    },
   },
   mounted() {
     this.$nextTick(() => {
       if (this.isDarkTheme) {
-        const bodyEle = document.querySelector("body");
-        bodyEle.classList.add("cus-dark-theme");
+        const bodyEle = document.querySelector('body')
+        bodyEle.classList.add('cus-dark-theme')
       }
-    });
-  }
-};
+    })
+  },
+}
 </script>

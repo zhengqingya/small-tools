@@ -5,13 +5,13 @@
 </template>
 <script>
 export default {
-  name: "NoData",
-  inject: ["App"],
+  name: 'NoData',
+  inject: ['App'],
   data() {
-    return {};
+    return {}
   },
-  methods: {}
-};
+  methods: {},
+}
 </script>
 <style lang="scss" scoped>
 .no-data {

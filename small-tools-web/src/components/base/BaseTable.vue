@@ -20,18 +20,18 @@
 </template>
 <script>
 export default {
-  name: "BaseTable",
+  name: 'BaseTable',
   props: {
     columns: {
       type: Array,
       default() {
-        return [];
-      }
-    }
+        return []
+      },
+    },
   },
   data() {
-    return {};
+    return {}
   },
-  created() {}
-};
+  created() {},
+}
 </script>

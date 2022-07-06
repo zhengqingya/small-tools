@@ -13,7 +13,7 @@
     :style="{
       marginLeft: left + 'px',
       marginRight: right + 'px',
-      fontSize: size + 'px'
+      fontSize: size + 'px',
     }"
     v-on="$listeners"
   >
@@ -22,24 +22,24 @@
 </template>
 <script>
 export default {
-  name: "BaseLink",
+  name: 'BaseLink',
   props: {
     underline: {
       type: Boolean,
-      default: false
+      default: false,
     },
     left: {
       type: Number,
-      default: 0
+      default: 0,
     },
     right: {
       type: Number,
-      default: 0
+      default: 0,
     },
     size: {
       type: Number,
-      default: 14
-    }
-  }
-};
+      default: 14,
+    },
+  },
+}
 </script>

@@ -1,63 +1,63 @@
-import request from "@/utils/request";
+import request from '@/utils/request'
 
-const BASE_API = "/tool/web/api/generator/project";
+const BASE_API = '/tool/web/api/generator/project'
 
 export default {
   listPage(query, headers) {
     return request({
-      url: BASE_API + "/listPage",
-      method: "get",
+      url: BASE_API + '/listPage',
+      method: 'get',
       params: query,
-      headers
-    });
+      headers,
+    })
   },
   list(query) {
     return request({
-      url: BASE_API + "/list",
-      method: "get",
-      params: query
-    });
+      url: BASE_API + '/list',
+      method: 'get',
+      params: query,
+    })
   },
   add(data) {
     return request({
       url: BASE_API,
-      method: "post",
-      data
-    });
+      method: 'post',
+      data,
+    })
   },
   update(data) {
     return request({
       url: BASE_API,
-      method: "put",
-      data
-    });
+      method: 'put',
+      data,
+    })
   },
   delete(id) {
     return request({
       url: BASE_API,
-      method: "delete",
+      method: 'delete',
       params: {
-        id: id
-      }
-    });
+        id: id,
+      },
+    })
   },
   // 上：项目管理 下：项目包管理 =================================
 
   generate(tableInfo, packageConfig) {
     return request({
-      url: BASE_API + "/generate",
-      method: "post",
+      url: BASE_API + '/generate',
+      method: 'post',
       data: {
         tableInfo: tableInfo,
-        packageConfig: packageConfig
-      }
-    });
+        packageConfig: packageConfig,
+      },
+    })
   },
   generateCode(data) {
     return request({
-      url: BASE_API + "/generateCode",
-      method: "post",
-      data
-    });
-  }
-};
+      url: BASE_API + '/generateCode',
+      method: 'post',
+      data,
+    })
+  },
+}

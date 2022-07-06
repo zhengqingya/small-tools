@@ -20,26 +20,26 @@ export default {
   props: {
     align: {
       type: String,
-      default: "center"
+      default: 'center',
     },
     fixed: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       alignMap: {
-        center: "center",
-        left: "flex-start",
-        right: "flex-end"
-      }
-    };
+        center: 'center',
+        left: 'flex-start',
+        right: 'flex-end',
+      },
+    }
   },
   mounted() {
-    this.$parent.$el.style.cssText += ";transform: scale(1);height:100%";
-  }
-};
+    this.$parent.$el.style.cssText += ';transform: scale(1);height:100%'
+  },
+}
 </script>
 <style lang="scss" scoped>
 .page-footer {

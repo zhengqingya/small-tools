@@ -4,7 +4,7 @@
       <el-select
         v-model="listQuery.websiteId"
         placeholder="网站"
-        style="width:200px"
+        style="width: 200px"
         clearable
         @change="handleChangeWebsite(listQuery.websiteId)"
       >
@@ -19,7 +19,7 @@
       <el-input
         v-model="listQuery.title"
         placeholder="请输入文章标题"
-        style="width:200px"
+        style="width: 200px"
         clearable
         @clear="refreshTableData"
       />
@@ -92,7 +92,7 @@
       <el-table-column label="标题" prop="title" align="left" />
       <el-table-column label="文章url" show-overflow-tooltip align="center">
         <template slot-scope="scope">
-          <a :href="scope.row.url" target="_blank" style="color:#317BEC;">{{
+          <a :href="scope.row.url" target="_blank" style="color: #317bec">{{
             scope.row.url
           }}</a>
         </template>
@@ -143,7 +143,7 @@
         </my-base-table-cell>
         <my-base-table-cell>
           <my-base-cell-item label="元数据URL"
-            ><a :href="form.url" target="_blank" style="color:#317BEC;">{{
+            ><a :href="form.url" target="_blank" style="color: #317bec">{{
               form.url
             }}</a></my-base-cell-item
           >
@@ -151,7 +151,7 @@
         <my-base-table-cell>
           <my-base-cell-item
             label="内容"
-            style="height: 300px;overflow-y:auto;overflow-x:hidden;"
+            style="height: 300px; overflow-y: auto; overflow-x: hidden"
             ><p v-html="form.content"
           /></my-base-cell-item>
         </my-base-table-cell>
@@ -176,7 +176,7 @@
           <el-select
             v-model="exportForm.type"
             placeholder="请选择类型"
-            style="width:200px"
+            style="width: 200px"
           >
             <el-option
               v-for="item in exportTypeList"
@@ -197,125 +197,124 @@
 
 <script>
 function export_raw(name, data) {
-  var urlObject = window.URL || window.webkitURL || window;
-  var export_blob = new Blob([data]);
-  var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
-  save_link.href = urlObject.createObjectURL(export_blob);
-  save_link.download = name;
-  save_link.click();
+  var urlObject = window.URL || window.webkitURL || window
+  var export_blob = new Blob([data])
+  var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a')
+  save_link.href = urlObject.createObjectURL(export_blob)
+  save_link.download = name
+  save_link.click()
 }
 
 export default {
-  name: "ArticleInfo",
+  name: 'ArticleInfo',
   data() {
     return {
       uploadUrl:
         process.env.VUE_APP_BASE_API +
-        "/api/smallTools/crawler/articleInfo/importData", //http://127.0.0.1:5000
+        '/api/smallTools/crawler/articleInfo/importData', //http://127.0.0.1:5000
       dialogFormVisible: false,
       exportDialogFormVisible: false,
       showExportOrImportDataButton: false,
       websiteList: [],
       exportTypeList: [],
       listQuery: {
-        websiteId: "",
+        websiteId: '',
         title: undefined,
         startTime: undefined,
-        endTime: undefined
+        endTime: undefined,
       },
       form: {},
       exportForm: {
         articleInfoId: undefined,
         title: undefined,
-        type: "1"
+        type: '1',
       },
-      dialogStatus: "",
+      dialogStatus: '',
       titleMap: {
-        update: "编辑",
-        create: "新增",
-        detail: "详情",
-        export: "导出文章数据"
-      }
-    };
+        update: '编辑',
+        create: '新增',
+        detail: '详情',
+        export: '导出文章数据',
+      },
+    }
   },
   created() {
-    this.getWebsiteList();
-    this.getExportType();
+    this.getWebsiteList()
+    this.getExportType()
   },
   methods: {
     async refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     async getWebsiteList() {
-      let res = await this.$api.st_crawler_website.list();
-      this.websiteList = res.data;
+      let res = await this.$api.st_crawler_website.list()
+      this.websiteList = res.data
     },
     async getExportType() {
       let res = await this.$api.sys_dict.listFromCacheByCode(
-        "st_crawler_csdn_export_data_type"
-      );
-      this.exportTypeList = res.data;
+        'st_crawler_csdn_export_data_type'
+      )
+      this.exportTypeList = res.data
     },
     showExportData(row) {
-      this.exportForm.articleInfoId = row.articleInfoId;
-      this.exportForm.title = row.title;
-      this.dialogStatus = "export";
-      this.exportDialogFormVisible = true;
+      this.exportForm.articleInfoId = row.articleInfoId
+      this.exportForm.title = row.title
+      this.dialogStatus = 'export'
+      this.exportDialogFormVisible = true
     },
     async handleExportData() {
       let res = await this.$api.st_crawler_article_info.exportData(
         this.exportForm
-      );
-      document.location.href = res.data;
+      )
+      document.location.href = res.data
       // export_raw("xx.html", res.data);
-      this.submitOk(res.msg);
-      this.exportDialogFormVisible = false;
+      this.submitOk(res.msg)
+      this.exportDialogFormVisible = false
     },
     handleChangeWebsite(websiteId) {
       if (websiteId) {
-        this.showExportOrImportDataButton = true;
+        this.showExportOrImportDataButton = true
       } else {
-        this.showExportOrImportDataButton = false;
+        this.showExportOrImportDataButton = false
       }
-      this.refreshTableData();
+      this.refreshTableData()
     },
     async handleExportAllData(id) {
-      let res = await this.$api.st_crawler_article_info.exportAllDataByWebsiteId(
-        id
-      );
-      this.submitOk(res.msg);
-      document.location.href = res.data;
+      let res =
+        await this.$api.st_crawler_article_info.exportAllDataByWebsiteId(id)
+      this.submitOk(res.msg)
+      document.location.href = res.data
     },
     async handleExportExcelData(id) {
       let res = await this.$api.st_crawler_article_info.exportExcelByWebsiteId(
         id
-      );
-      this.submitOk(res.msg);
-      document.location.href = res.data;
+      )
+      this.submitOk(res.msg)
+      document.location.href = res.data
     },
     async handleImportData() {
-      let res = await this.$api.st_crawler_article_info.importData(1);
-      this.submitOk(res.msg);
+      let res = await this.$api.st_crawler_article_info.importData(1)
+      this.submitOk(res.msg)
     },
     restartFilter() {
-      this.listQuery.websiteId = "";
-      this.listQuery.title = undefined;
-      this.listQuery.startTime = undefined;
-      this.listQuery.endTime = undefined;
-      this.refreshTableData();
-      this.showExportOrImportDataButton = false;
+      this.listQuery.websiteId = ''
+      this.listQuery.title = undefined
+      this.listQuery.startTime = undefined
+      this.listQuery.endTime = undefined
+      this.refreshTableData()
+      this.showExportOrImportDataButton = false
     },
     handleDetail(row) {
-      this.form = Object.assign({}, row);
-      this.dialogStatus = "detail";
-      this.dialogFormVisible = true;
+      this.form = Object.assign({}, row)
+      this.dialogStatus = 'detail'
+      this.dialogFormVisible = true
     },
     // 文件处理 ==============
     handleSuccess(res, fileInfo) {
-      this.submitOk(res.msg);
-      this.refreshTableData();
-    }
-  }
-};
+      this.submitOk(res.msg)
+      this.refreshTableData()
+    },
+  },
+}
 </script>
 <style lang="scss" scoped></style>

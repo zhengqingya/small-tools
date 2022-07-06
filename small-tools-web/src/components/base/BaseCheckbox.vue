@@ -18,17 +18,17 @@
 </template>
 <script>
 export default {
-  name: "BaseCheckbox",
+  name: 'BaseCheckbox',
   props: {
     options: {
       type: Array,
       default() {
-        return [];
-      }
-    }
+        return []
+      },
+    },
   },
   data() {
-    return {};
-  }
-};
+    return {}
+  },
+}
 </script>

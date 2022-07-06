@@ -24,33 +24,33 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import SidebarItem from "./SidebarItem";
-import variables from "@/styles/variables.scss";
+import { mapGetters } from 'vuex'
+import SidebarItem from './SidebarItem'
+import variables from '@/styles/variables.scss'
 
-import Logo from "./Logo";
+import Logo from './Logo'
 
 export default {
   components: { SidebarItem, Logo },
   computed: {
-    ...mapGetters(["permission_routes", "sidebar"]),
+    ...mapGetters(['permission_routes', 'sidebar']),
     activeMenu() {
-      const route = this.$route;
-      const { meta, path } = route;
+      const route = this.$route
+      const { meta, path } = route
       // if set path, the sidebar will highlight the path you set
       if (meta.activeMenu) {
-        return meta.activeMenu;
+        return meta.activeMenu
       }
-      return path;
+      return path
     },
     variables() {
-      return variables;
+      return variables
     },
     isCollapse() {
-      return !this.sidebar.opened;
-    }
+      return !this.sidebar.opened
+    },
   },
-  methods: {}
-};
+  methods: {},
+}
 </script>
 <style lang="scss" scoped></style>

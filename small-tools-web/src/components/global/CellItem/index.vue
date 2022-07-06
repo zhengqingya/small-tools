@@ -11,27 +11,27 @@
 </template>
 <script>
 export default {
-  name: "CellItem",
-  inject: ["tableCell", "App"],
+  name: 'CellItem',
+  inject: ['tableCell', 'App'],
   props: {
     label: {
       type: String,
-      default: ""
+      default: '',
     },
     labelWidth: {
       type: String,
-      default: ""
-    }
+      default: '',
+    },
   },
   data() {
-    return {};
+    return {}
   },
   computed: {
     computedLabelWidth() {
-      return this.labelWidth || this.tableCell.labelWidth;
-    }
-  }
-};
+      return this.labelWidth || this.tableCell.labelWidth
+    },
+  },
+}
 </script>
 <style lang="scss" scoped>
 .cell-item {
@@ -69,7 +69,7 @@ export default {
   }
 }
 ul.table-cell {
-  [class*="cell-item"]:not(:first-child) {
+  [class*='cell-item']:not(:first-child) {
     border-top: none;
     // border-right:none;
   }

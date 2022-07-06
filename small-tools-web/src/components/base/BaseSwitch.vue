@@ -16,19 +16,19 @@
 </template>
 <script>
 export default {
-  name: "BaseSwitch",
+  name: 'BaseSwitch',
   props: {
     activeValue: {
       type: [Boolean, String, Number],
-      default: 1
+      default: 1,
     },
     inactiveValue: {
       type: [Boolean, String, Number],
-      default: 0
-    }
+      default: 0,
+    },
   },
   data() {
-    return {};
-  }
-};
+    return {}
+  },
+}
 </script>

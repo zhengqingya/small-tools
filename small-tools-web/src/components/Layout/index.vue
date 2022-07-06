@@ -17,57 +17,57 @@
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain } from "./components";
-import Breadcrumb from "@/components/Breadcrumb";
+import { Navbar, Sidebar, AppMain } from './components'
+import Breadcrumb from '@/components/Breadcrumb'
 export default {
-  name: "Layout",
-  inject: ["App"],
+  name: 'Layout',
+  inject: ['App'],
   components: {
     Breadcrumb,
     Navbar,
     Sidebar,
-    AppMain
+    AppMain,
   },
   data() {
     return {
-      showBreadcrumb: true
-    };
+      showBreadcrumb: true,
+    }
   },
   beforeRouteEnter(to, from, next) {
-    if (to.name === "Dashboard") {
-      next(vm => {
-        vm.showBreadcrumb = false;
-      });
+    if (to.name === 'Dashboard') {
+      next((vm) => {
+        vm.showBreadcrumb = false
+      })
     } else {
-      next(vm => {
-        vm.showBreadcrumb = true;
-      });
+      next((vm) => {
+        vm.showBreadcrumb = true
+      })
     }
   },
   computed: {
     sidebar() {
-      return this.$store.state.app.sidebar;
+      return this.$store.state.app.sidebar
     },
     device() {
-      return this.$store.state.app.device;
+      return this.$store.state.app.device
     },
     fixedHeader() {
-      return this.$store.state.settings.fixedHeader;
+      return this.$store.state.settings.fixedHeader
     },
     classObj() {
       return {
         hideSidebar: !this.sidebar.opened,
-        openSidebar: this.sidebar.opened
-      };
-    }
+        openSidebar: this.sidebar.opened,
+      }
+    },
   },
-  methods: {}
-};
+  methods: {},
+}
 </script>
 
 <style lang="scss" scoped>
-@import "~@/styles/mixin.scss";
-@import "~@/styles/variables.scss";
+@import '~@/styles/mixin.scss';
+@import '~@/styles/variables.scss';
 
 .app-wrapper {
   @include clearfix;

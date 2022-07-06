@@ -5,7 +5,7 @@
         v-model="listQuery.tableName"
         placeholder="表名称"
         clearable
-        style="width:200px"
+        style="width: 200px"
         @clear="refreshTableData"
       />
       <el-button type="primary" @click="refreshTableData">查询</el-button>
@@ -41,8 +41,8 @@
               path: '/codeGenerator/project-re-db/column',
               query: {
                 projectReDbDataSourceId: listQuery.projectReDbDataSourceId,
-                tableName: scope.row.tableName
-              }
+                tableName: scope.row.tableName,
+              },
             }"
           >
             <el-button type="text" plain>查看表信息</el-button>
@@ -55,26 +55,26 @@
 
 <script>
 export default {
-  name: "Table",
+  name: 'Table',
   data() {
     return {
       listQuery: {
         projectReDbDataSourceId: parseInt(
           this.$route.query.projectReDbDataSourceId
         ),
-        tableName: ""
-      }
-    };
+        tableName: '',
+      },
+    }
   },
   created() {},
   methods: {
     async refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     handleBack() {
-      this.$router.go(-1);
-    }
-  }
-};
+      this.$router.go(-1)
+    },
+  },
+}
 </script>
 <style scoped></style>

@@ -50,80 +50,78 @@
 </template>
 <script>
 export default {
-  name: "BaseTableC",
+  name: 'BaseTableC',
   model: {
-    event: "load"
+    event: 'load',
   },
   props: {
     columns: {
       type: Array,
       default() {
-        return [];
-      }
+        return []
+      },
     },
     params: {
       type: Object,
       default() {
-        return {};
-      }
+        return {}
+      },
     },
     api: {
       type: String,
-      default: "ownerUnitList"
+      default: 'ownerUnitList',
     },
     pointer: {
       //行是否显示手指的手势
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       loading: true,
       pageParams: {
         pageNum: 0,
-        pageSize: 20
+        pageSize: 20,
       },
       res: {
         current: 1,
         pages: 2,
         size: 10,
         total: 0,
-        records: []
-      }
-    };
+        records: [],
+      },
+    }
   },
   computed: {
-    scrollDisabled: function() {
-      return this.res.current >= this.res.pages;
+    scrollDisabled: function () {
+      return this.res.current >= this.res.pages
     },
     apiMethod() {
-      return this.api.split(".").reduce((acc, item) => {
-        return acc[item];
-      }, this.$api);
-    }
+      return this.api.split('.').reduce((acc, item) => {
+        return acc[item]
+      }, this.$api)
+    },
   },
   methods: {
     scrollTop() {
       //回到顶部
-      document.getElementsByClassName(
-        "el-table__body-wrapper"
-      )[0].scrollTop = 0;
+      document.getElementsByClassName('el-table__body-wrapper')[0].scrollTop = 0
     },
     async getList() {
-      this.loading = true;
-      let newRes = await this.apiMethod(this.params, this.pageParams);
-      this.loading = false;
-      let oldRes = this.res;
+      this.loading = true
+      let newRes = await this.apiMethod(this.params, this.pageParams)
+      this.loading = false
+      let oldRes = this.res
       if (this.pageParams.pageNum != 1) {
-        newRes.records = [...oldRes.records, ...newRes.records];
+        newRes.records = [...oldRes.records, ...newRes.records]
       }
-      this.res = newRes;
+      this.res = newRes
     },
     //触底
     onReachBottom() {
-      this.pageParams.pageNum = this.pageParams.pageNum + 1;
-      this.getList();
+      this.pageParams.pageNum = this.pageParams.pageNum + 1
+      this.getList()
     },
     async refresh() {
       // let curentPageNum = this.pageParams.pageNum;
@@ -139,22 +137,22 @@ export default {
       //     await this.getList();
       // }
       //解决指令不能动态改变infinite-scroll-disabled，手动改变
-      let elTableScrollWrapperClass = ".el-table__body-wrapper";
-      let element = this.$refs.baseTable.$el;
-      let scrollElem = element.querySelector(elTableScrollWrapperClass);
-      scrollElem.removeAttribute("infinite-scroll-disabled");
+      let elTableScrollWrapperClass = '.el-table__body-wrapper'
+      let element = this.$refs.baseTable.$el
+      let scrollElem = element.querySelector(elTableScrollWrapperClass)
+      scrollElem.removeAttribute('infinite-scroll-disabled')
       this.res = {
         current: 1,
         pages: 2,
         size: 10,
         total: 0,
-        records: []
-      };
-      this.pageParams.pageNum = 1;
-      await this.getList();
-    }
-  }
-};
+        records: [],
+      }
+      this.pageParams.pageNum = 1
+      await this.getList()
+    },
+  },
+}
 </script>
 <style lang="scss">
 .pointer /deep/ .el-table__row {

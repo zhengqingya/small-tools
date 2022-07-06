@@ -8,8 +8,8 @@
           query: {
             dataSourceId: dataSourceId,
             dbName: dbName,
-            tableName: tableName
-          }
+            tableName: tableName,
+          },
         }"
       >
         <!-- <el-button @click="handleBack()">返回</el-button> -->
@@ -65,7 +65,7 @@
           </el-table-column>
           <el-table-column label="是否允许空值" align="center">
             <template slot-scope="scope">
-              <el-select v-model="scope.row.ifNullAble" style="width: 70px;">
+              <el-select v-model="scope.row.ifNullAble" style="width: 70px">
                 <el-option
                   v-for="item in typeList"
                   :key="item.value"
@@ -79,7 +79,7 @@
             <template slot-scope="scope">
               <el-select
                 v-model="scope.row.ifPrimaryKey"
-                style="width: 70px;"
+                style="width: 70px"
                 :class="{ zq_select: scope.row.ifPrimaryKey }"
                 disabled
                 @change="handleChangePrimaryKey(scope.row)"
@@ -97,7 +97,7 @@
             <template slot-scope="scope">
               <el-select
                 v-model="scope.row.ifAutoIncrement"
-                style="width: 70px;"
+                style="width: 70px"
                 :class="{ zq_select: scope.row.ifAutoIncrement }"
                 disabled
               >
@@ -128,7 +128,7 @@
 
 <script>
 export default {
-  name: "ColumenInfo",
+  name: 'ColumenInfo',
   data() {
     return {
       loading: true,
@@ -139,41 +139,42 @@ export default {
         dataSourceId: this.$route.query.dataSourceId,
         dbName: this.$route.query.dbName,
         tableName: this.$route.query.tableName,
-        tableComment: "", // 注释
-        columnInfoList: [] // 表字段信息
+        tableComment: '', // 注释
+        columnInfoList: [], // 表字段信息
       },
       typeList: [
-        { label: "是", value: true },
-        { label: "否", value: false }
-      ]
-    };
+        { label: '是', value: true },
+        { label: '否', value: false },
+      ],
+    }
   },
   created() {
-    this.getColumnList();
+    this.getColumnList()
   },
   methods: {
     async getColumnList() {
-      this.loading = true;
-      let res = await this.$api.st_db_operate.getAllColumnsByDataSourceIdAndDbNameAndTableName(
-        this.dataSourceId,
-        this.dbName,
-        this.tableName
-      );
-      this.tableInfo = res.data;
-      this.loading = false;
+      this.loading = true
+      let res =
+        await this.$api.st_db_operate.getAllColumnsByDataSourceIdAndDbNameAndTableName(
+          this.dataSourceId,
+          this.dbName,
+          this.tableName
+        )
+      this.tableInfo = res.data
+      this.loading = false
     },
     handleBack() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     async handleUpdateColumnInfo() {
-      let res = await this.$api.st_db_operate.updateColumnInfo(this.tableInfo);
-      this.submitOk(res.msg);
+      let res = await this.$api.st_db_operate.updateColumnInfo(this.tableInfo)
+      this.submitOk(res.msg)
     },
     handleChangePrimaryKey(row) {
-      console.log(1, row);
-    }
-  }
-};
+      console.log(1, row)
+    },
+  },
+}
 </script>
 <style lang="scss" scoped>
 /deep/ .zq_select .el-input.is-disabled .el-input__inner {

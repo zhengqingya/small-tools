@@ -1,26 +1,26 @@
-import moment from "moment";
+import moment from 'moment'
 
 export function dateTimeFilter(date) {
   if (date) {
-    return moment(date).format("YYYY-MM-DD HH:mm:ss");
+    return moment(date).format('YYYY-MM-DD HH:mm:ss')
   }
-  return "";
+  return ''
 }
 
 export function dateFilter(date) {
   if (date) {
-    return moment(date).format("YYYY-MM-DD");
+    return moment(date).format('YYYY-MM-DD')
   }
-  return "";
+  return ''
 }
 
 export function monthFilter(date) {
   if (date) {
-    return moment(date).format("YYYY-MM");
+    return moment(date).format('YYYY-MM')
   }
-  return "";
+  return ''
 }
 
 export function formatYesNo(value) {
-  return value && value === 1 ? "是" : "否";
+  return value && value === 1 ? '是' : '否'
 }

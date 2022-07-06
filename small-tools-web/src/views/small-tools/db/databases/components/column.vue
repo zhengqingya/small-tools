@@ -8,8 +8,8 @@
             query: {
               dataSourceId: dataSourceId,
               dbName: dbName,
-              tableName: tableName
-            }
+              tableName: tableName,
+            },
           }"
         >
           <el-button
@@ -39,7 +39,7 @@
           <template slot-scope="scope">
             <span
               v-if="scope.row.ifNullAble"
-              style="font-weight: bold; color: #F56C6C;"
+              style="font-weight: bold; color: #f56c6c"
               >是</span
             >
             <span v-else>否</span>
@@ -49,7 +49,7 @@
           <template slot-scope="scope">
             <span
               v-if="scope.row.ifPrimaryKey"
-              style="font-weight: bold; color: #F56C6C;"
+              style="font-weight: bold; color: #f56c6c"
               >是</span
             >
             <span v-else>否</span>
@@ -59,7 +59,7 @@
           <template slot-scope="scope">
             <span
               v-if="scope.row.ifAutoIncrement"
-              style="font-weight: bold; color: #F56C6C;"
+              style="font-weight: bold; color: #f56c6c"
               >是</span
             >
             <span v-else>否</span>
@@ -77,53 +77,54 @@
 </template>
 <script>
 export default {
-  name: "MyColumn",
+  name: 'MyColumn',
   props: {
     // 数据源id
     dataSourceId: {
       type: Number,
-      default: undefined
+      default: undefined,
     },
     // 数据库名
     dbName: {
       type: String,
-      default: ""
+      default: '',
     },
     // 表名
     tableName: {
       type: String,
-      default: ""
-    }
+      default: '',
+    },
   },
   data() {
     return {
       isShow: false,
       tableColumnLoading: true,
-      tableColumnList: [] // 表字段信息
-    };
+      tableColumnList: [], // 表字段信息
+    }
   },
   created() {},
   methods: {
     open(tableName) {
-      this.isShow = true;
-      this.refreshTableColumnList(tableName);
+      this.isShow = true
+      this.refreshTableColumnList(tableName)
     },
     // 刷新表字段数据
     async refreshTableColumnList(tableName) {
-      this.tableColumnLoading = true;
-      let res = await this.$api.st_db_operate.getAllColumnsByDataSourceIdAndDbNameAndTableName(
-        this.dataSourceId,
-        this.dbName,
-        tableName
-      );
-      let resData = res.data;
-      this.tableColumnList = resData.columnInfoList;
-      this.tableColumnLoading = false;
+      this.tableColumnLoading = true
+      let res =
+        await this.$api.st_db_operate.getAllColumnsByDataSourceIdAndDbNameAndTableName(
+          this.dataSourceId,
+          this.dbName,
+          tableName
+        )
+      let resData = res.data
+      this.tableColumnList = resData.columnInfoList
+      this.tableColumnLoading = false
     },
     close() {
-      this.isShow = false;
-    }
-  }
-};
+      this.isShow = false
+    },
+  },
+}
 </script>
 <style lang="scss" scoped></style>

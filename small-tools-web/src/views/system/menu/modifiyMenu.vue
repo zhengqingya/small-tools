@@ -36,7 +36,7 @@
         <el-select
           v-model="form.icon"
           placeholder="请选择图标"
-          style="width:200px"
+          style="width: 200px"
           clearable
         >
           <el-option
@@ -88,108 +88,108 @@
 </template>
 <script>
 export default {
-  name: "ModifiyMenu",
+  name: 'ModifiyMenu',
   data() {
     return {
       dialogVisible: false,
-      titleMap: { create: "创建", edit: "编辑" },
-      dialogStatus: "create",
+      titleMap: { create: '创建', edit: '编辑' },
+      dialogStatus: 'create',
       hasParent: false,
-      parentName: "",
+      parentName: '',
       elIconList: [],
       form: {
         parentId: 0,
-        title: "",
-        name: "",
-        path: "",
-        redirect: "",
-        component: "",
-        icon: "",
-        displayOrder: "",
+        title: '',
+        name: '',
+        path: '',
+        redirect: '',
+        component: '',
+        icon: '',
+        displayOrder: '',
         status: 1, // 1启用 0 禁用
         hidden: 1, // 1 显示 0 隐藏
         alwaysShow: 1, // 1 true 0 false
         breadcrumb: 1, // 1 true, 0 false
-        systemSource: 0 // 系统来源
+        systemSource: 0, // 系统来源
       },
       rules: {
         title: [
-          { required: true, message: "菜单标题不得为空", trigger: "blur" }
+          { required: true, message: '菜单标题不得为空', trigger: 'blur' },
         ],
         path: [
-          { required: true, message: "菜单链接不得为空", trigger: "blur" }
+          { required: true, message: '菜单链接不得为空', trigger: 'blur' },
         ],
         component: [
-          { required: true, message: "菜单文件路径不得为空", trigger: "blur" }
-        ]
-      }
-    };
+          { required: true, message: '菜单文件路径不得为空', trigger: 'blur' },
+        ],
+      },
+    }
   },
   methods: {
     open(type, parent) {
       if (type === 1) {
         // 新增第一级
-        this.hasParent = false;
-        this.resetForm();
+        this.hasParent = false
+        this.resetForm()
       } else if (type === 2) {
         // 添加下一级
-        this.hasParent = true;
-        this.resetForm();
+        this.hasParent = true
+        this.resetForm()
         if (parent) {
-          this.form.parentId = parent.menuId;
-          this.parentName = parent.title;
+          this.form.parentId = parent.menuId
+          this.parentName = parent.title
         }
       } else if (type === 3) {
         // 编辑
         if (parent) {
           if (parent.parentId) {
-            this.hasParent = true;
-            this.parentName = parent.parentName;
+            this.hasParent = true
+            this.parentName = parent.parentName
           }
-          this.form = Object.assign({}, parent, { menuId: parent.menuId });
+          this.form = Object.assign({}, parent, { menuId: parent.menuId })
         }
       }
-      this.getIconList();
-      this.dialogVisible = true;
+      this.getIconList()
+      this.dialogVisible = true
     },
     async getIconList() {
-      let res = await this.$api.sys_dict.listFromCacheByCode("element_icon");
-      this.elIconList = res.data;
+      let res = await this.$api.sys_dict.listFromCacheByCode('element_icon')
+      this.elIconList = res.data
     },
     handleSave() {
-      this.$refs.form.validate(async valid => {
+      this.$refs.form.validate(async (valid) => {
         if (valid) {
-          this.form.systemSource = 0;
+          this.form.systemSource = 0
           let res = await this.$api.sys_menu[
-            this.form.menuId ? "update" : "add"
-          ](this.form);
-          this.submitOk(res.msg);
-          this.$emit("handleSucc");
-          this.dialogVisible = false;
+            this.form.menuId ? 'update' : 'add'
+          ](this.form)
+          this.submitOk(res.msg)
+          this.$emit('handleSucc')
+          this.dialogVisible = false
         } else {
-          console.log("error submit!!");
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
     resetForm() {
       this.form = {
         parentId: 0,
-        title: "",
-        name: "",
-        path: "",
-        redirect: "",
-        component: "",
-        icon: "",
-        displayOrder: "",
+        title: '',
+        name: '',
+        path: '',
+        redirect: '',
+        component: '',
+        icon: '',
+        displayOrder: '',
         status: 1, // 1启用 0 禁用
         hidden: 1, // 1 显示 0 隐藏
         alwaysShow: 1, // 1 true 0 false
-        breadcrumb: 1 // 1 true, 0 false
-      };
+        breadcrumb: 1, // 1 true, 0 false
+      }
     },
-    handleClose() {}
-  }
-};
+    handleClose() {},
+  },
+}
 </script>
 <style lang="scss" scoped></style>

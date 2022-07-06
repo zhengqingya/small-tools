@@ -8,19 +8,19 @@
 </template>
 <script>
 export default {
-  name: "Wraper",
-  inject: ["App"],
+  name: 'Wraper',
+  inject: ['App'],
   props: {
     fullHeight: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data() {
-    return {};
+    return {}
   },
-  methods: {}
-};
+  methods: {},
+}
 </script>
 <style lang="scss" scoped>
 .wraper {

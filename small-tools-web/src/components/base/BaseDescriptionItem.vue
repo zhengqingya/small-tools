@@ -15,22 +15,22 @@
   </fragment>
 </template>
 <script>
-import { Fragment } from "vue-fragment";
+import { Fragment } from 'vue-fragment'
 export default {
   components: {
-    Fragment
+    Fragment,
   },
   props: {
     span: {
       type: Number,
-      default: 1
+      default: 1,
     },
     label: {
       type: String,
-      default: "名称"
-    }
-  }
-};
+      default: '名称',
+    },
+  },
+}
 </script>
 <style lang="scss" scoped>
 .description-item-label {
@@ -45,13 +45,13 @@ export default {
   position: relative;
   top: -0.5px;
   margin: 0 8px 0 2px;
-  content: " ";
+  content: ' ';
 }
 .description-item-colon:after {
-  content: ":";
+  content: ':';
 }
 .description-border .description-item-colon:after {
-  content: "";
+  content: '';
 }
 .description-item-content {
   color: rgba(0, 0, 0, 0.65);

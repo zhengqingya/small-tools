@@ -4,7 +4,7 @@
       <el-input
         v-model="listQuery.templateKey"
         placeholder="请输入键"
-        style="width:200px"
+        style="width: 200px"
         clearable
         @clear="refreshTableData"
       />
@@ -90,7 +90,7 @@
           <el-select
             v-model="form.isCommon"
             placeholder="请选择"
-            style="width: 280px;"
+            style="width: 280px"
           >
             <el-option
               v-for="item in commonTypeList"
@@ -112,73 +112,73 @@
 </template>
 
 <script>
-import TemplateTest from "./components/template-test";
+import TemplateTest from './components/template-test'
 
 export default {
-  name: "CodeFreeMarkerTemplate",
+  name: 'CodeFreeMarkerTemplate',
   components: { TemplateTest },
   data() {
     return {
       currentUserId: this.$store.state.user.userId,
       dialogVisible: false,
-      listQuery: { templateKey: "" },
+      listQuery: { templateKey: '' },
       form: {
         freeMarkerTemplateId: undefined, //主键ID
         templateKey: undefined, //键
         templateValue: undefined, //值
-        isCommon: undefined // 数据类型
+        isCommon: undefined, // 数据类型
       },
       commonTypeList: [
-        { key: 1, display_name: "共用数据" },
-        { key: 0, display_name: "个人数据" }
+        { key: 1, display_name: '共用数据' },
+        { key: 0, display_name: '个人数据' },
       ],
-      dialogStatus: "",
+      dialogStatus: '',
       titleMap: {
-        add: "添加",
-        update: "编辑",
-        detail: "详情"
+        add: '添加',
+        update: '编辑',
+        detail: '详情',
       },
-      rules: {}
-    };
+      rules: {},
+    }
   },
   created() {},
   methods: {
     refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     handleAdd() {
-      this.form = Object.assign({}, {});
-      this.dialogStatus = "add";
-      this.dialogVisible = true;
+      this.form = Object.assign({}, {})
+      this.dialogStatus = 'add'
+      this.dialogVisible = true
     },
     showTest() {
-      this.$refs.templateTest.show();
+      this.$refs.templateTest.show()
     },
     handleUpdate(row) {
-      this.form = Object.assign({}, row);
-      this.dialogStatus = "update";
-      this.dialogVisible = true;
+      this.form = Object.assign({}, row)
+      this.dialogStatus = 'update'
+      this.dialogVisible = true
     },
     async handleDelete(row) {
       let res = await this.$api.cg_free_marker_template.delete(
         row.freeMarkerTemplateId
-      );
-      this.refreshTableData();
-      this.submitOk(res.message);
+      )
+      this.refreshTableData()
+      this.submitOk(res.message)
     },
     submitForm() {
-      this.$refs.dataForm.validate(async valid => {
+      this.$refs.dataForm.validate(async (valid) => {
         if (valid) {
           let res = await this.$api.cg_free_marker_template[
-            this.form.freeMarkerTemplateId ? "update" : "add"
-          ](this.form);
-          this.refreshTableData();
-          this.submitOk(res.message);
-          this.dialogVisible = false;
+            this.form.freeMarkerTemplateId ? 'update' : 'add'
+          ](this.form)
+          this.refreshTableData()
+          this.submitOk(res.message)
+          this.dialogVisible = false
         }
-      });
-    }
-  }
-};
+      })
+    },
+  },
+}
 </script>
 <style scoped></style>

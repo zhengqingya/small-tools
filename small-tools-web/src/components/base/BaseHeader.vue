@@ -20,22 +20,22 @@
 </template>
 <script>
 export default {
-  name: "BaseHeader",
+  name: 'BaseHeader',
   props: {
     top: {
       type: Number,
-      default: 0
+      default: 0,
     },
     bottom: {
       type: Number,
-      default: 10
+      default: 10,
     },
     border: {
       type: Boolean,
-      default: false
-    }
-  }
-};
+      default: false,
+    },
+  },
+}
 </script>
 <style lang="scss" scoped>
 .base-header {

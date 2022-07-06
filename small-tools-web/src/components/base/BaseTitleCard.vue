@@ -5,7 +5,7 @@
       <div class="prefix">
         <slot name="prefix" />
       </div>
-      <div class="append" style="margin-top: 12px;">
+      <div class="append" style="margin-top: 12px">
         <slot name="append" />
       </div>
     </h2>
@@ -16,19 +16,19 @@
 </template>
 <script>
 export default {
-  name: "TitleCard",
-  inject: ["App"],
+  name: 'TitleCard',
+  inject: ['App'],
   props: {
     title: {
       type: String,
-      default: "标题"
-    }
+      default: '标题',
+    },
   },
   data() {
-    return {};
+    return {}
   },
-  methods: {}
-};
+  methods: {},
+}
 </script>
 <style lang="scss" scoped>
 .title-card {

@@ -9,13 +9,17 @@
         <el-input v-model="form.name" placeholder="输入字典类型名称" />
       </el-form-item>
       <el-form-item label="字典类型编码：">
-        <el-input v-model="form.code" :disabled="form.id" placeholder="输入字典类型编码" />
+        <el-input
+          v-model="form.code"
+          :disabled="form.id"
+          placeholder="输入字典类型编码"
+        />
       </el-form-item>
       <el-form-item label="是否启用：">
         <el-select
           v-model="form.status"
           placeholder="请选择"
-          style="width: 280px;"
+          style="width: 280px"
         >
           <el-option
             v-for="item in statusList"
@@ -34,47 +38,47 @@
 </template>
 <script>
 export default {
-  name: "EditDictType",
+  name: 'EditDictType',
   data() {
     return {
       statusList: [
-        { value: 1, name: "启用" },
-        { value: 0, name: "禁用" }
+        { value: 1, name: '启用' },
+        { value: 0, name: '禁用' },
       ],
       titleMap: {
-        create: "添加",
-        update: "编辑"
+        create: '添加',
+        update: '编辑',
       },
-      dialogStatus: "",
+      dialogStatus: '',
       dialogVisible: false,
       form: {
         id: undefined,
-        code: "",
-        name: "",
-        status: 1
-      }
-    };
+        code: '',
+        name: '',
+        status: 1,
+      },
+    }
   },
   methods: {
     open(type, data) {
-      this.dialogStatus = type;
-      if (type === "create") {
-        this.form = Object.assign({}, {});
-        this.form.status = 1;
-      } else if (type === "update") {
-        this.form = Object.assign({}, data);
+      this.dialogStatus = type
+      if (type === 'create') {
+        this.form = Object.assign({}, {})
+        this.form.status = 1
+      } else if (type === 'update') {
+        this.form = Object.assign({}, data)
       }
-      this.dialogVisible = true;
+      this.dialogVisible = true
     },
     async handleSave() {
-      let res = await this.$api.sys_dict_type[this.form.id ? "update" : "add"](
+      let res = await this.$api.sys_dict_type[this.form.id ? 'update' : 'add'](
         this.form
-      );
-      this.$emit("saveSucc");
-      this.dialogVisible = false;
-      this.submitOk(res.msg);
-    }
-  }
-};
+      )
+      this.$emit('saveSucc')
+      this.dialogVisible = false
+      this.submitOk(res.msg)
+    },
+  },
+}
 </script>
 <style lang="scss" scoped></style>

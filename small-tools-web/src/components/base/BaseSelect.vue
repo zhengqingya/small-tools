@@ -18,19 +18,19 @@
 </template>
 <script>
 export default {
-  name: "BaseSelect",
+  name: 'BaseSelect',
   props: {
     options: {
       type: Array,
       default() {
-        return [];
-      }
-    }
+        return []
+      },
+    },
   },
   data() {
-    return {};
-  }
-};
+    return {}
+  },
+}
 </script>
 <style lang="scss" scoped>
 /deep/ .el-input {

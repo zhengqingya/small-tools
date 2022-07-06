@@ -5,14 +5,14 @@
         v-model="listQuery.username"
         clearable
         placeholder="请输入账号"
-        style="width:200px"
+        style="width: 200px"
         @clear="refreshTableData"
       />
       <el-input
         v-model="listQuery.nickname"
         clearable
         placeholder="请输入名称"
-        style="width:200px"
+        style="width: 200px"
         @clear="refreshTableData"
       />
       <el-button v-has="'query'" type="primary" @click="refreshTableData"
@@ -41,7 +41,7 @@
             <img
               :src="scope.row.avatar"
               alt=""
-              style="width: 50px;height: 50px"
+              style="width: 50px; height: 50px"
             />
           </span>
         </template>
@@ -113,23 +113,23 @@
   </my-base-wraper>
 </template>
 <script>
-import RolePermission from "./rolePermission";
-import { encryptByDES } from "@/utils";
+import RolePermission from './rolePermission'
+import { encryptByDES } from '@/utils'
 export default {
-  name: "User",
+  name: 'User',
   components: { RolePermission },
   data() {
     return {
       userId: this.$store.state.user.userId,
       dialogVisible: false,
       sexList: [
-        { key: 0, display_name: "未知" },
-        { key: 1, display_name: "男" },
-        { key: 2, display_name: "女" }
+        { key: 0, display_name: '未知' },
+        { key: 1, display_name: '男' },
+        { key: 2, display_name: '女' },
       ],
       listQuery: {
-        username: "",
-        nickname: ""
+        username: '',
+        nickname: '',
       },
       form: {
         userId: undefined, // 主键ID
@@ -140,104 +140,106 @@ export default {
         sex: undefined, // 性别 0:男 1:女
         phone: undefined, // 手机号码
         email: undefined, // 邮箱
-        avatar: undefined // 头像
+        avatar: undefined, // 头像
       },
-      dialogStatus: "",
+      dialogStatus: '',
       titleMap: {
-        update: "编辑",
-        create: "创建"
+        update: '编辑',
+        create: '创建',
       },
       rules: {
-        username: [{ required: true, message: "请输入账号", trigger: "blur" }],
+        username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
         pwd: [
-          { pattern: /^(\w){6,16}$/, message: "请设置6-16位字母、数字组合" }
+          { pattern: /^(\w){6,16}$/, message: '请设置6-16位字母、数字组合' },
         ],
-        nickname: [{ required: true, message: "请输入你昵称", trigger: "blur" }]
-      }
-    };
+        nickname: [
+          { required: true, message: '请输入你昵称', trigger: 'blur' },
+        ],
+      },
+    }
   },
   mounted() {},
   methods: {
     async refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     handleCreate() {
-      this.resetForm();
-      this.dialogStatus = "create";
-      this.dialogVisible = true;
+      this.resetForm()
+      this.dialogStatus = 'create'
+      this.dialogVisible = true
     },
     handleUpdate(row, type) {
-      if (type === "update") {
-        this.form = Object.assign({}, row);
-        this.dialogStatus = "update";
-        this.dialogVisible = true;
-      } else if (type === "role") {
-        this.$refs.rolePermisson.open(row);
+      if (type === 'update') {
+        this.form = Object.assign({}, row)
+        this.dialogStatus = 'update'
+        this.dialogVisible = true
+      } else if (type === 'role') {
+        this.$refs.rolePermisson.open(row)
       }
     },
     async deleteData(id) {
-      let res = await this.$api.sys_user.delete(id);
-      this.submitOk(res.messge);
-      this.refreshTableData();
+      let res = await this.$api.sys_user.delete(id)
+      this.submitOk(res.messge)
+      this.refreshTableData()
     },
     async resetPwd(userId) {
       if (userId) {
-        let res = await this.$api.sys_user.resetPassword(userId);
+        let res = await this.$api.sys_user.resetPassword(userId)
         this.submitOk(res.msg, () => {
-          const currentUser = this.$store.state.user.userId;
+          const currentUser = this.$store.state.user.userId
           if (userId === currentUser) {
-            this.$store.dispatch("user/logout").then(res => {
-              this.$router.replace({ path: "/login" });
-            });
+            this.$store.dispatch('user/logout').then((res) => {
+              this.$router.replace({ path: '/login' })
+            })
           }
-        });
+        })
       }
     },
     handleAvatar(avatarUrl) {
-      this.form.avatar = avatarUrl;
+      this.form.avatar = avatarUrl
     },
     submitForm() {
-      this.$refs.dataForm.validate(async valid => {
+      this.$refs.dataForm.validate(async (valid) => {
         if (valid) {
           if (this.form.pwd) {
-            this.form.password = this.form.pwd;
-            const key = this.$store.state.user.DES_KEY;
-            this.form.password = encryptByDES(this.form.password, key);
+            this.form.password = this.form.pwd
+            const key = this.$store.state.user.DES_KEY
+            this.form.password = encryptByDES(this.form.password, key)
           }
           let res = await this.$api.sys_user[
-            this.form.userId ? "update" : "add"
-          ](this.form);
-          this.refreshTableData();
-          this.submitOk(res.msg);
-          this.dialogVisible = false;
+            this.form.userId ? 'update' : 'add'
+          ](this.form)
+          this.refreshTableData()
+          this.submitOk(res.msg)
+          this.dialogVisible = false
         }
-      });
+      })
       if (this.userId === this.form.userId) {
-        this.$store.commit("user/SET_AVATAR", this.form.avatar);
-        this.$store.commit("user/SET_NICKNAME", this.form.nickname);
+        this.$store.commit('user/SET_AVATAR', this.form.avatar)
+        this.$store.commit('user/SET_NICKNAME', this.form.nickname)
       }
     },
     resetForm() {
       this.form = {
         userId: undefined, // 主键ID
         username: undefined, // 账号
-        password: "", // 登录密码
-        pwd: "", // 登录密码(修改密码时使用)
+        password: '', // 登录密码
+        pwd: '', // 登录密码(修改密码时使用)
         nickname: undefined, // 昵称
         sex: undefined, // 性别 0:男 1:女
         phone: undefined, // 手机号码
         email: undefined, // 邮箱
         avatar: undefined, // 头像
-        status: undefined // 状态
-      };
+        status: undefined, // 状态
+      }
     },
     // 监听dialog关闭时的处理事件
     handleDialogClose() {
-      if (this.$refs["dataForm"]) {
-        this.$refs["dataForm"].clearValidate(); // 清除整个表单的校验
+      if (this.$refs['dataForm']) {
+        this.$refs['dataForm'].clearValidate() // 清除整个表单的校验
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
 <style lang="scss" scoped></style>

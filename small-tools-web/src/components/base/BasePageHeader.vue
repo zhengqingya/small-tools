@@ -9,7 +9,9 @@
 <template>
   <div class="page-head">
     <slot name="logo">
-      <el-image style="width:20px;height:20px;margin-right:20px"></el-image>
+      <el-image
+        style="width: 20px; height: 20px; margin-right: 20px"
+      ></el-image>
     </slot>
     <div class="page-header-main">
       <div class="page-header-row">

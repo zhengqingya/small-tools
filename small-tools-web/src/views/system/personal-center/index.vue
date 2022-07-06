@@ -19,7 +19,7 @@
               form.nickname
             }}</my-base-cell-item>
             <my-base-cell-item label="性别">{{
-              form.sexName || "未知"
+              form.sexName || '未知'
             }}</my-base-cell-item>
             <my-base-cell-item label="手机号码">{{
               form.phone
@@ -31,7 +31,7 @@
             <my-base-cell-item label="密码">
               <el-button
                 type="text"
-                style="margin-left:0!important"
+                style="margin-left: 0 !important"
                 @click="changePsw"
                 >修改密码</el-button
               >
@@ -58,7 +58,7 @@
               <template slot-scope="scope">
                 <span
                   v-if="scope.row.ifBind"
-                  style="font-weight: bold; background-color: #00FFFF;"
+                  style="font-weight: bold; background-color: #00ffff"
                   >是</span
                 >
                 <span v-else>否</span>
@@ -125,10 +125,10 @@
 </template>
 
 <script>
-import ChangePsw from "@/components/ChangePsw";
+import ChangePsw from '@/components/ChangePsw'
 
 export default {
-  name: "UserInfo",
+  name: 'UserInfo',
   components: { ChangePsw },
   data() {
     return {
@@ -137,70 +137,70 @@ export default {
       userId: this.$store.state.user.userId,
       form: {},
       sexList: [
-        { key: 0, display_name: "未知" },
-        { key: 1, display_name: "男" },
-        { key: 2, display_name: "女" }
+        { key: 0, display_name: '未知' },
+        { key: 1, display_name: '男' },
+        { key: 2, display_name: '女' },
       ],
       tableOauthDataListQuery: { userId: this.$store.state.user.userId },
-      oauthUrl: process.env.VUE_APP_BASE_API + "/system/web/api/oauth/",
+      oauthUrl: process.env.VUE_APP_BASE_API + '/system/web/api/oauth/',
       oauthType: this.$route.query.oauthType,
-      openId: this.$route.query.openId
-    };
+      openId: this.$route.query.openId,
+    }
   },
   created() {
-    this.getUserInfoById();
+    this.getUserInfoById()
     if (this.oauthType && this.openId) {
-      this.submitOauthInfo();
+      this.submitOauthInfo()
     }
   },
   methods: {
     async getUserInfoById() {
-      let res = await this.$api.sys_user.getUserInfoById(this.userId);
-      this.form = res.data;
+      let res = await this.$api.sys_user.getUserInfoById(this.userId)
+      this.form = res.data
     },
     handleAvatar(avatarUrl) {
-      this.form.avatar = avatarUrl;
-      this.avatarUrl = avatarUrl;
+      this.form.avatar = avatarUrl
+      this.avatarUrl = avatarUrl
     },
     async refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     async handleOauthBind(row) {
-      let ifBind = row.ifBind;
+      let ifBind = row.ifBind
       if (ifBind === 1) {
         // 如果为绑定则解除绑定
         let res = await this.$api.sys_oauth.removeBind({
-          userReOauthId: row.userReOauthId
-        });
-        this.submitOk(res.msg);
-        this.refreshTableData();
+          userReOauthId: row.userReOauthId,
+        })
+        this.submitOk(res.msg)
+        this.refreshTableData()
       } else {
-        await this.$api.sys_oauth.thirdpartOauth(row.oauthTypeName);
+        await this.$api.sys_oauth.thirdpartOauth(row.oauthTypeName)
       }
     },
     async submitOauthInfo() {
       let oauthForm = {
         userId: this.userId,
         oauthType: this.oauthType,
-        openId: this.openId
-      };
-      let res = await this.$api.sys_oauth.bindThirdPart(oauthForm);
-      this.submitOk(res.msg);
-      this.refreshTableData();
-      this.$router.replace("/system/personal-center");
+        openId: this.openId,
+      }
+      let res = await this.$api.sys_oauth.bindThirdPart(oauthForm)
+      this.submitOk(res.msg)
+      this.refreshTableData()
+      this.$router.replace('/system/personal-center')
     },
     async submitForm() {
-      await this.$api.sys_user.update(this.form);
-      this.submitOk("保存成功");
-      this.$store.commit("user/SET_AVATAR", this.form.avatar);
-      this.$store.commit("user/SET_NICKNAME", this.form.nickname);
-      this.dialogVisible = false;
+      await this.$api.sys_user.update(this.form)
+      this.submitOk('保存成功')
+      this.$store.commit('user/SET_AVATAR', this.form.avatar)
+      this.$store.commit('user/SET_NICKNAME', this.form.nickname)
+      this.dialogVisible = false
     },
     changePsw() {
-      this.$refs.changePsw.open();
-    }
-  }
-};
+      this.$refs.changePsw.open()
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped></style>

@@ -11,9 +11,9 @@
 </template>
 <script>
 export default {
-  name: "BaseInput",
+  name: 'BaseInput',
   data() {
-    return {};
-  }
-};
+    return {}
+  },
+}
 </script>

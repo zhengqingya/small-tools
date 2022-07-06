@@ -30,7 +30,7 @@
           v-model="form[item.key]"
           v-bind="item.attr"
           :style="{
-            width: item.attr && item.attr.width ? item.attr.width : '100%'
+            width: item.attr && item.attr.width ? item.attr.width : '100%',
           }"
         ></component>
       </el-form-item>
@@ -41,53 +41,53 @@
 </template>
 <script>
 export default {
-  name: "BaseForm",
+  name: 'BaseForm',
   model: {
-    prop: "value",
-    event: "form-change"
+    prop: 'value',
+    event: 'form-change',
   },
   props: {
     columns: {
       type: Array,
       default() {
-        return [];
-      }
+        return []
+      },
     },
     value: {
       type: Object,
       default() {
-        return {};
-      }
-    }
+        return {}
+      },
+    },
   },
   data() {
     return {
-      form: {}
-    };
-  },
-  watch: {
-    form: function(val) {
-      this.$emit("form-change", val);
+      form: {},
     }
   },
+  watch: {
+    form: function (val) {
+      this.$emit('form-change', val)
+    },
+  },
   created() {
-    this.init();
+    this.init()
   },
   methods: {
     init() {
-      this.form = this.value;
+      this.form = this.value
     },
     validate() {
-      return new Promise(resolve => {
-        this.$refs["form"].validate(valid => {
+      return new Promise((resolve) => {
+        this.$refs['form'].validate((valid) => {
           if (valid) {
-            resolve(true);
+            resolve(true)
           }
-        });
-      });
-    }
-  }
-};
+        })
+      })
+    },
+  },
+}
 </script>
 <style lang="scss" scoped>
 .form {

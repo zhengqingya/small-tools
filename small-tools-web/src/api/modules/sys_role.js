@@ -1,57 +1,57 @@
-import request from "@/utils/request";
+import request from '@/utils/request'
 
-const BASE_API = "/system/web/api/role";
+const BASE_API = '/system/web/api/role'
 
 export default {
   listPage(query, headers) {
     return request({
-      url: BASE_API + "/listPage",
-      method: "get",
+      url: BASE_API + '/listPage',
+      method: 'get',
       params: query,
-      headers
-    });
+      headers,
+    })
   },
   list(query) {
     return request({
-      url: BASE_API + "/list",
-      method: "get",
-      params: query
-    });
+      url: BASE_API + '/list',
+      method: 'get',
+      params: query,
+    })
   },
   detail(id) {
     return request({
-      url: BASE_API + "/detail",
-      method: "get",
-      params: { roleId: id }
-    });
+      url: BASE_API + '/detail',
+      method: 'get',
+      params: { roleId: id },
+    })
   },
   add(data) {
     return request({
       url: BASE_API,
-      method: "post",
-      data
-    });
+      method: 'post',
+      data,
+    })
   },
   update(data) {
     return request({
       url: BASE_API,
-      method: "put",
-      data
-    });
+      method: 'put',
+      data,
+    })
   },
   delete(id) {
     return request({
       url: BASE_API,
-      method: "delete",
-      params: { roleId: id }
-    });
+      method: 'delete',
+      params: { roleId: id },
+    })
   },
   updateStatus(id, status) {
     return request({
-      url: BASE_API + "/updateStatus",
-      method: "post",
-      data: { roleId: id, status: status }
-    });
+      url: BASE_API + '/updateStatus',
+      method: 'post',
+      data: { roleId: id, status: status },
+    })
   },
   /**
    * 获取角色管理 页面中的权限按钮个数
@@ -59,12 +59,12 @@ export default {
    */
   getBtnsByMenuId(id) {
     return request({
-      url: BASE_API + "/getBtnsByMenuId",
-      method: "get",
+      url: BASE_API + '/getBtnsByMenuId',
+      method: 'get',
       params: {
-        menuId: id
-      }
-    });
+        menuId: id,
+      },
+    })
   },
   /**
    * 获取角色管理 页面中的权限按钮被选中的按钮
@@ -72,10 +72,10 @@ export default {
    */
   getPermissionBtnsByRoleIdAndMenuId(data) {
     return request({
-      url: BASE_API + "/getPermissionBtnsByRoleIdAndMenuId",
-      method: "get",
-      params: data
-    });
+      url: BASE_API + '/getPermissionBtnsByRoleIdAndMenuId',
+      method: 'get',
+      params: data,
+    })
   },
   /**
    * 保存角色管理页面中的权限按钮被选中的按钮
@@ -83,23 +83,23 @@ export default {
    */
   savePermissionBtnIds(data) {
     return request({
-      url: BASE_API + "/saveRoleMenuBtnIds",
-      method: "post",
-      data
-    });
+      url: BASE_API + '/saveRoleMenuBtnIds',
+      method: 'post',
+      data,
+    })
   },
   savePermissionMenuIds(data) {
     return request({
-      url: BASE_API + "/saveRoleMenuIds",
-      method: "post",
-      data
-    });
+      url: BASE_API + '/saveRoleMenuIds',
+      method: 'post',
+      data,
+    })
   },
   saveRolePermission(data) {
     return request({
-      url: BASE_API + "/saveRolePermission",
-      method: "post",
-      data
-    });
-  }
-};
+      url: BASE_API + '/saveRolePermission',
+      method: 'post',
+      data,
+    })
+  },
+}

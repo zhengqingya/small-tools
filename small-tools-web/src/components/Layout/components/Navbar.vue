@@ -36,7 +36,7 @@
         <div class="avatar-wrapper">
           <el-avatar v-if="avatarUrl" :src="avatarUrl" :size="40" />
           <el-avatar v-else :src="defaultAvatar" :size="40" />
-          <span style="float:right;margin-top:-10px;">{{ nickname }} </span>
+          <span style="float: right; margin-top: -10px">{{ nickname }} </span>
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -59,7 +59,7 @@
             <el-dropdown-item>提建议</el-dropdown-item>
           </router-link>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">退出</span>
+            <span style="display: block">退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -69,58 +69,58 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import ChangePsw from "@/components/ChangePsw";
-import defaultAvatar from "@/assets/images/timg.jpg";
-import Hamburger from "@/components/Hamburger";
+import { mapGetters } from 'vuex'
+import ChangePsw from '@/components/ChangePsw'
+import defaultAvatar from '@/assets/images/timg.jpg'
+import Hamburger from '@/components/Hamburger'
 
 export default {
   components: { ChangePsw, Hamburger },
   data() {
     return {
       currentTheme: false,
-      defaultAvatar: defaultAvatar
-    };
+      defaultAvatar: defaultAvatar,
+    }
   },
   computed: {
-    ...mapGetters(["sidebar", "alarmCount", "isDarkTheme"]),
+    ...mapGetters(['sidebar', 'alarmCount', 'isDarkTheme']),
     userName() {
-      return this.$store.state.user.username;
+      return this.$store.state.user.username
     },
     nickname() {
-      const name = this.$store.state.user.nickname;
-      if (name === undefined || name === "") {
-        return "无名氏";
+      const name = this.$store.state.user.nickname
+      if (name === undefined || name === '') {
+        return '无名氏'
       } else {
-        return name;
+        return name
       }
     },
     avatarUrl() {
-      return this.$store.state.user.avatar || "@/assets/images/timg.jpg";
-    }
+      return this.$store.state.user.avatar || '@/assets/images/timg.jpg'
+    },
   },
   mounted() {
     this.$nextTick(() => {
-      this.currentTheme = this.isDarkTheme;
-    });
+      this.currentTheme = this.isDarkTheme
+    })
     // this.$store.dispatch('app/getUserInfo')
   },
   methods: {
     toggleSideBar() {
-      this.$store.dispatch("app/toggleSideBar");
+      this.$store.dispatch('app/toggleSideBar')
     },
     changeTheme() {
-      this.$store.dispatch("settings/changeTheme");
+      this.$store.dispatch('settings/changeTheme')
     },
     changePsw() {
-      this.$refs.changePsw.open();
+      this.$refs.changePsw.open()
     },
     async logout() {
-      await this.$store.dispatch("user/logout");
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`);
-    }
-  }
-};
+      await this.$store.dispatch('user/logout')
+      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -129,11 +129,11 @@ export default {
   width: 25px;
 
   &.default {
-    background: url("../../../assets/images/light-skin.png") no-repeat;
+    background: url('../../../assets/images/light-skin.png') no-repeat;
   }
 
   &.dark {
-    background: url("../../../assets/images/dark-skin.png") no-repeat;
+    background: url('../../../assets/images/dark-skin.png') no-repeat;
   }
 }
 

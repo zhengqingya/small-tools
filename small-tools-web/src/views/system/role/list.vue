@@ -1,8 +1,16 @@
 <template>
   <my-base-wraper>
     <base-header>
-      <el-input v-model="listQuery.name" clearable placeholder="角色名称" style="width:200px" @clear="refreshTableData" />
-      <el-button v-has="'query'" type="primary" @click="refreshTableData">查询</el-button>
+      <el-input
+        v-model="listQuery.name"
+        clearable
+        placeholder="角色名称"
+        style="width: 200px"
+        @clear="refreshTableData"
+      />
+      <el-button v-has="'query'" type="primary" @click="refreshTableData"
+        >查询</el-button
+      >
       <template #right>
         <el-button v-has="'add'" type="primary" @click="add">添加</el-button>
       </template>
@@ -13,17 +21,34 @@
       <el-table-column prop="code" label="角色编码" />
       <el-table-column label="操作" align="center" width="150">
         <template slot-scope="scope">
-          <el-button v-has="'edit'" type="text" @click="update(scope.row)">编辑</el-button>
-          <router-link :to="{ path: '/system/roleForm', query: { id: scope.row.roleId } }">
+          <el-button v-has="'edit'" type="text" @click="update(scope.row)"
+            >编辑</el-button
+          >
+          <router-link
+            :to="{ path: '/system/roleForm', query: { id: scope.row.roleId } }"
+          >
             <el-button v-has="'permission'" type="text">权限</el-button>
           </router-link>
-          <my-base-delete-btn v-has="'delete'" @ok="deleteData(scope.row.roleId)" />
+          <my-base-delete-btn
+            v-has="'delete'"
+            @ok="deleteData(scope.row.roleId)"
+          />
         </template>
       </el-table-column>
     </base-table-p>
 
-    <base-dialog :visible.sync="dialogVisible" :title="textMap[dialogStatus]" width="20%" @close="handleDialogClose">
-      <el-form ref="roleForm" :model="roleForm" :rules="rules" label-width="100px">
+    <base-dialog
+      :visible.sync="dialogVisible"
+      :title="textMap[dialogStatus]"
+      width="20%"
+      @close="handleDialogClose"
+    >
+      <el-form
+        ref="roleForm"
+        :model="roleForm"
+        :rules="rules"
+        label-width="100px"
+      >
         <el-form-item label="角色名：" prop="name">
           <el-input v-model="roleForm.name" placeholder="请输入角色名" />
         </el-form-item>
@@ -44,62 +69,64 @@ export default {
     return {
       roleForm: {
         roleId: undefined, // 角色id
-        name: "", // 角色名称
-        code: "", // 角色编号
-        status: "", // 状态
-        type: 1 // 代表是编辑或添加 不代表权限设置
+        name: '', // 角色名称
+        code: '', // 角色编号
+        status: '', // 状态
+        type: 1, // 代表是编辑或添加 不代表权限设置
       },
       dialogVisible: false,
       list: [], // 用户信息
       listLoading: false,
       listQuery: {
-        name: undefined // 角色名称
+        name: undefined, // 角色名称
       },
       total: 0,
       rules: {
-        code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
-        name: [{ required: true, message: "请输入角色名称", trigger: "blur" }]
+        code: [{ required: true, message: '请输入角色编码', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
       },
-      dialogStatus: "",
+      dialogStatus: '',
       textMap: {
-        update: "编辑",
-        create: "添加"
-      }
-    };
+        update: '编辑',
+        create: '添加',
+      },
+    }
   },
   mounted() {},
   methods: {
     async refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     saveForm() {
-      this.$refs.roleForm.validate(async valid => {
+      this.$refs.roleForm.validate(async (valid) => {
         if (valid) {
-          let res = await this.$api.sys_role[this.roleForm.roleId ? "update" : "add"](this.roleForm);
-          this.submitOk(res.msg);
-          this.refreshTableData();
-          this.dialogVisible = false;
+          let res = await this.$api.sys_role[
+            this.roleForm.roleId ? 'update' : 'add'
+          ](this.roleForm)
+          this.submitOk(res.msg)
+          this.refreshTableData()
+          this.dialogVisible = false
         }
-      });
+      })
     },
     update(row) {
-      this.roleForm = Object.assign({}, row);
-      this.dialogVisible = true;
-      this.dialogStatus = "update";
+      this.roleForm = Object.assign({}, row)
+      this.dialogVisible = true
+      this.dialogStatus = 'update'
     },
     add() {
-      this.dialogVisible = true;
-      this.dialogStatus = "create";
-      this.roleForm.roleId = "";
-      this.roleForm.name = "";
-      this.roleForm.code = "";
+      this.dialogVisible = true
+      this.dialogStatus = 'create'
+      this.roleForm.roleId = ''
+      this.roleForm.name = ''
+      this.roleForm.code = ''
     },
     async deleteData(id) {
-      let res = await this.$api.sys_role.delete(id);
-      this.submitOk(res.msg);
-      this.refreshTableData();
-    }
-  }
-};
+      let res = await this.$api.sys_role.delete(id)
+      this.submitOk(res.msg)
+      this.refreshTableData()
+    },
+  },
+}
 </script>
 <style scoped></style>

@@ -3,7 +3,7 @@
     <base-header>
       <el-input
         v-model="listQuery.name"
-        style="width:200px"
+        style="width: 200px"
         placeholder="请输入数据源名称"
         clearable
         @clear="refreshTableData"
@@ -95,12 +95,12 @@
 
 <script>
 export default {
-  name: "StDbDataSource",
+  name: 'StDbDataSource',
   data() {
     return {
       dataSourceTypeList: [],
       listQuery: {
-        name: undefined
+        name: undefined,
       },
       form: {
         id: undefined,
@@ -109,64 +109,64 @@ export default {
         port: undefined,
         username: undefined,
         password: undefined,
-        type: "",
-        remark: undefined
+        type: '',
+        remark: undefined,
       },
       dialogFormVisible: false,
-      dialogStatus: "",
+      dialogStatus: '',
       textMap: {
-        update: "编辑",
-        create: "创建"
+        update: '编辑',
+        create: '创建',
       },
-      rules: {}
-    };
+      rules: {},
+    }
   },
   created() {
-    this.getDataSourceTypeList();
+    this.getDataSourceTypeList()
   },
   methods: {
     refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     async getDataSourceTypeList() {
       let res = await this.$api.sys_dict.listFromCacheByCode(
-        "st_db_data_source_type"
-      );
-      this.dataSourceTypeList = res.data;
+        'st_db_data_source_type'
+      )
+      this.dataSourceTypeList = res.data
     },
     async handleConnectTest(row) {
-      let res = await this.$api.st_db_operate.connectTest(row.id);
-      this.submitOk(res.msg);
+      let res = await this.$api.st_db_operate.connectTest(row.id)
+      this.submitOk(res.msg)
     },
     handleCreate() {
-      this.form = Object.assign({}, {});
-      this.dialogStatus = "create";
-      this.dialogFormVisible = true;
+      this.form = Object.assign({}, {})
+      this.dialogStatus = 'create'
+      this.dialogFormVisible = true
     },
     handleUpdate(row) {
-      this.form = Object.assign({}, row);
-      this.form.project = undefined;
-      this.dialogStatus = "update";
-      this.dialogFormVisible = true;
+      this.form = Object.assign({}, row)
+      this.form.project = undefined
+      this.dialogStatus = 'update'
+      this.dialogFormVisible = true
     },
     async handleDelete(row) {
-      let res = await this.$api.st_db_data_source.delete(row.id);
-      this.refreshTableData();
-      this.submitOk(res.msg);
+      let res = await this.$api.st_db_data_source.delete(row.id)
+      this.refreshTableData()
+      this.submitOk(res.msg)
     },
     submitForm() {
-      this.$refs.dataForm.validate(async valid => {
+      this.$refs.dataForm.validate(async (valid) => {
         if (valid) {
           let res = await this.$api.st_db_data_source[
-            this.form.id ? "update" : "add"
-          ](this.form);
-          this.refreshTableData();
-          this.submitOk(res.msg);
-          this.dialogFormVisible = false;
+            this.form.id ? 'update' : 'add'
+          ](this.form)
+          this.refreshTableData()
+          this.submitOk(res.msg)
+          this.dialogFormVisible = false
         }
-      });
-    }
-  }
-};
+      })
+    },
+  },
+}
 </script>
 <style scoped></style>

@@ -14,14 +14,14 @@
         }}</my-base-cell-item>
       </my-base-table-cell>
     </el-form>
-    <div style="margin-left: 0px;margin-top:10px;">
+    <div style="margin-left: 0px; margin-top: 10px">
       <el-transfer
         v-model="userForm.roleIds"
         :data="roleList"
         :titles="['待选列表', '已选列表']"
         :props="{
           key: 'roleId',
-          label: 'name'
+          label: 'name',
         }"
       />
     </div>
@@ -33,38 +33,38 @@
 </template>
 <script>
 export default {
-  name: "RolePermission",
+  name: 'RolePermission',
   data() {
     return {
       dialogRoleVisible: false,
       roleList: [], // 角色列表
-      userForm: {}
-    };
+      userForm: {},
+    }
   },
   methods: {
     open(data) {
-      this.getRoleList();
+      this.getRoleList()
       if (data.roleIds) {
-        data.roleIds = "[" + data.roleIds + "]";
+        data.roleIds = '[' + data.roleIds + ']'
       }
-      const computedRoleIds = data.roleIds ? JSON.parse(data.roleIds) : [];
-      this.userForm = Object.assign({}, data, { roleIds: computedRoleIds });
-      this.dialogRoleVisible = true;
+      const computedRoleIds = data.roleIds ? JSON.parse(data.roleIds) : []
+      this.userForm = Object.assign({}, data, { roleIds: computedRoleIds })
+      this.dialogRoleVisible = true
     },
     async getRoleList() {
-      let res = await this.$api.sys_role.list({ status: 1 });
-      this.roleList = res.data;
+      let res = await this.$api.sys_role.list({ status: 1 })
+      this.roleList = res.data
     },
     async submitRoleForm() {
       // 把数组项拼接成字符串，并以分号隔开
       // this.userForm.roleIds = this.userForm.roleIds.join(",");
-      this.userForm.roleIdList = this.userForm.roleIds;
-      let res = await this.$api.sys_user.saveRoleIds(this.userForm);
-      this.$emit("saveSucc");
-      this.dialogRoleVisible = false;
-      this.submitOk(res.msg);
-    }
-  }
-};
+      this.userForm.roleIdList = this.userForm.roleIds
+      let res = await this.$api.sys_user.saveRoleIds(this.userForm)
+      this.$emit('saveSucc')
+      this.dialogRoleVisible = false
+      this.submitOk(res.msg)
+    },
+  },
+}
 </script>
 <style lang="scss" scoped></style>

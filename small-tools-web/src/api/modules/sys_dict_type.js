@@ -1,35 +1,35 @@
-import request from "@/utils/request";
+import request from '@/utils/request'
 
-const BASE_API = "/system/web/api/dict/type";
+const BASE_API = '/system/web/api/dict/type'
 
 export default {
   list() {
     return request({
-      url: BASE_API + "/list",
-      method: "get"
-    });
+      url: BASE_API + '/list',
+      method: 'get',
+    })
   },
   add(data) {
     return request({
       url: BASE_API,
-      method: "post",
-      data
-    });
+      method: 'post',
+      data,
+    })
   },
   update(data) {
     return request({
       url: BASE_API,
-      method: "put",
-      data
-    });
+      method: 'put',
+      data,
+    })
   },
   delete(id) {
     return request({
       url: BASE_API,
-      method: "delete",
+      method: 'delete',
       params: {
-        id: id
-      }
-    });
-  }
-};
+        id: id,
+      },
+    })
+  },
+}

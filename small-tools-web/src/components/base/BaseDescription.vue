@@ -11,63 +11,63 @@ export default {
   props: {
     title: {
       type: String,
-      default: ""
+      default: '',
     },
     column: {
       type: Number,
-      default: 3
+      default: 3,
     },
     border: {
       type: Boolean,
-      default: true
+      default: true,
     },
     layout: {
       type: String,
-      default: "horizontal"
-    }
+      default: 'horizontal',
+    },
   },
   data() {
-    return {};
+    return {}
   },
   // eslint-disable-next-line no-unused-vars
-  render: function(h) {
-    let children = this.$slots["default"];
-    let column = this.column;
-    let accArr = []; //累积的列
-    let accNum = 0; //累积的列占用的span
+  render: function (h) {
+    let children = this.$slots['default']
+    let column = this.column
+    let accArr = [] //累积的列
+    let accNum = 0 //累积的列占用的span
 
     //计算每一行占多少列
     let rowArr = children.reduce((acc, item, index) => {
-      accArr.push(item);
-      accNum += 1;
+      accArr.push(item)
+      accNum += 1
       //所占单元大于等于全部单元,则清空累积的项，或者循环到最后一项时
       if (accNum >= column || index >= children.length - 1) {
-        acc.push(accArr);
-        accArr = [];
-        accNum = 0;
+        acc.push(accArr)
+        accArr = []
+        accNum = 0
       }
 
-      return acc;
-    }, []);
-    let title = this.title;
-    let boderClass = this.border ? "description-border" : "";
+      return acc
+    }, [])
+    let title = this.title
+    let boderClass = this.border ? 'description-border' : ''
     return (
-      <div class={["description", boderClass]}>
-        {title ? <div class="description-list-title">{title}</div> : ""}
+      <div class={['description', boderClass]}>
+        {title ? <div class="description-list-title">{title}</div> : ''}
 
         <div class="description-view">
           <table>
             <tbody>
-              {rowArr.map(item => {
-                return <tr class="description-row">{item}</tr>;
+              {rowArr.map((item) => {
+                return <tr class="description-row">{item}</tr>
               })}
             </tbody>
           </table>
         </div>
       </div>
-    );
-  }
-};
+    )
+  },
+}
 </script>
 <style lang="scss" scoped>
 .description-list-title {
