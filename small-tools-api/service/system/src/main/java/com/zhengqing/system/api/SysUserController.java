@@ -7,6 +7,7 @@ import com.zhengqing.common.core.custom.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.common.core.custom.validator.common.UpdateGroup;
 import com.zhengqing.system.model.dto.*;
 import com.zhengqing.system.model.vo.SysUserDetailVO;
+import com.zhengqing.system.model.vo.SysUserListVO;
 import com.zhengqing.system.model.vo.SysUserPermVO;
 import com.zhengqing.system.service.ISysUserRoleService;
 import com.zhengqing.system.service.ISysUserService;
@@ -18,7 +19,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * <p>
@@ -42,15 +42,15 @@ public class SysUserController extends BaseController {
 
     @GetMapping("listPage")
     @ApiOperation("列表分页")
-    public IPage<SysUserDetailVO> listPage(@ModelAttribute SysUserListDTO params) {
+    public IPage<SysUserListVO> listPage(@ModelAttribute SysUserListDTO params) {
         return this.sysUserService.listPage(params);
     }
 
-    @GetMapping("list")
-    @ApiOperation("列表")
-    public List<SysUserDetailVO> list(@ModelAttribute SysUserListDTO params) {
-        return this.sysUserService.list(params);
-    }
+//    @GetMapping("list")
+//    @ApiOperation("列表")
+//    public List<SysUserListVO> list(@ModelAttribute SysUserListDTO params) {
+//        return this.sysUserService.list(params);
+//    }
 
     @NoRepeatSubmit
     @PostMapping("")
@@ -72,10 +72,10 @@ public class SysUserController extends BaseController {
         this.sysUserService.deleteUser(userId);
     }
 
-    @GetMapping("getUserInfoById")
-    @ApiOperation("根据id获取用户信息")
-    public SysUserDetailVO getUserInfoById(@RequestParam Integer userId) {
-        return this.sysUserService.getUserInfoByUserId(userId);
+    @GetMapping("")
+    @ApiOperation("详情")
+    public SysUserDetailVO detail(@RequestParam Integer userId) {
+        return this.sysUserService.detail(userId);
     }
 
     @PutMapping("updatePassword")

@@ -8,6 +8,7 @@ import com.zhengqing.system.model.dto.SysUserPermDTO;
 import com.zhengqing.system.model.dto.SysUserSaveDTO;
 import com.zhengqing.system.model.dto.SysUserUpdatePasswordDTO;
 import com.zhengqing.system.model.vo.SysUserDetailVO;
+import com.zhengqing.system.model.vo.SysUserListVO;
 import com.zhengqing.system.model.vo.SysUserPermVO;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public interface ISysUserService extends IService<SysUser> {
      * @author zhengqingya
      * @date 2020/9/10 10:11
      */
-    IPage<SysUserDetailVO> listPage(SysUserListDTO params);
+    IPage<SysUserListVO> listPage(SysUserListDTO params);
 
     /**
      * 列表
@@ -41,7 +42,17 @@ public interface ISysUserService extends IService<SysUser> {
      * @author zhengqingya
      * @date 2020/9/10 10:11
      */
-    List<SysUserDetailVO> list(SysUserListDTO params);
+    List<SysUserListVO> list(SysUserListDTO params);
+
+    /**
+     * 根据用户id查询用户信息
+     *
+     * @param userId 用户id
+     * @return 用户信息
+     * @author zhengqingya
+     * @date 2020/9/10 10:53
+     */
+    SysUserDetailVO detail(Integer userId);
 
     /**
      * 新增或更新
@@ -82,16 +93,6 @@ public interface ISysUserService extends IService<SysUser> {
      * @date 2020/9/10 11:03
      */
     void resetPassword(Integer userId);
-
-    /**
-     * 根据用户id查询用户信息
-     *
-     * @param userId 用户id
-     * @return 用户信息
-     * @author zhengqingya
-     * @date 2020/9/10 10:53
-     */
-    SysUserDetailVO getUserInfoByUserId(Integer userId);
 
     /**
      * 获取用户的基本信息+角色+权限...

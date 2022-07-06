@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 系统管理 - 用户详情-展示内容
+ * 系统管理 - 用户信息列表-展示内容
  * </p>
  *
  * @author zhengqingya
@@ -18,7 +18,7 @@ import java.util.Date;
  */
 @Data
 @ApiModel
-public class SysUserDetailVO {
+public class SysUserListVO {
 
     @ApiModelProperty(value = "主键ID")
     private Integer userId;
@@ -49,6 +49,12 @@ public class SysUserDetailVO {
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
+
+    @ApiModelProperty("角色ids")
+    private String roleIds;
+
+    @ApiModelProperty("角色")
+    private String roleNames;
 
     public void handleData() {
         this.sexName = UserSexEnum.getEnum(this.sex).getDesc();

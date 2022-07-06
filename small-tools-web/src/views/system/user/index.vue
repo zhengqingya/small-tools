@@ -46,7 +46,6 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column prop="roleNames" show-overflow-tooltip label="角色" />
       <el-table-column label="操作" align="center" width="230">
         <template slot-scope="scope">
           <el-button

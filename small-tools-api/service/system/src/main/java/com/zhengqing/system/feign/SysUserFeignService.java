@@ -31,7 +31,7 @@ public class SysUserFeignService implements ISysUserFeignApi {
 
     @Override
     public ApiResult<SysUserDetailVO> getUser(Integer userId) {
-        return ApiResult.ok(this.sysUserService.getUserInfoByUserId(userId));
+        return ApiResult.ok(this.sysUserService.detail(userId));
     }
 
     @Override

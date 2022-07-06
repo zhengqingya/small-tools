@@ -3,20 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhengqing.system.mapper.SysUserMapper">
 
-    <select id="selectUsers" resultType="com.zhengqing.system.model.vo.SysUserDetailVO">
+    <select id="selectDataList" resultType="com.zhengqing.system.model.vo.SysUserListVO">
         SELECT
-        u.*,
-        GROUP_CONCAT(ur.role_id) roleIds,
-        (
-        CASE u.sex
-        WHEN 1 THEN '男'
-        WHEN 2 THEN '女'
-        ELSE '未知' END
-        ) sexName
+        u.*
         FROM t_sys_user u
-        LEFT JOIN t_sys_user_role ur ON u.user_id=ur.user_id
-        WHERE
-        u.is_deleted = 0
+        WHERE u.is_deleted = 0
         <if test="filter.username!=null and filter.username!=''">
             AND u.username LIKE CONCAT( '%', #{filter.username} , '%' )
         </if>
@@ -27,19 +18,11 @@
         ORDER BY u.user_id DESC
     </select>
 
-    <select id="selectUserByUserId" resultType="com.zhengqing.system.model.vo.SysUserDetailVO">
-        SELECT u.*,
-               GROUP_CONCAT(ur.role_id) roleIds,
-               (
-                   CASE u.sex
-                       WHEN 1 THEN '男'
-                       WHEN 2 THEN '女'
-                       ELSE '未知' END
-                   )                    sexName
-        FROM t_sys_user u
-                 LEFT JOIN t_sys_user_role ur ON u.user_id = ur.user_id
-        WHERE u.is_deleted = 0
-          AND u.user_id = #{userId}
+    <select id="detail" resultType="com.zhengqing.system.model.vo.SysUserDetailVO">
+        SELECT *
+        FROM t_sys_user
+        WHERE is_deleted = 0
+          AND user_id = #{userId}
     </select>
 
     <select id="selectUserPerm" resultType="com.zhengqing.system.model.vo.SysUserPermVO">

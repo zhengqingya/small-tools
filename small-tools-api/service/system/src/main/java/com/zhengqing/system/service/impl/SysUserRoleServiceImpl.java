@@ -1,16 +1,22 @@
 package com.zhengqing.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.zhengqing.system.entity.SysUserRole;
 import com.zhengqing.system.mapper.SysUserRoleMapper;
+import com.zhengqing.system.model.bo.SysUserReRoleIdListBO;
 import com.zhengqing.system.model.dto.SysUserRoleSaveDTO;
 import com.zhengqing.system.service.ISysUserRoleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -46,7 +52,20 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
 
     @Override
     public List<Integer> listRoleId(Integer userId) {
-        return this.sysUserRoleMapper.listRoleId(userId);
+        return this.mapRoleId(Lists.newArrayList(userId)).get(userId);
+    }
+
+    @Override
+    public Map<Integer, List<Integer>> mapRoleId(List<Integer> userIdList) {
+        Map<Integer, List<Integer>> resultMap = Maps.newHashMap();
+        if (CollectionUtils.isEmpty(userIdList)) {
+            return resultMap;
+        }
+        List<SysUserReRoleIdListBO> userReRoleIdList = this.sysUserRoleMapper.selectListByUserIds(userIdList);
+        for (SysUserReRoleIdListBO item : userReRoleIdList) {
+            resultMap.computeIfAbsent(item.getUserId(), k -> new LinkedList<>()).add(item.getRoleId());
+        }
+        return resultMap;
     }
 
 }

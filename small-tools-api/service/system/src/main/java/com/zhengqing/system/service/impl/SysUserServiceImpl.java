@@ -58,37 +58,31 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
 
     @Override
-    public IPage<SysUserDetailVO> listPage(SysUserListDTO params) {
-        IPage<SysUserDetailVO> result = this.sysUserMapper.selectUsers(new Page<>(), params);
+    public IPage<SysUserListVO> listPage(SysUserListDTO params) {
+        IPage<SysUserListVO> result = this.sysUserMapper.selectDataList(new Page<>(), params);
         this.handleUserList(result.getRecords());
         return result;
     }
 
     @Override
-    public List<SysUserDetailVO> list(SysUserListDTO params) {
-        List<SysUserDetailVO> userList = this.sysUserMapper.selectUsers(params);
+    public List<SysUserListVO> list(SysUserListDTO params) {
+        List<SysUserListVO> userList = this.sysUserMapper.selectDataList(params);
         return userList;
     }
 
-    public void handleUserList(List<SysUserDetailVO> userList) {
-        userList.forEach(userInfo -> {
-            // 拼接用户角色名
-            String roleIds = userInfo.getRoleIds();
-            if (StringUtils.isNotBlank(roleIds)) {
-                List<Integer> roleIdsX =
-                        Arrays.stream(roleIds.split(",")).map(e -> Integer.parseInt(e.trim())).collect(Collectors.toList());
-                StringBuilder roleNames = new StringBuilder();
-                if (!CollectionUtils.isEmpty(roleIdsX)) {
-                    List<SysRole> sysRoleList = this.sysRoleService.listByIds(roleIdsX);
-                    sysRoleList.forEach(role -> {
-                        roleNames.append("[");
-                        roleNames.append(role.getName());
-                        roleNames.append("] ");
-                    });
-                    userInfo.setRoleNames(roleNames.toString());
-                }
-            }
-        });
+    public void handleUserList(List<SysUserListVO> userList) {
+        if (CollectionUtils.isEmpty(userList)) {
+            return;
+        }
+        userList.forEach(userInfo -> userInfo.handleData());
+    }
+
+    @Override
+    public SysUserDetailVO detail(Integer userId) {
+        SysUserDetailVO detail = this.sysUserMapper.detail(userId);
+        Assert.notNull(detail, "用户不存在！");
+        detail.handleData();
+        return detail;
     }
 
     @Override
@@ -173,11 +167,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser sysUser = this.sysUserMapper.selectById(userId);
         sysUser.setPassword(this.passwordEncoder.encode(AppConstant.DEFAULT_PASSWORD));
         this.sysUserMapper.updateById(sysUser);
-    }
-
-    @Override
-    public SysUserDetailVO getUserInfoByUserId(Integer userId) {
-        return this.sysUserMapper.selectUserByUserId(userId);
     }
 
     @Override

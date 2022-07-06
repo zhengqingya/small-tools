@@ -56,6 +56,8 @@ public class AuthController {
     @ApiOperation("登录")
     @GetMapping("token")
     public OAuth2AccessToken getAccessToken(@ApiIgnore Principal principal, @ModelAttribute AuthDTO params) {
+        params.setClient_id(JwtUtil.getClientId());
+        params.setClient_secret(JwtUtil.getClientSecretForBasic());
         return this.accessToken(principal, params);
     }
 

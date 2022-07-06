@@ -6,6 +6,7 @@ import com.zhengqing.system.entity.SysUser;
 import com.zhengqing.system.model.dto.SysUserListDTO;
 import com.zhengqing.system.model.dto.SysUserPermDTO;
 import com.zhengqing.system.model.vo.SysUserDetailVO;
+import com.zhengqing.system.model.vo.SysUserListVO;
 import com.zhengqing.system.model.vo.SysUserPermVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,7 +32,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @author zhengqingya
      * @date 2020/9/10 10:28
      */
-    IPage<SysUserDetailVO> selectUsers(IPage<SysUserListDTO> page, @Param("filter") SysUserListDTO filter);
+    IPage<SysUserListVO> selectDataList(IPage<SysUserListDTO> page, @Param("filter") SysUserListDTO filter);
 
     /**
      * 列表
@@ -41,7 +42,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @author zhengqingya
      * @date 2020/9/10 10:34
      */
-    List<SysUserDetailVO> selectUsers(@Param("filter") SysUserListDTO filter);
+    List<SysUserListVO> selectDataList(@Param("filter") SysUserListDTO filter);
 
     /**
      * 根据用户id查询用户信息
@@ -51,7 +52,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @author zhengqingya
      * @date 2020/9/10 10:49
      */
-    SysUserDetailVO selectUserByUserId(@Param("userId") Integer userId);
+    SysUserDetailVO detail(@Param("userId") Integer userId);
 
     /**
      * 查询用户信息
