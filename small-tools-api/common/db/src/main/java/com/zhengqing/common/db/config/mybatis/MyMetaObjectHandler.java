@@ -68,7 +68,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     /**
      * 获取上下文中的用户id
      *
-     * @return java.lang.Long
+     * @return 用户id
      * @author zhengqingya
      * @date 2022/7/8 18:15
      */
