@@ -1,7 +1,9 @@
 package com.zhengqing.common.db.config.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.zhengqing.common.base.context.SysUserContext;
+import com.zhengqing.common.base.context.JwtCustomUserContext;
+import com.zhengqing.common.base.enums.AuthSourceEnum;
+import com.zhengqing.common.base.model.bo.JwtCustomUserBO;
 import com.zhengqing.common.db.constant.MybatisConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
@@ -27,9 +29,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void insertFill(MetaObject metaObject) {
-//        log.debug(" -------------------- [MyBatisPlus自动填充处理] start insert fill ...  --------------------");
         // 用户id
-        Integer userId = SysUserContext.getUserId();
+        Long userId = this.getUserId();
         // 当前时间
         Date nowDate = new Date();
 
@@ -38,11 +39,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
             this.setFieldValByName(MybatisConstant.IS_DELETED, false, metaObject);
         }
         if (metaObject.hasGetter(MybatisConstant.CREATE_BY)) {
-            Object value = metaObject.getValue(MybatisConstant.CREATE_BY);
-            if (value != null) {
-                // FIXME B/C端根据不同数据类型来处理
-                userId = (Integer) value;
-            }
             this.setFieldValByName(MybatisConstant.CREATE_BY, userId, metaObject);
         }
         if (metaObject.hasGetter(MybatisConstant.CREATE_TIME)) {
@@ -54,7 +50,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         if (metaObject.hasGetter(MybatisConstant.UPDATE_TIME)) {
             this.setFieldValByName(MybatisConstant.UPDATE_TIME, nowDate, metaObject);
         }
-//        log.debug("[MyBatisPlus自动填充处理] 时间:{} 操作人id:{}", MyDateUtil.dateToStr(nowDate, MyDateUtil.DATE_TIME_FORMAT), userId);
     }
 
     /**
@@ -62,20 +57,31 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-//        log.debug(" -------------------- [MyBatisPlus自动填充处理] start update fill ...  --------------------");
-        // 用户id
-        Integer userId = SysUserContext.getUserId();
-        // 当前时间
-        Date nowDate = new Date();
-
-        // 判断对象中是否存在该参数，如果存在则插入数据
         if (metaObject.hasGetter(MybatisConstant.UPDATE_BY)) {
-            this.setFieldValByName(MybatisConstant.UPDATE_BY, userId, metaObject);
+            this.setFieldValByName(MybatisConstant.UPDATE_BY, this.getUserId(), metaObject);
         }
         if (metaObject.hasGetter(MybatisConstant.UPDATE_TIME)) {
-            this.setFieldValByName(MybatisConstant.UPDATE_TIME, nowDate, metaObject);
+            this.setFieldValByName(MybatisConstant.UPDATE_TIME, new Date(), metaObject);
         }
-//        log.debug("[MyBatisPlus自动填充处理] 时间:{} 操作人id:{}", MyDateUtil.dateToStr(nowDate, MyDateUtil.DATE_TIME_FORMAT), userId);
+    }
+
+    /**
+     * 获取上下文中的用户id
+     *
+     * @return java.lang.Long
+     * @author zhengqingya
+     * @date 2022/7/8 18:15
+     */
+    private Long getUserId() {
+        JwtCustomUserBO jwtCustomUserBO = JwtCustomUserContext.get();
+        if (jwtCustomUserBO != null) {
+            if (AuthSourceEnum.B.getValue().equals(jwtCustomUserBO.getAuthSource())) {
+                return Long.valueOf(jwtCustomUserBO.getSysUserId());
+            } else {
+                return Long.valueOf(jwtCustomUserBO.getUmsUserId());
+            }
+        }
+        return null;
     }
 
 }

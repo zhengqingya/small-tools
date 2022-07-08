@@ -1,6 +1,5 @@
-package com.zhengqing.common.security.enums;
+package com.zhengqing.common.base.enums;
 
-import com.zhengqing.common.base.enums.IBaseEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
