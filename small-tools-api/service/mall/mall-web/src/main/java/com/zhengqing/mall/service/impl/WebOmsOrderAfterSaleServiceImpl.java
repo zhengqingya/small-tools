@@ -16,7 +16,7 @@ import com.zhengqing.mall.common.model.enums.OmsOrderAfterSaleStatusEnum;
 import com.zhengqing.mall.common.model.enums.OmsOrderSaleTypeEnum;
 import com.zhengqing.mall.common.model.vo.MallTabConditionListVO;
 import com.zhengqing.mall.common.model.vo.OmsOrderItemVO;
-import com.zhengqing.mall.constant.MallRabbitMQConstant;
+import com.zhengqing.mall.constant.MallRabbitMqConstant;
 import com.zhengqing.mall.entity.OmsOrderAfterSale;
 import com.zhengqing.mall.mapper.OmsOrderAfterSaleMapper;
 import com.zhengqing.mall.service.MallCommonService;
@@ -219,8 +219,8 @@ public class WebOmsOrderAfterSaleServiceImpl extends OmsOrderAfterSaleServiceImp
         boolean isReturnAndRefund = OmsOrderSaleTypeEnum.SALE_RETURN_AND_REFUND.getType().equals(params.getAfterType());
         if (OmsOrderAfterSaleStatusEnum.AGREE_APPLY == orderAfterSaleStatusEnum && isReturnAndRefund) {
             // 4、mq延时-待买家发货(买家申请售后，卖家同意后，买家未填写退货返回物流单号)？毫秒后自动关闭
-            this.rabbitTemplate.convertAndSend(MallRabbitMQConstant.MALL_EVENT_DELAY_EXCHANGE,
-                    MallRabbitMQConstant.OMS_ORDER_AFTER_SALE_BUYER_DELIVER_ROUTING_KEY,
+            this.rabbitTemplate.convertAndSend(MallRabbitMqConstant.MALL_EVENT_DELAY_EXCHANGE,
+                    MallRabbitMqConstant.OMS_ORDER_AFTER_SALE_BUYER_DELIVER_ROUTING_KEY,
                     OmsOrderAfterSaleCloseBO.builder()
                             .afterSaleNo(afterSaleNo)
                             .tenantId(TenantIdContext.getTenantId())

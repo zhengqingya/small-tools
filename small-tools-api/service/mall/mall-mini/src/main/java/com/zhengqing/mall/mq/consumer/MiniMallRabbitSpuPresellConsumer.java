@@ -3,7 +3,7 @@ package com.zhengqing.mall.mq.consumer;
 import com.alibaba.fastjson.JSON;
 import com.zhengqing.common.base.context.TenantIdContext;
 import com.zhengqing.mall.common.model.dto.PmsSpuPresellDTO;
-import com.zhengqing.mall.constant.MallRabbitMQConstant;
+import com.zhengqing.mall.constant.MallRabbitMqConstant;
 import com.zhengqing.mall.service.MiniPmsSpuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -32,7 +32,7 @@ public class MiniMallRabbitSpuPresellConsumer {
 
     @RabbitHandler
     @Transactional(rollbackFor = Exception.class)
-    @RabbitListener(queues = {MallRabbitMQConstant.PMS_SPU_PRESELL_QUEUE})
+    @RabbitListener(queues = {MallRabbitMqConstant.PMS_SPU_PRESELL_QUEUE})
     public void onMessage(PmsSpuPresellDTO params) {
         try {
             TenantIdContext.setTenantId(params.getTenantId());

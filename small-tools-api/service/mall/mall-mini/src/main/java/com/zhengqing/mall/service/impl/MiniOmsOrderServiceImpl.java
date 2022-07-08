@@ -22,7 +22,7 @@ import com.zhengqing.mall.common.model.vo.MallTabConditionListVO;
 import com.zhengqing.mall.common.model.vo.OmsOrderItemVO;
 import com.zhengqing.mall.common.model.vo.OmsOrderShippingVO;
 import com.zhengqing.mall.common.model.vo.PmsSkuVO;
-import com.zhengqing.mall.constant.MallRabbitMQConstant;
+import com.zhengqing.mall.constant.MallRabbitMqConstant;
 import com.zhengqing.mall.entity.OmsOrder;
 import com.zhengqing.mall.entity.OmsOrderAfterSale;
 import com.zhengqing.mall.entity.OmsOrderAfterSaleItem;
@@ -243,8 +243,8 @@ public class MiniOmsOrderServiceImpl extends
         this.miniOmsOrderItemService.addBatchData(omsOrderItemList);
 
         // ==================================== ↓↓↓↓↓↓ 3、其它操作 ↓↓↓↓↓↓ ====================================
-        this.rabbitTemplate.convertAndSend(MallRabbitMQConstant.MALL_EVENT_DELAY_EXCHANGE,
-                MallRabbitMQConstant.OMS_ORDER_UN_PAY_AUTO_CLOSE_ROUTING_KEY,
+        this.rabbitTemplate.convertAndSend(MallRabbitMqConstant.MALL_EVENT_DELAY_EXCHANGE,
+                MallRabbitMqConstant.OMS_ORDER_UN_PAY_AUTO_CLOSE_ROUTING_KEY,
                 MiniOmsOrderUnPayDTO.builder().orderNo(orderNo).tenantId(tenantId).build(),
                 message -> {
                     // 配置消息延时时间
@@ -310,8 +310,8 @@ public class MiniOmsOrderServiceImpl extends
         if (isVirtual) {
             // 查询自动收货时间
             long autoReceiptMillisecond = this.mallCommonService.getAutoReceiptMillisecond();
-            this.rabbitTemplate.convertAndSend(MallRabbitMQConstant.MALL_EVENT_DELAY_EXCHANGE,
-                    MallRabbitMQConstant.OMS_ORDER_AUTO_CONFIRM_RECEIPT_ROUTING_KEY,
+            this.rabbitTemplate.convertAndSend(MallRabbitMqConstant.MALL_EVENT_DELAY_EXCHANGE,
+                    MallRabbitMqConstant.OMS_ORDER_AUTO_CONFIRM_RECEIPT_ROUTING_KEY,
                     MiniOmsOrderConfirmReceiptDTO.builder()
                             .orderNo(orderNo)
                             .tenantId(TenantIdContext.getTenantId())
@@ -569,8 +569,8 @@ public class MiniOmsOrderServiceImpl extends
         this.miniOmsOrderAfterSaleItemService.addOrUpdateBatchData(omsOrderAfterSaleItemSaveList);
 
         // 5、mq延时-买家发起售后申请？毫秒后，卖家未处理，自动关闭
-        this.rabbitTemplate.convertAndSend(MallRabbitMQConstant.MALL_EVENT_DELAY_EXCHANGE,
-                MallRabbitMQConstant.OMS_ORDER_APPLY_AFTER_SALE_HANDLE_ROUTING_KEY,
+        this.rabbitTemplate.convertAndSend(MallRabbitMqConstant.MALL_EVENT_DELAY_EXCHANGE,
+                MallRabbitMqConstant.OMS_ORDER_APPLY_AFTER_SALE_HANDLE_ROUTING_KEY,
                 OmsOrderAfterSaleCloseBO.builder()
                         .afterSaleNo(afterSaleNo)
                         .tenantId(TenantIdContext.getTenantId())

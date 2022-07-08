@@ -23,5 +23,9 @@ public enum RabbitExchangeTypeEnum {
     /**
      * 头交换机: 类似直连交换机，不同于直连交换机的路由规则建立在头属性上而不是routing-key(使用较少)
      */
-    HEADERS;
+    HEADERS,
+    /**
+     * 延时交换机 - mq插件方式'rabbitmq-delayed-message-exchange'
+     */
+    DELAY;
 }

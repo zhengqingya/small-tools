@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: demo # 应用名称
+
+  # cloud:
+  #   config:
+  #     # 相同配置下优先使用本地配置 (注：需在nacos上配置才生效！)
+  #     override-none: true
+  #     allow-override: true
+  #     override-system-properties: false
+
+  rabbitmq:
+    moduleList:
+      # 订单延时队列，到了过期的时间会被转发到订单取消队列
+      - routing-key: test.create.routing.key
+        queue:
+          name: test.delay.queue
+          dead-letter-exchange: test.exchange
+          dead-letter-routing-key: test.close.routing.key
+          arguments:
+            # 5秒 （单位：毫秒）  --  tips:mq最大延时4294967295毫秒(即49.7103天)
+            x-message-ttl: 5000
+        exchange:
+          name: test.exchange
+      # 订单取消队列
+      - routing-key: test.close.routing.key
+        queue:
+          name: test.close.queue
+        exchange:
+          name: test.exchange
+
+      - routing-key: demo.test.routing.key
+        queue:
+          name: demo.test.queue
+        exchange:
+          name: demo.exchange
+      - routing-key: demo.test_delay.routing.key
+        queue:
+          name: demo.test_delay.queue
+        exchange:
+          name: demo.delay.exchange
+          type: delay
+
+
+# XXL-JOB 配置
+xxl:
+  job:
+    admin:
+      addresses: http://172.16.22.244:9003/xxl-job-admin # 调度中心部署跟地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"；为空则关闭自动注册；

@@ -9,7 +9,7 @@ import com.zhengqing.common.mq.constant.BaseRabbitMqConstant;
  * @description
  * @date 2021/10/15 13:48
  */
-public interface MallRabbitMQConstant extends BaseRabbitMqConstant {
+public interface MallRabbitMqConstant extends BaseRabbitMqConstant {
 
     /**
      * 商城交换机

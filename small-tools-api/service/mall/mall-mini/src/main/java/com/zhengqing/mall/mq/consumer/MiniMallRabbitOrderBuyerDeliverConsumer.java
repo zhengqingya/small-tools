@@ -3,7 +3,7 @@ package com.zhengqing.mall.mq.consumer;
 import com.alibaba.fastjson.JSON;
 import com.zhengqing.common.base.context.TenantIdContext;
 import com.zhengqing.mall.common.model.bo.OmsOrderAfterSaleCloseBO;
-import com.zhengqing.mall.constant.MallRabbitMQConstant;
+import com.zhengqing.mall.constant.MallRabbitMqConstant;
 import com.zhengqing.mall.service.MiniOmsOrderAfterSaleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -32,7 +32,7 @@ public class MiniMallRabbitOrderBuyerDeliverConsumer {
 
     @RabbitHandler
     @Transactional(rollbackFor = Exception.class)
-    @RabbitListener(queues = {MallRabbitMQConstant.OMS_ORDER_AFTER_SALE_BUYER_DELIVER_QUEUE})
+    @RabbitListener(queues = {MallRabbitMqConstant.OMS_ORDER_AFTER_SALE_BUYER_DELIVER_QUEUE})
     public void onMessage(OmsOrderAfterSaleCloseBO params) {
         try {
             TenantIdContext.setTenantId(params.getTenantId());

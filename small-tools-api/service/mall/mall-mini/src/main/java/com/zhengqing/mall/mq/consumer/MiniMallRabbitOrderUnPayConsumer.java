@@ -2,7 +2,7 @@ package com.zhengqing.mall.mq.consumer;
 
 import com.alibaba.fastjson.JSON;
 import com.zhengqing.common.base.context.TenantIdContext;
-import com.zhengqing.mall.constant.MallRabbitMQConstant;
+import com.zhengqing.mall.constant.MallRabbitMqConstant;
 import com.zhengqing.mall.mini.model.dto.MiniOmsOrderUnPayDTO;
 import com.zhengqing.mall.service.MiniOmsOrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class MiniMallRabbitOrderUnPayConsumer {
 
     @RabbitHandler
     @Transactional(rollbackFor = Exception.class)
-    @RabbitListener(queues = {MallRabbitMQConstant.OMS_ORDER_UN_PAY_AUTO_CLOSE_QUEUE})
+    @RabbitListener(queues = {MallRabbitMqConstant.OMS_ORDER_UN_PAY_AUTO_CLOSE_QUEUE})
     public void onMessage(MiniOmsOrderUnPayDTO params) {
         try {
             TenantIdContext.setTenantId(params.getTenantId());

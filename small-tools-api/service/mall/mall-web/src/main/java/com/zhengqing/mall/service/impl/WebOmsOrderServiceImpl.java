@@ -26,7 +26,7 @@ import com.zhengqing.mall.common.model.enums.TpsLogisticsCodeEnum;
 import com.zhengqing.mall.common.model.vo.MallTabConditionListVO;
 import com.zhengqing.mall.common.model.vo.OmsOrderItemVO;
 import com.zhengqing.mall.common.model.vo.OmsOrderShippingVO;
-import com.zhengqing.mall.constant.MallRabbitMQConstant;
+import com.zhengqing.mall.constant.MallRabbitMqConstant;
 import com.zhengqing.mall.entity.OmsOrder;
 import com.zhengqing.mall.entity.OmsOrderShipping;
 import com.zhengqing.mall.entity.OmsOrderShippingItem;
@@ -321,8 +321,8 @@ public class WebOmsOrderServiceImpl extends OmsOrderServiceImpl<OmsOrderMapper, 
         this.webOmsOrderShippingItemService.addOrUpdateBatchData(omsOrderShippingItemSaveList);
 
         // 5、mq延时-自动确认收货
-        this.rabbitTemplate.convertAndSend(MallRabbitMQConstant.MALL_EVENT_DELAY_EXCHANGE,
-                MallRabbitMQConstant.OMS_ORDER_AUTO_CONFIRM_RECEIPT_ROUTING_KEY,
+        this.rabbitTemplate.convertAndSend(MallRabbitMqConstant.MALL_EVENT_DELAY_EXCHANGE,
+                MallRabbitMqConstant.OMS_ORDER_AUTO_CONFIRM_RECEIPT_ROUTING_KEY,
                 MiniOmsOrderConfirmReceiptDTO.builder()
                         .orderNo(orderNo)
                         .tenantId(TenantIdContext.getTenantId())

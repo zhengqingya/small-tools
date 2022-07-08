@@ -14,7 +14,7 @@ import com.zhengqing.mall.common.model.bo.PmsSpuReCouponBO;
 import com.zhengqing.mall.common.model.dto.PmsSpuPresellDTO;
 import com.zhengqing.mall.common.model.vo.MallTabConditionListVO;
 import com.zhengqing.mall.common.model.vo.PmsSpuTypeVO;
-import com.zhengqing.mall.constant.MallRabbitMQConstant;
+import com.zhengqing.mall.constant.MallRabbitMqConstant;
 import com.zhengqing.mall.entity.PmsSku;
 import com.zhengqing.mall.entity.PmsSpu;
 import com.zhengqing.mall.mapper.PmsSpuMapper;
@@ -265,8 +265,8 @@ public class WebPmsSpuServiceImpl extends PmsSpuServiceImpl<PmsSpuMapper, PmsSpu
             // 求预售时间前5分钟的时间
             Date noticeTime = MyDateUtil.timeAddAndSubTime(presellStartTime, TimeUnit.MINUTES, -5);
             long time = MyDateUtil.diffMillisecond(new Date(), noticeTime);
-            this.rabbitTemplate.convertAndSend(MallRabbitMQConstant.MALL_EVENT_DELAY_EXCHANGE,
-                    MallRabbitMQConstant.PMS_SPU_PRESELL_ROUTING_KEY,
+            this.rabbitTemplate.convertAndSend(MallRabbitMqConstant.MALL_EVENT_DELAY_EXCHANGE,
+                    MallRabbitMqConstant.PMS_SPU_PRESELL_ROUTING_KEY,
                     PmsSpuPresellDTO.builder()
                             .tenantId(TenantIdContext.getTenantId())
                             .spuId(spuId)

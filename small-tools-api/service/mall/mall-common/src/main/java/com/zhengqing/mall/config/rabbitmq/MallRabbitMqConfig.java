@@ -1,7 +1,7 @@
 package com.zhengqing.mall.config.rabbitmq;
 
 import com.google.common.collect.Maps;
-import com.zhengqing.mall.constant.MallRabbitMQConstant;
+import com.zhengqing.mall.constant.MallRabbitMqConstant;
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,14 +16,14 @@ import java.util.Map;
  * @date 2021/10/15 14:22
  */
 @Configuration
-public class MallRabbitMQConfig {
+public class MallRabbitMqConfig {
 
     /**
      * 普通交换机
      */
     @Bean
     public DirectExchange mallEventExchange() {
-        return new DirectExchange(MallRabbitMQConstant.MALL_EXCHANGE, true, false);
+        return new DirectExchange(MallRabbitMqConstant.MALL_EXCHANGE, true, false);
     }
 
     /**
@@ -33,45 +33,45 @@ public class MallRabbitMQConfig {
     public CustomExchange mallEventDelayExchange() {
         Map<String, Object> args = Maps.newHashMap();
         args.put("x-delayed-type", "direct");
-        return new CustomExchange(MallRabbitMQConstant.MALL_EVENT_DELAY_EXCHANGE, "x-delayed-message", true, false, args);
+        return new CustomExchange(MallRabbitMqConstant.MALL_EVENT_DELAY_EXCHANGE, "x-delayed-message", true, false, args);
     }
 
     // ============================= ↓↓↓↓↓↓ 订单支付成功 ↓↓↓↓↓↓ =============================
 
     @Bean
     public Queue orderPayQueue() {
-        return new Queue(MallRabbitMQConstant.OMS_ORDER_PAY_QUEUE, true, false, false);
+        return new Queue(MallRabbitMqConstant.OMS_ORDER_PAY_QUEUE, true, false, false);
     }
 
     @Bean
     public Binding orderPayBinding() {
-        return BindingBuilder.bind(this.orderPayQueue()).to(this.mallEventExchange()).with(MallRabbitMQConstant.OMS_ORDER_PAY_ROUTING_KEY);
+        return BindingBuilder.bind(this.orderPayQueue()).to(this.mallEventExchange()).with(MallRabbitMqConstant.OMS_ORDER_PAY_ROUTING_KEY);
     }
 
     // ============================= ↓↓↓↓↓↓ 订单退款成功 ↓↓↓↓↓↓ =============================
 
     @Bean
     public Queue orderRefundQueue() {
-        return new Queue(MallRabbitMQConstant.OMS_ORDER_REFUND_QUEUE, true, false, false);
+        return new Queue(MallRabbitMqConstant.OMS_ORDER_REFUND_QUEUE, true, false, false);
     }
 
     @Bean
     public Binding orderRefundBinding() {
-        return BindingBuilder.bind(this.orderRefundQueue()).to(this.mallEventExchange()).with(MallRabbitMQConstant.OMS_ORDER_REFUND_ROUTING_KEY);
+        return BindingBuilder.bind(this.orderRefundQueue()).to(this.mallEventExchange()).with(MallRabbitMqConstant.OMS_ORDER_REFUND_ROUTING_KEY);
     }
 
     // ============================= ↓↓↓↓↓↓ 商品预售 ↓↓↓↓↓↓ =============================
 
     @Bean
     public Queue spuPresellQueue() {
-        return new Queue(MallRabbitMQConstant.PMS_SPU_PRESELL_QUEUE, true, false, false);
+        return new Queue(MallRabbitMqConstant.PMS_SPU_PRESELL_QUEUE, true, false, false);
     }
 
     @Bean
     public Binding spuPresellBinding() {
         return BindingBuilder.bind(this.spuPresellQueue())
                 .to(this.mallEventDelayExchange())
-                .with(MallRabbitMQConstant.PMS_SPU_PRESELL_ROUTING_KEY)
+                .with(MallRabbitMqConstant.PMS_SPU_PRESELL_ROUTING_KEY)
                 .noargs();
     }
 
@@ -79,14 +79,14 @@ public class MallRabbitMQConfig {
 
     @Bean
     public Queue orderUnPayAutoCloseQueue() {
-        return new Queue(MallRabbitMQConstant.OMS_ORDER_UN_PAY_AUTO_CLOSE_QUEUE, true);
+        return new Queue(MallRabbitMqConstant.OMS_ORDER_UN_PAY_AUTO_CLOSE_QUEUE, true);
     }
 
     @Bean
     public Binding orderUnPayAutoCloseBinding() {
         return BindingBuilder.bind(this.orderUnPayAutoCloseQueue())
                 .to(this.mallEventDelayExchange())
-                .with(MallRabbitMQConstant.OMS_ORDER_UN_PAY_AUTO_CLOSE_ROUTING_KEY)
+                .with(MallRabbitMqConstant.OMS_ORDER_UN_PAY_AUTO_CLOSE_ROUTING_KEY)
                 .noargs();
     }
 
@@ -94,14 +94,14 @@ public class MallRabbitMQConfig {
 
     @Bean
     public Queue orderAutoConfirmReceiptQueue() {
-        return new Queue(MallRabbitMQConstant.OMS_ORDER_AUTO_CONFIRM_RECEIPT_QUEUE, true);
+        return new Queue(MallRabbitMqConstant.OMS_ORDER_AUTO_CONFIRM_RECEIPT_QUEUE, true);
     }
 
     @Bean
     public Binding orderAutoConfirmReceiptBinding() {
         return BindingBuilder.bind(this.orderAutoConfirmReceiptQueue())
                 .to(this.mallEventDelayExchange())
-                .with(MallRabbitMQConstant.OMS_ORDER_AUTO_CONFIRM_RECEIPT_ROUTING_KEY)
+                .with(MallRabbitMqConstant.OMS_ORDER_AUTO_CONFIRM_RECEIPT_ROUTING_KEY)
                 .noargs();
     }
 
@@ -109,14 +109,14 @@ public class MallRabbitMQConfig {
 
     @Bean
     public Queue orderApplyAfterSaleHandleQueue() {
-        return new Queue(MallRabbitMQConstant.OMS_ORDER_APPLY_AFTER_SALE_HANDLE_QUEUE, true);
+        return new Queue(MallRabbitMqConstant.OMS_ORDER_APPLY_AFTER_SALE_HANDLE_QUEUE, true);
     }
 
     @Bean
     public Binding orderApplyAfterSaleHandleBinding() {
         return BindingBuilder.bind(this.orderApplyAfterSaleHandleQueue())
                 .to(this.mallEventDelayExchange())
-                .with(MallRabbitMQConstant.OMS_ORDER_APPLY_AFTER_SALE_HANDLE_ROUTING_KEY)
+                .with(MallRabbitMqConstant.OMS_ORDER_APPLY_AFTER_SALE_HANDLE_ROUTING_KEY)
                 .noargs();
     }
 
@@ -124,14 +124,14 @@ public class MallRabbitMQConfig {
 
     @Bean
     public Queue orderAfterSaleBuyerDeliverQueue() {
-        return new Queue(MallRabbitMQConstant.OMS_ORDER_AFTER_SALE_BUYER_DELIVER_QUEUE, true);
+        return new Queue(MallRabbitMqConstant.OMS_ORDER_AFTER_SALE_BUYER_DELIVER_QUEUE, true);
     }
 
     @Bean
     public Binding orderAfterSaleBuyerDeliverBinding() {
         return BindingBuilder.bind(this.orderAfterSaleBuyerDeliverQueue())
                 .to(this.mallEventDelayExchange())
-                .with(MallRabbitMQConstant.OMS_ORDER_AFTER_SALE_BUYER_DELIVER_ROUTING_KEY)
+                .with(MallRabbitMqConstant.OMS_ORDER_AFTER_SALE_BUYER_DELIVER_ROUTING_KEY)
                 .noargs();
     }
 

@@ -25,3 +25,23 @@ spring:
           initial-interval: 30000
 
 
+    # 动态创建和绑定队列、交换机的配置 示例
+    moduleList:
+      # 订单延时队列，到了过期的时间会被转发到订单取消队列
+      - routing-key: test.create.routing.key
+        queue:
+          name: test.delay.queue
+          dead-letter-exchange: test.exchange
+          dead-letter-routing-key: test.close.routing.key
+          arguments:
+            # 5秒 （单位：毫秒）
+            x-message-ttl: 5000
+        exchange:
+          name: test.exchange
+
+      # 订单取消队列
+      - routing-key: test.close.routing.key
+        queue:
+          name: test.close.queue
+        exchange:
+          name: test.exchange
