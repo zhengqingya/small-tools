@@ -1,11 +1,11 @@
 package com.zhengqing.demo.api;
 
-import com.zhengqing.common.base.util.MyDateUtil;
 import com.zhengqing.common.mq.util.MqUtil;
 import com.zhengqing.demo.constant.DemoRabbitMqConstant;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -40,28 +40,30 @@ public class MqController {
 
         // 延时队列 -- 死信队列
 //        this.rabbitTemplate.convertAndSend("test.exchange", "test.create.routing.key", "delay...");
-        this.rabbitTemplate.convertAndSend("test.exchange",
-                "test.create.routing.key",
-                "delay..." + MyDateUtil.nowStr(),
-                // 单条消息设置过期时间，如果队列中也设置了过期时间，以两者的最小过期时间计算  即这里的ttl以nacos中的5秒为准  在5秒内此消息未被消费成功则自动删除
-                message -> {
-                    message.getMessageProperties().setExpiration("10000");
-                    return message;
-                });
-
-        // 延时队列 -- 插件方式
-        MqUtil.sendDelay(
-                DemoRabbitMqConstant.DELAY_EXCHANGE,
-                DemoRabbitMqConstant.TEST_DELAY_ROUTING_KEY,
-                MyDateUtil.nowStr(),
-                1000 * 5
-        );
+//        this.rabbitTemplate.convertAndSend("test.exchange",
+//                "test.create.routing.key",
+//                "delay..." + MyDateUtil.nowStr(),
+//                // 单条消息设置过期时间，如果队列中也设置了过期时间，以两者的最小过期时间计算  即这里的ttl以nacos中的5秒为准  在5秒内此消息未被消费成功则自动删除
+//                message -> {
+//                    message.getMessageProperties().setExpiration("10000");
+//                    return message;
+//                });
+//
+//        // 延时队列 -- 插件方式
+//        MqUtil.sendDelay(
+//                DemoRabbitMqConstant.DELAY_EXCHANGE,
+//                DemoRabbitMqConstant.TEST_DELAY_ROUTING_KEY,
+//                MyDateUtil.nowStr(),
+//                1000 * 5
+//        );
     }
 
+    @SneakyThrows(Exception.class)
     @RabbitHandler
     @RabbitListener(queues = {DemoRabbitMqConstant.TEST_QUEUE})
     public void receiveMsg(String msg) {
         log.info("[MQ消费者] 普通队列 接收消息: {}", msg);
+        throw new Exception("xxx");
     }
 
     @RabbitHandler
