@@ -45,8 +45,8 @@ public class SysMenuSaveDTO {
     @ApiModelProperty(value = "组件名")
     private String component;
 
-    @ApiModelProperty(value = "是否隐藏 1:隐藏 0:显示")
-    private Integer hidden;
+    @ApiModelProperty(value = "是否隐藏 true:隐藏 false:显示")
+    private Boolean hidden;
 
     @ApiModelProperty(value = "重定向路径")
     private String redirect;
@@ -60,7 +60,7 @@ public class SysMenuSaveDTO {
     @ApiModelProperty(value = "0 false 1 true")
     private Integer alwaysShow;
 
-    @ApiModelProperty(value = "面包屑 0 false 1 true")
-    private Integer breadcrumb;
+    @ApiModelProperty(value = "面包屑")
+    private Boolean breadcrumb;
 
 }

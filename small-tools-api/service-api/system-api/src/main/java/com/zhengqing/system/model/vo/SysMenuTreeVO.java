@@ -53,8 +53,8 @@ public class SysMenuTreeVO {
     @ApiModelProperty(value = "组件名")
     private String component;
 
-    @ApiModelProperty(value = "是否显示")
-    private Integer hidden;
+    @ApiModelProperty(value = "是否隐藏 true:隐藏 false:显示")
+    private Boolean hidden;
 
     @ApiModelProperty(value = "重定向url")
     private String redirect;
@@ -66,11 +66,10 @@ public class SysMenuTreeVO {
     private Integer type;
 
     @ApiModelProperty(value = "菜单只有一级的情况为true")
-
     private Integer alwaysShow;
 
     @ApiModelProperty(value = "面包屑")
-    private Integer breadcrumb;
+    private Boolean breadcrumb;
 
     @ApiModelProperty(value = "下级菜单")
     private List<SysMenuTreeVO> children = new LinkedList<>();
