@@ -19,4 +19,10 @@ npm install gogocode-cli -g
 
 # 格式化源代码
 gogocode -s ./src -t gogocode-plugin-prettier  -o ./src
+
+# 从 Vue2 转换成 Vue3
+gogocode -s ./src -t gogocode-plugin-vue  -o ./src
+
+# 从 ElementUI 转换成 Element Plus
+gogocode -s ./src -t gogocode-plugin-element  -o ./src
 ```
