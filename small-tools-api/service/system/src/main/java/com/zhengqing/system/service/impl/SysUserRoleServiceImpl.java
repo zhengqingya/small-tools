@@ -1,5 +1,6 @@
 package com.zhengqing.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -40,7 +41,7 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
         Integer userId = params.getUserId();
         List<Integer> roleIdList = params.getRoleIdList();
         // ① 先删除关联角色
-        this.removeById(userId);
+        this.deleteUserReRoleIds(userId);
         // ② 再新增角色
         roleIdList.forEach(roleId ->
                 SysUserRole.builder()
@@ -66,6 +67,12 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
             resultMap.computeIfAbsent(item.getUserId(), k -> new LinkedList<>()).add(item.getRoleId());
         }
         return resultMap;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteUserReRoleIds(Integer userId) {
+        this.sysUserRoleMapper.delete(new LambdaUpdateWrapper<SysUserRole>().eq(SysUserRole::getUserId, userId));
     }
 
 }

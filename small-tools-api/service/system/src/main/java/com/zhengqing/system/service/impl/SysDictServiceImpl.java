@@ -106,6 +106,16 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         return dictDataMap;
     }
 
+    @Override
+    public Map<Integer, SysDict> map(List<Integer> idList) {
+        Map<Integer, SysDict> resultMap = Maps.newHashMap();
+        if (CollectionUtils.isEmpty(idList)) {
+            return resultMap;
+        }
+        List<SysDict> sysDictList = this.sysDictMapper.selectBatchIds(idList);
+        return sysDictList.stream().collect(Collectors.toMap(SysDict::getId, e -> e));
+    }
+
     /**
      * 字典code值校验
      *

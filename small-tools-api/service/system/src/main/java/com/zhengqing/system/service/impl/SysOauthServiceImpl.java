@@ -230,7 +230,7 @@ public class SysOauthServiceImpl extends ServiceImpl<SysOauthMapper, SysOauth> i
         userSaveDTO.setNickname(nickname);
         userSaveDTO.setSex(sex);
         userSaveDTO.setEmail(email);
-        userSaveDTO.setAvatar(avatar);
+        userSaveDTO.setAvatarUrl(avatar);
 
         Integer userId = this.sysUserService.addOrUpdateData(userSaveDTO);
 

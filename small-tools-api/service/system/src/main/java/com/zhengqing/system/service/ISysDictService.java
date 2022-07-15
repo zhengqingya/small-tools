@@ -64,6 +64,16 @@ public interface ISysDictService extends IService<SysDict> {
     Map<String, List<SysDictVO>> listFromCacheByCode(@NotEmpty(message = "查询编码不能为空!") List<String> codeList);
 
     /**
+     * 查询字典
+     *
+     * @param idList 字典ids
+     * @return 字典id -> 字典信息
+     * @author zhengqingya
+     * @date 2022/7/15 16:37
+     */
+    Map<Integer, SysDict> map(List<Integer> idList);
+
+    /**
      * 详情
      *
      * @param dictId 字典id

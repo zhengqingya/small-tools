@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -45,16 +46,13 @@ public class SysUserListVO {
     private String email;
 
     @ApiModelProperty(value = "头像")
-    private String avatar;
+    private String avatarUrl;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
     @ApiModelProperty("角色ids")
-    private String roleIds;
-
-    @ApiModelProperty("角色")
-    private String roleNames;
+    private List<Integer> roleIdList;
 
     public void handleData() {
         this.sexName = UserSexEnum.getEnum(this.sex).getDesc();

@@ -59,6 +59,6 @@ public class SysUserSaveDTO {
     private String email;
 
     @ApiModelProperty(value = "头像")
-    private String avatar;
+    private String avatarUrl;
 
 }

@@ -67,6 +67,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public List<SysUserListVO> list(SysUserListDTO params) {
         List<SysUserListVO> userList = this.sysUserMapper.selectDataList(params);
+        this.handleUserList(userList);
         return userList;
     }
 
@@ -74,7 +75,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         if (CollectionUtils.isEmpty(userList)) {
             return;
         }
-        userList.forEach(userInfo -> userInfo.handleData());
+        // 用户ids
+        List<Integer> userIdList = userList.stream().map(SysUserListVO::getUserId).collect(Collectors.toList());
+        Map<Integer, List<Integer>> mapRoleInfo = this.sysUserRoleService.mapRoleId(userIdList);
+        userList.forEach(userInfo -> {
+            userInfo.setRoleIdList(mapRoleInfo.get(userInfo.getUserId()));
+            userInfo.handleData();
+        });
     }
 
     @Override
@@ -94,7 +101,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         Byte sex = params.getSex();
         String phone = params.getPhone();
         String email = params.getEmail();
-        String avatar = params.getAvatar();
+        String avatarUrl = params.getAvatarUrl();
 
         SysUser user = new SysUser();
         user.setUserId(userId);
@@ -103,19 +110,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         user.setSexEnum(UserSexEnum.getEnum(sex));
         user.setPhone(phone);
         user.setEmail(email);
-        user.setAvatarUrl(avatar);
+        user.setAvatarUrl(avatarUrl);
 
         if (userId == null) {
-//            user.setSalt(AppConstant.SALT);
-//            user.setPassword(PasswordUtil.encodePassword(AppConstant.DEFAULT_PASSWORD, AppConstant.SALT));
             user.setPassword(this.passwordEncoder.encode(AppConstant.DEFAULT_PASSWORD));
             user.insert();
-
-            // 塞个token信息
-//            UserTokenInfo userTokenInfo = UserTokenInfo.buildUser(JSONObject.parseObject(JSONObject.toJSONString(user), Map.class));
-//            String jwtToken = JwtUtil.buildJWT(userTokenInfo);
-//            user.setToken(jwtToken);
-//            user.updateById();
 
             // 绑定角色信息
             SysUserRoleSaveDTO userRoleSaveDTO = new SysUserRoleSaveDTO();
@@ -135,7 +134,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             throw new MyException("您没有权限删除超级管理员！");
         }
         // ① 删除关联角色
-        this.sysUserRoleService.removeById(userId);
+        this.sysUserRoleService.deleteUserReRoleIds(userId);
         // ② 删除关联项目 FIXME
         // cgProjectService.deleteDataByUserId(userId);
         // ③ 删除该用户
@@ -147,16 +146,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public void updatePassword(SysUserUpdatePasswordDTO params) {
         String password = DesUtil.decrypt(params.getPassword(), AppConstant.DES_KEY);
         SysUser userInfo = this.sysUserMapper.selectById(params.getUserId());
-//        String salt = userInfo.getSalt();
-//        boolean isValid = PasswordUtil.isValidPassword(password, userInfo.getPassword(), salt);
         boolean isValid = this.passwordEncoder.encode(password) == userInfo.getPassword();
-        // ① 校验原始密码是否正确
+        // 校验原始密码是否正确
         if (!isValid) {
             throw new MyException(AppConstant.WRONG_OLD_PASSWORD);
         }
-        // ② 修改密码
-//        String newPassword = DesUtil.decrypt(params.getNewPassword(), AppConstant.DES_KEY);
-//        userInfo.setPassword(PasswordUtil.encodePassword(newPassword, salt));
         userInfo.setPassword(this.passwordEncoder.encode(params.getNewPassword()));
         this.sysUserMapper.updateById(userInfo);
     }

@@ -13,13 +13,12 @@
     </select>
 
     <select id="selectBtnsByRoleIdAndMenuId" resultType="java.lang.Integer">
-        SELECT srp.btn_id
+        SELECT sp.btn_id
         FROM t_sys_role_permission srp
-                 JOIN t_sys_permission sp ON sp.btn_id = srp.btn_id
+                 JOIN t_sys_permission sp ON sp.id = srp.permission_id
         WHERE srp.is_deleted = 0
           AND srp.role_id = #{roleId}
           AND sp.menu_id = #{menuId}
-          AND srp.menu_id = #{menuId}
     </select>
 
 </mapper>

@@ -49,4 +49,15 @@ public interface ISysUserRoleService extends IService<SysUserRole> {
      */
     Map<Integer, List<Integer>> mapRoleId(List<Integer> userIdList);
 
+
+    /**
+     * 删除用户id关联角色ids
+     *
+     * @param userId 用户id
+     * @return void
+     * @author zhengqingya
+     * @date 2022/6/14 12:39
+     */
+    void deleteUserReRoleIds(Integer userId);
+
 }
