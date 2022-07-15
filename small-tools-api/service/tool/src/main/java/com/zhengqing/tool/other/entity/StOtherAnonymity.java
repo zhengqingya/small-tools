@@ -1,9 +1,7 @@
 package com.zhengqing.tool.other.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
+import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -26,7 +24,7 @@ import java.util.Date;
 @NoArgsConstructor
 @TableName("t_st_other_anonymity")
 @ApiModel("小工具 - 其它 - 匿名事件表")
-public class StOtherAnonymity extends IsDeletedYesBaseEntity<StOtherAnonymity> {
+public class StOtherAnonymity extends Model<StOtherAnonymity> {
 
     @ApiModelProperty(value = "主键ID")
     @TableId(value = "id", type = IdType.AUTO)
@@ -49,5 +47,18 @@ public class StOtherAnonymity extends IsDeletedYesBaseEntity<StOtherAnonymity> {
 
     @ApiModelProperty(value = "处理时间")
     private Date handleTime;
+
+    @ApiModelProperty(value = "创建时间")
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private Date createTime;
+
+    @ApiModelProperty(value = "更新时间")
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
+
+    @TableLogic
+    @ApiModelProperty(value = "是否删除：true->删除，false->未删除")
+    @TableField(value = "is_deleted", fill = FieldFill.INSERT)
+    private Boolean isDeleted;
 
 }

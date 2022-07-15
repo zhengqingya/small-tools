@@ -3,7 +3,6 @@ package com.zhengqing.tool.other.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhengqing.common.base.util.MyBeanUtil;
 import com.zhengqing.tool.other.entity.StOtherAnonymity;
 import com.zhengqing.tool.other.enums.StOtherAnonymityStatusEnum;
 import com.zhengqing.tool.other.mapper.StOtherAnonymityMapper;
@@ -71,7 +70,13 @@ public class StOtherAnonymityServiceImpl extends ServiceImpl<StOtherAnonymityMap
     @Override
     public Integer addOrUpdateData(StOtherAnonymitySaveDTO params) {
         Integer anonymityId = params.getId();
-        StOtherAnonymity anonymity = MyBeanUtil.copyProperties(params, StOtherAnonymity.class);
+        StOtherAnonymity anonymity = StOtherAnonymity.builder()
+                .id(anonymityId)
+                .content(params.getContent())
+                .anonymousUserName(params.getAnonymousUserName())
+                .anonymousHandlerName(params.getAnonymousHandlerName())
+                .remark(params.getRemark())
+                .build();
         if (anonymityId == null) {
             anonymity.setStatus(StOtherAnonymityStatusEnum.未处理.getStatus());
             anonymity.insert();
