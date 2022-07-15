@@ -7,11 +7,13 @@ import com.nimbusds.jose.JWSObject;
 import com.zhengqing.common.base.constant.BaseConstant;
 import com.zhengqing.common.base.constant.SecurityConstant;
 import com.zhengqing.common.base.context.AuthSourceContext;
+import com.zhengqing.common.base.context.JwtCustomUserContext;
 import com.zhengqing.common.base.context.SysUserContext;
 import com.zhengqing.common.base.context.UmsUserContext;
+import com.zhengqing.common.base.enums.AuthSourceEnum;
+import com.zhengqing.common.base.model.bo.JwtCustomUserBO;
 import com.zhengqing.common.base.util.MyDateUtil;
 import com.zhengqing.common.security.enums.AuthGrantTypeEnum;
-import com.zhengqing.common.base.enums.AuthSourceEnum;
 import com.zhengqing.common.security.model.bo.JwtUserBO;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -64,14 +66,14 @@ public class JwtUtil {
      * @date 2022/6/15 13:03
      */
     public static String getUserId() {
-        String authType = AuthSourceContext.get();
-        if (StringUtils.isBlank(authType)) {
+        JwtCustomUserBO jwtCustomUserBO = JwtCustomUserContext.get();
+        if (jwtCustomUserBO == null) {
             return BaseConstant.DEFAULT_CONTEXT_KEY_USER_ID;
         }
         return String.valueOf(
-                AuthSourceEnum.B.getValue().equals(authType)
-                        ? SysUserContext.getUserId()
-                        : UmsUserContext.getUserId()
+                AuthSourceEnum.B.getValue().equals(jwtCustomUserBO.getAuthSource())
+                        ? jwtCustomUserBO.getSysUserId()
+                        : jwtCustomUserBO.getUmsUserId()
         );
     }
 
