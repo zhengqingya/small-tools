@@ -3,29 +3,25 @@
     <slot />
   </div>
 </template>
-<script>
+<script lang="ts"  >
 export default {
-  name: 'Wraper',
-  inject: ['App'],
   props: {
     fullHeight: {
       type: Boolean,
       default: true,
     },
-  },
-  data() {
-    return {}
-  },
-  methods: {},
-}
+  }
+};
 </script>
 <style lang="scss" scoped>
 .wraper {
-  padding: 0px;
+  padding: 15px;
+  background: $dark_main_color;
+
   &.is-full-height {
     min-height: 100%;
   }
-  background: #fff;
+
   border-radius: 2px;
 }
 </style>

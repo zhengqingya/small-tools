@@ -1,12 +1,7 @@
 <template>
-  <my-base-wraper>
+  <base-wraper>
     <base-header>
-      <el-button
-        type="success"
-        icon="el-icon-setting"
-        @click="handleGenerateCode"
-        >生成代码</el-button
-      >
+      <el-button type="success" icon="el-icon-setting" @click="handleGenerateCode">生成代码</el-button>
       <template #right>
         <el-button type="primary" @click="refreshTableData">刷新</el-button>
         <el-button @click="handleBack()">返回</el-button>
@@ -17,94 +12,53 @@
       <div slot="header">
         <el-row>
           <el-col :span="16">
-            <my-base-table-cell>
-              <my-base-cell-item label="表备注" label-width="100px">{{
-                tableInfo.tableComment
-              }}</my-base-cell-item>
-            </my-base-table-cell>
-            <my-base-table-cell>
-              <my-base-cell-item label="可检索字段" label-width="100px">
-                <el-tag
-                  v-for="item in generateCodeParams.queryColumnList"
-                  :key="item"
-                  >{{ item }}</el-tag
-                >
-              </my-base-cell-item>
-            </my-base-table-cell>
+            <base-table-cell>
+              <base-cell-item label="表备注" label-width="100px">{{
+                  tableInfo.tableComment
+              }}</base-cell-item>
+            </base-table-cell>
+            <base-table-cell>
+              <base-cell-item label="可检索字段" label-width="100px">
+                <el-tag v-for="item in generateCodeParams.queryColumnList" :key="item">{{ item }}</el-tag>
+              </base-cell-item>
+            </base-table-cell>
           </el-col>
           <el-col :span="8">
-            <my-base-table-cell>
-              <my-base-cell-item label="父包名" label-width="80px">
-                <el-input
-                  v-model="generateCodeParams.packageName"
-                  placeholder="父包名"
-                />
-              </my-base-cell-item>
-            </my-base-table-cell>
-            <my-base-table-cell>
-              <my-base-cell-item label="模块名" label-width="80px">
-                <el-input
-                  v-model="generateCodeParams.moduleName"
-                  placeholder="模块名"
-                />
-              </my-base-cell-item>
-            </my-base-table-cell>
+            <base-table-cell>
+              <base-cell-item label="父包名" label-width="80px">
+                <el-input v-model="generateCodeParams.packageName" placeholder="父包名" />
+              </base-cell-item>
+            </base-table-cell>
+            <base-table-cell>
+              <base-cell-item label="模块名" label-width="80px">
+                <el-input v-model="generateCodeParams.moduleName" placeholder="模块名" />
+              </base-cell-item>
+            </base-table-cell>
           </el-col>
           <el-col :span="24">
-            <my-base-table-cell>
-              <my-base-cell-item label="数据类型" label-width="100px">
-                <el-select
-                  v-model="generateCodeParams.dataType"
-                  placeholder="请选择"
-                >
-                  <el-option
-                    v-for="item in dataTypeList"
-                    :key="item.key"
-                    :label="item.display_name"
-                    :value="item.key"
-                  /> </el-select
-              ></my-base-cell-item>
-            </my-base-table-cell>
+            <base-table-cell>
+              <base-cell-item label="数据类型" label-width="100px">
+                <el-select v-model="generateCodeParams.dataType" placeholder="请选择">
+                  <el-option v-for="item in dataTypeList" :key="item.key" :label="item.display_name"
+                    :value="item.key" />
+                </el-select>
+              </base-cell-item>
+            </base-table-cell>
           </el-col>
         </el-row>
       </div>
       <div>
-        <el-table
-          ref="colTable"
-          v-loading.body="listLoading"
-          :data="tableInfo.columnInfoList"
-          border
-          fit
-          highlight-current-row
-          size="small"
-          @selection-change="handleSelectionChange"
-        >
+        <el-table ref="colTable" v-loading.body="listLoading" :data="tableInfo.columnInfoList" border fit
+          highlight-current-row size="small" @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55" />
           <el-table-column align="center" label="ID" width="100" type="index" />
-          <el-table-column
-            width="200"
-            label="字段名"
-            header-align="center"
-            align="center"
-            prop="columnName"
-          />
-          <el-table-column
-            label="类型"
-            width="200"
-            header-align="center"
-            align="center"
-            prop="columnType"
-          />
-          <el-table-column
-            label="备注"
-            header-align="center"
-            prop="columnComment"
-            align="left"
-          />
+          <el-table-column width="200" label="字段名" header-align="center" align="center" prop="columnName" />
+          <el-table-column label="类型" width="200" header-align="center" align="center" prop="columnType" />
+          <el-table-column label="备注" header-align="center" prop="columnComment" align="left" />
         </el-table>
       </div>
     </el-card>
-  </my-base-wraper>
+  </base-wraper>
 </template>
 
 <script>
@@ -184,4 +138,5 @@ export default {
   },
 }
 </script>
-<style scoped></style>
+<style scoped>
+</style>

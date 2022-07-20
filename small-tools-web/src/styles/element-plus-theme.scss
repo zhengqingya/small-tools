@@ -1,0 +1,22 @@
+// ****** ↓↓↓ 覆盖 element-plus 的样式 ↓↓↓ ******
+
+// 按钮
+.el-button--text {
+    // background-color: #8f6732 !important;
+    margin-left: 3px;
+    border: none !important;
+}
+
+// <el-button link />
+.el-button.is-link {
+  margin-left: 3px;
+  color: #409EFF;
+}
+
+
+// 加载
+.el-loading-mask {
+  background-color:  rgb(72 108 131 / 90%)
+ }
+
+ 

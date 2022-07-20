@@ -1,39 +1,19 @@
 <template>
-  <my-base-wraper>
-    <my-base-title-card title="数据库" style="padding-top: 0">
-      <el-select
-        slot="append"
-        v-model="dataSourceId"
-        placeholder="请选择数据源"
-        @change="handleChangeDataSource(dataSourceId)"
-      >
-        <el-option
-          v-for="item in dataSourceList"
-          :key="item.id"
-          :value="item.id"
-          :label="item.name"
-        />
+  <base-wraper>
+    <base-title-card title="数据库" style="padding-top: 0">
+      <el-select slot="append" v-model="dataSourceId" placeholder="请选择数据源"
+        @change="handleChangeDataSource(dataSourceId)">
+        <el-option v-for="item in dataSourceList" :key="item.id" :value="item.id" :label="item.name" />
       </el-select>
-      <el-input
-        v-model="filterDbText"
-        placeholder="输入关键字进行过滤"
-        clearable
-      >
+      <el-input v-model="filterDbText" placeholder="输入关键字进行过滤" clearable>
       </el-input>
-      <el-tree
-        ref="tree"
-        :data="treeData"
-        :props="dbProps"
-        :filter-node-method="filterDbNode"
-        :accordion="true"
-        :highlight-current="true"
-        @node-click="handleNodeClick"
-      />
+      <el-tree ref="tree" :data="treeData" :props="dbProps" :filter-node-method="filterDbNode" :accordion="true"
+        :highlight-current="true" @node-click="handleNodeClick" />
       <!-- 下面2个属性为懒加载子节点，暂时不要此功能 -->
       <!-- :load="loadDbNode" -->
       <!-- lazy -->
-    </my-base-title-card>
-  </my-base-wraper>
+    </base-title-card>
+  </base-wraper>
 </template>
 
 <script>
@@ -175,4 +155,5 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

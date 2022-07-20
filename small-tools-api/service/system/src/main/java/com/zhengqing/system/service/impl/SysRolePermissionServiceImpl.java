@@ -2,6 +2,7 @@ package com.zhengqing.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
+import com.zhengqing.common.base.exception.MyException;
 import com.zhengqing.system.entity.SysRolePermission;
 import com.zhengqing.system.mapper.SysRolePermissionMapper;
 import com.zhengqing.system.model.dto.SysRoleMenuBtnSaveDTO;
@@ -58,19 +59,24 @@ public class SysRolePermissionServiceImpl extends ServiceImpl<SysRolePermissionM
         Integer roleId = params.getRoleId();
         Integer menuId = params.getMenuId();
         List<Integer> btnIdList = params.getBtnIdList();
+
+        // FIXME
+        if (true) {
+            throw new MyException("此功能需修复...");
+        }
+
         // ① 先删除
         this.deleteBtnsByRoleIdAndMenuId(roleId, menuId);
         // ② 再保存
-        List<SysRolePermission> itemList = Lists.newArrayList();
+        List<SysRolePermission> saveList = Lists.newArrayList();
         if (!CollectionUtils.isEmpty(btnIdList)) {
             btnIdList.forEach(btnId -> {
                 SysRolePermission item = new SysRolePermission();
                 item.setRoleId(roleId);
-                item.setMenuId(menuId);
-                item.setBtnId(btnId);
-                itemList.add(item);
+                item.setPermissionId(btnId);
+                saveList.add(item);
             });
-            this.saveBatch(itemList);
+            this.saveBatch(saveList);
         }
     }
 

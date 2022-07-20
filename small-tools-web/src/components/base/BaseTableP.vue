@@ -4,65 +4,36 @@
       <slot name="header" :res="res"></slot>
     </div>
     <slot name="zdy-header" :res="res"></slot>
-    <el-table
-      ref="baseTable"
-      v-loading="
-        loading &&
-        (isPage
-          ? res.records == null || res.records.length == 0
-          : res == null || res.length == 0)
-      "
-      v-bind="$attrs"
-      :data="isPage ? res.records : res"
-      :class="{ pointer: pointer }"
-      size="small"
-      fit
-      highlight-current-row
-      v-on="$listeners"
-    >
-      <el-table-column
-        v-if="selection"
-        type="selection"
-        :width="55"
-      ></el-table-column>
+    <el-table ref="baseTable" v-loading="
+      loading &&
+      (isPage
+        ? res.records == null || res.records.length == 0
+        : res == null || res.length == 0)
+    " v-bind="$attrs" :data="isPage ? res.records : res" :class="{ pointer: pointer }" size="small" fit
+      highlight-current-row>
+      <el-table-column v-if="selection" type="selection" :width="55"></el-table-column>
       <template v-if="indexCode">
-        <el-table-column
-          type="index"
-          label="序号"
-          width="60px"
-        ></el-table-column>
+        <el-table-column type="index" label="序号" width="60px"></el-table-column>
       </template>
       <slot />
       <template v-for="(item, index) in columns">
-        <el-table-column
-          v-if="item.slotName"
-          :key="index"
-          v-bind="item"
-          :width="item.width"
-        >
+        <el-table-column v-if="item.slotName" :key="index" v-bind="item" :width="item.width">
           <template slot-scope="scope">
             <slot :name="item.slotName" v-bind="scope"></slot>
           </template>
         </el-table-column>
-        <el-table-column v-else :key="index" v-bind="item"></el-table-column>
+        <el-table-column v-else v-bind="item"></el-table-column>
       </template>
     </el-table>
-    <template>
-      <div v-if="isPage" class="pagination-container">
-        <my-base-pagination
-          v-show="res && res.total > 0"
-          :total="res.total == null ? 0 : res.total"
-          :page.sync="pageParams.pageNum"
-          :limit.sync="pageParams.pageSize"
-          @pagination="getListPage"
-        />
-      </div>
-    </template>
+
+    <div v-if="isPage" class="pagination-container">
+      <base-pagination v-show="res && res.total > 0" :total="res.total == null ? 0 : res.total"
+        :page.sync="pageParams.pageNum" :limit.sync="pageParams.pageSize" @pagination="getListPage" />
+    </div>
   </div>
 </template>
 <script>
 export default {
-  name: 'BaseTableP',
   model: {
     event: 'load',
   },
@@ -78,13 +49,13 @@ export default {
     columns: {
       type: Array,
       default() {
-        return []
+        return [];
       },
     },
     params: {
       type: Object,
       default() {
-        return {}
+        return {};
       },
     },
     api: {
@@ -104,14 +75,14 @@ export default {
     data: {
       type: Array,
       default() {
-        return []
+        return [];
       },
     },
     isPage: {
       //是否分页
       type: Boolean,
       default() {
-        return true
+        return true;
       },
     },
   },
@@ -130,21 +101,21 @@ export default {
         records: [],
       },
       isCli: false,
-    }
+    };
   },
   computed: {
     apiMethod() {
       return this.api.split('.').reduce((acc, item) => {
-        return acc[item]
-      }, this.$api)
+        return acc[item];
+      }, this.$api);
     },
   },
   watch: {
     data: {
       handler(val) {
-        this.res = []
+        this.res = [];
         if (!this.isPage || (this.data && this.data.length > 0)) {
-          this.res = val
+          this.res = val;
         }
       },
       deep: true, // 是否深度监听
@@ -154,36 +125,42 @@ export default {
   created() {
     if (this.data && this.data.length > 0) {
       // 情况①：走父组件传值过来
-      this.handleData()
+      this.handleData();
     } else {
       // 情况②：走api接口数据
       if (this.isPage) {
-        this.getListPage()
+        this.getListPage();
       } else {
-        this.getList()
+        this.getList();
       }
     }
   },
   methods: {
     // 分页列表
-    async getListPage() {
+    async getListPage(pageObj) {
       if (this.api) {
-        this.loading = true
+        this.loading = true;
         // 处理分页参数
+        if (pageObj) {
+          // 从分页子组件中拿到数据
+          this.pageParams.pageNum = pageObj.page;
+          this.pageParams.pageSize = pageObj.limit;
+        }
         // this.params.pageNum = this.pageParams.pageNum;
         // this.params.pageSize = this.pageParams.pageSize;
-        let response = await this.apiMethod(this.params, this.pageParams)
-        this.res = response.data
-        this.loading = false
+        // console.log(pageObj);
+        let response = await this.apiMethod(this.params, this.pageParams);
+        this.res = response.data;
+        this.loading = false;
       }
     },
     // 列表
     async getList() {
       if (this.api) {
-        this.loading = true
-        let response = await this.apiMethod(this.params)
-        this.res = response.data
-        this.loading = false
+        this.loading = true;
+        let response = await this.apiMethod(this.params);
+        this.res = response.data;
+        this.loading = false;
       }
     },
     // 父组件直接传data值过来的处理方式
@@ -193,9 +170,9 @@ export default {
     //刷新
     async refresh() {
       if (this.data && this.data.length > 0) {
-        this.loading = true
-        this.res = this.data
-        this.loading = false
+        this.loading = true;
+        this.res = this.data;
+        this.loading = false;
       } else {
         this.res = {
           current: 1,
@@ -203,33 +180,18 @@ export default {
           size: 10,
           total: 0,
           records: [],
-        }
-        this.pageParams.pageNum = 1
-        await this.getListPage()
+        };
+        this.pageParams.pageNum = 1;
+        await this.getListPage();
       }
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
-.pointer /deep/ .el-table__row {
-  cursor: pointer;
-}
-/deep/.el-table th {
-  // background: #00f7ff;
-  background: #e9eeee;
-}
 .pagination-container {
-  // padding-top: 10px;
-  // padding-bottom: 5px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  // background: #03f8ec;
-}
-.base-table-header {
-  height: 48px;
-  background: rgba(228, 231, 237, 1);
-  opacity: 1;
 }
 </style>

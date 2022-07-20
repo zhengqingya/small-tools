@@ -33,10 +33,7 @@ public class SysRolePermission extends IsDeletedYesBaseEntity<SysRolePermission>
     @ApiModelProperty(value = "角色ID")
     private Integer roleId;
 
-    @ApiModelProperty(value = "菜单ID")
-    private Integer menuId;
-
-    @ApiModelProperty(value = "按钮ID")
-    private Integer btnId;
+    @ApiModelProperty(value = "权限ID")
+    private Integer permissionId;
 
 }

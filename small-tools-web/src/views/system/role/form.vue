@@ -1,75 +1,44 @@
 <template>
-  <my-base-wraper>
-    <el-form
-      ref="roleForm"
-      :model="roleForm"
-      :rules="rules"
-      label-width="100px"
-    >
-      <my-base-title-card title="角色信息">
-        <my-base-table-cell>
+  <base-wraper>
+    <el-form ref="roleForm" :model="roleForm" :rules="rules" label-width="100px">
+      <base-title-card title="角色信息">
+        <base-table-cell>
           <el-row :gutter="10">
             <el-col :span="12">
-              <my-base-cell-item label="角色名：">{{
-                roleForm.name
-              }}</my-base-cell-item>
+              <base-cell-item label="角色名：">{{
+                  roleForm.name
+              }}</base-cell-item>
             </el-col>
             <el-col :span="12">
-              <my-base-cell-item label="角色编码：">{{
-                roleForm.code
-              }}</my-base-cell-item>
+              <base-cell-item label="角色编码：">{{
+                  roleForm.code
+              }}</base-cell-item>
             </el-col>
           </el-row>
-        </my-base-table-cell>
-      </my-base-title-card>
-      <my-base-title-card title="权限信息">
+        </base-table-cell>
+      </base-title-card>
+      <base-title-card title="权限信息">
         <el-row :gutter="20">
           <el-col :span="14">
-            <el-tree
-              ref="menuTree"
-              :data="allMenus"
-              :props="defaultProps"
-              show-checkbox
-              node-key="menuId"
-              @node-click="handleNodeClick"
-            />
+            <el-tree ref="menuTree" :data="allMenus" :props="defaultProps" show-checkbox node-key="menuId"
+              @node-click="handleNodeClick" />
           </el-col>
           <el-col :span="10">
-            <el-card
-              v-if="permissionBtns.length > 0 && showConfigContainer"
-              class="box-card"
-            >
+            <el-card v-if="permissionBtns.length > 0 && showConfigContainer" class="box-card">
               <div slot="header" class="clearfix">
                 <span>编辑页面按钮权限</span>
-                <el-button
-                  style="float: right; padding: 3px 0"
-                  type="text"
-                  @click="handleSavePermissionBtns"
-                  >保存</el-button
-                >
+                <el-button style="float: right; padding: 3px 0" link @click="handleSavePermissionBtns">保存</el-button>
               </div>
-              <el-checkbox
-                v-model="checkAll"
-                :indeterminate="isIndeterminate"
-                style="margin-bottom: 10px"
-                @change="handleCheckAllBtnsChange"
-                >全选</el-checkbox
-              >
-              <el-checkbox-group
-                v-model="currentSelectedBtns"
-                @change="handleCheckedBtnsChange"
-              >
-                <el-checkbox
-                  v-for="(item, index) in permissionBtns"
-                  :key="index"
-                  :label="item.btnId"
-                  >{{ item.btnName }}</el-checkbox
-                >
+              <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" style="margin-bottom: 10px"
+                @change="handleCheckAllBtnsChange">全选</el-checkbox>
+              <el-checkbox-group v-model="currentSelectedBtns" @change="handleCheckedBtnsChange">
+                <el-checkbox v-for="(item, index) in permissionBtns" :key="index" :label="item.btnId">{{ item.btnName }}
+                </el-checkbox>
               </el-checkbox-group>
             </el-card>
           </el-col>
         </el-row>
-      </my-base-title-card>
+      </base-title-card>
     </el-form>
     <div>
       <el-button type="primary" @click="saveData">保存</el-button>
@@ -77,7 +46,7 @@
         <el-button type="warning">返回</el-button>
       </router-link>
     </div>
-  </my-base-wraper>
+  </base-wraper>
 </template>
 <script>
 export default {
@@ -234,4 +203,5 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

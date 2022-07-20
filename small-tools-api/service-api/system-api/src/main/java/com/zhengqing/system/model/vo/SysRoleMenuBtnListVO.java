@@ -17,9 +17,6 @@ import lombok.Data;
 @ApiModel("角色关联菜单按钮输出参数")
 public class SysRoleMenuBtnListVO {
 
-    @ApiModelProperty(value = "主键ID")
-    private Integer id;
-
     @ApiModelProperty(value = "角色ID")
     private Integer roleId;
 
@@ -30,6 +27,6 @@ public class SysRoleMenuBtnListVO {
     private Integer btnId;
 
     @ApiModelProperty(value = "按钮值")
-    private String btnVal;
+    private String btnPerm;
 
 }

@@ -1,6 +1,6 @@
 <template>
   <base-dialog
-    :visible.sync="dialogVisible"
+    v-model="dialogVisible"
     :title="titleMap[dialogStatus]"
     width="30%"
   >
@@ -57,28 +57,28 @@ export default {
         name: '',
         status: 1,
       },
-    }
+    };
   },
   methods: {
     open(type, data) {
-      this.dialogStatus = type
+      this.dialogStatus = type;
       if (type === 'create') {
-        this.form = Object.assign({}, {})
-        this.form.status = 1
+        this.form = Object.assign({}, {});
+        this.form.status = 1;
       } else if (type === 'update') {
-        this.form = Object.assign({}, data)
+        this.form = Object.assign({}, data);
       }
-      this.dialogVisible = true
+      this.dialogVisible = true;
     },
     async handleSave() {
       let res = await this.$api.sys_dict_type[this.form.id ? 'update' : 'add'](
         this.form
-      )
-      this.$emit('saveSucc')
-      this.dialogVisible = false
-      this.submitOk(res.msg)
+      );
+      this.$emit('saveSucc');
+      this.dialogVisible = false;
+      this.submitOk(res.msg);
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped></style>

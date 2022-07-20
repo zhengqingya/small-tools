@@ -1,17 +1,5 @@
-<!--
- * @Description: 页面底部
- * @Version: 1.0
- * @Autor: yanxin
- * @Date: 2020-08-03 13:51:57
- * @LastEditors: yanxin
- * @LastEditTime: 2020-08-03 14:25:12
--->
 <template>
-  <div
-    class="page-footer"
-    :style="{ justifyContent: alignMap[align] }"
-    :class="{ fixed: fixed }"
-  >
+  <div class="page-footer" :style="{ justifyContent: alignMap[align] }" :class="{ fixed: fixed }">
     <slot></slot>
   </div>
 </template>
@@ -49,6 +37,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
+
 .fixed {
   position: fixed;
   bottom: 0;

@@ -59,7 +59,7 @@ public interface SysRolePermissionMapper extends BaseMapper<SysRolePermission> {
      * @author zhengqingya
      * @date 2020/9/10 17:57
      */
-    @Delete("DELETE FROM t_sys_role_permission WHERE role_id = #{roleId} AND menu_id = #{menuId}")
+    @Delete("DELETE FROM t_sys_permission sp JOIN t_sys_role_permission srp on sp.id = srp.permission_id WHERE srp.role_id = #{roleId} AND sp.menu_id = #{menuId}")
     void deleteBtnsByRoleIdAndMenuId(@Param("roleId") Integer roleId, @Param("menuId") Integer menuId);
 
 }

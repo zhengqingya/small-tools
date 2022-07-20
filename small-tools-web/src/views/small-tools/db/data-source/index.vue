@@ -1,29 +1,16 @@
 <template>
-  <my-base-wraper>
+  <base-wraper>
     <base-header>
-      <el-input
-        v-model="listQuery.name"
-        style="width: 200px"
-        placeholder="请输入数据源名称"
-        clearable
-        @clear="refreshTableData"
-      >
+      <el-input v-model="listQuery.name" style="width: 200px" placeholder="请输入数据源名称" clearable
+        @clear="refreshTableData">
       </el-input>
-      <el-button v-has="'query'" type="primary" @click="refreshTableData"
-        >查询</el-button
-      >
+      <el-button type="primary" @click="refreshTableData">查询</el-button>
       <template #right>
-        <el-button v-has="'add'" type="primary" @click="handleCreate"
-          >添加</el-button
-        >
+        <el-button type="primary" @click="handleCreate">添加</el-button>
       </template>
     </base-header>
 
-    <base-table-p
-      ref="baseTable"
-      api="st_db_data_source.listPage"
-      :params="listQuery"
-    >
+    <base-table-p ref="baseTable" api="st_db_data_source.listPage" :params="listQuery">
       <el-table-column align="center" label="ID" width="80" prop="id" />
       <el-table-column label="数据源名称" align="center" prop="name" />
       <el-table-column label="ip地址" align="center" prop="ipAddress" />
@@ -31,30 +18,21 @@
       <el-table-column label="用户名" align="center" prop="username" />
       <el-table-column label="密码" align="center" prop="password" />
       <el-table-column label="类型" align="center" prop="typeName" />
-      <el-table-column
-        label="备注"
-        show-overflow-tooltip
-        align="center"
-        prop="remark"
-      />
+      <el-table-column label="备注" show-overflow-tooltip align="center" prop="remark" />
       <el-table-column align="center" label="操作">
-        <template slot-scope="scope">
-          <el-button type="text" plain @click="handleConnectTest(scope.row)">
+        <template v-slot="scope">
+          <el-button link plain @click="handleConnectTest(scope.row)">
             连接测试
           </el-button>
-          <el-button type="text" plain @click="handleUpdate(scope.row)">
+          <el-button link plain @click="handleUpdate(scope.row)">
             编辑
           </el-button>
-          <my-base-delete-btn @ok="handleDelete(scope.row)" />
+          <base-delete-btn @ok="handleDelete(scope.row)" />
         </template>
       </el-table-column>
     </base-table-p>
 
-    <base-dialog
-      :visible.sync="dialogFormVisible"
-      :title="textMap[dialogStatus]"
-      width="25%"
-    >
+    <base-dialog v-model="dialogFormVisible" :title="textMap[dialogStatus]" width="30%">
       <el-form ref="dataForm" :model="form" label-width="90px" :rules="rules">
         <el-form-item label="数据源名称:" prop="name">
           <el-input v-model="form.name" />
@@ -73,24 +51,19 @@
         </el-form-item>
         <el-form-item label="类型:" prop="type">
           <el-select v-model="form.type" placeholder="请选择">
-            <el-option
-              v-for="item in dataSourceTypeList"
-              :key="item.value"
-              :value="item.value"
-              :label="item.name"
-            />
+            <el-option v-for="item in dataSourceTypeList" :key="item.value" :value="item.value" :label="item.name" />
           </el-select>
         </el-form-item>
         <el-form-item label="备注:" prop="remark">
           <el-input v-model="form.remark" :rows="3" type="textarea" />
         </el-form-item>
       </el-form>
-      <div slot="footer">
+      <template #footer>
         <el-button @click="dialogFormVisible = false">取消</el-button>
         <el-button type="primary" @click="submitForm">确定</el-button>
-      </div>
+      </template>
     </base-dialog>
-  </my-base-wraper>
+  </base-wraper>
 </template>
 
 <script>
@@ -119,54 +92,55 @@ export default {
         create: '创建',
       },
       rules: {},
-    }
+    };
   },
   created() {
-    this.getDataSourceTypeList()
+    this.getDataSourceTypeList();
   },
   methods: {
     refreshTableData() {
-      this.$refs.baseTable.refresh()
+      this.$refs.baseTable.refresh();
     },
     async getDataSourceTypeList() {
       let res = await this.$api.sys_dict.listFromCacheByCode(
         'st_db_data_source_type'
-      )
-      this.dataSourceTypeList = res.data
+      );
+      this.dataSourceTypeList = res.data;
     },
     async handleConnectTest(row) {
-      let res = await this.$api.st_db_operate.connectTest(row.id)
-      this.submitOk(res.msg)
+      let res = await this.$api.st_db_operate.connectTest(row.id);
+      this.submitOk(res.msg);
     },
     handleCreate() {
-      this.form = Object.assign({}, {})
-      this.dialogStatus = 'create'
-      this.dialogFormVisible = true
+      this.form = Object.assign({}, {});
+      this.dialogStatus = 'create';
+      this.dialogFormVisible = true;
     },
     handleUpdate(row) {
-      this.form = Object.assign({}, row)
-      this.form.project = undefined
-      this.dialogStatus = 'update'
-      this.dialogFormVisible = true
+      this.form = Object.assign({}, row);
+      this.form.project = undefined;
+      this.dialogStatus = 'update';
+      this.dialogFormVisible = true;
     },
     async handleDelete(row) {
-      let res = await this.$api.st_db_data_source.delete(row.id)
-      this.refreshTableData()
-      this.submitOk(res.msg)
+      let res = await this.$api.st_db_data_source.delete(row.id);
+      this.refreshTableData();
+      this.submitOk(res.msg);
     },
     submitForm() {
       this.$refs.dataForm.validate(async (valid) => {
         if (valid) {
           let res = await this.$api.st_db_data_source[
             this.form.id ? 'update' : 'add'
-          ](this.form)
-          this.refreshTableData()
-          this.submitOk(res.msg)
-          this.dialogFormVisible = false
+          ](this.form);
+          this.refreshTableData();
+          this.submitOk(res.msg);
+          this.dialogFormVisible = false;
         }
-      })
+      });
     },
   },
-}
+};
 </script>
-<style scoped></style>
+<style scoped>
+</style>

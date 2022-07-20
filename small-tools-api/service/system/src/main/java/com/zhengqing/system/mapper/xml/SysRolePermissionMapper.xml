@@ -4,11 +4,12 @@
 <mapper namespace="com.zhengqing.system.mapper.SysRolePermissionMapper">
 
     <select id="selectRoleMenuBtns" resultType="com.zhengqing.system.model.vo.SysRoleMenuBtnListVO">
-        SELECT srp.*,
-               sd.`value` btnVal
+        SELECT sp.menu_id,
+               sp.btn_id,
+               sp.btn_perm,
+               srp.role_id
         FROM t_sys_role_permission srp
                  JOIN t_sys_permission sp on sp.id = srp.permission_id
-                 JOIN t_sys_dict sd on sd.id = sp.btn_id
         WHERE srp.is_deleted = 0
     </select>
 

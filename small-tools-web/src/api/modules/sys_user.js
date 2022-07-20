@@ -2,6 +2,7 @@ import request from '@/utils/request'
 
 const BASE_API = '/system/web/api/user'
 
+
 export default {
   login(username, password) {
     return request({
@@ -16,7 +17,7 @@ export default {
       },
     })
   },
-  getInfo() {
+  getUserPerm() {
     return request({
       url: BASE_API + '/getUserPerm',
       method: 'get',

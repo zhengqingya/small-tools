@@ -1,6 +1,6 @@
 <template>
   <base-dialog
-    :visible.sync="dialogVisible"
+    v-model="dialogVisible"
     :title="titleMap[dialogStatus]"
     width="20%"
   >
@@ -45,34 +45,34 @@ export default {
         ],
         value: [{ required: true, message: '字典值不得为空', trigger: 'blur' }],
       },
-    }
+    };
   },
   methods: {
     open(type, data, dictTypeId, code, maxSort) {
-      this.dialogStatus = type
+      this.dialogStatus = type;
       if (type === 'create') {
-        this.resetForm()
-        this.form.dictTypeId = dictTypeId
-        this.form.code = code
-        this.form.sort = maxSort
+        this.resetForm();
+        this.form.dictTypeId = dictTypeId;
+        this.form.code = code;
+        this.form.sort = maxSort;
       } else if (type === 'update') {
-        this.form = Object.assign({}, data)
+        this.form = Object.assign({}, data);
       }
-      this.dialogVisible = true
+      this.dialogVisible = true;
     },
     handleSave() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
           let res = await this.$api.sys_dict[this.form.id ? 'update' : 'add'](
             this.form
-          )
-          this.$emit('saveSucc')
-          this.dialogVisible = false
-          this.submitOk(res.msg)
+          );
+          this.$emit('saveSucc');
+          this.dialogVisible = false;
+          this.submitOk(res.msg);
         } else {
-          return false
+          return false;
         }
-      })
+      });
     },
     resetForm() {
       this.form = {
@@ -81,9 +81,9 @@ export default {
         sort: 0,
         value: '',
         dictTypeId: undefined,
-      }
+      };
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped></style>

@@ -249,7 +249,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         Set<String> btnSet = new HashSet<>();
         btnList.forEach(btn -> {
             if (menuId.equals(btn.getMenuId()) && roleIdList.contains(btn.getRoleId())) {
-                btnSet.add(btn.getBtnVal());
+                btnSet.add(btn.getBtnPerm());
             }
         });
         return new ArrayList<>(btnSet);

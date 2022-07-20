@@ -1,4 +1,3 @@
-# VS CODE设置保存时自动将 CRLF 转换成 LF
 # https://editorconfig.org
 root = true
 

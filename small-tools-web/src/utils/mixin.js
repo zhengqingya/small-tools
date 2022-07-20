@@ -2,7 +2,7 @@
 export default {
   methods: {
     // 操作成功消息提醒内容
-    submitOk(msg, cb) {
+    submitOk(msg , cb ) {
       this.$notify({
         title: '成功',
         message: msg,
