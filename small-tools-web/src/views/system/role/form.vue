@@ -5,14 +5,10 @@
         <base-table-cell>
           <el-row :gutter="10">
             <el-col :span="12">
-              <base-cell-item label="角色名：">{{
-                  roleForm.name
-              }}</base-cell-item>
+              <base-cell-item label="角色名：">{{ roleForm.name }}</base-cell-item>
             </el-col>
             <el-col :span="12">
-              <base-cell-item label="角色编码：">{{
-                  roleForm.code
-              }}</base-cell-item>
+              <base-cell-item label="角色编码：">{{ roleForm.code }}</base-cell-item>
             </el-col>
           </el-row>
         </base-table-cell>
@@ -20,8 +16,7 @@
       <base-title-card title="权限信息">
         <el-row :gutter="20">
           <el-col :span="14">
-            <el-tree ref="menuTree" :data="allMenus" :props="defaultProps" show-checkbox node-key="menuId"
-              @node-click="handleNodeClick" />
+            <el-tree ref="menuTree" :data="allMenus" :props="defaultProps" show-checkbox node-key="menuId" @node-click="handleNodeClick" />
           </el-col>
           <el-col :span="10">
             <el-card v-if="permissionBtns.length > 0 && showConfigContainer" class="box-card">
@@ -29,11 +24,11 @@
                 <span>编辑页面按钮权限</span>
                 <el-button style="float: right; padding: 3px 0" link @click="handleSavePermissionBtns">保存</el-button>
               </div>
-              <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" style="margin-bottom: 10px"
-                @change="handleCheckAllBtnsChange">全选</el-checkbox>
+              <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" style="margin-bottom: 10px" @change="handleCheckAllBtnsChange"
+                >全选</el-checkbox
+              >
               <el-checkbox-group v-model="currentSelectedBtns" @change="handleCheckedBtnsChange">
-                <el-checkbox v-for="(item, index) in permissionBtns" :key="index" :label="item.btnId">{{ item.btnName }}
-                </el-checkbox>
+                <el-checkbox v-for="(item, index) in permissionBtns" :key="index" :label="item.btnId">{{ item.btnName }} </el-checkbox>
               </el-checkbox-group>
             </el-card>
           </el-col>
@@ -70,13 +65,9 @@ export default {
         // 表单验证
         code: [{ required: true, message: '请输入用户ID', trigger: 'blur' }],
         name: [{ required: true, message: '请输入用户名称', trigger: 'blur' }],
-        accountNum: [
-          { required: true, message: '请输入用户账号', trigger: 'blur' },
-        ],
+        accountNum: [{ required: true, message: '请输入用户账号', trigger: 'blur' }],
         contact: [{ required: true, message: '请输入联系人', trigger: 'blur' }],
-        contactPhone: [
-          { required: true, message: '请输入联系手机', trigger: 'blur' },
-        ],
+        contactPhone: [{ required: true, message: '请输入联系手机', trigger: 'blur' }],
         roleId: [{ required: true, message: '请选择角色' }],
       },
       checkAll: false,
@@ -93,8 +84,7 @@ export default {
     },
     hasEditBtnPermission() {
       // 是否有编辑按钮的权限
-      const hasChildren =
-        this.currentClickMenu && this.currentClickMenu.children.length === 0
+      const hasChildren = this.currentClickMenu && this.currentClickMenu.children.length === 0
       return hasChildren
     },
   },
@@ -109,10 +99,7 @@ export default {
         let res = await this.$api.sys_role.detail(this.$route.query.id)
         this.roleForm = res.data
         if (this.roleForm.menuIdList) {
-          const roleMenus = this.filterLeafNode(
-            this.allMenus,
-            this.roleForm.menuIdList
-          )
+          const roleMenus = this.filterLeafNode(this.allMenus, this.roleForm.menuIdList)
           this.$refs.menuTree.setCheckedKeys(roleMenus)
         }
       }
@@ -144,15 +131,11 @@ export default {
     },
     saveData() {
       // 获取选中的菜单
-      this.roleForm.menuIdList = this.$refs.menuTree
-        .getCheckedKeys()
-        .concat(this.$refs.menuTree.getHalfCheckedKeys())
+      this.roleForm.menuIdList = this.$refs.menuTree.getCheckedKeys().concat(this.$refs.menuTree.getHalfCheckedKeys())
       this.roleForm.menuList = this.$refs.menuTree.getCheckedNodes(false, true)
       this.$refs.roleForm.validate(async (valid) => {
         if (valid) {
-          let res = await this.$api.sys_role.savePermissionMenuIds(
-            this.roleForm
-          )
+          let res = await this.$api.sys_role.savePermissionMenuIds(this.roleForm)
           this.submitOk(res.msg)
           this.$router.push('/system/role')
         }
@@ -197,11 +180,9 @@ export default {
     handleCheckedBtnsChange(value) {
       const checkedCount = value.length
       this.checkAll = checkedCount === this.permissionBtns.length
-      this.isIndeterminate =
-        checkedCount > 0 && checkedCount < this.permissionBtns.length
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.permissionBtns.length
     },
   },
 }
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

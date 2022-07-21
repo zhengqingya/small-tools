@@ -24,11 +24,7 @@ export default {
       params: params,
     })
   },
-  getAllColumnsByDataSourceIdAndDbNameAndTableName(
-    dataSourceId,
-    dbName,
-    tableName
-  ) {
+  getAllColumnsByDataSourceIdAndDbNameAndTableName(dataSourceId, dbName, tableName) {
     return request({
       url: BASE_API + '/getAllColumnsByDataSourceIdAndDbNameAndTableName',
       method: 'get',

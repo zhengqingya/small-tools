@@ -1,7 +1,6 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on"
-      label-position="left">
+    <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
       <div class="title-container">
         <h3 class="title">Small Tools</h3>
       </div>
@@ -12,8 +11,7 @@
             <User />
           </el-icon>
         </span>
-        <el-input ref="username" v-model="loginForm.username" placeholder="请输入用户名" name="username" link tabindex="1"
-          auto-complete="on" />
+        <el-input ref="username" v-model="loginForm.username" placeholder="请输入用户名" name="username" link tabindex="1" auto-complete="on" />
       </el-form-item>
 
       <el-tooltip :disabled="capslockTooltipDisabled" content="Caps lock is On" placement="right">
@@ -23,9 +21,19 @@
               <Lock />
             </el-icon>
           </span>
-          <el-input ref="passwordRef" :key="passwordType" v-model="loginForm.password" :type="passwordType"
-            placeholder="请输入密码" name="password" tabindex="2" auto-complete="on" @keyup="checkCapslock"
-            @blur="capslockTooltipDisabled = true" @keyup.enter="handleLogin" />
+          <el-input
+            ref="passwordRef"
+            :key="passwordType"
+            v-model="loginForm.password"
+            :type="passwordType"
+            placeholder="请输入密码"
+            name="password"
+            tabindex="2"
+            auto-complete="on"
+            @keyup="checkCapslock"
+            @blur="capslockTooltipDisabled = true"
+            @keyup.enter="handleLogin"
+          />
           <span class="show-pwd" @click="showPwd">
             <el-icon>
               <View v-if="passwordType === 'password'" />
@@ -42,16 +50,16 @@
             <ChatLineSquare />
           </el-icon>
         </span>
-        <el-input v-model="loginForm.code" auto-complete="off" placeholder="请输入验证码" style="width: 65%"
-          @keyup.enter="handleLogin" />
+        <el-input v-model="loginForm.code" auto-complete="off" placeholder="请输入验证码" style="width: 65%" @keyup.enter="handleLogin" />
 
         <div class="captcha">
           <img :src="captchaBase64" @click="handleCaptchaGenerate" height="38px" />
         </div>
       </el-form-item>
 
-      <el-button size="default" :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px"
-        @click.prevent="handleLogin">登 录</el-button>
+      <el-button size="default" :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px" @click.prevent="handleLogin"
+        >登 录</el-button
+      >
 
       <div class="tips">
         <span style="margin-right: 20px">用户名: admin</span>
@@ -60,39 +68,31 @@
     </el-form>
 
     <div v-if="showCopyright == true" class="copyright">
-      <p> IF I WERE YOU </p>
+      <p>IF I WERE YOU</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {
-  onMounted,
-  reactive,
-  ref,
-  toRefs,
-  watch,
-  nextTick,
-  getCurrentInstance,
-} from 'vue';
+import { onMounted, reactive, ref, toRefs, watch, nextTick, getCurrentInstance } from 'vue'
 
 // 组件依赖
-import { ElForm, ElInput } from 'element-plus';
-import router from '@/router';
+import { ElForm, ElInput } from 'element-plus'
+import router from '@/router'
 
 // 状态管理依赖
-import useStore from '@/store';
+import useStore from '@/store'
 
-import { useRoute } from 'vue-router';
-import { LoginFormData } from '@/types/api/system/login';
+import { useRoute } from 'vue-router'
+import { LoginFormData } from '@/types/api/system/login'
 
 // 组件实例
-const { proxy }: any = getCurrentInstance();
-const { user } = useStore();
-const route = useRoute();
+const { proxy }: any = getCurrentInstance()
+const { user } = useStore()
+const route = useRoute()
 
-const loginFormRef = ref(ElForm);
-const passwordRef = ref(ElInput);
+const loginFormRef = ref(ElForm)
+const passwordRef = ref(ElInput)
 
 const state = reactive({
   redirect: '',
@@ -104,9 +104,7 @@ const state = reactive({
   } as LoginFormData,
   loginRules: {
     username: [{ required: true, trigger: 'blur' }],
-    password: [
-      { required: true, trigger: 'blur', validator: validatePassword },
-    ],
+    password: [{ required: true, trigger: 'blur', validator: validatePassword }],
   },
   loading: false,
   passwordType: 'password',
@@ -116,102 +114,96 @@ const state = reactive({
   otherQuery: {},
   clientHeight: document.documentElement.clientHeight,
   showCopyright: true,
-});
+})
 
 function validatePassword(rule: any, value: any, callback: any) {
   if (value.length < 6) {
-    callback(new Error('The password can not be less than 6 digits'));
+    callback(new Error('The password can not be less than 6 digits'))
   } else {
-    callback();
+    callback()
   }
 }
 
-const {
-  loginForm,
-  loginRules,
-  loading,
-  passwordType,
-  captchaBase64,
-  capslockTooltipDisabled,
-  showCopyright,
-} = toRefs(state);
+const { loginForm, loginRules, loading, passwordType, captchaBase64, capslockTooltipDisabled, showCopyright } = toRefs(state)
 
 function checkCapslock(e: any) {
-  const { key } = e;
-  state.capslockTooltipDisabled =
-    key && key.length === 1 && key >= 'A' && key <= 'Z';
+  const { key } = e
+  state.capslockTooltipDisabled = key && key.length === 1 && key >= 'A' && key <= 'Z'
 }
 
 function showPwd() {
   if (state.passwordType === 'password') {
-    state.passwordType = '';
+    state.passwordType = ''
   } else {
-    state.passwordType = 'password';
+    state.passwordType = 'password'
   }
   nextTick(() => {
-    passwordRef.value.focus();
-  });
+    passwordRef.value.focus()
+  })
 }
 
 function handleLogin() {
   loginFormRef.value.validate((valid: boolean) => {
     if (valid) {
-      state.loading = true;
-      user.login(state.loginForm).then(() => {
-        router.push({ path: state.redirect || '/', query: state.otherQuery });
-        state.loading = false;
-      }).catch(() => {
-        state.loading = false;
-        handleCaptchaGenerate();
-      });
+      state.loading = true
+      user
+        .login(state.loginForm)
+        .then(() => {
+          router.push({ path: state.redirect || '/', query: state.otherQuery })
+          state.loading = false
+        })
+        .catch(() => {
+          state.loading = false
+          handleCaptchaGenerate()
+        })
     } else {
-      return false;
+      return false
     }
-  });
+  })
 }
 
 // 获取验证码
 function handleCaptchaGenerate() {
   proxy.$api.sys_login.getCaptcha().then(({ data }: any) => {
-    const { img, uuid } = data;
-    state.captchaBase64 = img;
-    state.loginForm.uuid = uuid;
-  });
+    const { img, uuid } = data
+    state.captchaBase64 = img
+    state.loginForm.uuid = uuid
+  })
 }
 
 watch(
   route,
   () => {
-    const query = route.query;
+    const query = route.query
     if (query) {
-      state.redirect = query.redirect as string;
-      state.otherQuery = getOtherQuery(query);
+      state.redirect = query.redirect as string
+      state.otherQuery = getOtherQuery(query)
     }
   },
   {
     immediate: true,
-  }
-);
+  },
+)
 
 function getOtherQuery(query: any) {
   return Object.keys(query).reduce((acc: any, cur: any) => {
     if (cur !== 'redirect') {
-      acc[cur] = query[cur];
+      acc[cur] = query[cur]
     }
-    return acc;
-  }, {});
+    return acc
+  }, {})
 }
 
 onMounted(() => {
-  handleCaptchaGenerate();
+  handleCaptchaGenerate()
   window.onresize = () => {
     if (state.clientHeight > document.documentElement.clientHeight) {
-      state.showCopyright = false;
+      state.showCopyright = false
     } else {
-      state.showCopyright = true;
+      state.showCopyright = true
     }
-  };
-});
+  }
+})
 </script>
 
 <style lang="scss">
@@ -263,7 +255,7 @@ $cursor: #fff;
 
         &:-webkit-autofill {
           box-shadow: 0 0 0px 1000px $bg inset !important;
-          -webkit-text-fill-color: $cursor  !important;
+          -webkit-text-fill-color: $cursor !important;
         }
       }
     }

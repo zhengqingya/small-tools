@@ -1,8 +1,7 @@
 <template>
   <base-wraper>
     <base-header>
-      <el-input v-model="listQuery.templateKey" placeholder="请输入键" style="width: 200px" clearable
-        @clear="refreshTableData" />
+      <el-input v-model="listQuery.templateKey" placeholder="请输入键" style="width: 200px" clearable @clear="refreshTableData" />
       <el-button type="primary" @click="refreshTableData">查询</el-button>
       <template #right>
         <el-button type="success" @click="showTest">测试</el-button>
@@ -16,19 +15,13 @@
       <el-table-column label="值" prop="templateValue" align="center"></el-table-column>
       <el-table-column label="数据类型" align="center">
         <template v-slot="scope">
-          <span :style="
-            scope.row.isCommon === 1
-              ? 'background-color: #00FFFF'
-              : 'background-color: #C0C0C0'
-          ">{{ scope.row.isCommonName }}</span>
+          <span :style="scope.row.isCommon === 1 ? 'background-color: #00FFFF' : 'background-color: #C0C0C0'">{{ scope.row.isCommonName }}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作">
         <template v-slot="scope">
-          <el-button v-if="scope.row.templateReUserId === currentUserId" link @click="handleUpdate(scope.row)">编辑
-          </el-button>
-          <base-delete-btn v-if="scope.row.templateReUserId === currentUserId" @ok="handleDelete(scope.row)">
-          </base-delete-btn>
+          <el-button v-if="scope.row.templateReUserId === currentUserId" link @click="handleUpdate(scope.row)">编辑 </el-button>
+          <base-delete-btn v-if="scope.row.templateReUserId === currentUserId" @ok="handleDelete(scope.row)"> </base-delete-btn>
         </template>
       </el-table-column>
     </base-table-p>
@@ -61,8 +54,8 @@
 </template>
 
 <script>
-import TemplateTest from './components/template-test.vue';
-import useStore from '@/store';
+import TemplateTest from './components/template-test.vue'
+import useStore from '@/store'
 export default {
   name: 'CodeFreeMarkerTemplate',
   components: { TemplateTest },
@@ -88,47 +81,42 @@ export default {
         detail: '详情',
       },
       rules: {},
-    };
+    }
   },
-  created() { },
+  created() {},
   methods: {
     refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     handleAdd() {
-      this.form = Object.assign({}, {});
-      this.dialogStatus = 'add';
-      this.dialogVisible = true;
+      this.form = Object.assign({}, {})
+      this.dialogStatus = 'add'
+      this.dialogVisible = true
     },
     showTest() {
-      this.$refs.templateTest.show();
+      this.$refs.templateTest.show()
     },
     handleUpdate(row) {
-      this.form = Object.assign({}, row);
-      this.dialogStatus = 'update';
-      this.dialogVisible = true;
+      this.form = Object.assign({}, row)
+      this.dialogStatus = 'update'
+      this.dialogVisible = true
     },
     async handleDelete(row) {
-      let res = await this.$api.cg_free_marker_template.delete(
-        row.freeMarkerTemplateId
-      );
-      this.refreshTableData();
-      this.submitOk(res.message);
+      let res = await this.$api.cg_free_marker_template.delete(row.freeMarkerTemplateId)
+      this.refreshTableData()
+      this.submitOk(res.message)
     },
     submitForm() {
       this.$refs.dataForm.validate(async (valid) => {
         if (valid) {
-          let res = await this.$api.cg_free_marker_template[
-            this.form.freeMarkerTemplateId ? 'update' : 'add'
-          ](this.form);
-          this.refreshTableData();
-          this.submitOk(res.message);
-          this.dialogVisible = false;
+          let res = await this.$api.cg_free_marker_template[this.form.freeMarkerTemplateId ? 'update' : 'add'](this.form)
+          this.refreshTableData()
+          this.submitOk(res.message)
+          this.dialogVisible = false
         }
-      });
+      })
     },
   },
-};
+}
 </script>
-<style scoped>
-</style>
+<style scoped></style>

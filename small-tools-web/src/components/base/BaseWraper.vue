@@ -3,15 +3,15 @@
     <slot />
   </div>
 </template>
-<script lang="ts"  >
+<script lang="ts">
 export default {
   props: {
     fullHeight: {
       type: Boolean,
       default: true,
     },
-  }
-};
+  },
+}
 </script>
 <style lang="scss" scoped>
 .wraper {

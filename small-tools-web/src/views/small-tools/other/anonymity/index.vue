@@ -4,8 +4,7 @@
       <el-select v-model="listQuery.status" placeholder="请选择" @change="refreshTableData">
         <el-option v-for="item in statusList" :key="item.status" :label="item.display_name" :value="item.status" />
       </el-select>
-      <el-input v-model="listQuery.content" style="width: 200px" placeholder="请输入查询内容" clearable
-        @clear="refreshTableData"></el-input>
+      <el-input v-model="listQuery.content" style="width: 200px" placeholder="请输入查询内容" clearable @clear="refreshTableData"></el-input>
       <el-button type="primary" @click="refreshTableData">查询</el-button>
       <template #right>
         <el-button type="primary" @click="handleAdd">添加</el-button>
@@ -23,11 +22,7 @@
       </el-table-column>
       <el-table-column label="是否处理" prop="statusName" align="center">
         <template v-slot="scope">
-          <span :style="
-            scope.row.status === 0
-              ? 'background-color:red;'
-              : 'background-color:#00FFFF;'
-          ">{{ scope.row.statusName }}</span>
+          <span :style="scope.row.status === 0 ? 'background-color:red;' : 'background-color:#00FFFF;'">{{ scope.row.statusName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="匿名处理人" prop="anonymousHandlerName" align="center"></el-table-column>
@@ -61,29 +56,15 @@
         <div v-if="dialogStatus === 'detail'">
           <base-table-cell label-width="100px">
             <base-cell-item label="ID:">{{ form.id }}</base-cell-item>
-            <base-cell-item label="内容:">{{
-                form.content
-            }}</base-cell-item>
-            <base-cell-item label="匿名用户名:">{{
-                form.anonymousUserName
-            }}</base-cell-item>
-            <base-cell-item label="是否处理:">{{
-                form.statusName
-            }}</base-cell-item>
+            <base-cell-item label="内容:">{{ form.content }}</base-cell-item>
+            <base-cell-item label="匿名用户名:">{{ form.anonymousUserName }}</base-cell-item>
+            <base-cell-item label="是否处理:">{{ form.statusName }}</base-cell-item>
 
-            <base-cell-item label="创建时间:">{{
-                form.createTime
-            }}</base-cell-item>
+            <base-cell-item label="创建时间:">{{ form.createTime }}</base-cell-item>
             <div v-if="form.status === 1">
-              <base-cell-item label="匿名处理人:">{{
-                  form.anonymousHandlerName
-              }}</base-cell-item>
-              <base-cell-item label="备注:">{{
-                  form.remark
-              }}</base-cell-item>
-              <base-cell-item label="处理时间:">{{
-                  form.handleTime
-              }}</base-cell-item>
+              <base-cell-item label="匿名处理人:">{{ form.anonymousHandlerName }}</base-cell-item>
+              <base-cell-item label="备注:">{{ form.remark }}</base-cell-item>
+              <base-cell-item label="处理时间:">{{ form.handleTime }}</base-cell-item>
             </div>
           </base-table-cell>
         </div>
@@ -138,57 +119,54 @@ export default {
         detail: '详情',
       },
       rules: {},
-    };
+    }
   },
-  created() { },
+  created() {},
   methods: {
     refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     handleAdd() {
-      this.form = Object.assign({}, {});
-      this.dialogStatus = 'add';
-      this.dialogVisible = true;
+      this.form = Object.assign({}, {})
+      this.dialogStatus = 'add'
+      this.dialogVisible = true
     },
     handleUpdate(row) {
-      this.form = Object.assign({}, row);
-      this.dialogStatus = 'update';
-      this.dialogVisible = true;
+      this.form = Object.assign({}, row)
+      this.dialogStatus = 'update'
+      this.dialogVisible = true
     },
     handleDetail(row) {
-      this.form = Object.assign({}, row);
-      this.dialogStatus = 'detail';
-      this.dialogVisible = true;
+      this.form = Object.assign({}, row)
+      this.dialogStatus = 'detail'
+      this.dialogVisible = true
     },
     handleData(row) {
-      this.form = Object.assign({}, row);
-      this.dialogStatus = 'handle';
-      this.dialogVisible = true;
+      this.form = Object.assign({}, row)
+      this.dialogStatus = 'handle'
+      this.dialogVisible = true
     },
     async handleDelete(row) {
-      let res = await this.$api.st_other_anonymity.delete(row.id);
-      this.refreshTableData();
-      this.submitOk(res.message);
+      let res = await this.$api.st_other_anonymity.delete(row.id)
+      this.refreshTableData()
+      this.submitOk(res.message)
     },
     submitForm() {
       this.$refs.dataForm.validate(async (valid) => {
         if (valid) {
-          let res;
+          let res
           if (this.dialogStatus === 'handle') {
-            res = await this.$api.st_other_anonymity.handle(this.form);
+            res = await this.$api.st_other_anonymity.handle(this.form)
           } else {
-            res = await this.$api.st_other_anonymity[
-              this.form.id ? 'update' : 'add'
-            ](this.form);
+            res = await this.$api.st_other_anonymity[this.form.id ? 'update' : 'add'](this.form)
           }
-          this.refreshTableData();
-          this.submitOk(res.message);
-          this.dialogVisible = false;
+          this.refreshTableData()
+          this.submitOk(res.message)
+          this.dialogVisible = false
         }
-      });
+      })
     },
   },
-};
+}
 </script>
-<style scoped>
-</style>
+<style scoped></style>

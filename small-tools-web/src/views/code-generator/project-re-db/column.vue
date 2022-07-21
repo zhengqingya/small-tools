@@ -13,9 +13,7 @@
         <el-row>
           <el-col :span="16">
             <base-table-cell>
-              <base-cell-item label="表备注" label-width="100px">{{
-                  tableInfo.tableComment
-              }}</base-cell-item>
+              <base-cell-item label="表备注" label-width="100px">{{ tableInfo.tableComment }}</base-cell-item>
             </base-table-cell>
             <base-table-cell>
               <base-cell-item label="可检索字段" label-width="100px">
@@ -39,8 +37,7 @@
             <base-table-cell>
               <base-cell-item label="数据类型" label-width="100px">
                 <el-select v-model="generateCodeParams.dataType" placeholder="请选择">
-                  <el-option v-for="item in dataTypeList" :key="item.key" :label="item.display_name"
-                    :value="item.key" />
+                  <el-option v-for="item in dataTypeList" :key="item.key" :label="item.display_name" :value="item.key" />
                 </el-select>
               </base-cell-item>
             </base-table-cell>
@@ -48,8 +45,16 @@
         </el-row>
       </div>
       <div>
-        <el-table ref="colTable" v-loading.body="listLoading" :data="tableInfo.columnInfoList" border fit
-          highlight-current-row size="small" @selection-change="handleSelectionChange">
+        <el-table
+          ref="colTable"
+          v-loading.body="listLoading"
+          :data="tableInfo.columnInfoList"
+          border
+          fit
+          highlight-current-row
+          size="small"
+          @selection-change="handleSelectionChange"
+        >
           <el-table-column type="selection" width="55" />
           <el-table-column align="center" label="ID" width="100" type="index" />
           <el-table-column width="200" label="字段名" header-align="center" align="center" prop="columnName" />
@@ -68,9 +73,7 @@ export default {
     return {
       listLoading: false,
       listQuery: {
-        projectReDbDataSourceId: parseInt(
-          this.$route.query.projectReDbDataSourceId
-        ),
+        projectReDbDataSourceId: parseInt(this.$route.query.projectReDbDataSourceId),
         tableName: this.$route.query.tableName,
       },
       dataTypeList: [
@@ -138,5 +141,4 @@ export default {
   },
 }
 </script>
-<style scoped>
-</style>
+<style scoped></style>

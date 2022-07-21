@@ -1,8 +1,7 @@
 <template>
   <base-wraper>
     <base-header>
-      <el-input v-model="listQuery.name" placeholder="请输入网站名称" style="width: 200px" clearable
-        @clear="refreshTableData" />
+      <el-input v-model="listQuery.name" placeholder="请输入网站名称" style="width: 200px" clearable @clear="refreshTableData" />
       <el-button type="primary" @click="refreshTableData">查询</el-button>
       <template #right>
         <el-button type="primary" @click="handleCreate">添加</el-button>
@@ -14,9 +13,7 @@
       <el-table-column label="网站名称" prop="name" align="center" />
       <el-table-column label="网站URL" prop="url" width="400px" align="left">
         <template v-slot="scope">
-          <a :href="scope.row.url" target="_blank" style="color: #317bec">{{
-              scope.row.url
-          }}</a>
+          <a :href="scope.row.url" target="_blank" style="color: #317bec">{{ scope.row.url }}</a>
         </template>
       </el-table-column>
       <el-table-column label="总文章数" width="100px" prop="articleSum" align="center" />
@@ -70,53 +67,50 @@ export default {
         url: [{ required: true, message: '请填写网站URL', trigger: 'blur' }],
         name: [{ required: true, message: '请填写网站名称', trigger: 'blur' }],
       },
-    };
+    }
   },
-  created() { },
+  created() {},
   methods: {
     async refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     handleCreate() {
-      this.form = Object.assign({}, {});
-      this.dialogStatus = 'create';
-      this.dialogFormVisible = true;
+      this.form = Object.assign({}, {})
+      this.dialogStatus = 'create'
+      this.dialogFormVisible = true
     },
     handleUpdate(row) {
-      this.form = Object.assign({}, row);
-      this.dialogStatus = 'update';
-      this.dialogFormVisible = true;
+      this.form = Object.assign({}, row)
+      this.dialogStatus = 'update'
+      this.dialogFormVisible = true
     },
     async handleDelete(id) {
-      let res = await this.$api.st_crawler_website.delete(id);
-      this.submitOk(res.msg);
-      this.refreshTableData();
+      let res = await this.$api.st_crawler_website.delete(id)
+      this.submitOk(res.msg)
+      this.refreshTableData()
     },
     async handleRefreshData(url) {
-      let res = await this.$api.st_crawler_website.refreshData({ url: url });
-      this.submitOk(res.msg);
-      this.refreshTableData();
+      let res = await this.$api.st_crawler_website.refreshData({ url: url })
+      this.submitOk(res.msg)
+      this.refreshTableData()
     },
     submitForm() {
       this.$refs.dataForm.validate(async (valid) => {
         if (valid) {
-          let res = await this.$api.st_crawler_website[
-            this.form.websiteId ? 'update' : 'add'
-          ](this.form);
-          this.submitOk(res.msg);
-          this.refreshTableData();
-          this.dialogFormVisible = false;
+          let res = await this.$api.st_crawler_website[this.form.websiteId ? 'update' : 'add'](this.form)
+          this.submitOk(res.msg)
+          this.refreshTableData()
+          this.dialogFormVisible = false
         }
-      });
+      })
     },
     // 监听dialog关闭时的处理事件
     handleDialogClose() {
       if (this.$refs['dataForm']) {
-        this.$refs['dataForm'].clearValidate(); // 清除整个表单的校验
+        this.$refs['dataForm'].clearValidate() // 清除整个表单的校验
       }
     },
   },
-};
+}
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -13,41 +13,40 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue';
-import { useWindowSize } from '@vueuse/core';
-import { AppMain, Navbar, TagsView } from './components/index';
-import Sidebar from './components/Sidebar/index.vue';
+import { computed, watchEffect } from 'vue'
+import { useWindowSize } from '@vueuse/core'
+import { AppMain, Navbar, TagsView } from './components/index'
+import Sidebar from './components/Sidebar/index.vue'
 
-import useStore from '@/store';
+import useStore from '@/store'
 
+const { width } = useWindowSize()
+const WIDTH = 992
 
-const { width } = useWindowSize();
-const WIDTH = 992;
+const { app, setting } = useStore()
 
-const { app, setting } = useStore();
-
-const sidebar = computed(() => app.sidebar);
-const device = computed(() => app.device);
-const needTagsView = computed(() => setting.tagsView);
+const sidebar = computed(() => app.sidebar)
+const device = computed(() => app.device)
+const needTagsView = computed(() => setting.tagsView)
 
 const classObj = computed(() => ({
   hideSidebar: !sidebar.value.opened,
   openSidebar: sidebar.value.opened,
   withoutAnimation: sidebar.value.withoutAnimation,
   mobile: device.value === 'mobile',
-}));
+}))
 
 watchEffect(() => {
   if (width.value < WIDTH) {
-    app.toggleDevice('mobile');
-    app.closeSideBar(true);
+    app.toggleDevice('mobile')
+    app.closeSideBar(true)
   } else {
-    app.toggleDevice('desktop');
+    app.toggleDevice('desktop')
   }
-});
+})
 
 function handleClickOutside() {
-  app.closeSideBar(false);
+  app.closeSideBar(false)
 }
 </script>
 

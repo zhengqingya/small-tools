@@ -5,9 +5,9 @@
 export default {
   name: 'ParentView',
   data() {
-    return {};
+    return {}
   },
   methods: {},
-};
+}
 </script>
 <style lang="scss" scoped></style>

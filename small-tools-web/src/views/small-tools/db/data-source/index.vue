@@ -1,9 +1,7 @@
 <template>
   <base-wraper>
     <base-header>
-      <el-input v-model="listQuery.name" style="width: 200px" placeholder="请输入数据源名称" clearable
-        @clear="refreshTableData">
-      </el-input>
+      <el-input v-model="listQuery.name" style="width: 200px" placeholder="请输入数据源名称" clearable @clear="refreshTableData"> </el-input>
       <el-button type="primary" @click="refreshTableData">查询</el-button>
       <template #right>
         <el-button type="primary" @click="handleCreate">添加</el-button>
@@ -21,12 +19,8 @@
       <el-table-column label="备注" show-overflow-tooltip align="center" prop="remark" />
       <el-table-column align="center" label="操作">
         <template v-slot="scope">
-          <el-button link plain @click="handleConnectTest(scope.row)">
-            连接测试
-          </el-button>
-          <el-button link plain @click="handleUpdate(scope.row)">
-            编辑
-          </el-button>
+          <el-button link plain @click="handleConnectTest(scope.row)"> 连接测试 </el-button>
+          <el-button link plain @click="handleUpdate(scope.row)"> 编辑 </el-button>
           <base-delete-btn @ok="handleDelete(scope.row)" />
         </template>
       </el-table-column>
@@ -92,55 +86,50 @@ export default {
         create: '创建',
       },
       rules: {},
-    };
+    }
   },
   created() {
-    this.getDataSourceTypeList();
+    this.getDataSourceTypeList()
   },
   methods: {
     refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     async getDataSourceTypeList() {
-      let res = await this.$api.sys_dict.listFromCacheByCode(
-        'st_db_data_source_type'
-      );
-      this.dataSourceTypeList = res.data;
+      let res = await this.$api.sys_dict.listFromCacheByCode('st_db_data_source_type')
+      this.dataSourceTypeList = res.data
     },
     async handleConnectTest(row) {
-      let res = await this.$api.st_db_operate.connectTest(row.id);
-      this.submitOk(res.msg);
+      let res = await this.$api.st_db_operate.connectTest(row.id)
+      this.submitOk(res.msg)
     },
     handleCreate() {
-      this.form = Object.assign({}, {});
-      this.dialogStatus = 'create';
-      this.dialogFormVisible = true;
+      this.form = Object.assign({}, {})
+      this.dialogStatus = 'create'
+      this.dialogFormVisible = true
     },
     handleUpdate(row) {
-      this.form = Object.assign({}, row);
-      this.form.project = undefined;
-      this.dialogStatus = 'update';
-      this.dialogFormVisible = true;
+      this.form = Object.assign({}, row)
+      this.form.project = undefined
+      this.dialogStatus = 'update'
+      this.dialogFormVisible = true
     },
     async handleDelete(row) {
-      let res = await this.$api.st_db_data_source.delete(row.id);
-      this.refreshTableData();
-      this.submitOk(res.msg);
+      let res = await this.$api.st_db_data_source.delete(row.id)
+      this.refreshTableData()
+      this.submitOk(res.msg)
     },
     submitForm() {
       this.$refs.dataForm.validate(async (valid) => {
         if (valid) {
-          let res = await this.$api.st_db_data_source[
-            this.form.id ? 'update' : 'add'
-          ](this.form);
-          this.refreshTableData();
-          this.submitOk(res.msg);
-          this.dialogFormVisible = false;
+          let res = await this.$api.st_db_data_source[this.form.id ? 'update' : 'add'](this.form)
+          this.refreshTableData()
+          this.submitOk(res.msg)
+          this.dialogFormVisible = false
         }
-      });
+      })
     },
   },
-};
+}
 </script>
-<style scoped>
-</style>
+<style scoped></style>

@@ -2,7 +2,6 @@
   "name": "small-tools-web",
   "private": true,
   "version": "1.0.1",
-  "type": "module",
   "scripts": {
     "dev": "vite --mode dev",
     "build:prod": "vue-tsc --noEmit && vite build --mode prod",

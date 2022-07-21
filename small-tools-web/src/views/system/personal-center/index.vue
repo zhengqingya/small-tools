@@ -10,29 +10,18 @@
             <base-cell-item label="头像">
               <el-image :src="avatarUrl" style="width: 100px; height: 100px" />
             </base-cell-item>
-            <base-cell-item label="账号">{{
-                form.username
-            }}</base-cell-item>
-            <base-cell-item label="名称">{{
-                form.nickname
-            }}</base-cell-item>
-            <base-cell-item label="性别">{{
-                form.sexName || '未知'
-            }}</base-cell-item>
-            <base-cell-item label="手机号码">{{
-                form.phone
-            }}</base-cell-item>
+            <base-cell-item label="账号">{{ form.username }}</base-cell-item>
+            <base-cell-item label="名称">{{ form.nickname }}</base-cell-item>
+            <base-cell-item label="性别">{{ form.sexName || '未知' }}</base-cell-item>
+            <base-cell-item label="手机号码">{{ form.phone }}</base-cell-item>
             <base-cell-item label="邮箱">{{ form.email }}</base-cell-item>
-            <base-cell-item label="创建时间">{{
-                form.createTime
-            }}</base-cell-item>
+            <base-cell-item label="创建时间">{{ form.createTime }}</base-cell-item>
           </base-table-cell>
         </base-title-card>
       </el-col>
       <el-col :span="11">
         <base-title-card title="第三方帐号绑定">
-          <base-table-p ref="baseTable" api="sys_oauth.getOauthDataList" :params="tableOauthDataListQuery"
-            :index-code="true" :is-page="false">
+          <base-table-p ref="baseTable" api="sys_oauth.getOauthDataList" :params="tableOauthDataListQuery" :index-code="true" :is-page="false">
             <el-table-column label="绑定帐号信息" align="center">
               <template v-slot="scope">
                 <span>{{ scope.row.oauthTypeName }}</span>
@@ -48,10 +37,9 @@
             <el-table-column label="操作" align="center">
               <template v-slot="scope">
                 <el-button v-if="scope.row.ifBind" type="danger" @click="handleOauthBind(scope.row)">解绑</el-button>
-                <el-button v-else type="primary" @click="handleOauthBind(scope.row)"><a
-                    :href="oauthUrl + scope.row.oauthTypeBindName">
-                    绑定
-                  </a></el-button>
+                <el-button v-else type="primary" @click="handleOauthBind(scope.row)"
+                  ><a :href="oauthUrl + scope.row.oauthTypeBindName"> 绑定 </a></el-button
+                >
               </template>
             </el-table-column>
           </base-table-p>
@@ -91,7 +79,7 @@
 </template>
 
 <script>
-import useStore from '@/store';
+import useStore from '@/store'
 
 export default {
   name: 'UserInfo',
@@ -110,37 +98,37 @@ export default {
       // oauthUrl: process.env.VUE_APP_BASE_API + '/system/web/api/oauth/',
       // oauthType: this.$route.query.oauthType,
       // openId: this.$route.query.openId,
-    };
+    }
   },
   created() {
-    this.getUserInfoById();
+    this.getUserInfoById()
     // if (this.oauthType && this.openId) {
     //   this.submitOauthInfo();
     // }
   },
   methods: {
     async getUserInfoById() {
-      let res = await this.$api.sys_user.getUserInfoById(this.userId);
-      this.form = res.data;
+      let res = await this.$api.sys_user.getUserInfoById(this.userId)
+      this.form = res.data
     },
     handleAvatar(avatarUrl) {
-      this.form.avatarUrl = avatarUrl;
-      this.avatarUrl = avatarUrl;
+      this.form.avatarUrl = avatarUrl
+      this.avatarUrl = avatarUrl
     },
     async refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     async handleOauthBind(row) {
-      let ifBind = row.ifBind;
+      let ifBind = row.ifBind
       if (ifBind === 1) {
         // 如果为绑定则解除绑定
         let res = await this.$api.sys_oauth.removeBind({
           userReOauthId: row.userReOauthId,
-        });
-        this.submitOk(res.msg);
-        this.refreshTableData();
+        })
+        this.submitOk(res.msg)
+        this.refreshTableData()
       } else {
-        await this.$api.sys_oauth.thirdpartOauth(row.oauthTypeName);
+        await this.$api.sys_oauth.thirdpartOauth(row.oauthTypeName)
       }
     },
     async submitOauthInfo() {
@@ -148,20 +136,19 @@ export default {
         userId: this.userId,
         oauthType: this.oauthType,
         openId: this.openId,
-      };
-      let res = await this.$api.sys_oauth.bindThirdPart(oauthForm);
-      this.submitOk(res.msg);
-      this.refreshTableData();
-      this.$router.replace('/system/personal-center');
+      }
+      let res = await this.$api.sys_oauth.bindThirdPart(oauthForm)
+      this.submitOk(res.msg)
+      this.refreshTableData()
+      this.$router.replace('/system/personal-center')
     },
     async submitForm() {
-      await this.$api.sys_user.update(this.form);
-      this.submitOk('保存成功');
-      this.dialogVisible = false;
+      await this.$api.sys_user.update(this.form)
+      this.submitOk('保存成功')
+      this.dialogVisible = false
     },
   },
-};
+}
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

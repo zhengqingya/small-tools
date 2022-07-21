@@ -1,8 +1,7 @@
 <template>
   <base-wraper>
     <base-header>
-      <el-input v-model="listQuery.tableName" placeholder="表名称" clearable style="width: 200px"
-        @clear="refreshTableData" />
+      <el-input v-model="listQuery.tableName" placeholder="表名称" clearable style="width: 200px" @clear="refreshTableData" />
       <el-button type="primary" @click="refreshTableData">查询</el-button>
       <template #right>
         <el-button @click="handleBack()">返回</el-button>
@@ -15,13 +14,15 @@
       <el-table-column label="注释" header-align="center" align="center" prop="tableComment" />
       <el-table-column align="center" label="操作">
         <template v-slot="scope">
-          <router-link :to="{
-            path: '/codeGenerator/project-re-db/column',
-            query: {
-              projectReDbDataSourceId: listQuery.projectReDbDataSourceId,
-              tableName: scope.row.tableName,
-            },
-          }">
+          <router-link
+            :to="{
+              path: '/codeGenerator/project-re-db/column',
+              query: {
+                projectReDbDataSourceId: listQuery.projectReDbDataSourceId,
+                tableName: scope.row.tableName,
+              },
+            }"
+          >
             <el-button link plain>查看表信息</el-button>
           </router-link>
         </template>
@@ -36,23 +37,20 @@ export default {
   data() {
     return {
       listQuery: {
-        projectReDbDataSourceId: parseInt(
-          this.$route.query.projectReDbDataSourceId
-        ),
+        projectReDbDataSourceId: parseInt(this.$route.query.projectReDbDataSourceId),
         tableName: '',
       },
-    };
+    }
   },
-  created() { },
+  created() {},
   methods: {
     async refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     handleBack() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
   },
-};
+}
 </script>
-<style scoped>
-</style>
+<style scoped></style>

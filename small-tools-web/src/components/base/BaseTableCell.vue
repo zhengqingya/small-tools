@@ -1,8 +1,5 @@
 <template>
-  <ul class="table-cell" :class="[
-    true ? 'table-cell-dark-theme' : '',
-    labelPosition ? 'table-cell__label-' + labelPosition : '',
-  ]">
+  <ul class="table-cell" :class="[true ? 'table-cell-dark-theme' : '', labelPosition ? 'table-cell__label-' + labelPosition : '']">
     <slot />
   </ul>
 </template>
@@ -21,13 +18,13 @@ export default {
   provide() {
     return {
       tableCell: this,
-    };
+    }
   },
   data() {
-    return {};
+    return {}
   },
   methods: {},
-};
+}
 </script>
 <style lang="scss" scoped>
 ul.table-cell {

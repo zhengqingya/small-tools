@@ -9,16 +9,12 @@
         <el-option :value="undefined" label="全部" />
         <el-option v-for="item in dataSourceList" :key="item.id" :value="item.id" :label="item.name" />
       </el-select>
-      <el-button type="primary" @click="refreshTableData">
-        查询
-      </el-button>
+      <el-button type="primary" @click="refreshTableData"> 查询 </el-button>
       <template #right>
         <router-link to="/db/data-source">
           <el-button type="warning">查看数据库信息</el-button>
         </router-link>
-        <el-button type="primary" @click="handleAdd">
-          添加
-        </el-button>
+        <el-button type="primary" @click="handleAdd"> 添加 </el-button>
       </template>
     </base-header>
 
@@ -32,15 +28,15 @@
         <template v-slot="scope">
           <el-button link @click="handleUpdate(scope.row)">编辑</el-button>
           <base-delete-btn @ok="handleDelete(scope.row)" />
-          <el-button link plain @click="handleConnectTest(scope.row)">
-            连接测试
-          </el-button>
-          <router-link :to="{
-            path: '/codeGenerator/project-re-db/table',
-            query: {
-              projectReDbDataSourceId: scope.row.projectReDbDataSourceId,
-            },
-          }">
+          <el-button link plain @click="handleConnectTest(scope.row)"> 连接测试 </el-button>
+          <router-link
+            :to="{
+              path: '/codeGenerator/project-re-db/table',
+              query: {
+                projectReDbDataSourceId: scope.row.projectReDbDataSourceId,
+              },
+            }"
+          >
             <el-button link plain>查看表</el-button>
           </router-link>
         </template>
@@ -103,62 +99,54 @@ export default {
         detail: '详情',
       },
       rules: {},
-    };
+    }
   },
   created() {
-    this.getProjectList();
-    this.getDataSourceList();
+    this.getProjectList()
+    this.getDataSourceList()
   },
   methods: {
     refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     async getProjectList() {
-      let res = await this.$api.cg_project.list({});
-      this.projectList = res.data;
+      let res = await this.$api.cg_project.list({})
+      this.projectList = res.data
     },
     async getDataSourceList() {
-      let res = await this.$api.st_db_data_source.list();
-      this.dataSourceList = res.data;
+      let res = await this.$api.st_db_data_source.list()
+      this.dataSourceList = res.data
     },
     async handleConnectTest(row) {
-      let res = await this.$api.st_db_operate.connectTest(
-        row.dbDataSourceId,
-        row.dbName
-      );
-      this.submitOk(res.msg);
+      let res = await this.$api.st_db_operate.connectTest(row.dbDataSourceId, row.dbName)
+      this.submitOk(res.msg)
     },
     handleAdd() {
-      this.form = Object.assign({}, {});
-      this.dialogStatus = 'add';
-      this.dialogVisible = true;
+      this.form = Object.assign({}, {})
+      this.dialogStatus = 'add'
+      this.dialogVisible = true
     },
     handleUpdate(row) {
-      this.form = Object.assign({}, row);
-      this.dialogStatus = 'update';
-      this.dialogVisible = true;
+      this.form = Object.assign({}, row)
+      this.dialogStatus = 'update'
+      this.dialogVisible = true
     },
     async handleDelete(row) {
-      const res = await this.$api.cg_project_re_db.delete(
-        row.projectReDbDataSourceId
-      );
-      this.refreshTableData();
-      this.submitOk(res.message);
+      const res = await this.$api.cg_project_re_db.delete(row.projectReDbDataSourceId)
+      this.refreshTableData()
+      this.submitOk(res.message)
     },
     submitForm() {
       this.$refs.dataForm.validate(async (valid) => {
         if (valid) {
-          const res = await this.$api.cg_project_re_db[
-            this.form.projectReDbDataSourceId ? 'update' : 'add'
-          ](this.form);
-          this.refreshTableData();
-          this.submitOk(res.message);
-          this.dialogVisible = false;
+          const res = await this.$api.cg_project_re_db[this.form.projectReDbDataSourceId ? 'update' : 'add'](this.form)
+          this.refreshTableData()
+          this.submitOk(res.message)
+          this.dialogVisible = false
         }
-      });
+      })
     },
   },
-};
+}
 </script>
-<style scoped>
-</style>
+<style scoped></style>

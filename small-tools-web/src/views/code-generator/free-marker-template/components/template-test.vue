@@ -4,14 +4,12 @@
       <el-row :gutter="1">
         <el-col :span="12">
           <base-title-card title="模板数据：">
-            <el-input v-model="templateContent" style="height: 400px;overflow-y:auto;overflow-x:hidden;" type="textarea"
-              :rows="20" />
+            <el-input v-model="templateContent" style="height: 400px; overflow-y: auto; overflow-x: hidden" type="textarea" :rows="20" />
           </base-title-card>
         </el-col>
         <el-col :span="12">
           <base-title-card title="生成数据：">
-            <el-input v-model="templateData" style="height: 400px;overflow-y:auto;overflow-x:hidden;" type="textarea"
-              :rows="20" />
+            <el-input v-model="templateData" style="height: 400px; overflow-y: auto; overflow-x: hidden" type="textarea" :rows="20" />
           </base-title-card>
         </el-col>
       </el-row>
@@ -31,23 +29,22 @@ export default {
       dialogVisible: false,
       templateContent: '',
       templateData: '',
-    };
+    }
   },
-  created() { },
+  created() {},
   methods: {
     show() {
-      this.dialogVisible = true;
+      this.dialogVisible = true
     },
     async submitForm() {
       let res = await this.$api.cg_free_marker_template.testTemplateData({
         templateContent: this.templateContent,
-      });
-      this.submitOk(res.message);
-      this.templateData = res.data;
+      })
+      this.submitOk(res.message)
+      this.templateData = res.data
       // this.dialogVisible = false;
     },
   },
-};
+}
 </script>
-<style scoped>
-</style>
+<style scoped></style>

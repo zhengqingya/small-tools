@@ -1,6 +1,5 @@
 <template>
-  <div class="base-header" :class="{ border: border }"
-    :style="{ paddingTop: top + 'px', paddingBottom: bottom + 'px' }">
+  <div class="base-header" :class="{ border: border }" :style="{ paddingTop: top + 'px', paddingBottom: bottom + 'px' }">
     <div class="left">
       <slot></slot>
     </div>
@@ -23,7 +22,7 @@ export default {
       default: false,
     },
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 .base-header {

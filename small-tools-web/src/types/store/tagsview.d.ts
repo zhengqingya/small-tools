@@ -1,11 +1,10 @@
-import { RouteLocationNormalized } from 'vue-router';
-
+import { RouteLocationNormalized } from 'vue-router'
 
 export interface TagView extends Partial<RouteLocationNormalized> {
-    title?: string;
+  title?: string
 }
 
 export interface TagsViewState {
-    visitedViews: TagView[];
-    cachedViews: string[];
+  visitedViews: TagView[]
+  cachedViews: string[]
 }

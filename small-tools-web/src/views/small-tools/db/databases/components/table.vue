@@ -4,12 +4,18 @@
       <template #append>
         <el-button type="warning" icon="el-icon-edit-outline" @click="handleTableInfoToWord()">生成word</el-button>
       </template>
-      <base-table-p v-if="tableList && tableList.length > 0" ref="baseTable" v-loading="tableLoading" height="600px"
-        :index-code="true" :is-page="false" :data="tableList">
+      <base-table-p
+        v-if="tableList && tableList.length > 0"
+        ref="baseTable"
+        v-loading="tableLoading"
+        height="600px"
+        :index-code="true"
+        :is-page="false"
+        :data="tableList"
+      >
         <el-table-column label="表名" align="left">
           <template v-slot="scope">
-            <span style="font-weight: bold; color: #409eff" @click="showTableColumnList(scope.row.tableName)">
-              {{ scope.row.tableName }}</span>
+            <span style="font-weight: bold; color: #409eff" @click="showTableColumnList(scope.row.tableName)"> {{ scope.row.tableName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="表类型" prop="engine" align="center" />
@@ -56,34 +62,29 @@ export default {
       isShow: false,
       tableLoading: true,
       tableList: [], // 数据表列表
-    };
+    }
   },
-  created() { },
+  created() {},
   methods: {
     // 刷新表格数据
     open(tableList) {
-      this.isShow = true;
-      this.tableLoading = true;
-      this.tableList = tableList;
-      this.tableLoading = false;
+      this.isShow = true
+      this.tableLoading = true
+      this.tableList = tableList
+      this.tableLoading = false
     },
     showTableColumnList(tableName) {
-      this.$emit('showTableColumnList', tableName);
+      this.$emit('showTableColumnList', tableName)
     },
     async handleTableInfoToWord() {
-      let res =
-        await this.$api.st_db_operate.tableInfoToWordByDataSourceIdAndDbName(
-          this.dataSourceId,
-          this.dbName
-        );
-      this.submitOk(res.msg);
-      document.location.href = res.data;
+      let res = await this.$api.st_db_operate.tableInfoToWordByDataSourceIdAndDbName(this.dataSourceId, this.dbName)
+      this.submitOk(res.msg)
+      document.location.href = res.data
     },
     close() {
-      this.isShow = false;
+      this.isShow = false
     },
   },
-};
+}
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

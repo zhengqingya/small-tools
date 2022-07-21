@@ -12,16 +12,11 @@
       <el-col :span="18">
         <base-wraper>
           <base-title-card title="字典类型信息">
-            <el-button v-if="dictTypeData.name" slot="append" type="primary" @click="updateDictType(dictTypeData)">编辑
-            </el-button>
+            <el-button v-if="dictTypeData.name" slot="append" type="primary" @click="updateDictType(dictTypeData)">编辑 </el-button>
             <el-button v-if="dictTypeData.name" slot="append" type="danger" @click="deleteDictType">删除</el-button>
             <base-table-cell>
-              <base-cell-item label="字典类型名称">{{
-                  dictTypeData.name
-              }}</base-cell-item>
-              <base-cell-item label="字典类型编码">{{
-                  dictTypeData.code
-              }}</base-cell-item>
+              <base-cell-item label="字典类型名称">{{ dictTypeData.name }}</base-cell-item>
+              <base-cell-item label="字典类型编码">{{ dictTypeData.code }}</base-cell-item>
               <base-cell-item v-if="dictTypeData.status == 1" label="字典类型状态">启用</base-cell-item>
               <base-cell-item v-if="dictTypeData.status == 0" label="字典类型状态">停用</base-cell-item>
             </base-table-cell>
@@ -50,8 +45,8 @@
   </base-wraper>
 </template>
 <script>
-import editDict from './edit-dict.vue';
-import editDictType from './edit-dict-type.vue';
+import editDict from './edit-dict.vue'
+import editDictType from './edit-dict-type.vue'
 export default {
   name: 'Dict',
   components: { editDict, editDictType },
@@ -66,83 +61,76 @@ export default {
       dicList: [], // 字典列表
       dictTypeData: {},
       listLoading: false,
-    };
+    }
   },
   computed: {
     calcTableHeight() {
-      const winHeight = document.documentElement.clientHeight;
-      return Math.abs(winHeight - 360);
+      const winHeight = document.documentElement.clientHeight
+      return Math.abs(winHeight - 360)
     },
   },
   mounted() {
-    this.getDictTree();
+    this.getDictTree()
   },
   methods: {
     async getDictTree() {
-      let res = await this.$api.sys_dict_type.list();
-      this.dictionaryTree = res.data;
-      this.dictTypeData = {};
-      this.dicList = [];
-      this.isShowAddDictButton = false;
+      let res = await this.$api.sys_dict_type.list()
+      this.dictionaryTree = res.data
+      this.dictTypeData = {}
+      this.dicList = []
+      this.isShowAddDictButton = false
     },
     handleNodeClick(data) {
-      this.dictTypeData = data;
-      this.getDicList(this.dictTypeData);
-      this.isShowAddDictButton = true;
+      this.dictTypeData = data
+      this.getDicList(this.dictTypeData)
+      this.isShowAddDictButton = true
     },
     async getDicList(data) {
-      let res = await this.$api.sys_dict.listByCode(data.code);
-      this.dicList = res.data;
+      let res = await this.$api.sys_dict.listByCode(data.code)
+      this.dicList = res.data
     },
     addDict() {
       if (!this.dictTypeData.name) {
-        this.$message.warning('请先选中要添加的字典类型');
-        return;
+        this.$message.warning('请先选中要添加的字典类型')
+        return
       }
-      var maxSort = 1;
+      var maxSort = 1
       if (this.dicList.length > 0) {
-        maxSort = Math.max(...this.dicList.map((e) => e.sort)) + 1;
+        maxSort = Math.max(...this.dicList.map((e) => e.sort)) + 1
       }
-      this.$refs.editDict.open(
-        'create',
-        null,
-        this.dictTypeData.id,
-        this.dictTypeData.code,
-        maxSort
-      );
+      this.$refs.editDict.open('create', null, this.dictTypeData.id, this.dictTypeData.code, maxSort)
     },
     updateDict(row) {
-      this.$refs.editDict.open('update', row);
+      this.$refs.editDict.open('update', row)
     },
     async deleteDict({ id }) {
-      let res = await this.$api.sys_dict.delete(id);
-      this.submitOk(res.msg);
-      this.getDicList(this.dictTypeData);
+      let res = await this.$api.sys_dict.delete(id)
+      this.submitOk(res.msg)
+      this.getDicList(this.dictTypeData)
     },
     // 下：数据字典类型操作 ======================
     addDictType() {
-      this.$refs.editDictType.open('create');
+      this.$refs.editDictType.open('create')
     },
     updateDictType(row) {
-      this.$refs.editDictType.open('update', row);
+      this.$refs.editDictType.open('update', row)
     },
     deleteDictType() {
       if (!this.dictTypeData.name) {
-        this.$message.warning('请先选中要删除的字典类型');
-        return;
+        this.$message.warning('请先选中要删除的字典类型')
+        return
       }
       this.$confirm('确定删除数据字典?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       }).then(async () => {
-        let res = await this.$api.sys_dict_type.delete(this.dictTypeData.id);
-        this.submitOk(res.msg);
-        this.getDictTree();
-      });
+        let res = await this.$api.sys_dict_type.delete(this.dictTypeData.id)
+        this.submitOk(res.msg)
+        this.getDictTree()
+      })
     },
   },
-};
+}
 </script>
-<style scoped>
-</style>
+<style scoped></style>

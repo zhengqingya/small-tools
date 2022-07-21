@@ -16,19 +16,18 @@
   <p>store: {{ $store.app.name }}</p>
   <el-button @click="changeStore('666')">change store</el-button>
 
-  <hr>
+  <hr />
 
   <base-wraper :fullHeight="true">Hello</base-wraper>
 </template>
 
 <script lang="ts" setup>
-import { Check, Delete, Edit, Message, Search, Star, } from '@element-plus/icons-vue'
+import { Check, Delete, Edit, Message, Search, Star } from '@element-plus/icons-vue'
 
-import { getCurrentInstance } from 'vue';
+import { getCurrentInstance } from 'vue'
 
 import { storeToRefs } from 'pinia'
-import useStore from "@/store";
-
+import useStore from '@/store'
 
 const { app } = useStore()
 // const name = ref(app.name)
@@ -39,15 +38,13 @@ function changeStore(value: string) {
   app.setName(value)
 }
 
-
 // 组件实例
-const { proxy }: any = getCurrentInstance();
+const { proxy }: any = getCurrentInstance()
 // 获取验证码
 async function handleCaptcha() {
   const res = await proxy.$api.sys_login.getCaptcha()
-  console.log('res:', res);
+  console.log('res:', res)
 }
 
 handleCaptcha()
-
 </script>

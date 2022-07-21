@@ -65,44 +65,41 @@ export default {
         update: '编辑',
         create: '添加',
       },
-    };
+    }
   },
-  mounted() { },
+  mounted() {},
   methods: {
     async refreshTableData() {
-      this.$refs.baseTable.refresh();
+      this.$refs.baseTable.refresh()
     },
     saveForm() {
       this.$refs.roleForm.validate(async (valid) => {
         if (valid) {
-          let res = await this.$api.sys_role[
-            this.roleForm.roleId ? 'update' : 'add'
-          ](this.roleForm);
-          this.submitOk(res.msg);
-          this.refreshTableData();
-          this.dialogVisible = false;
+          let res = await this.$api.sys_role[this.roleForm.roleId ? 'update' : 'add'](this.roleForm)
+          this.submitOk(res.msg)
+          this.refreshTableData()
+          this.dialogVisible = false
         }
-      });
+      })
     },
     update(row) {
-      this.roleForm = Object.assign({}, row);
-      this.dialogVisible = true;
-      this.dialogStatus = 'update';
+      this.roleForm = Object.assign({}, row)
+      this.dialogVisible = true
+      this.dialogStatus = 'update'
     },
     add() {
-      this.dialogVisible = true;
-      this.dialogStatus = 'create';
-      this.roleForm.roleId = '';
-      this.roleForm.name = '';
-      this.roleForm.code = '';
+      this.dialogVisible = true
+      this.dialogStatus = 'create'
+      this.roleForm.roleId = ''
+      this.roleForm.name = ''
+      this.roleForm.code = ''
     },
     async deleteData(id) {
-      let res = await this.$api.sys_role.delete(id);
-      this.submitOk(res.msg);
-      this.refreshTableData();
+      let res = await this.$api.sys_role.delete(id)
+      this.submitOk(res.msg)
+      this.refreshTableData()
     },
   },
-};
+}
 </script>
-<style scoped>
-</style>
+<style scoped></style>

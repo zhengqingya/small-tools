@@ -21,14 +21,14 @@ export default {
     },
   },
   data() {
-    return {};
+    return {}
   },
   computed: {
     computedLabelWidth() {
-      return this.labelWidth || this.tableCell.labelWidth;
+      return this.labelWidth || this.tableCell.labelWidth
     },
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 .cell-item {

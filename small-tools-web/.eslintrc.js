@@ -1,25 +1,26 @@
 module.exports = {
-    parser:  '@typescript-eslint/parser', //定义ESLint的解析器
-    extends:[ 
-    'prettier/@typescript-eslint',  // 使@typescript-eslint中的样式规范失效，遵循prettier中的样式规范
-    'plugin:prettier/recommended' // 使用prettier中的样式规范，且如果使ESLint会检测prettier的格式问题，同样将格式问题以error的形式抛出
-    ],
-    settings: {
-        "react": {
-            "pragma": "React",
-            "version": "detect"
-        }
-    },
-    parserOptions: {
-        "ecmaVersion": 2019,
-        "sourceType": 'module',
-        "ecmaFeatures":{
-            jsx:true
-        }
-    },
-    env:{
-         //指定代码的运行环境
-        browser: true,
-        node: true,
-    }
-};
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
+  },
+  globals: {
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
+  },
+  parser: 'vue-eslint-parser',
+  extends: ['eslint:recommended', 'plugin:vue/vue3-essential', 'plugin:@typescript-eslint/recommended'],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module',
+  },
+  plugins: ['vue', '@typescript-eslint'],
+  rules: {
+    'vue/multi-word-component-names': 'off',
+    '@typescript-eslint/no-empty-function': 'off', // 关闭空方法检查
+    '@typescript-eslint/no-explicit-any': 'off', // 关闭any类型的警告
+    'vue/no-v-model-argument': 'off',
+  },
+}

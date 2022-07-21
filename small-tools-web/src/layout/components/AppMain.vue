@@ -11,12 +11,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import useStore from '@/store';
+import { computed } from 'vue'
+import useStore from '@/store'
 
-const { tagsView } = useStore();
+const { tagsView } = useStore()
 
-const cachedViews = computed(() => tagsView.cachedViews);
+const cachedViews = computed(() => tagsView.cachedViews)
 </script>
 
 <style lang="scss" scoped>
@@ -27,7 +27,7 @@ const cachedViews = computed(() => tagsView.cachedViews);
   overflow: hidden;
 }
 
-.fixed-header+.app-main {
+.fixed-header + .app-main {
   padding-top: 50px;
 }
 
@@ -36,7 +36,7 @@ const cachedViews = computed(() => tagsView.cachedViews);
     min-height: calc(100vh - 84px);
   }
 
-  .fixed-header+.app-main {
+  .fixed-header + .app-main {
     padding-top: 84px;
   }
 }

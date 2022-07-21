@@ -10,7 +10,7 @@
   text-align: center;
   margin-top: 50px;
 
-  >span {
+  > span {
     font-size: 30px;
   }
 }

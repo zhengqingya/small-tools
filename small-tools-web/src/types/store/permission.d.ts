@@ -1,4 +1,4 @@
 export interface PermissionState {
-    routes: RouteRecordRaw[];
-    addRoutes: RouteRecordRaw[];
+  routes: RouteRecordRaw[]
+  addRoutes: RouteRecordRaw[]
 }

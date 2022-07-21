@@ -1,14 +1,19 @@
 <template>
   <base-wraper>
     <base-title-card title="数据库" style="padding-top: 0">
-      <el-select slot="append" v-model="dataSourceId" placeholder="请选择数据源"
-        @change="handleChangeDataSource(dataSourceId)">
+      <el-select slot="append" v-model="dataSourceId" placeholder="请选择数据源" @change="handleChangeDataSource(dataSourceId)">
         <el-option v-for="item in dataSourceList" :key="item.id" :value="item.id" :label="item.name" />
       </el-select>
-      <el-input v-model="filterDbText" placeholder="输入关键字进行过滤" clearable>
-      </el-input>
-      <el-tree ref="tree" :data="treeData" :props="dbProps" :filter-node-method="filterDbNode" :accordion="true"
-        :highlight-current="true" @node-click="handleNodeClick" />
+      <el-input v-model="filterDbText" placeholder="输入关键字进行过滤" clearable> </el-input>
+      <el-tree
+        ref="tree"
+        :data="treeData"
+        :props="dbProps"
+        :filter-node-method="filterDbNode"
+        :accordion="true"
+        :highlight-current="true"
+        @node-click="handleNodeClick"
+      />
       <!-- 下面2个属性为懒加载子节点，暂时不要此功能 -->
       <!-- :load="loadDbNode" -->
       <!-- lazy -->
@@ -60,9 +65,7 @@ export default {
       this.dataSourceList = res.data
     },
     async handleChangeDataSource(dataSourceId) {
-      let res = await this.$api.st_db_operate.getAllDatabasesByDataSourceId(
-        dataSourceId
-      )
+      let res = await this.$api.st_db_operate.getAllDatabasesByDataSourceId(dataSourceId)
       let resData = res.data
       let data = []
       if (resData) {
@@ -80,11 +83,10 @@ export default {
       if (data.children) {
         // 情况①：显示所有表信息
         let dbName = data.name
-        let res =
-          await this.$api.st_db_operate.getAllTablesByDataSourceIdAndDbName({
-            dataSourceId: this.dataSourceId,
-            dbName: dbName,
-          })
+        let res = await this.$api.st_db_operate.getAllTablesByDataSourceIdAndDbName({
+          dataSourceId: this.dataSourceId,
+          dbName: dbName,
+        })
         let tableInfoList = res.data
         this.tableList = tableInfoList
         this.treeData.forEach((e) => {
@@ -126,11 +128,10 @@ export default {
       // 第二级的时候为表名，不需要再请求了...
       if (dbName && node.level < 2) {
         // 请求api
-        let res =
-          await this.$api.st_db_operate.getAllTablesByDataSourceIdAndDbName({
-            dataSourceId: this.dataSourceId,
-            dbName: dbName,
-          })
+        let res = await this.$api.st_db_operate.getAllTablesByDataSourceIdAndDbName({
+          dataSourceId: this.dataSourceId,
+          dbName: dbName,
+        })
         tableNameList = res.data
       } else {
         return resolve([])
@@ -155,5 +156,4 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

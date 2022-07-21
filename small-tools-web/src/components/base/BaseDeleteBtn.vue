@@ -6,9 +6,7 @@
       <el-button link @click="handleClick">确定</el-button>
     </div>
     <template #reference>
-      <el-button link style="margin-left: 5px; color: #f56c6c" @click="visible = true">
-        删除
-      </el-button>
+      <el-button link style="margin-left: 5px; color: #f56c6c" @click="visible = true"> 删除 </el-button>
     </template>
   </el-popover>
 </template>
@@ -17,15 +15,14 @@ export default {
   data() {
     return {
       visible: false,
-    };
+    }
   },
   methods: {
     handleClick() {
-      this.$emit('ok');
-      this.visible = false;
+      this.$emit('ok')
+      this.visible = false
     },
   },
-};
+}
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

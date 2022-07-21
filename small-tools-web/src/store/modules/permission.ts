@@ -1,40 +1,36 @@
-import { PermissionState } from '@/types/store/permission';
-import { RouteRecordRaw } from 'vue-router';
-import { defineStore } from 'pinia';
-import { constantRoutes } from '@/router';
-import useStore from '@/store';
+import { PermissionState } from '@/types/store/permission'
+import { RouteRecordRaw } from 'vue-router'
+import { defineStore } from 'pinia'
+import { constantRoutes } from '@/router'
+import useStore from '@/store'
 
-const modules = import.meta.glob('../../views/**/**.vue');
-export const Layout = () => import('@/layout/index.vue');
-export const parentView = () => import('@/layout/parentView.vue');
+const modules = import.meta.glob('../../views/**/**.vue')
+export const Layout = () => import('@/layout/index.vue')
+export const parentView = () => import('@/layout/parentView.vue')
 
-export const filterAsyncRoutes = (
-  routes: RouteRecordRaw[],
-  roleNames: string[]
-) => {
-  const res: RouteRecordRaw[] = [];
+export const filterAsyncRoutes = (routes: RouteRecordRaw[], roleNames: string[]) => {
+  const res: RouteRecordRaw[] = []
   routes.forEach((route) => {
-    const tmp = { ...route } as any;
+    const tmp = { ...route } as any
     if (tmp.component === 'Layout') {
-      tmp.component = Layout;
+      tmp.component = Layout
     } else if (tmp.component === 'parentView') {
       tmp.component = parentView
     } else {
-      const component = modules[`../../views/${tmp.component}.vue`] as any;
+      const component = modules[`../../views/${tmp.component}.vue`] as any
       if (component) {
-        tmp.component = modules[`../../views/${tmp.component}.vue`];
+        tmp.component = modules[`../../views/${tmp.component}.vue`]
       } else {
-        tmp.component = modules[`../../views/error-page/404.vue`];
+        tmp.component = modules[`../../views/error-page/404.vue`]
       }
     }
-    res.push(tmp);
+    res.push(tmp)
     if (tmp.children) {
-      tmp.children = filterAsyncRoutes(tmp.children, roleNames);
+      tmp.children = filterAsyncRoutes(tmp.children, roleNames)
     }
-
-  });
-  return res;
-};
+  })
+  return res
+}
 
 /**
  * 侧边栏权限路由
@@ -47,18 +43,18 @@ const usePermissionStore = defineStore({
   }),
   actions: {
     setRoutes(routes: RouteRecordRaw[]) {
-      this.addRoutes = routes;
-      this.routes = constantRoutes.concat(routes);
+      this.addRoutes = routes
+      this.routes = constantRoutes.concat(routes)
     },
     generateRoutes(roleNames: string[]) {
-      const { user } = useStore();
-      const accessedRoutes = filterAsyncRoutes(user.permissionTreeList, roleNames);
+      const { user } = useStore()
+      const accessedRoutes = filterAsyncRoutes(user.permissionTreeList, roleNames)
       return new Promise((resolve, reject) => {
-        this.setRoutes(accessedRoutes);
-        resolve(accessedRoutes);
-      });
+        this.setRoutes(accessedRoutes)
+        resolve(accessedRoutes)
+      })
     },
   },
-});
+})
 
-export default usePermissionStore;
+export default usePermissionStore

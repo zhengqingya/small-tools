@@ -16,13 +16,13 @@ export default {
     columns: {
       type: Array,
       default() {
-        return [];
+        return []
       },
     },
   },
   data() {
-    return {};
+    return {}
   },
-  created() { },
-};
+  created() {},
+}
 </script>

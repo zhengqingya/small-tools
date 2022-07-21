@@ -1,7 +1,6 @@
 <template>
   <div class="navbar">
-    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container"
-      @toggleClick="toggleSideBar" />
+    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
 
@@ -37,28 +36,28 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { ElMessageBox } from 'element-plus';
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { ElMessageBox } from 'element-plus'
 
-import useStore from '@/store';
+import useStore from '@/store'
 
 // 组件依赖
-import Breadcrumb from '@/components/Breadcrumb/index.vue';
-import Hamburger from '@/components/Hamburger/index.vue';
+import Breadcrumb from '@/components/Breadcrumb/index.vue'
+import Hamburger from '@/components/Hamburger/index.vue'
 
-const { app, user, tagsView } = useStore();
+const { app, user, tagsView } = useStore()
 
-const route = useRoute();
-const router = useRouter();
+const route = useRoute()
+const router = useRouter()
 
-const sidebar = computed(() => app.sidebar);
-const device = computed(() => app.device);
-const avatarUrl = computed(() => user.avatarUrl);
-const nickname = computed(() => user.nickname);
+const sidebar = computed(() => app.sidebar)
+const device = computed(() => app.device)
+const avatarUrl = computed(() => user.avatarUrl)
+const nickname = computed(() => user.nickname)
 
 function toggleSideBar() {
-  app.toggleSidebar();
+  app.toggleSidebar()
 }
 
 function logout() {
@@ -70,12 +69,12 @@ function logout() {
     user
       .logout()
       .then(() => {
-        tagsView.delAllViews();
+        tagsView.delAllViews()
       })
       .then(() => {
-        router.push(`/login?redirect=${route.fullPath}`);
-      });
-  });
+        router.push(`/login?redirect=${route.fullPath}`)
+      })
+  })
 }
 </script>
 
