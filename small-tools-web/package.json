@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --mode dev",
     "build:prod": "vue-tsc --noEmit && vite build --mode prod",
-    "preview": "vite preview --port 8080",
+    "preview": "vite preview --port 8080 --mode prod",
     "lint": "eslint --ext .js --ext .ts --ext .vue src",
     "lint-fix": "eslint --ext .js --ext .ts --ext .vue src --fix",
     "prettier": "prettier --write ."

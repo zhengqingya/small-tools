@@ -7,7 +7,7 @@
         @clear="refreshTableData" />
       <el-button type="primary" @click="refreshTableData">查询</el-button>
       <template #right>
-        <el-button v-hasPerm="'add'" type="primary" @click="handleCreate">添加</el-button>
+        <el-button v-hasPerm="'sys:user:add'" type="primary" @click="handleCreate">添加</el-button>
       </template>
     </base-header>
 

@@ -10,7 +10,6 @@
       <app-main />
     </div>
   </div>
-  <themes />
 </template>
 
 <script setup lang="ts">
@@ -18,7 +17,6 @@ import { computed, watchEffect } from 'vue';
 import { useWindowSize } from '@vueuse/core';
 import { AppMain, Navbar, TagsView } from './components/index';
 import Sidebar from './components/Sidebar/index.vue';
-import Themes from './themes.vue';
 
 import useStore from '@/store';
 

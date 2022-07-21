@@ -141,7 +141,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-/deep/ .zq_select .el-input.is-disabled .el-input__inner {
+.zq_select .el-input.is-disabled .el-input__inner {
   background: red;
 }
 </style>

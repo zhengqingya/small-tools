@@ -21,8 +21,10 @@
     // 允许编译器编译JS文件
     "allowJs": true,
     // 允许在JS文件中报错，通常与allowJS一起使用
-    "checkJs": true
+    // "checkJs": true
+    "allowSyntheticDefaultImports": true, // 允许引入没有默认导出的模块
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/utils/mixin.js"],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
