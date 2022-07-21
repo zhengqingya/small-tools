@@ -29,11 +29,11 @@ public interface ISysRolePermissionService extends IService<SysRolePermission> {
 
 
     /**
-     * 通过角色ID和菜单ID查询该菜单所拥有的所有按钮
+     * 通过角色ID和菜单ID查询该菜单所拥有的所有按钮权限
      *
      * @param roleId 角色ID
      * @param menuId 菜单ID
-     * @return 菜单所拥有的所有按钮ids
+     * @return 菜单所拥有的所有按钮权限ids
      * @author zhengqingya
      * @date 2020/9/10 17:58
      */

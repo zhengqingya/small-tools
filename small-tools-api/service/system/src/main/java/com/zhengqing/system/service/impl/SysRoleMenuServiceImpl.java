@@ -36,7 +36,7 @@ public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRo
     private SysRoleMenuMapper sysRoleMenuMapper;
 
     @Resource
-    private ISysRolePermissionService sysRoleMenuBtnService;
+    private ISysRolePermissionService sysRolePermissionService;
 
     @Override
     public List<Integer> getMenuIdsByRoleId(Integer roleId) {
@@ -101,16 +101,16 @@ public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRo
             menuAndBtnPermissionTree.forEach(menu -> {
                 Integer menuId = menu.getMenuId();
                 // ① 先删除按钮权限数据
-                this.sysRoleMenuBtnService.deleteBtnsByRoleIdAndMenuId(roleId, menuId);
+                this.sysRolePermissionService.deleteBtnsByRoleIdAndMenuId(roleId, menuId);
 
                 // ② 保存按钮权限数据
-                List<Integer> btnIdList = menu.getBtnIdList();
-                if (!CollectionUtils.isEmpty(btnIdList)) {
+                List<Integer> permissionIdList = menu.getPermissionIdList();
+                if (!CollectionUtils.isEmpty(permissionIdList)) {
                     SysRoleMenuBtnSaveDTO btnSaveItem = new SysRoleMenuBtnSaveDTO();
                     btnSaveItem.setRoleId(roleId);
                     btnSaveItem.setMenuId(menuId);
-                    btnSaveItem.setBtnIdList(btnIdList);
-                    this.sysRoleMenuBtnService.saveRoleMenuBtnIds(btnSaveItem);
+                    btnSaveItem.setPermissionIdList(permissionIdList);
+                    this.sysRolePermissionService.saveRoleMenuBtnIds(btnSaveItem);
                 }
 
                 // ③ 判断如果有子树则递归下去

@@ -43,10 +43,10 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     private ISysRoleMenuService sysRoleMenuService;
 
     @Resource
-    private ISysRolePermissionService sysRoleMenuBtnService;
+    private ISysRolePermissionService sysRolePermissionService;
 
     @Resource
-    private ISysPermissionService sysMenuBtnService;
+    private ISysPermissionService sysPermissionService;
 
     @Override
     public IPage<SysRoleListVO> listPage(SysRoleListDTO params) {
@@ -100,10 +100,10 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         if (!CollectionUtils.isEmpty(menTree)) {
             menTree.forEach(menu -> {
                 Integer menuId = menu.getMenuId();
-                List<SysMenuBtnListVO> btnInfoList = this.sysMenuBtnService.getBtnInfoListByMenuId(menuId);
-                List<Integer> btnIdList = this.sysRoleMenuBtnService.getPermissionBtnsByRoleIdAndMenuId(roleId, menuId);
+                List<SysMenuBtnListVO> btnInfoList = this.sysPermissionService.getBtnInfoListByMenuId(menuId);
+                List<Integer> permissionIdList = this.sysRolePermissionService.getPermissionBtnsByRoleIdAndMenuId(roleId, menuId);
                 menu.setBtnInfoList(btnInfoList);
-                menu.setBtnIdList(btnIdList);
+                menu.setPermissionIdList(permissionIdList);
                 List<SysMenuTreeVO> menuChildren = menu.getChildren();
                 this.handleRecursionTree(menuChildren, roleId);
             });
@@ -115,7 +115,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         // 1、删除该角色下关联的菜单
         this.sysRoleMenuService.deleteAllMenusByRoleId(roleId);
         // 2、删除该角色下关联的按钮
-        this.sysRoleMenuBtnService.deleteBtnsByRoleId(roleId);
+        this.sysRolePermissionService.deleteBtnsByRoleId(roleId);
         // 3、删除角色
         this.removeById(roleId);
     }

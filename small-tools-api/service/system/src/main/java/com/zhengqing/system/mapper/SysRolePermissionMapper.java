@@ -29,11 +29,11 @@ public interface SysRolePermissionMapper extends BaseMapper<SysRolePermission> {
     List<SysRoleMenuBtnListVO> selectRoleMenuBtns();
 
     /**
-     * 通过角色ID和菜单ID查询该菜单所拥有的所有按钮
+     * 通过角色ID和菜单ID查询该菜单所拥有的所有按钮权限
      *
      * @param roleId 角色ID
      * @param menuId 菜单ID
-     * @return 菜单所拥有的所有按钮ids
+     * @return 菜单所拥有的所有按钮权限ids
      * @author zhengqingya
      * @date 2020/9/10 17:58
      */
@@ -59,7 +59,7 @@ public interface SysRolePermissionMapper extends BaseMapper<SysRolePermission> {
      * @author zhengqingya
      * @date 2020/9/10 17:57
      */
-    @Delete("DELETE FROM t_sys_permission sp JOIN t_sys_role_permission srp on sp.id = srp.permission_id WHERE srp.role_id = #{roleId} AND sp.menu_id = #{menuId}")
+    @Delete("DELETE srp FROM t_sys_role_permission srp,t_sys_permission sp WHERE sp.id = srp.permission_id AND srp.role_id = #{roleId} AND sp.menu_id = #{menuId}")
     void deleteBtnsByRoleIdAndMenuId(@Param("roleId") Integer roleId, @Param("menuId") Integer menuId);
 
 }

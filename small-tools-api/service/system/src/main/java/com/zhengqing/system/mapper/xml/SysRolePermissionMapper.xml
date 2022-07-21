@@ -14,7 +14,7 @@
     </select>
 
     <select id="selectBtnsByRoleIdAndMenuId" resultType="java.lang.Integer">
-        SELECT sp.btn_id
+        SELECT sp.id
         FROM t_sys_role_permission srp
                  JOIN t_sys_permission sp ON sp.id = srp.permission_id
         WHERE srp.is_deleted = 0

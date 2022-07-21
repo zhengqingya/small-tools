@@ -28,7 +28,7 @@ public class SysRoleMenuBtnSaveDTO {
     @ApiModelProperty(value = "菜单ID")
     private Integer menuId;
 
-    @ApiModelProperty(value = "菜单下按钮的id")
-    private List<Integer> btnIdList;
+    @ApiModelProperty(value = "菜单下按钮权限id")
+    private List<Integer> permissionIdList;
 
 }

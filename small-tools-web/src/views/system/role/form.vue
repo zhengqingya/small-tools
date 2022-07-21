@@ -16,21 +16,25 @@
       <base-title-card title="权限信息">
         <el-row :gutter="20">
           <el-col :span="14">
-            <el-tree ref="menuTree" :data="allMenus" :props="defaultProps" show-checkbox node-key="menuId" @node-click="handleNodeClick" />
+            <el-tree ref="menuTree" :data="allMenus" :props="defaultProps" show-checkbox node-key="menuId"
+              @node-click="handleNodeClick" />
           </el-col>
           <el-col :span="10">
             <el-card v-if="permissionBtns.length > 0 && showConfigContainer" class="box-card">
-              <div slot="header" class="clearfix">
-                <span>编辑页面按钮权限</span>
-                <el-button style="float: right; padding: 3px 0" link @click="handleSavePermissionBtns">保存</el-button>
-              </div>
-              <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" style="margin-bottom: 10px" @change="handleCheckAllBtnsChange"
-                >全选</el-checkbox
-              >
+              <template #header>
+                <div class="card-header">
+                  <span>编辑页面按钮权限</span>
+                  <el-button style="float: right; padding: 3px 0" link @click="handleSavePermissionBtns">保存</el-button>
+                </div>
+              </template>
+              <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" style="margin-bottom: 10px"
+                @change="handleCheckAllBtnsChange">全选</el-checkbox>
               <el-checkbox-group v-model="currentSelectedBtns" @change="handleCheckedBtnsChange">
-                <el-checkbox v-for="(item, index) in permissionBtns" :key="index" :label="item.btnId">{{ item.btnName }} </el-checkbox>
+                <el-checkbox v-for="(item, index) in permissionBtns" :key="index" :label="item.id">{{ item.btnName }}
+                </el-checkbox>
               </el-checkbox-group>
             </el-card>
+            <base-no-data v-else>该菜单暂未分配按钮权限</base-no-data>
           </el-col>
         </el-row>
       </base-title-card>
@@ -167,13 +171,13 @@ export default {
       const submitObj = {
         roleId: this.$route.query.id,
         menuId: this.currentClickMenu.menuId,
-        btnIdList: this.currentSelectedBtns,
+        permissionIdList: this.currentSelectedBtns,
       }
       let res = await this.$api.sys_role.savePermissionBtnIds(submitObj)
       this.submitOk(res.msg)
     },
     handleCheckAllBtnsChange(val) {
-      const allBtnsId = this.permissionBtns.map((item) => item.btnId)
+      const allBtnsId = this.permissionBtns.map((item) => item.id)
       this.currentSelectedBtns = val ? allBtnsId : []
       this.isIndeterminate = false
     },
@@ -185,4 +189,5 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

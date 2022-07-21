@@ -83,6 +83,6 @@ public class SysMenuTreeVO {
     private List<SysMenuBtnListVO> btnInfoList;
 
     @ApiModelProperty(value = "角色关联菜单下的所拥有的按钮权限信息")
-    private List<Integer> btnIdList;
+    private List<Integer> permissionIdList;
 
 }
