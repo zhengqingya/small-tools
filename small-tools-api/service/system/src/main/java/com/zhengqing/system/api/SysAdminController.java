@@ -1,6 +1,9 @@
 package com.zhengqing.system.api;
 
+import com.zhengqing.common.base.constant.ProjectConstant;
+import com.zhengqing.common.base.util.MyFileUtil;
 import com.zhengqing.common.core.api.BaseController;
+import com.zhengqing.common.db.mapper.MyBaseMapper;
 import com.zhengqing.system.model.vo.SysRoleRePermListVO;
 import com.zhengqing.system.service.ISysPermissionBusinessService;
 import com.zhengqing.system.service.ISysPermissionService;
@@ -29,8 +32,8 @@ import java.util.List;
 public class SysAdminController extends BaseController {
 
     private final ISysPermissionService sysPermissionService;
-
     private final ISysPermissionBusinessService sysPermissionBusinessService;
+    private final MyBaseMapper myBaseMapper;
 
     @ApiOperation("获取角色权限映射数据")
     @GetMapping("listRoleRePerm")
@@ -42,6 +45,14 @@ public class SysAdminController extends BaseController {
     @GetMapping("refreshRedisPerm")
     public void refreshRedisPerm() {
         this.sysPermissionBusinessService.refreshRedisPerm();
+    }
+
+    @ApiOperation("初始化DB")
+    @GetMapping("initDb")
+    public String initDb() {
+        String sql = MyFileUtil.readFileContent(ProjectConstant.PROJECT_ROOT_DIRECTORY + "/doc/small-tools.sql");
+//        this.myBaseMapper.execSql("");
+        return sql;
     }
 
 }
