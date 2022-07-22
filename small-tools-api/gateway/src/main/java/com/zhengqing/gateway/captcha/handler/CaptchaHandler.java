@@ -31,9 +31,9 @@ public class CaptchaHandler implements HandlerFunction<ServerResponse> {
     public Mono<ServerResponse> handle(ServerRequest request) {
         ShearCaptcha shearCaptcha = CaptchaUtil.createShearCaptcha(300, 100, 4, 4);
         // 1、获取到4位数的验证码
-//        String captchaCode = shearCaptcha.getCode();
+        String captchaCode = shearCaptcha.getCode();
         // TODO 开发阶段临时使用
-        String captchaCode = "666";
+//        String captchaCode = "666";
         // 生成图片，获取base64编码字符串
         String captchaImageBase64Str = shearCaptcha.getImageBase64Data();
 

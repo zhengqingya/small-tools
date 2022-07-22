@@ -1,6 +1,7 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+    <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on"
+      label-position="left">
       <div class="title-container">
         <h3 class="title">Small Tools</h3>
       </div>
@@ -11,7 +12,8 @@
             <User />
           </el-icon>
         </span>
-        <el-input ref="username" v-model="loginForm.username" placeholder="请输入用户名" name="username" link tabindex="1" auto-complete="on" />
+        <el-input ref="username" v-model="loginForm.username" placeholder="请输入用户名" name="username" link tabindex="1"
+          auto-complete="on" />
       </el-form-item>
 
       <el-tooltip :disabled="capslockTooltipDisabled" content="Caps lock is On" placement="right">
@@ -21,19 +23,9 @@
               <Lock />
             </el-icon>
           </span>
-          <el-input
-            ref="passwordRef"
-            :key="passwordType"
-            v-model="loginForm.password"
-            :type="passwordType"
-            placeholder="请输入密码"
-            name="password"
-            tabindex="2"
-            auto-complete="on"
-            @keyup="checkCapslock"
-            @blur="capslockTooltipDisabled = true"
-            @keyup.enter="handleLogin"
-          />
+          <el-input ref="passwordRef" :key="passwordType" v-model="loginForm.password" :type="passwordType"
+            placeholder="请输入密码" name="password" tabindex="2" auto-complete="on" @keyup="checkCapslock"
+            @blur="capslockTooltipDisabled = true" @keyup.enter="handleLogin" />
           <span class="show-pwd" @click="showPwd">
             <el-icon>
               <View v-if="passwordType === 'password'" />
@@ -50,21 +42,23 @@
             <ChatLineSquare />
           </el-icon>
         </span>
-        <el-input v-model="loginForm.code" auto-complete="off" placeholder="请输入验证码" style="width: 65%" @keyup.enter="handleLogin" />
+        <el-input v-model="loginForm.code" auto-complete="off" placeholder="请输入验证码" style="width: 65%"
+          @keyup.enter="handleLogin" />
 
         <div class="captcha">
           <img :src="captchaBase64" @click="handleCaptchaGenerate" height="38px" />
         </div>
       </el-form-item>
 
-      <el-button size="default" :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px" @click.prevent="handleLogin"
-        >登 录</el-button
-      >
+      <el-button size="default" :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px"
+        @click.prevent="handleLogin">登 录</el-button>
 
       <div class="tips">
         <span style="margin-right: 20px">用户名: admin</span>
-        <span> 密码: 123456</span>
+        <span style="margin-right: 20px"> 密码: 123456</span>
+        <!-- <span> 验证码: {{ loginForm.code }}</span> -->
       </div>
+
     </el-form>
 
     <div v-if="showCopyright == true" class="copyright">
@@ -99,7 +93,7 @@ const state = reactive({
   loginForm: {
     username: 'admin',
     password: '123456',
-    code: '666',
+    code: '',
     uuid: '',
   } as LoginFormData,
   loginRules: {
@@ -255,7 +249,7 @@ $cursor: #fff;
 
         &:-webkit-autofill {
           box-shadow: 0 0 0px 1000px $bg inset !important;
-          -webkit-text-fill-color: $cursor !important;
+          -webkit-text-fill-color: $cursor  !important;
         }
       }
     }
