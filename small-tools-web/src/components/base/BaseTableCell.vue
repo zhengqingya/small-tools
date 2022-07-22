@@ -1,5 +1,6 @@
 <template>
-  <ul class="table-cell" :class="[true ? 'table-cell-dark-theme' : '', labelPosition ? 'table-cell__label-' + labelPosition : '']">
+  <ul class="table-cell"
+    :class="[true ? 'table-cell-dark-theme' : '', labelPosition ? 'table-cell__label-' + labelPosition : '']">
     <slot />
   </ul>
 </template>
@@ -30,7 +31,7 @@ export default {
 ul.table-cell {
   line-height: 38px;
   width: 100%;
-  background: rgba(249, 249, 249, 0);
+  // background: #fff;
   font-size: 12px;
 }
 

@@ -67,7 +67,7 @@ export default {
       },
     }
   },
-  mounted() {},
+  mounted() { },
   methods: {
     async refreshTableData() {
       this.$refs.baseTable.refresh()
@@ -102,4 +102,5 @@ export default {
   },
 }
 </script>
-<style scoped></style>
+<style scoped>
+</style>

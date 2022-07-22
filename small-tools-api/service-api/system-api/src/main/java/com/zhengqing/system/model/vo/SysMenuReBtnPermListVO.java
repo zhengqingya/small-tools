@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * <p>
- * 菜单按钮展示参数
+ * 菜单按钮权限展示参数
  * </p>
  *
  * @author zhengqingya
@@ -14,8 +14,8 @@ import lombok.Data;
  * @date 2020/9/10 22:03
  */
 @Data
-@ApiModel("菜单按钮展示参数")
-public class SysMenuBtnListVO {
+@ApiModel("菜单按钮权限展示参数")
+public class SysMenuReBtnPermListVO {
 
     @ApiModelProperty(value = "id")
     private Integer id;
@@ -23,9 +23,13 @@ public class SysMenuBtnListVO {
     @ApiModelProperty(value = "菜单ID")
     private Integer menuId;
 
-    @ApiModelProperty(value = "按钮值")
-    private Integer btnId;
+    @ApiModelProperty(value = "权限名称")
+    private String name;
 
-    @ApiModelProperty(value = "按钮名称")
-    private String btnName;
+    @ApiModelProperty(value = "按钮权限标识")
+    private String btnPerm;
+
+    @ApiModelProperty(value = "URL权限标识")
+    private String urlPerm;
+
 }

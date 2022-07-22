@@ -30,7 +30,7 @@
               <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" style="margin-bottom: 10px"
                 @change="handleCheckAllBtnsChange">全选</el-checkbox>
               <el-checkbox-group v-model="currentSelectedBtns" @change="handleCheckedBtnsChange">
-                <el-checkbox v-for="(item, index) in permissionBtns" :key="index" :label="item.id">{{ item.btnName }}
+                <el-checkbox v-for="(item, index) in permissionBtns" :key="index" :label="item.id">{{ item.name }}
                 </el-checkbox>
               </el-checkbox-group>
             </el-card>
@@ -156,7 +156,7 @@ export default {
       }
     },
     async getCurrentPagePermissionBtns(menuId) {
-      let res = await this.$api.sys_role.getBtnsByMenuId(menuId)
+      let res = await this.$api.sys_menu.getPermListByMenuId(menuId)
       this.permissionBtns = res.data
     },
     async getSelectedPermissionBtn(menuId) {

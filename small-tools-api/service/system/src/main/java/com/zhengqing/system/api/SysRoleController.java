@@ -5,7 +5,6 @@ import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.common.core.custom.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.common.core.custom.validator.common.UpdateGroup;
 import com.zhengqing.system.model.dto.*;
-import com.zhengqing.system.model.vo.SysMenuBtnListVO;
 import com.zhengqing.system.model.vo.SysRoleAllPermissionDetailVO;
 import com.zhengqing.system.model.vo.SysRoleListVO;
 import com.zhengqing.system.model.vo.SysRolePermissionDetailVO;
@@ -94,12 +93,6 @@ public class SysRoleController extends BaseController {
     }
 
     // ======================== ↓↓↓↓↓↓ 角色关联菜单按钮权限 ↓↓↓↓↓↓ ==========================
-
-    @GetMapping("getBtnsByMenuId")
-    @ApiOperation("通过菜单id查询该菜单所有按钮信息")
-    public List<SysMenuBtnListVO> getBtnInfoListByMenuId(@RequestParam Integer menuId) {
-        return this.sysMenuBtnService.getBtnInfoListByMenuId(menuId);
-    }
 
     @GetMapping("getPermissionBtnsByRoleIdAndMenuId")
     @ApiOperation("通过角色id和菜单id查询该菜单所拥有的所有按钮")

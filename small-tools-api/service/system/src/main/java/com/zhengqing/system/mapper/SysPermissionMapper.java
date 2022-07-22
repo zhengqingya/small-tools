@@ -2,7 +2,7 @@ package com.zhengqing.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zhengqing.system.entity.SysPermission;
-import com.zhengqing.system.model.vo.SysMenuBtnListVO;
+import com.zhengqing.system.model.vo.SysMenuReBtnPermListVO;
 import com.zhengqing.system.model.vo.SysRoleRePermListVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
@@ -51,7 +51,7 @@ public interface SysPermissionMapper extends BaseMapper<SysPermission> {
      * @author zhengqingya
      * @date 2020/9/10 22:18
      */
-    List<SysMenuBtnListVO> selectBtnInfoListByMenuId(@Param("menuId") Integer menuId);
+    List<SysMenuReBtnPermListVO> selectBtnInfoListByMenuId(@Param("menuId") Integer menuId);
 
     /**
      * 获取角色权限映射数据

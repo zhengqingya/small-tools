@@ -80,7 +80,7 @@ public class SysMenuTreeVO {
     // 下面属性只在角色管理页面-权限中使用
 
     @ApiModelProperty(value = "菜单关联的所有按钮信息")
-    private List<SysMenuBtnListVO> btnInfoList;
+    private List<SysMenuReBtnPermListVO> btnInfoList;
 
     @ApiModelProperty(value = "角色关联菜单下的所拥有的按钮权限信息")
     private List<Integer> permissionIdList;

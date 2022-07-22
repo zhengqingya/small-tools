@@ -53,22 +53,9 @@ export default {
       data: { roleId: id, status: status },
     })
   },
-  /**
-   * 获取角色管理 页面中的权限按钮个数
-   * @param {arr} data
-   */
-  getBtnsByMenuId(id) {
-    return request({
-      url: BASE_API + '/getBtnsByMenuId',
-      method: 'get',
-      params: {
-        menuId: id,
-      },
-    })
-  },
+
   /**
    * 获取角色管理 页面中的权限按钮被选中的按钮
-   * @param {arr} data
    */
   getPermissionBtnsByRoleIdAndMenuId(data) {
     return request({
@@ -79,7 +66,6 @@ export default {
   },
   /**
    * 保存角色管理页面中的权限按钮被选中的按钮
-   * @param {arr} data
    */
   savePermissionBtnIds(data) {
     return request({

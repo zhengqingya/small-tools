@@ -100,7 +100,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         if (!CollectionUtils.isEmpty(menTree)) {
             menTree.forEach(menu -> {
                 Integer menuId = menu.getMenuId();
-                List<SysMenuBtnListVO> btnInfoList = this.sysPermissionService.getBtnInfoListByMenuId(menuId);
+                List<SysMenuReBtnPermListVO> btnInfoList = this.sysPermissionService.getPermListByMenuId(menuId);
                 List<Integer> permissionIdList = this.sysRolePermissionService.getPermissionBtnsByRoleIdAndMenuId(roleId, menuId);
                 menu.setBtnInfoList(btnInfoList);
                 menu.setPermissionIdList(permissionIdList);

@@ -19,7 +19,7 @@ import java.util.List;
  * </p>
  *
  * @author zhengqingya
- * @description 可参考[WebMagic官网文档](http : / / webmagic.io / docs / zh / posts / ch4 - basic - page - processor / pageprocessor.html)
+ * @description 可参考WebMagic官网文档：http://webmagic.io/docs/zh/posts/ch4-basic-page-processor/pageprocessor.html
  * @date 2020/7/1 12:36
  */
 @Slf4j
@@ -38,13 +38,13 @@ public class StCsdnPageProcessor implements PageProcessor {
     /**
      * 【部分一】：抓取网站的相关配置，包括编码、抓取间隔、重试次数等
      */
-    private Site site = Site.me().
+    private Site site = Site.me()
             // 重试次数
-                    setRetryTimes(3).
+            .setRetryTimes(3)
             // 抓取间隔
-                    setSleepTime(1000).
+            .setSleepTime(1000)
             // 超时时间
-                    setTimeOut(100 * 1000);
+            .setTimeOut(100 * 1000);
 
     /**
      * process是定制爬虫逻辑的核心接口，在这里编写抽取逻辑

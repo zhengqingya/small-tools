@@ -1,43 +1,44 @@
 <template>
   <base-wraper>
     <el-row style="height: 100%" :gutter="15">
-      <el-col :span="6" style="height: 100%">
+      <el-col :span="5" style="height: 100%">
         <base-wraper full-height>
           <base-title-card title="字典类型">
-            <el-button slot="append" type="primary" @click="addDictType">添加</el-button>
+            <el-button type="primary" @click="addDictType">添加</el-button>
             <el-tree :props="defaultProps" :data="dictionaryTree" highlight-current @node-click="handleNodeClick" />
           </base-title-card>
         </base-wraper>
       </el-col>
-      <el-col :span="18">
+      <el-col :span="7">
         <base-wraper>
           <base-title-card title="字典类型信息">
-            <el-button v-if="dictTypeData.name" slot="append" type="primary" @click="updateDictType(dictTypeData)">编辑 </el-button>
-            <el-button v-if="dictTypeData.name" slot="append" type="danger" @click="deleteDictType">删除</el-button>
+            <el-button v-if="dictTypeData.name" type="primary" @click="updateDictType(dictTypeData)">编辑 </el-button>
+            <el-button v-if="dictTypeData.name" type="danger" @click="deleteDictType">删除</el-button>
             <base-table-cell>
-              <base-cell-item label="字典类型名称">{{ dictTypeData.name }}</base-cell-item>
-              <base-cell-item label="字典类型编码">{{ dictTypeData.code }}</base-cell-item>
-              <base-cell-item v-if="dictTypeData.status == 1" label="字典类型状态">启用</base-cell-item>
-              <base-cell-item v-if="dictTypeData.status == 0" label="字典类型状态">停用</base-cell-item>
+              <base-cell-item label-width="105px" label="字典类型名称">{{ dictTypeData.name }}</base-cell-item>
+              <base-cell-item label-width="105px" label="字典类型编码">{{ dictTypeData.code }}</base-cell-item>
+              <base-cell-item label-width="105px" v-if="dictTypeData.status == 1" label="字典类型状态">启用</base-cell-item>
+              <base-cell-item label-width="105px" v-if="dictTypeData.status == 0" label="字典类型状态">停用</base-cell-item>
             </base-table-cell>
           </base-title-card>
-          <hr />
-          <base-title-card style="margin-top: 10px" title="字典列表">
-            <el-button v-if="isShowAddDictButton" slot="append" type="primary" @click="addDict">添加</el-button>
-            <el-table v-loading.body="listLoading" :data="dicList" border :height="calcTableHeight">
-              <el-table-column prop="id" label="ID" />
-              <el-table-column prop="name" label="字典名称" />
-              <el-table-column prop="value" label="字典值" />
-              <el-table-column prop="sort" label="展示排序" />
-              <el-table-column label="操作" align="center" width="150">
-                <template v-slot="scope">
-                  <el-button link @click="updateDict(scope.row)">编辑</el-button>
-                  <base-delete-btn @ok="deleteDict(scope.row)" />
-                </template>
-              </el-table-column>
-            </el-table>
-          </base-title-card>
         </base-wraper>
+      </el-col>
+      <el-col :span="10">
+        <base-title-card style="margin-top: 10px" title="字典列表">
+          <el-button v-if="isShowAddDictButton" type="primary" @click="addDict">添加</el-button>
+          <el-table v-loading.body="listLoading" :data="dicList" border :height="calcTableHeight">
+            <el-table-column prop="id" label="ID" />
+            <el-table-column prop="name" label="字典名称" />
+            <el-table-column prop="value" label="字典值" />
+            <el-table-column prop="sort" label="展示排序" />
+            <el-table-column label="操作" align="center" width="150">
+              <template v-slot="scope">
+                <el-button link @click="updateDict(scope.row)">编辑</el-button>
+                <base-delete-btn @ok="deleteDict(scope.row)" />
+              </template>
+            </el-table-column>
+          </el-table>
+        </base-title-card>
       </el-col>
     </el-row>
     <edit-dict ref="editDict" @saveSucc="getDicList(dictTypeData)" />
@@ -133,4 +134,5 @@ export default {
   },
 }
 </script>
-<style scoped></style>
+<style scoped>
+</style>

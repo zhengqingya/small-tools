@@ -33,7 +33,7 @@ export default {
 <style lang="scss" scoped>
 .cell-item {
   overflow: hidden;
-  margin-left: -1px;
+  margin-left: -40px;
   border: 1px solid rgba(235, 238, 245, 1);
 
   div.key {

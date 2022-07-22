@@ -2,8 +2,8 @@ package com.zhengqing.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhengqing.system.entity.SysPermission;
-import com.zhengqing.system.model.dto.SysMenuBtnSaveDTO;
-import com.zhengqing.system.model.vo.SysMenuBtnListVO;
+import com.zhengqing.system.model.dto.SysMenuReBtnPermSaveDTO;
+import com.zhengqing.system.model.vo.SysMenuReBtnPermListVO;
 import com.zhengqing.system.model.vo.SysRoleRePermListVO;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public interface ISysPermissionService extends IService<SysPermission> {
     /**
      * 通过菜单ID获取已经配置的按钮ids
      *
-     * @param menuId: 菜单id
+     * @param menuId 菜单id
      * @return 按钮ids
      * @author zhengqingya
      * @date 2020/9/10 21:19
@@ -32,22 +32,22 @@ public interface ISysPermissionService extends IService<SysPermission> {
     /**
      * 保存菜单按钮ids
      *
-     * @param params: 提交参数
+     * @param params 提交参数
      * @return void
      * @author zhengqingya
      * @date 2020/9/10 21:10
      */
-    void addOrUpdateData(SysMenuBtnSaveDTO params);
+    void addOrUpdateData(SysMenuReBtnPermSaveDTO params);
 
     /**
      * 通过菜单id查询菜单按钮权限信息
      *
-     * @param menuId: 菜单id
+     * @param menuId 菜单id
      * @return 菜单按钮权限信息
      * @author zhengqingya
      * @date 2020/9/10 22:06
      */
-    List<SysMenuBtnListVO> getBtnInfoListByMenuId(Integer menuId);
+    List<SysMenuReBtnPermListVO> getPermListByMenuId(Integer menuId);
 
     /**
      * 获取角色权限映射数据

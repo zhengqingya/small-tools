@@ -3,8 +3,9 @@ package com.zhengqing.system.api;
 import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.common.core.custom.repeatsubmit.NoRepeatSubmit;
 import com.zhengqing.common.core.custom.validator.common.UpdateGroup;
-import com.zhengqing.system.model.dto.SysMenuBtnSaveDTO;
+import com.zhengqing.system.model.dto.SysMenuReBtnPermSaveDTO;
 import com.zhengqing.system.model.dto.SysMenuSaveDTO;
+import com.zhengqing.system.model.vo.SysMenuReBtnPermListVO;
 import com.zhengqing.system.model.vo.SysMenuTreeVO;
 import com.zhengqing.system.service.ISysMenuService;
 import com.zhengqing.system.service.ISysPermissionService;
@@ -36,7 +37,7 @@ public class SysMenuController extends BaseController {
     private ISysMenuService menuService;
 
     @Resource
-    private ISysPermissionService sysMenuBtnService;
+    private ISysPermissionService sysPermissionService;
 
     // @GetMapping("/listPage")
     // @ApiOperation("列表分页")
@@ -78,17 +79,31 @@ public class SysMenuController extends BaseController {
 
     // 下：菜单按钮权限(菜单页面中配置页面所属按钮使用)
 
-    @GetMapping("getBtnIdsByMenuId")
-    @ApiOperation("通过菜单id获取已经配置的按钮ids")
-    public List<Integer> getBtnIdsByMenuId(@RequestParam Integer menuId) {
-        return this.sysMenuBtnService.getBtnIdsByMenuId(menuId);
+    @GetMapping("getPermListByMenuId")
+    @ApiOperation("菜单关联按钮权限-列表")
+    public List<SysMenuReBtnPermListVO> getPermListByMenuId(@RequestParam Integer menuId) {
+        return this.sysPermissionService.getPermListByMenuId(menuId);
+    }
+
+    @DeleteMapping("deleteMenuReBtnPerm")
+    @ApiOperation("菜单关联按钮权限-删除")
+    public void deleteMenuReBtnPerm(@RequestParam Integer id) {
+        this.sysPermissionService.removeById(id);
     }
 
     @NoRepeatSubmit
-    @PostMapping("saveMenuBtnIds")
-    @ApiOperation("保存菜单按钮ids")
-    public void saveMenuBtnIds(@Validated @RequestBody SysMenuBtnSaveDTO params) {
-        this.sysMenuBtnService.addOrUpdateData(params);
+    @PostMapping("addMenuReBtnPerm")
+    @ApiOperation("菜单关联按钮权限-新增")
+    public void addMenuReBtnPerm(@Validated @RequestBody SysMenuReBtnPermSaveDTO params) {
+        params.setId(null);
+        this.sysPermissionService.addOrUpdateData(params);
+    }
+
+    @NoRepeatSubmit
+    @PutMapping("updateMenuReBtnPerm")
+    @ApiOperation("菜单关联按钮权限-更新")
+    public void updateMenuReBtnPerm(@Validated(UpdateGroup.class) @RequestBody SysMenuReBtnPermSaveDTO params) {
+        this.sysPermissionService.addOrUpdateData(params);
     }
 
 }

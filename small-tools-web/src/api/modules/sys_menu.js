@@ -34,27 +34,47 @@ export default {
     })
   },
   /**
-   * 保存页面中的按钮
-   * @param {arr} data
+   * 获取菜单关联按钮权限信息
    */
-  saveMenuBtnIds(data) {
+  getPermListByMenuId(id) {
     return request({
-      url: BASE_API + '/saveMenuBtnIds',
+      url: BASE_API + '/getPermListByMenuId',
+      method: 'get',
+      params: {
+        menuId: id,
+      },
+    })
+  },
+  /**
+   * 删除菜单关联按钮权限
+   */
+  deleteMenuReBtnPerm(id) {
+    return request({
+      url: BASE_API + '/deleteMenuReBtnPerm',
+      method: 'delete',
+      params: {
+        id: id,
+      },
+    })
+  },
+  /**
+   * 新增菜单关联按钮权限
+   */
+  addMenuReBtnPerm(data) {
+    return request({
+      url: BASE_API + '/addMenuReBtnPerm',
       method: 'post',
       data,
     })
   },
   /**
-   * 获取页面中的按钮ids
-   * @param {arr} data
+   * 更新菜单关联按钮权限
    */
-  getBtnIdsByMenuId(id) {
+  updateMenuReBtnPerm(data) {
     return request({
-      url: BASE_API + '/getBtnIdsByMenuId',
-      method: 'get',
-      params: {
-        menuId: id,
-      },
+      url: BASE_API + '/updateMenuReBtnPerm',
+      method: 'put',
+      data,
     })
   },
 }

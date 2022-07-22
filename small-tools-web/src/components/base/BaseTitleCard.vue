@@ -30,6 +30,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .title-card {
+
   h2 {
     position: relative;
     border-bottom: 1px solid #ebeef5;
@@ -55,6 +56,7 @@ export default {
   }
 
   .content {
+    // margin-left: -40px;
     padding-bottom: 10px;
     position: relative;
   }

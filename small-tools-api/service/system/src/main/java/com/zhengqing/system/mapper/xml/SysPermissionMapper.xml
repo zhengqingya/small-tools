@@ -5,11 +5,12 @@
 
     <select
             id="selectBtnInfoListByMenuId"
-            resultType="com.zhengqing.system.model.vo.SysMenuBtnListVO">
+            resultType="com.zhengqing.system.model.vo.SysMenuReBtnPermListVO">
         SELECT sp.id,
                sp.menu_id,
-               sp.btn_id                                                   btnId,
-               (SELECT sd.name FROM t_sys_dict sd WHERE sd.id = sp.btn_id) btnName
+               sp.name,
+               sp.btn_perm,
+               sp.url_perm
         FROM t_sys_permission sp
         WHERE sp.is_deleted = 0
           AND sp.menu_id = #{menuId}

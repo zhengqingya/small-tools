@@ -22,8 +22,12 @@
       <el-form-item label="菜单图标:">
         <el-select v-model="form.icon" placeholder="请选择图标" style="width: 200px" clearable>
           <el-option v-for="item in elIconList" :key="item.name" :value="item.name" :label="item.name">
-            <i :class="item.name" />
-            <span style="float: right; color: #8492a6; font-size: 13px">{{ item.name }}</span>
+            <span style="float: left; color: #8492a6; font-size: 12px">{{ item.name }}</span>
+            <div style="float: right;">
+              <el-icon>
+                <component :is="item.name" />
+              </el-icon>
+            </div>
           </el-option>
         </el-select>
       </el-form-item>
@@ -63,7 +67,6 @@
 </template>
 <script>
 export default {
-  name: 'ModifiyMenu',
   data() {
     return {
       dialogVisible: false,
@@ -155,8 +158,9 @@ export default {
         breadcrumb: 1, // 1 true, 0 false
       }
     },
-    handleClose() {},
+    handleClose() { },
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

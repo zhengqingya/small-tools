@@ -13,10 +13,10 @@
         </el-select>
       </el-form-item>
     </el-form>
-    <span slot="footer" class="dialog-footer">
+    <template #footer>
       <el-button @click="dialogVisible = false">取 消</el-button>
       <el-button type="primary" @click="handleSave">确 定</el-button>
-    </span>
+    </template>
   </base-dialog>
 </template>
 <script>
@@ -62,4 +62,5 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

@@ -4,24 +4,21 @@
       <slot name="header" :res="res"></slot>
     </div>
     <slot name="zdy-header" :res="res"></slot>
-    <el-table
-      ref="baseTable"
-      v-loading="loading && (isPage ? res.records == null || res.records.length == 0 : res == null || res.length == 0)"
-      v-bind="$attrs"
-      :data="isPage ? res.records : res"
-      :class="{ pointer: pointer }"
-      size="small"
-      fit
-      highlight-current-row
-    >
+    <el-table ref="baseTable" v-loading="
+      loading &&
+      (isPage
+        ? res.records == null || res.records.length == 0
+        : tableDataList == null || tableDataList.length == 0)
+    " v-bind="$attrs" :data="isPage ? res.records : tableDataList" :class="{ pointer: pointer }" size="small" fit
+      highlight-current-row>
       <el-table-column v-if="selection" type="selection" :width="55"></el-table-column>
       <template v-if="indexCode">
         <el-table-column type="index" label="序号" width="60px"></el-table-column>
       </template>
       <slot />
-      <template v-for="(item, index) in columns">
+      <template v-for="(item, index) in columns" v-bind:key="item">
         <el-table-column v-if="item.slotName" :key="index" v-bind="item" :width="item.width">
-          <template slot-scope="scope">
+          <template #scope>
             <slot :name="item.slotName" v-bind="scope"></slot>
           </template>
         </el-table-column>
@@ -30,13 +27,8 @@
     </el-table>
 
     <div v-if="isPage" class="pagination-container">
-      <base-pagination
-        v-show="res && res.total > 0"
-        :total="res.total == null ? 0 : res.total"
-        :page.sync="pageParams.pageNum"
-        :limit.sync="pageParams.pageSize"
-        @pagination="getListPage"
-      />
+      <base-pagination v-if="res && res.total > 0" :total="res.total == null ? 0 : res.total"
+        v-model:page="pageParams.pageNum" v-model:limit="pageParams.pageSize" @pagination="getListPage" />
     </div>
   </div>
 </template>
@@ -101,6 +93,7 @@ export default {
         pageNum: 1,
         pageSize: 10,
       },
+      // 分页响应数据
       res: {
         current: 1,
         pages: 2,
@@ -108,6 +101,8 @@ export default {
         total: 0,
         records: [],
       },
+      // 列表响应数据
+      tableDataList: [],
       isCli: false,
     }
   },
@@ -123,7 +118,7 @@ export default {
       handler(val) {
         this.res = []
         if (!this.isPage || (this.data && this.data.length > 0)) {
-          this.res = val
+          this.tableDataList = val
         }
       },
       deep: true, // 是否深度监听
@@ -131,17 +126,7 @@ export default {
     },
   },
   created() {
-    if (this.data && this.data.length > 0) {
-      // 情况①：走父组件传值过来
-      this.handleData()
-    } else {
-      // 情况②：走api接口数据
-      if (this.isPage) {
-        this.getListPage()
-      } else {
-        this.getList()
-      }
-    }
+    this.refresh()
   },
   methods: {
     // 分页列表
@@ -167,31 +152,33 @@ export default {
       if (this.api) {
         this.loading = true
         let response = await this.apiMethod(this.params)
-        this.res = response.data
+        this.tableDataList = response.data
         this.loading = false
       }
-    },
-    // 父组件直接传data值过来的处理方式
-    handleData() {
-      // console.log(1, this.data);
     },
     //刷新
-    async refresh() {
+    refresh() {
+      this.loading = true
       if (this.data && this.data.length > 0) {
-        this.loading = true
-        this.res = this.data
-        this.loading = false
+        // 情况1：走父组件传值过来
+        this.tableDataList = this.data
       } else {
-        this.res = {
-          current: 1,
-          pages: 2,
-          size: 10,
-          total: 0,
-          records: [],
+        // 情况2：走api接口数据
+        if (this.isPage) {
+          this.res = {
+            current: 1,
+            pages: 2,
+            size: 10,
+            total: 0,
+            records: [],
+          }
+          this.pageParams.pageNum = 1
+          this.getListPage()
+        } else {
+          this.getList()
         }
-        this.pageParams.pageNum = 1
-        await this.getListPage()
       }
+      this.loading = false
     },
   },
 }

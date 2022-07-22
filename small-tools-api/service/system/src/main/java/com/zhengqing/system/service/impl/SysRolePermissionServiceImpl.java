@@ -69,7 +69,6 @@ public class SysRolePermissionServiceImpl extends ServiceImpl<SysRolePermissionM
         permissionIdList.forEach(btnId -> {
             SysRolePermission item = new SysRolePermission();
             item.setRoleId(roleId);
-            item.setMenuId(menuId);
             item.setPermissionId(btnId);
             saveList.add(item);
         });

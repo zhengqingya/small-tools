@@ -38,13 +38,10 @@ public class SysPermission extends IsDeletedYesBaseEntity<SysPermission> {
     @ApiModelProperty(value = "菜单ID")
     private Integer menuId;
 
-    @ApiModelProperty(value = "按钮值")
-    private Integer btnId;
+    @ApiModelProperty(value = "按钮权限标识")
+    private String btnPerm;
 
     @ApiModelProperty(value = "URL权限标识")
     private String urlPerm;
-
-    @ApiModelProperty(value = "按钮权限标识")
-    private String btnPerm;
 
 }
