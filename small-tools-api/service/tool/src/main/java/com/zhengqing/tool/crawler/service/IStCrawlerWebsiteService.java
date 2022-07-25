@@ -61,13 +61,13 @@ public interface IStCrawlerWebsiteService extends IService<StCrawlerWebsite> {
     Integer addOrUpdateData(StCrawlerWebsiteSaveDTO params);
 
     /**
-     * 根据网站id设置网站为无效
+     * 删除
      *
-     * @param websiteId: 网站id
+     * @param websiteId 网站id
      * @return void
      * @author zhengqingya
      * @date 2020/8/22 17:20
      */
-    void updateWebsiteInvalid(Integer websiteId);
+    void deleteData(Integer websiteId);
 
 }

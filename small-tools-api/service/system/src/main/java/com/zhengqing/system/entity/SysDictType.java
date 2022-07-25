@@ -3,7 +3,7 @@ package com.zhengqing.system.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
+import com.zhengqing.common.db.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -24,7 +24,7 @@ import lombok.*;
 @NoArgsConstructor
 @ApiModel("数据字典类型表")
 @TableName("t_sys_dict_type")
-public class SysDictType extends IsDeletedYesBaseEntity<SysDictType> {
+public class SysDictType extends BaseEntity<SysDictType> {
 
     @ApiModelProperty(value = "主键ID")
     @TableId(value = "ID", type = IdType.AUTO)

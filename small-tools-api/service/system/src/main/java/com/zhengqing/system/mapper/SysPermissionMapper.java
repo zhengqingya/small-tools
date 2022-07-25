@@ -29,7 +29,7 @@ public interface SysPermissionMapper extends BaseMapper<SysPermission> {
      * @author zhengqingya
      * @date 2020/9/10 21:21
      */
-    @Select("SELECT sd.id FROM t_sys_permission sp INNER JOIN t_sys_dict sd on sd.id = sp.btn_id WHERE sp.is_deleted = 0 AND sp.menu_id = #{menuId}")
+    @Select("SELECT sd.id FROM t_sys_permission sp INNER JOIN t_sys_dict sd on sd.id = sp.btn_id WHERE sp.menu_id = #{menuId}")
     List<Integer> getBtnIdsByMenuId(@Param("menuId") Integer menuId);
 
     /**

@@ -23,20 +23,19 @@ public interface StCrawlerArticleInfoMapper extends BaseMapper<StCrawlerArticleI
     /**
      * 列表分页
      *
-     * @param page:
-     * @param filter:
-     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.zhengqing.modules.smalltools.crawler.model.vo.StCrawlerArticleInfoVO>
+     * @param page   分页参数
+     * @param filter 过滤参数
+     * @return 结果
      * @author zhengqingya
      * @date 2020/8/22 11:33
      */
-    IPage<StCrawlerArticleInfoListVO> selectStCrawlerArticleInfos(IPage page,
-                                                                  @Param("filter") StCrawlerArticleInfoListDTO filter);
+    IPage<StCrawlerArticleInfoListVO> selectStCrawlerArticleInfos(IPage page, @Param("filter") StCrawlerArticleInfoListDTO filter);
 
     /**
      * 根据csdn文章id查询是否已存在该数据,存在的话返回文章信息主键id
      *
-     * @param articleId: csdn 文章id
-     * @return java.lang.Integer
+     * @param articleId csdn文章id
+     * @return 主键ID
      * @author zhengqingya
      * @date 2020/8/22 11:44
      */
@@ -45,8 +44,8 @@ public interface StCrawlerArticleInfoMapper extends BaseMapper<StCrawlerArticleI
     /**
      * 根据网站id查询其下的文章总数
      *
-     * @param websiteId: 网站id
-     * @return java.lang.Integer
+     * @param websiteId 网站id
+     * @return 文章总数
      * @author zhengqingya
      * @date 2020/8/22 11:58
      */
@@ -55,8 +54,8 @@ public interface StCrawlerArticleInfoMapper extends BaseMapper<StCrawlerArticleI
     /**
      * 根据网站id查询其下的文章信息
      *
-     * @param websiteId: 网站id
-     * @return java.util.List<com.zhengqing.modules.smalltools.crawler.model.vo.StCrawlerArticleInfoVO>
+     * @param websiteId 网站id
+     * @return 文章信息
      * @author zhengqingya
      * @date 2020/8/27 17:56
      */
@@ -65,8 +64,8 @@ public interface StCrawlerArticleInfoMapper extends BaseMapper<StCrawlerArticleI
     /**
      * 查询文章详情数据
      *
-     * @param filter: 查询参数
-     * @return com.zhengqing.modules.smalltools.crawler.entity.StCrawlerArticleInfo
+     * @param filter 过滤参数
+     * @return 结果
      * @author zhengqingya
      * @date 2020/9/5 23:12
      */

@@ -65,7 +65,7 @@ public class StCrawlerWebsiteController extends BaseController {
     @DeleteMapping("")
     @ApiOperation("删除")
     public void delete(@RequestParam Integer websiteId) {
-        this.stCrawlerWebsiteService.updateWebsiteInvalid(websiteId);
+        this.stCrawlerWebsiteService.deleteData(websiteId);
     }
 
     @NoRepeatSubmit

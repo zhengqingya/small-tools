@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zhengqing.system.entity.SysDict;
 import com.zhengqing.system.model.dto.SysDictSaveBatchDTO;
 import com.zhengqing.system.model.vo.SysDictVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -39,8 +39,8 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
      * @author zhengqingya
      * @date 2020/9/12 17:41
      */
-//    @Delete("DELETE FROM t_sys_dict WHERE code = #{code}")
-    @Update("UPDATE t_sys_dict SET is_deleted=1 WHERE code = #{code}")
+    @Delete("DELETE FROM t_sys_dict WHERE code = #{code}")
+//    @Update("UPDATE t_sys_dict SET is_deleted=1 WHERE code = #{code}")
     void deleteByCode(@Param("code") String code);
 
     /**

@@ -49,7 +49,7 @@ public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
      * @author zhengqingya
      * @date 2020/9/10 18:09
      */
-    @Select("SELECT menu_id FROM t_sys_role_menu WHERE is_deleted = 0 AND role_id = #{roleId} ORDER BY menu_id")
+    @Select("SELECT menu_id FROM t_sys_role_menu WHERE role_id = #{roleId} ORDER BY menu_id")
     List<Integer> selectMenuIdsByRoleId(@Param("roleId") Integer roleId);
 
     /**

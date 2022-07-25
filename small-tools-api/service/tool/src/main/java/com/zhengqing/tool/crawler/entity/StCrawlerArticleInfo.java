@@ -3,7 +3,7 @@ package com.zhengqing.tool.crawler.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
+import com.zhengqing.common.db.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -25,7 +25,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ApiModel("小工具 - 爬虫 - 文章信息")
 @TableName("t_st_crawler_article_info")
-public class StCrawlerArticleInfo extends IsDeletedYesBaseEntity<StCrawlerArticleInfo> {
+public class StCrawlerArticleInfo extends BaseEntity<StCrawlerArticleInfo> {
 
     @ApiModelProperty(value = "主键ID")
     @TableId(value = "article_info_id", type = IdType.AUTO)

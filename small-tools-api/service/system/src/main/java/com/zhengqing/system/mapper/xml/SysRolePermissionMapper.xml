@@ -10,15 +10,13 @@
                srp.role_id
         FROM t_sys_role_permission srp
                  JOIN t_sys_permission sp on sp.id = srp.permission_id
-        WHERE srp.is_deleted = 0
     </select>
 
     <select id="selectBtnsByRoleIdAndMenuId" resultType="java.lang.Integer">
         SELECT sp.id
         FROM t_sys_role_permission srp
                  JOIN t_sys_permission sp ON sp.id = srp.permission_id
-        WHERE srp.is_deleted = 0
-          AND srp.role_id = #{roleId}
+        WHERE srp.role_id = #{roleId}
           AND sp.menu_id = #{menuId}
     </select>
 

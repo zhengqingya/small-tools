@@ -12,8 +12,7 @@
                sp.btn_perm,
                sp.url_perm
         FROM t_sys_permission sp
-        WHERE sp.is_deleted = 0
-          AND sp.menu_id = #{menuId}
+        WHERE sp.menu_id = #{menuId}
     </select>
 
     <resultMap id="listRoleRePerm" type="com.zhengqing.system.model.vo.SysRoleRePermListVO">

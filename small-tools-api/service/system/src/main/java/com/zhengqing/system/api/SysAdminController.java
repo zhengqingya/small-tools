@@ -50,7 +50,7 @@ public class SysAdminController extends BaseController {
     @ApiOperation("初始化DB")
     @GetMapping("initDb")
     public String initDb() {
-        String sql = MyFileUtil.readFileContent(ProjectConstant.PROJECT_ROOT_DIRECTORY + "/doc/small-tools.sql");
+        String sql = MyFileUtil.readFileContent(ProjectConstant.PROJECT_ROOT_DIRECTORY + "/doc/sql/small-tools.sql");
 //        this.myBaseMapper.execSql("");
         return sql;
     }

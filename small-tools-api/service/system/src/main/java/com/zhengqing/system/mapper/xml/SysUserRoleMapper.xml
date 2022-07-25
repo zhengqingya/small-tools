@@ -6,20 +6,20 @@
     <select id="listRoleId" resultType="java.lang.Integer">
         SELECT role_id
         FROM t_sys_user_role
-        WHERE is_deleted = 0
-          AND user_id = #{userId}
+        WHERE user_id = #{userId}
     </select>
 
     <select id="selectListByUserIds" resultType="com.zhengqing.system.model.bo.SysUserReRoleIdListBO">
         SELECT user_id, role_id
         FROM t_sys_user_role
-        WHERE is_deleted = 0
-        <if test="userIdList != null and userIdList.size() > 0">
-            AND user_id IN
-            <foreach item="userId" index="index" collection="userIdList" open="(" separator="," close=")">
-                #{userId}
-            </foreach>
-        </if>
+        <where>
+            <if test="userIdList != null and userIdList.size() > 0">
+                AND user_id IN
+                <foreach item="userId" index="index" collection="userIdList" open="(" separator="," close=")">
+                    #{userId}
+                </foreach>
+            </if>
+        </where>
     </select>
 
 </mapper>

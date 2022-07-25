@@ -3,7 +3,7 @@ package com.zhengqing.system.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
+import com.zhengqing.common.db.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -24,7 +24,7 @@ import lombok.*;
 @NoArgsConstructor
 @ApiModel("系统管理-角色菜单关联表")
 @TableName("t_sys_role_menu")
-public class SysRoleMenu extends IsDeletedYesBaseEntity<SysRoleMenu> {
+public class SysRoleMenu extends BaseEntity<SysRoleMenu> {
 
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "主键ID")

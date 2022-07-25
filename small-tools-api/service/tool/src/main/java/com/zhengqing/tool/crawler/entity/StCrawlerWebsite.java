@@ -3,7 +3,7 @@ package com.zhengqing.tool.crawler.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
+import com.zhengqing.common.db.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -23,7 +23,7 @@ import lombok.*;
 @NoArgsConstructor
 @ApiModel("小工具 - 爬虫 - 网站管理")
 @TableName("t_st_crawler_website")
-public class StCrawlerWebsite extends IsDeletedYesBaseEntity<StCrawlerWebsite> {
+public class StCrawlerWebsite extends BaseEntity<StCrawlerWebsite> {
 
     @ApiModelProperty(value = "主键ID")
     @TableId(value = "website_id", type = IdType.AUTO)

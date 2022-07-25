@@ -29,9 +29,13 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      * @author zhengqingya
      * @date 2020/9/10 18:07
      */
-    // @Select({"<script>", "SELECT * FROM t_sys_role WHERE is_deleted = 0",
-    // "<if test=\"filter.name != null and filter.name != ''\">", "AND name LIKE CONCAT( '%', #{filter.name} , '%' )",
-    // "</if>", "ORDER BY create_time DESC", "</script>"})
+    // @Select({"<script>",
+    // "SELECT * FROM t_sys_role WHERE is_deleted = 0",
+    // "<if test=\"filter.name != null and filter.name != ''\">",
+    // "AND name LIKE CONCAT( '%', #{filter.name} , '%' )",
+    // "</if>",
+    // "ORDER BY create_time DESC",
+    // "</script>"})
     IPage<SysRoleListVO> selectRoles(IPage page, @Param("filter") SysRoleListDTO filter);
 
     /**
@@ -42,9 +46,13 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      * @author zhengqingya
      * @date 2020/9/10 18:08
      */
-    // @Select({"<script>", "SELECT * FROM t_sys_role WHERE is_deleted = 0",
-    // "<if test=\"filter.name != null and filter.name != ''\">", "AND name LIKE CONCAT( '%', #{filter.name} , '%' )",
-    // "</if>", "ORDER BY create_time DESC", "</script>"})
+    // @Select({"<script>",
+    // "SELECT * FROM t_sys_role WHERE is_deleted = 0",
+    // "<if test=\"filter.name != null and filter.name != ''\">",
+    // "AND name LIKE CONCAT( '%', #{filter.name} , '%' )",
+    // "</if>",
+    // "ORDER BY create_time DESC",
+    // "</script>"})
     List<SysRoleListVO> selectRoles(@Param("filter") SysRoleListDTO filter);
 
 }

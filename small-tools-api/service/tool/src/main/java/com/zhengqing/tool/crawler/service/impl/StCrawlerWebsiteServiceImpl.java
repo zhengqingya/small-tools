@@ -86,8 +86,8 @@ public class StCrawlerWebsiteServiceImpl extends ServiceImpl<StCrawlerWebsiteMap
     }
 
     @Override
-    public void updateWebsiteInvalid(Integer websiteId) {
-        this.stCrawlerWebsiteMapper.updateWebsiteInvalid(websiteId);
+    public void deleteData(Integer websiteId) {
+        this.stCrawlerWebsiteMapper.deleteById(websiteId);
     }
 
 }

@@ -3,7 +3,7 @@ package com.zhengqing.system.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zhengqing.common.db.entity.IsDeletedYesBaseEntity;
+import com.zhengqing.common.db.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @ApiModel
 @TableName("t_sys_permission")
-public class SysPermission extends IsDeletedYesBaseEntity<SysPermission> {
+public class SysPermission extends BaseEntity<SysPermission> {
 
     @ApiModelProperty(value = "id")
     @TableId(type = IdType.AUTO)

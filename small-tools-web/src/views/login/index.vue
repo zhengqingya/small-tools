@@ -56,7 +56,10 @@
       <div class="tips">
         <span style="margin-right: 20px">用户名: admin</span>
         <span style="margin-right: 20px"> 密码: 123456</span>
-        <!-- <span> 验证码: {{ loginForm.code }}</span> -->
+      </div>
+      <div class="tips">
+        <span style="margin-right: 20px">用户名: test</span>
+        <span style="margin-right: 20px"> 密码: 123456</span>
       </div>
 
     </el-form>
