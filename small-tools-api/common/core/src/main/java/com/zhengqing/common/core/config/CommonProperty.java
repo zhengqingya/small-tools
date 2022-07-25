@@ -19,4 +19,23 @@ public class CommonProperty {
      */
     private String ip;
 
+    /**
+     * MySQL参数
+     */
+    private Mysql mysql;
+
+    @Data
+    public static class Mysql {
+        private MysqlConn master;
+        private MysqlConn dbTest;
+    }
+
+    @Data
+    public static class MysqlConn {
+        private String ip;
+        private String port;
+        private String username;
+        private String password;
+    }
+
 }

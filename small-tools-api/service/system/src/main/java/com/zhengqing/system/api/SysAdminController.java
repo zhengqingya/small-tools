@@ -1,7 +1,5 @@
 package com.zhengqing.system.api;
 
-import com.zhengqing.common.base.constant.ProjectConstant;
-import com.zhengqing.common.base.util.MyFileUtil;
 import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.common.db.mapper.MyBaseMapper;
 import com.zhengqing.system.model.vo.SysRoleRePermListVO;
@@ -47,12 +45,18 @@ public class SysAdminController extends BaseController {
         this.sysPermissionBusinessService.refreshRedisPerm();
     }
 
-    @ApiOperation("初始化DB")
+    /**
+     * http://127.0.0.1:20010/initDb
+     */
+    @ApiOperation("初始化DB(谨慎操作)")
     @GetMapping("initDb")
     public String initDb() {
-        String sql = MyFileUtil.readFileContent(ProjectConstant.PROJECT_ROOT_DIRECTORY + "/doc/sql/small-tools.sql");
-//        this.myBaseMapper.execSql("");
-        return sql;
+//        String initDbSql = "DROP DATABASE IF EXISTS `small-tools`; " +
+//                "CREATE DATABASE `small-tools` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci; ";
+//        String initSql = "USE `small-tools`; " + MyFileUtil.readFileContent(ProjectConstant.PROJECT_ROOT_DIRECTORY + "/doc/sql/small-tools.sql");
+//        this.myBaseMapper.execSql(initDbSql);
+//        this.myBaseMapper.execSql(initSql);
+        return "OK";
     }
 
 }

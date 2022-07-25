@@ -4,7 +4,9 @@ import cn.hutool.core.io.FileUtil;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.constant.AppConstant;
 import com.zhengqing.common.base.exception.MyException;
+import com.zhengqing.common.core.config.CommonProperty;
 import com.zhengqing.common.file.util.QiniuFileUtil;
+import com.zhengqing.tool.config.ToolProperty;
 import com.zhengqing.tool.db.enums.StDbDataSourceTypeEnum;
 import com.zhengqing.tool.db.enums.StDbOperateSqlEnum;
 import com.zhengqing.tool.db.model.bo.StDbTableColumnBO;
@@ -48,6 +50,9 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
 
     @Resource
     private QiniuFileUtil qiniuFileUtil;
+
+    @Resource
+    private ToolProperty toolProperty;
 
     @Override
     public void connectTest(Integer dataSourceId, String dbName) {
@@ -258,12 +263,28 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
         return this.qiniuFileUtil.uploadFile(FileUtil.newFile(dbWordFilePath), System.currentTimeMillis() + "_" + fileName);
     }
 
+    @Override
+    @SneakyThrows(Exception.class)
+    public void execSql(String sql) {
+        CommonProperty.MysqlConn mysqlConn = this.toolProperty.getMysql().getMaster();
+        String ipAddress = mysqlConn.getIp();
+        String port = mysqlConn.getPort();
+        String username = mysqlConn.getUsername();
+        String password = mysqlConn.getPassword();
+        // 1、连接数据库
+        Connection conn = this.getConnectionBase(StDbDataSourceTypeEnum.MySQL, ipAddress, port, username, password, "small-tools");
+        // 2、获取sql预编译对象
+        Statement stmt = conn.createStatement();
+        // 3、执行SQL
+        stmt.execute(sql);
+    }
+
     /**
      * 根据数据源id+库名获取所有表+字段信息
      *
-     * @param tableInfoList: 需装数据的表+字段信息
-     * @param dataSourceId   数据源id
-     * @param dbName:库名
+     * @param tableInfoList 需装数据的表+字段信息
+     * @param dataSourceId  数据源id
+     * @param dbName        库名
      * @return void
      * @author zhengqingya
      * @date 2020/9/8 19:06
@@ -323,7 +344,7 @@ public class StDbJdbcServiceImpl implements IStDbJdbcService {
     /**
      * 连接数据库
      *
-     * @param dataSourceId: 数据源id
+     * @param dataSourceId 数据源id
      * @return java.sql.Connection
      */
     private Connection getConnection(Integer dataSourceId) {
