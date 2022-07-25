@@ -1,6 +1,5 @@
 package com.zhengqing.common.feign.config.loadbalancer;
 
-import com.zhengqing.common.feign.config.loadbalancer.balancer.CustomInstanceLoadBalancer;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClients;
 import org.springframework.cloud.loadbalancer.core.ReactorLoadBalancer;

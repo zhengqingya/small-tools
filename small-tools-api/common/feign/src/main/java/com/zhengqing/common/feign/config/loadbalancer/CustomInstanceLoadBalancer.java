@@ -1,13 +1,8 @@
-package com.zhengqing.common.feign.config.loadbalancer.balancer;
+package com.zhengqing.common.feign.config.loadbalancer;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
-import com.alibaba.cloud.nacos.NacosServiceManager;
-import com.alibaba.nacos.api.naming.NamingService;
-import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.google.common.collect.Lists;
-import com.zhengqing.common.feign.config.loadbalancer.WeightedBalancer;
 import com.zhengqing.common.feign.enums.BalancerRuleTypeEnum;
-import com.zhengqing.common.feign.util.BalancerInstanceUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
@@ -28,7 +23,6 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 /**
  * <p> 自定义负载均衡策略 </p>
@@ -45,8 +39,6 @@ public class CustomInstanceLoadBalancer implements ReactorServiceInstanceLoadBal
      */
     @Resource
     private NacosDiscoveryProperties nacosDiscoveryProperties;
-    @Resource
-    private NacosServiceManager nacosServiceManager;
 
     /**
      * loadbalancer 提供的访问目标服务的名称
@@ -87,79 +79,82 @@ public class CustomInstanceLoadBalancer implements ReactorServiceInstanceLoadBal
     /**
      * 对负载均衡的服务进行筛选
      *
-     * @param instances loadbalancer可访问目标服务的实例 (只会提供健康的实例，无需担心无法访问的情况)
+     * @param instanceList loadbalancer可访问目标服务的实例 (只会提供健康的实例，无需担心无法访问的情况)
      * @return 指定实例
      * @author zhengqingya
      * @date 2022/7/25 17:43
      */
-    private Response<ServiceInstance> getInstanceResponse(List<ServiceInstance> instances) {
-        if (instances.isEmpty()) {
-            if (log.isWarnEnabled()) {
-                log.warn("No servers available for service: " + this.serviceName);
-            }
+    private Response<ServiceInstance> getInstanceResponse(List<ServiceInstance> instanceList) {
+        if (instanceList.isEmpty()) {
+            log.warn("No servers available for service: " + this.serviceName);
             return new EmptyResponse();
         }
-
+        ServiceInstance targetInstance;
         BalancerRuleTypeEnum balancerRuleTypeEnum = BalancerRuleTypeEnum.getEnum(this.ruleType);
-        log.info("使用自定义负载均衡策略:[{}]", balancerRuleTypeEnum.getDesc());
         switch (balancerRuleTypeEnum) {
             case VERSION:
                 // 同一集群优先带版本实例
-                ServiceInstance instanceForVersionRule = this.getInstanceForVersionRule(instances);
-                return new DefaultResponse(instanceForVersionRule);
+                targetInstance = this.getInstanceForVersion(instanceList);
             default:
                 // 默认权重
-                int index = ThreadLocalRandom.current().nextInt(instances.size());
-                ServiceInstance instance = instances.get(index);
-                return new DefaultResponse(instance);
+                targetInstance = getInstanceForRandomWeight(instanceList);
         }
+        log.info("自定义负载均衡 目标instanceId: [{}]", targetInstance.getInstanceId());
+        return new DefaultResponse(targetInstance);
     }
 
     /**
-     * 同一集群优先带版本实例
+     * 随机权重策略
      *
-     * @param loadbalancerInstanceList loadbalancer可访问目标服务的实例 (只会提供健康的实例，无需担心无法访问的情况)
+     * @param instanceList loadbalancer可访问目标服务的实例 (只会提供健康的实例，无需担心无法访问的情况)
+     * @return 指定实例
+     * @author zhengqingya
+     * @date 2022/7/25 8:32 下午
+     */
+    public static ServiceInstance getInstanceForRandomWeight(List<ServiceInstance> instanceList) {
+        int index = ThreadLocalRandom.current().nextInt(instanceList.size());
+        return instanceList.get(index);
+    }
+
+    /**
+     * 同一集群优先带版本策略
+     *
+     * @param instanceList loadbalancer可访问目标服务的实例 (只会提供健康的实例，无需担心无法访问的情况)
      * @return 指定实例
      * @author zhengqingya
      * @date 2022/7/25 17:43
      */
     @SneakyThrows(Exception.class)
-    private ServiceInstance getInstanceForVersionRule(List<ServiceInstance> loadbalancerInstanceList) {
+    private ServiceInstance getInstanceForVersion(List<ServiceInstance> instanceList) {
         // 1、获取当前服务的分组名称、集群名称、版本号
-        String groupName = this.nacosDiscoveryProperties.getGroup();
         String clusterName = this.nacosDiscoveryProperties.getClusterName();
         String version = this.nacosDiscoveryProperties.getMetadata().get("version");
-        // 2、获取nacos提供的服务注册api
-        NamingService namingService = this.nacosServiceManager.getNamingService(this.nacosDiscoveryProperties.getNacosProperties());
-        // 3、获取所有服务名为serviceName的服务实例   false: 及时获取nacos注册服务信息
-        List<Instance> nacosAllInstanceList = namingService.getAllInstances(this.serviceName, groupName, false);
-        // 4、过滤有相同集群的服务实例
-        List<Instance> nacosSameClusterInstanceList = Lists.newLinkedList();
-        for (Instance instance : nacosAllInstanceList) {
-            if (instance.getClusterName().equals(clusterName)) {
-                nacosSameClusterInstanceList.add(instance);
+
+        // 2、划分不同类型的实例数据
+        // 同一集群的服务实例
+        List<ServiceInstance> sameClusterInstanceList = Lists.newLinkedList();
+        // 同一集群&同一版本的服务实例
+        List<ServiceInstance> sameVersionInstanceList = Lists.newLinkedList();
+        instanceList.forEach(targetInstanceItem -> {
+            Map<String, String> targetInstanceMetadata = targetInstanceItem.getMetadata();
+            String targetCluster = targetInstanceMetadata.get("nacos.cluster");
+            if (clusterName.equals(targetCluster)) {
+                sameClusterInstanceList.add(targetInstanceItem);
+                String targetVersion = targetInstanceMetadata.get("version");
+                if (version.equals(targetVersion)) {
+                    sameVersionInstanceList.add(targetInstanceItem);
+                }
             }
-        }
-        // 5、过滤相同版本的服务实例
-        List<Instance> nacosSameVersionInstanceList = Lists.newLinkedList();
-        for (Instance instance : nacosSameClusterInstanceList) {
-            if (version.equals(instance.getMetadata().get("version"))) {
-                nacosSameVersionInstanceList.add(instance);
-            }
-        }
-        // 6、选择合适的服务实例
-        Instance nacosToBeChooseInstance;
-        if (CollectionUtils.isEmpty(nacosSameVersionInstanceList)) {
-            nacosToBeChooseInstance = WeightedBalancer.chooseInstanceByRandomWeight(nacosSameClusterInstanceList);
-            BalancerInstanceUtil.printInstance(BalancerRuleTypeEnum.VERSION_WEIGHT, nacosToBeChooseInstance);
+        });
+
+        // 3、选择合适的服务实例
+        ServiceInstance targetInstance;
+        if (CollectionUtils.isEmpty(sameClusterInstanceList) || CollectionUtils.isEmpty(sameVersionInstanceList)) {
+            targetInstance = getInstanceForRandomWeight(sameClusterInstanceList);
         } else {
-            nacosToBeChooseInstance = WeightedBalancer.chooseInstanceByRandomWeight(nacosSameVersionInstanceList);
-            BalancerInstanceUtil.printInstance(BalancerRuleTypeEnum.VERSION, nacosToBeChooseInstance);
+            targetInstance = getInstanceForRandomWeight(sameVersionInstanceList);
         }
-        // 7、返回具体实例
-        Map<String, ServiceInstance> loadbalancerInstanceMap = loadbalancerInstanceList.stream()
-                .collect(Collectors.toMap(ServiceInstance::getInstanceId, t -> t, (k1, k2) -> k1));
-        return loadbalancerInstanceMap.get(nacosToBeChooseInstance.getInstanceId());
+        return targetInstance;
     }
 
 }
