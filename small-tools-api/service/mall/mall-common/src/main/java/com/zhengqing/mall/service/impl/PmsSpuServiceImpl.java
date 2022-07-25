@@ -51,7 +51,7 @@ public class PmsSpuServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<P
     private PmsSkuService<PmsSku> pmsSkuService;
 
     @Resource
-    private ISysDictFeignApi iSysDictFeignApi;
+    private ISysDictFeignApi sysDictFeignApi;
 
     @Override
     public PmsSpu getSpu(String id) {
@@ -86,7 +86,7 @@ public class PmsSpuServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<P
         }
         // 查询服务和说明相关数据字典缓存
         List<String> codeList = Lists.newArrayList(SysDictTypeEnum.MALL_SPU_SERVICE.getCode(), SysDictTypeEnum.MALL_SPU_EXPLAIN.getCode());
-        ApiResult<Map<String, List<SysDictVO>>> dictDataMapWrapper = this.iSysDictFeignApi.listByOpenCode(codeList);
+        ApiResult<Map<String, List<SysDictVO>>> dictDataMapWrapper = this.sysDictFeignApi.listByOpenCode(codeList);
         dictDataMapWrapper.checkForRpc();
         Map<String, List<SysDictVO>> dictDataMap = dictDataMapWrapper.getData();
         // 服务

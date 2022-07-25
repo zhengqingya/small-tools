@@ -93,10 +93,10 @@ public class WebOmsOrderServiceImpl extends OmsOrderServiceImpl<OmsOrderMapper, 
     private WebOmsOrderShippingItemService webOmsOrderShippingItemService;
 
     @Resource
-    private ISysDictFeignApi ISysDictFeignApi;
+    private ISysDictFeignApi sysDictFeignApi;
 
     @Resource
-    private ISysPropertyFeignApi ISysPropertyFeignApi;
+    private ISysPropertyFeignApi sysPropertyFeignApi;
 
     @Resource
     private RabbitTemplate rabbitTemplate;
@@ -105,14 +105,14 @@ public class WebOmsOrderServiceImpl extends OmsOrderServiceImpl<OmsOrderMapper, 
     public WebOmsOrderSetVO getOrderSet() {
         // 1、订单-设置
         List<String> sysPropertyKeyList = SysPropertyKeyEnum.LIST_MALL_ORDER_SET.stream().map(SysPropertyKeyEnum::getKey).collect(Collectors.toList());
-        ApiResult<List<SysPropertyVO>> orderSetDataWrapper = this.ISysPropertyFeignApi.listByKey(sysPropertyKeyList);
+        ApiResult<List<SysPropertyVO>> orderSetDataWrapper = this.sysPropertyFeignApi.listByKey(sysPropertyKeyList);
         orderSetDataWrapper.checkForRpc();
         // 订单设置数据
         List<SysPropertyVO> orderSetDataList = orderSetDataWrapper.getData();
         Assert.notNull(orderSetDataList, "系統属性缓存丢失，请刷新重试或联系系统管理员！");
 
         // 2、订单-发货微信消息通知
-        ApiResult<List<SysDictVO>> dictDataWrapper = this.ISysDictFeignApi.getByOpenCode(SysDictTypeEnum.MALL_ORDER_DELIVER_WX_MSG_NOTICE.getCode());
+        ApiResult<List<SysDictVO>> dictDataWrapper = this.sysDictFeignApi.getByOpenCode(SysDictTypeEnum.MALL_ORDER_DELIVER_WX_MSG_NOTICE.getCode());
         dictDataWrapper.checkForRpc();
         // 微信消息数据
         List<SysDictVO> dictListByWxMsgList = dictDataWrapper.getData();
@@ -141,7 +141,7 @@ public class WebOmsOrderServiceImpl extends OmsOrderServiceImpl<OmsOrderMapper, 
         log.info("[商城] 保存订单设置数据：{}", params);
         // 1、保存订单设置数据
         List<SysPropertySaveDTO> setList = params.getSetList();
-        ApiResult<Boolean> setDataWrapper = this.ISysPropertyFeignApi.saveBatch(setList);
+        ApiResult<Boolean> setDataWrapper = this.sysPropertyFeignApi.saveBatch(setList);
         if (setDataWrapper.checkIsFail()) {
             log.error("[商城] 订单设置数据保存失败:{}", setDataWrapper);
             throw new MyException("订单设置数据保存失败，请联系系统管理员！");
@@ -149,7 +149,7 @@ public class WebOmsOrderServiceImpl extends OmsOrderServiceImpl<OmsOrderMapper, 
 
         // 2、保存微信消息通知数据
         ValidList<SysDictSaveBatchDTO> wxMsgList = params.getWxMsgList();
-        ApiResult<Boolean> wxMsgDataWrapper = this.ISysDictFeignApi.addOrUpdateBatch(new HashMap<String, ValidList<SysDictSaveBatchDTO>>(1) {
+        ApiResult<Boolean> wxMsgDataWrapper = this.sysDictFeignApi.addOrUpdateBatch(new HashMap<String, ValidList<SysDictSaveBatchDTO>>(1) {
             {
                 this.put(SysDictTypeEnum.MALL_ORDER_DELIVER_WX_MSG_NOTICE.getCode(), wxMsgList);
             }
