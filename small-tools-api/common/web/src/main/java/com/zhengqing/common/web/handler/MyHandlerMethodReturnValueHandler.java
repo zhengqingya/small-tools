@@ -5,8 +5,6 @@ import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.common.base.model.vo.PageVO;
 import com.zhengqing.common.base.util.MyBeanUtil;
 import org.springframework.core.MethodParameter;
-import org.springframework.util.AntPathMatcher;
-import org.springframework.util.PathMatcher;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
@@ -51,9 +49,8 @@ public class MyHandlerMethodReturnValueHandler implements HandlerMethodReturnVal
         // "POST:/auth/oauth/token"
         String restfulPath = method + ":" + servletPath;
         boolean ifHandleReturnValue = true;
-        PathMatcher pathMatcher = new AntPathMatcher();
         for (String api : AppConstant.RETURN_VALUE_HANDLER_EXCLUDE_API_LIST) {
-            if (pathMatcher.match(api, restfulPath)) {
+            if (restfulPath.contains(api)) {
                 ifHandleReturnValue = false;
                 break;
             }

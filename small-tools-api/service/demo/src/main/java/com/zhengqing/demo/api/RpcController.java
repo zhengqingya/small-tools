@@ -28,7 +28,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/web/api/demo/test")
-@Api(tags = "测试api")
+@Api(tags = "测试rpc")
 @AllArgsConstructor
 public class RpcController extends BaseController {
 
@@ -49,6 +49,12 @@ public class RpcController extends BaseController {
         Map<String, String> headerMap = RequestContextUtil.getHeaderMap();
         log.info("主线程请求头值: {}", headerMap.get("userId"));
         this.systemTaskThread.getRequestHeaderUserId(RequestContextUtil.getHeaderMap());
+    }
+
+    @GetMapping("test")
+    @ApiOperation("test")
+    public String test() {
+        return this.systemClient.test();
     }
 
 }

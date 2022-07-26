@@ -9,8 +9,6 @@ import com.zhengqing.system.service.ISysDictService;
 import com.zhengqing.system.service.ISysUserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -37,13 +35,11 @@ public class SystemClient implements ISystemClient {
     private ISysUserService sysUserService;
 
     @Override
-    @GetMapping(API_DICT + "/getUpDictListFromCacheByCode")
     public List<SysDictVO> getUpDictListFromCacheByCode(String code) {
         return this.dictService.listFromCacheByCode(Lists.newArrayList(code)).get(code);
     }
 
     @Override
-    @PostMapping(API_USER)
     public ApiResult<Integer> addOrUpdateData(SysUserSaveDTO params) {
         return ApiResult.ok(this.sysUserService.addOrUpdateData(params));
     }
@@ -56,4 +52,8 @@ public class SystemClient implements ISystemClient {
         return Integer.valueOf(userId);
     }
 
+    @Override
+    public String test() {
+        return "666";
+    }
 }

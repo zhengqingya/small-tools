@@ -36,4 +36,9 @@ public class ISystemClientFallback implements ISystemClient {
         return null;
     }
 
+    @Override
+    public String test() {
+        return null;
+    }
+
 }

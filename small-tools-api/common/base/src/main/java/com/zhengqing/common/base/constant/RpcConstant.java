@@ -46,13 +46,9 @@ public interface RpcConstant extends BaseConstant {
      * rpc服务调用不需要封装返回值的api
      */
     List<String> RETURN_VALUE_HANDLER_EXCLUDE_API_LIST = Lists.newArrayList(
-            RPC_API_PREFIX_WEB,
+            RPC_API_PREFIX,
             "POST:/oauth/token",
-            "POST:/auth/oauth/token",
-            "GET:/rpc/client",
-            "PUT:/rpc/client",
-            "POST:/rpc/client",
-            "DELETE:/rpc/client"
+            "POST:/auth/oauth/token"
     );
 
     // ===============================================================================

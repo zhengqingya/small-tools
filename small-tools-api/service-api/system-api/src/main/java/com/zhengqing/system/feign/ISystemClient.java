@@ -56,4 +56,7 @@ public interface ISystemClient extends IBaseClient {
     @GetMapping(API_USER + "/getRequestHeaderUserId")
     Integer getRequestHeaderUserId();
 
+    @GetMapping(RpcConstant.RPC_API_PREFIX_SYSTEM + "/test")
+    String test();
+
 }
