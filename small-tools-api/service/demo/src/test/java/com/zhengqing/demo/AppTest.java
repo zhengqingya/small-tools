@@ -5,6 +5,8 @@ import com.google.common.collect.Maps;
 import com.zhengqing.demo.entity.Demo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -134,8 +136,10 @@ public class AppTest {
 
     @Test
     public void test06() throws Exception {
-
+        PathMatcher pathMatcher = new AntPathMatcher();
+        if (pathMatcher.match("*:/rpc/client/**/*", "GET:/rpc/client/test/1/2/3")) {
+            System.out.println(666);
+        }
     }
-
 
 }

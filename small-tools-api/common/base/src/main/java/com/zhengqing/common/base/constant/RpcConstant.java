@@ -44,9 +44,12 @@ public interface RpcConstant extends BaseConstant {
 
     /**
      * rpc服务调用不需要封装返回值的api
+     * 　　 ?　 =>　 匹配一个字符
+     * 　　 *　 =>  匹配0个及以上字符
+     * 　　 **　=>  匹配0个及以上目录
      */
     List<String> RETURN_VALUE_HANDLER_EXCLUDE_API_LIST = Lists.newArrayList(
-            RPC_API_PREFIX,
+            "*:/rpc/client/**/*",
             "POST:/oauth/token",
             "POST:/auth/oauth/token"
     );
