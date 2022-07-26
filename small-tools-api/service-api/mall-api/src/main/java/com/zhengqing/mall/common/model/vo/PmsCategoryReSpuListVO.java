@@ -1,6 +1,5 @@
 package com.zhengqing.mall.common.model.vo;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.model.vo.BaseVO;
@@ -32,12 +31,10 @@ import java.util.List;
 public class PmsCategoryReSpuListVO extends BaseVO {
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "分类ID", hidden = true)
     private String categoryId;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "分类关联商品是否上架(false->下架；true->上架)", hidden = true)
     private Boolean categoryReSpuIsPut;
 

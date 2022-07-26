@@ -1,7 +1,6 @@
 package com.zhengqing.mall.mini.model.vo;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.model.vo.BaseVO;
 import com.zhengqing.mall.common.model.bo.MallFileBO;
@@ -45,7 +44,6 @@ public class MiniPmsSpuRatePageVO extends BaseVO {
     private String content;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "评价图片或视频", hidden = true)
     private String resourceJson;
 
@@ -53,7 +51,6 @@ public class MiniPmsSpuRatePageVO extends BaseVO {
     private List<MallFileBO> resourceList;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "商品规格属性", hidden = true)
     private String specJson;
 

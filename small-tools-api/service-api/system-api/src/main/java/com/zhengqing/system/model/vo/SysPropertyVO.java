@@ -1,6 +1,6 @@
 package com.zhengqing.system.model.vo;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.model.vo.BaseVO;
 import io.swagger.annotations.ApiModel;
@@ -27,7 +27,6 @@ import lombok.experimental.SuperBuilder;
 public class SysPropertyVO extends BaseVO {
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "主键ID", hidden = true)
     private String id;
 

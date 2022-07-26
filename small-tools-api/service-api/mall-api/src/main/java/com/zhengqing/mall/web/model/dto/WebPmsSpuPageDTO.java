@@ -1,6 +1,5 @@
 package com.zhengqing.mall.web.model.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.model.dto.BasePageDTO;
 import com.zhengqing.common.base.util.MyDateUtil;
@@ -40,7 +39,6 @@ public class WebPmsSpuPageDTO extends BasePageDTO implements ParamCheck {
     private Byte tabValue;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "是否上架(0->下架；1->上架)", hidden = true)
     private Boolean isPut;
 

@@ -1,6 +1,6 @@
 package com.zhengqing.mall.web.model.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.model.dto.BaseDTO;
 import com.zhengqing.mall.common.model.bo.PmsSkuSpecBO;
@@ -31,7 +31,6 @@ import java.util.List;
 public class WebPmsSkuSaveDTO extends BaseDTO {
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "商品ID", example = "1", hidden = true)
     private String spuId;
 

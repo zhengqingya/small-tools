@@ -1,6 +1,6 @@
 package com.zhengqing.mall.web.model.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.model.dto.BasePageDTO;
 import com.zhengqing.common.base.util.MyDateUtil;
@@ -44,7 +44,6 @@ public class WebOmsOrderPageDTO extends BasePageDTO implements ParamCheck {
      */
 //    @Range(min = 1, max = 5, message = "订单状态值：1-5")
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "订单状态", hidden = true)
     private Byte orderStatus;
 

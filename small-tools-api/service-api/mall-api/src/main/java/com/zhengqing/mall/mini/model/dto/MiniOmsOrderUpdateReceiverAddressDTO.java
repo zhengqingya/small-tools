@@ -1,6 +1,6 @@
 package com.zhengqing.mall.mini.model.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.core.custom.parameter.ParamCheck;
 import com.zhengqing.mall.common.model.bo.OmsOrderReceiverAddressBO;
@@ -36,17 +36,14 @@ public class MiniOmsOrderUpdateReceiverAddressDTO implements ParamCheck {
      * {@link OmsOrderReceiverAddressBO }
      */
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "收货人姓名", hidden = true)
     private String receiverName;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "收货人电话", hidden = true)
     private String receiverPhone;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "收货人地址", hidden = true)
     private String receiverAddress;
 

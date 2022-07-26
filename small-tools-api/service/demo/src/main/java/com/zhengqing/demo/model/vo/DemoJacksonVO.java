@@ -1,5 +1,7 @@
 package com.zhengqing.demo.model.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.zhengqing.common.base.model.dto.BaseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,11 +23,18 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DemoJacksonVO {
+public class DemoJacksonVO extends BaseDTO {
 
     private Long id;
 
     private String name;
+
+    @JsonIgnore
+    private String password;
+
+    private String hello_world;
+
+    private String hiWorld;
 
     private Boolean status;
 

@@ -1,6 +1,6 @@
 package com.zhengqing.mall.mini.model.vo;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.model.vo.BaseVO;
 import com.zhengqing.mall.common.model.bo.PmsSkuSpecBO;
@@ -43,7 +43,6 @@ public class MiniOmsCartVO extends BaseVO {
     private Integer num;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "操作时间", hidden = true)
     private Date time;
 

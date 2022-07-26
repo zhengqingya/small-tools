@@ -1,5 +1,6 @@
 spring:
   # jackson全局处理
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss  # JSON入参及返回值Date时间
-    time-zone: GMT+8                  # 全局时区
+    date-format: yyyy-MM-dd HH:mm:ss  # JSON入参及返回值Date时间格式
+    time-zone: GMT+8                  # 时区
+    # property-naming-strategy: LOWER_CAMEL_CASE # 属性命名策略->转驼峰式 {@see com.fasterxml.jackson.databind.PropertyNamingStrategies }

@@ -1,6 +1,6 @@
 package com.zhengqing.mall.common.model.vo;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.mall.common.model.bo.PmsSkuSpecBO;
 import com.zhengqing.mall.common.model.enums.OmsOrderItemStatusEnum;
@@ -33,7 +33,6 @@ public class OmsOrderItemVO {
     private String id;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "订单编号", hidden = true)
     private String orderNo;
 

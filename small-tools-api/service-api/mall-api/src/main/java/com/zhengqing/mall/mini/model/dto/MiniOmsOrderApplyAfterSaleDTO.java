@@ -2,7 +2,6 @@ package com.zhengqing.mall.mini.model.dto;
 
 import cn.hutool.core.lang.Assert;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.core.custom.parameter.ParamCheck;
@@ -57,7 +56,6 @@ public class MiniOmsOrderApplyAfterSaleDTO implements ParamCheck {
      * {@link OmsOrderAfterSaleStatusEnum}
      */
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "售后状态", hidden = true)
     private Byte afterStatus;
 
@@ -86,7 +84,6 @@ public class MiniOmsOrderApplyAfterSaleDTO implements ParamCheck {
     private List<MallFileBO> certImgList;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "凭证图", hidden = true)
     private String certImgJson;
 

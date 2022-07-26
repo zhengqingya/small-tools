@@ -1,6 +1,6 @@
 package com.zhengqing.common.base.model.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -28,17 +28,17 @@ public class BaseDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore // 字段忽略
+//    @JsonProperty("userId") // 字段别名
     @ApiModelProperty(value = "当前用户ID", hidden = true)
-    // @JSONField: 解决由于json转成类时字段不一致的问题 前端：name值 后端：userId
-    @JSONField(name = "userId", serialize = false, deserialize = false)
     private Integer currentUserId;
 
+    @JsonIgnore
     @ApiModelProperty(value = "当前用户名称", hidden = true)
-    @JSONField(serialize = false, deserialize = false)
     private String currentUsername;
 
-    // @ApiModelProperty(value = "令牌", hidden = true)
-    // @JSONField(serialize = false, deserialize = false)
-    // private String token;
+//    @JsonIgnore
+//    @ApiModelProperty(value = "令牌", hidden = true)
+//    private String token;
 
 }

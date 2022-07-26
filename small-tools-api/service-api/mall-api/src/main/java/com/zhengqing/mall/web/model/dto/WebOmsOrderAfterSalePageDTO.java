@@ -1,6 +1,6 @@
 package com.zhengqing.mall.web.model.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.model.dto.BasePageDTO;
@@ -46,7 +46,6 @@ public class WebOmsOrderAfterSalePageDTO extends BasePageDTO implements ParamChe
      * {@link OmsOrderAfterSaleStatusEnum}
      */
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "售后状态", hidden = true)
     private List<Byte> afterStatusList;
 

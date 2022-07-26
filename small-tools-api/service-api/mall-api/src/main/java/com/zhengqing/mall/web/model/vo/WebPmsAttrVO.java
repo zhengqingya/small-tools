@@ -1,6 +1,6 @@
 package com.zhengqing.mall.web.model.vo;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.model.vo.BaseVO;
 import io.swagger.annotations.ApiModel;
@@ -46,17 +46,14 @@ public class WebPmsAttrVO extends BaseVO {
     private Integer attrKeySort;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "属性value-id", hidden = true, example = "1")
     private String attrValueId;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "属性value-名称", hidden = true, example = "蓝色")
     private String attrValueName;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "属性值排序", hidden = true, example = "1")
     private Integer attrValueSort;
 

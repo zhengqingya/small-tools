@@ -1,6 +1,5 @@
 package com.zhengqing.mall.common.model.vo;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.model.vo.BaseVO;
 import com.zhengqing.mall.common.model.enums.OmsOrderAfterSaleStatusEnum;
@@ -64,12 +63,10 @@ public class OmsOrderAfterSaleBaseVO extends BaseVO {
     // ======================= ↓↓↓↓↓↓ 其它详情 ↑↑↑↑↑↑ =======================
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "关联售后商品ids(英文逗号分隔)", hidden = true)
     private String orderItemIds;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "订单商品详情ids", hidden = true)
     private List<String> orderItemIdList;
 

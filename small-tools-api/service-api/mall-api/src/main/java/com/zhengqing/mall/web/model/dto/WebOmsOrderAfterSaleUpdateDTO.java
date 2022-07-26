@@ -1,7 +1,6 @@
 package com.zhengqing.mall.web.model.dto;
 
 import cn.hutool.core.lang.Assert;
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.exception.MyException;
 import com.zhengqing.common.core.custom.parameter.ParamCheck;
@@ -75,7 +74,6 @@ public class WebOmsOrderAfterSaleUpdateDTO implements ParamCheck {
     private String handlerRemarkForApply;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "实际退款金额 (单位：分)", hidden = true)
     private Integer refundPrice;
 

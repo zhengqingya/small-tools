@@ -1,6 +1,6 @@
 package com.zhengqing.tool.generator.model.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.model.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -53,12 +53,12 @@ public class CgGenerateCodeDTO extends BaseDTO {
     @ApiModelProperty(value = "数据类型（1：默认数据 2：测试模板生成配置数据）")
     private Integer dataType;
 
+    @JsonIgnore
     @ApiModelProperty(value = "是否为测试模板生成数据（true: 是 false: 不是）", hidden = true)
-    @JSONField(serialize = false, deserialize = false)
     private Boolean ifTestTemplateData;
 
+    @JsonIgnore
     @ApiModelProperty(value = "模板ID (测试模板生成数据时使用)", hidden = true)
-    @JSONField(serialize = false, deserialize = false)
     private Integer projectTemplateId;
 
     // @ApiModelProperty(value = "是否只是校验模板数据正确性")

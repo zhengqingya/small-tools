@@ -26,9 +26,9 @@ import lombok.experimental.SuperBuilder;
 public class BasePageDTO extends BaseDTO {
 
     @ApiModelProperty(value = "当前页", required = true, position = 0, example = "1")
-    private int pageNum = 1;
+    private Integer pageNum = 1;
 
     @ApiModelProperty(value = "每页显示数量", required = true, position = 1, example = "10")
-    private int pageSize = 10;
+    private Integer pageSize = 10;
 
 }

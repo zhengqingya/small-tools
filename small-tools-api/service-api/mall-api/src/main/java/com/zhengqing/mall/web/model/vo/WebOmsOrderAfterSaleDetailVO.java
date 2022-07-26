@@ -1,7 +1,6 @@
 package com.zhengqing.mall.web.model.vo;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.mall.common.model.bo.MallFileBO;
 import com.zhengqing.mall.common.model.vo.OmsOrderItemVO;
@@ -41,7 +40,6 @@ public class WebOmsOrderAfterSaleDetailVO extends WebOmsOrderAfterSaleBaseVO {
     private Date refundTime;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "凭证图", hidden = true)
     private String certImgJson;
 

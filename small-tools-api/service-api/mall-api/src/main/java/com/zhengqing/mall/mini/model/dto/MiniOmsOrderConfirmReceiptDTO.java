@@ -1,6 +1,6 @@
 package com.zhengqing.mall.mini.model.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.model.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
@@ -41,7 +41,6 @@ public class MiniOmsOrderConfirmReceiptDTO extends BaseDTO {
     private String shippingId;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "租户id(后端mq自动收货使用)", hidden = true)
     private Integer tenantId;
 

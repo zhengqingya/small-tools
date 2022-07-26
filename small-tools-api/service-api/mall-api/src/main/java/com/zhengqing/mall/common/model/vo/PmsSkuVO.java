@@ -1,6 +1,6 @@
 package com.zhengqing.mall.common.model.vo;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.model.vo.BaseVO;
 import com.zhengqing.mall.common.model.bo.PmsSkuSpecBO;
@@ -66,7 +66,6 @@ public class PmsSkuVO extends BaseVO {
     private Integer presellPrice;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "商品规格-属性", hidden = true)
     private List<PmsSkuSpecBO> specList;
 
@@ -89,7 +88,6 @@ public class PmsSkuVO extends BaseVO {
      * {@link OmsOrderDeliverTypeEnum}
      */
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "发货方式", hidden = true)
     private OmsOrderDeliverTypeEnum deliverTypeEnum;
 

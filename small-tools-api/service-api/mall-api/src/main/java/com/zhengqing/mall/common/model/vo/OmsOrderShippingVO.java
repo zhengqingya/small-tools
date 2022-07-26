@@ -1,6 +1,6 @@
 package com.zhengqing.mall.common.model.vo;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.mall.common.model.enums.OmsOrderShippingReceiptTypeEnum;
 import io.swagger.annotations.ApiModel;
@@ -31,7 +31,6 @@ public class OmsOrderShippingVO {
     private String shippingId;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "订单编号", hidden = true)
     private String orderNo;
 
@@ -89,12 +88,10 @@ public class OmsOrderShippingVO {
     // ========================== ↓↓↓↓↓↓ 隐藏字段->只在后台处理使用 ↓↓↓↓↓↓ ==========================
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "商品-名称", hidden = true)
     private String spuName;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "商品-封面图", hidden = true)
     private String spuCoverImg;
 

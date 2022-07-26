@@ -1,7 +1,6 @@
 package com.zhengqing.mall.mini.model.dto;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.model.dto.BaseDTO;
 import com.zhengqing.common.core.custom.parameter.ParamCheck;
@@ -88,7 +87,6 @@ public class MiniPmsSpuRateSaveDTO extends BaseDTO implements ParamCheck {
         private List<MallFileBO> resourceList;
 
         @JsonIgnore
-        @JSONField(serialize = false, deserialize = false)
         @ApiModelProperty(value = "评价图片或视频", hidden = true)
         private String resourceJson;
 
@@ -122,7 +120,6 @@ public class MiniPmsSpuRateSaveDTO extends BaseDTO implements ParamCheck {
          * {@link PmsSpuRateTypeEnum}
          */
         @JsonIgnore
-        @JSONField(serialize = false, deserialize = false)
         @ApiModelProperty(value = "评价分类(1->好评,2->差评,3->一般)", hidden = true)
         private Byte rateType;
     }

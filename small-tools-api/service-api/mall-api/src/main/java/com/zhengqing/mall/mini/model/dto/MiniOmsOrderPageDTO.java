@@ -1,6 +1,6 @@
 package com.zhengqing.mall.mini.model.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.exception.MyException;
 import com.zhengqing.common.base.model.dto.BasePageDTO;
@@ -39,7 +39,6 @@ public class MiniOmsOrderPageDTO extends BasePageDTO implements ParamCheck {
      * {@link OmsOrderStatusEnum}
      */
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "订单状态", hidden = true)
     private Byte orderStatus;
 

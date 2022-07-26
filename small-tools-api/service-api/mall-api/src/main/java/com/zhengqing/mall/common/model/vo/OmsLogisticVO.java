@@ -1,7 +1,6 @@
 package com.zhengqing.mall.common.model.vo;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.common.base.model.vo.BaseVO;
 import io.swagger.annotations.ApiModel;
@@ -39,7 +38,6 @@ public class OmsLogisticVO extends BaseVO {
     private String logisticsNo;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "事件轨迹集", hidden = true)
     private String traceJson;
 

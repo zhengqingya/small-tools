@@ -1,6 +1,6 @@
 package com.zhengqing.mall.web.model.vo;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhengqing.mall.common.model.vo.OmsOrderItemVO;
 import io.swagger.annotations.ApiModel;
@@ -39,7 +39,6 @@ public class WebOmsOrderAfterSalePageVO extends WebOmsOrderAfterSaleBaseVO {
     private Integer spuNum;
 
     @JsonIgnore
-    @JSONField(serialize = false, deserialize = false)
     @ApiModelProperty(value = "关联商品信息", hidden = true)
     private List<OmsOrderItemVO> spuList;
 
