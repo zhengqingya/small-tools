@@ -1,0 +1,5 @@
+spring:
+  # jackson全局处理
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss  # JSON入参及返回值Date时间
+    time-zone: GMT+8                  # 全局时区

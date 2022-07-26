@@ -10,6 +10,7 @@ import com.zhengqing.common.core.aspect.config.BeanSelfAware;
 import com.zhengqing.common.core.custom.limit.ApiLimit;
 import com.zhengqing.common.redis.util.RedisUtil;
 import com.zhengqing.common.web.util.RestTemplateUtil;
+import com.zhengqing.demo.model.vo.DemoJacksonVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.SneakyThrows;
@@ -18,6 +19,7 @@ import org.redisson.api.RateIntervalUnit;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -96,6 +98,13 @@ public class TestController extends BaseController implements BeanSelfAware {
         Long num = RedisUtil.incrBy(key, 1);
         log.info("num: {}", num);
         return "OK: " + RandomUtil.randomNumber();
+    }
+
+    @ApiOperation("jackson")
+    @GetMapping("jackson")
+    @SneakyThrows(Exception.class)
+    public DemoJacksonVO jackson() {
+        return DemoJacksonVO.builder().time(new Date()).build();
     }
 
 }

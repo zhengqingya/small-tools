@@ -3,16 +3,13 @@ package com.zhengqing.common.web.config;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import java.util.List;
 
 /**
  * <p>
- * WebConfig
+ * Servlet初始化执行
  * </p>
  *
  * @author zhengqingya
@@ -21,16 +18,11 @@ import java.util.List;
  */
 @Slf4j
 @Configuration
-public class WebConfig extends WebMvcConfigurerAdapter implements ServletContextInitializer {
-
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        super.configureMessageConverters(converters);
-    }
+public class ServletInit implements ServletContextInitializer {
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        initProperties();
+        this.initProperties();
 //        loadAllUrlMapping(servletContext);
     }
 
@@ -75,5 +67,5 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ServletContext
 //            }
 //        }
 //    }
-    
+
 }
