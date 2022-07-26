@@ -36,8 +36,9 @@ const useUserStore = defineStore({
           uuid: uuid,
         })
           .then((response) => {
-            const { tokenType, value } = response.data
-            const token = tokenType + ' ' + value
+            console.log('11', response.data);
+            const { token_type, access_token } = response.data
+            const token = token_type + ' ' + access_token
             localStorage.set('token', token)
             this.token = token
             resolve(token)

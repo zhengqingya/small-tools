@@ -13,6 +13,6 @@ export interface LoginFormData {
 }
 
 export interface LoginResponseData {
-  tokenType: string
-  value: string
+  token_type: string
+  access_token: string
 }
