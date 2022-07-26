@@ -28,6 +28,10 @@ public class DemoJacksonVO extends BaseDTO {
 
     private Long id;
 
+    private Long no;
+
+    private Integer sex;
+
     private String name;
 
     @JsonIgnore

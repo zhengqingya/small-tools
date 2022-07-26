@@ -104,7 +104,7 @@ public class TestController extends BaseController implements BeanSelfAware {
     @GetMapping("jackson")
     @SneakyThrows(Exception.class)
     public DemoJacksonVO jackson() {
-        return DemoJacksonVO.builder().time(new Date()).build();
+        return DemoJacksonVO.builder().no(1111111111111111111L).sex(1).time(new Date()).build();
     }
 
 }
