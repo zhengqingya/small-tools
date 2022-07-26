@@ -23,6 +23,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+//@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)  // 对单个类配置jackson属性命名
 public class DemoJacksonVO extends BaseDTO {
 
     private Long id;

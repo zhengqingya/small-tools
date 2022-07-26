@@ -1,8 +1,8 @@
 package com.zhengqing.common.web.config.jackson;
 
+import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.zhengqing.common.base.util.MyStringUtil;
 
 /**
  * <p> Jackson自定义属性命名策略 </p>
@@ -21,7 +21,7 @@ public class MyPropertyNamingStrategy extends PropertyNamingStrategy {
 
         @Override
         public String translate(String propertyName) {
-            return MyStringUtil.dbStrToHumpLower(propertyName);
+            return StrUtil.toCamelCase(propertyName);
         }
     }
 }

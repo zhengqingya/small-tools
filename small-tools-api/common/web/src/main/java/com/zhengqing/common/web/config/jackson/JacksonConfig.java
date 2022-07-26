@@ -28,7 +28,7 @@ public class JacksonConfig {
 //        objectMapper.getSerializerProvider().setNullValueSerializer(new CustomNullJsonSerializer.NullObjectJsonSerializer());
 
         // 属性命名策略 -> 驼峰式
-        objectMapper.setPropertyNamingStrategy(MyPropertyNamingStrategy.LOWER_CAMEL_CASE_HUMP);
+//        objectMapper.setPropertyNamingStrategy(MyPropertyNamingStrategy.LOWER_CAMEL_CASE_HUMP);
         return objectMapper;
     }
 
