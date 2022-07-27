@@ -4,7 +4,7 @@ spring:
     addresses: ${small-tools.ip}:5672 # 指定client连接到的server的地址，多个以逗号分隔
     # 填写自己安装rabbitmq时设置的账号密码，默认账号密码为`guest`
     username: admin
-    password: 123456
+    password: admin
     virtual-host: my_vhost # 填写自己的虚拟机名，对应可查看 `127.0.0.1:15672/#/users` 下Admin中的`Can access virtual hosts`信息
     listener:
       simple:
