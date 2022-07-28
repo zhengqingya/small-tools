@@ -2,6 +2,7 @@ package com.zhengqing.common.web.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -13,6 +14,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Iterator;
@@ -773,6 +776,41 @@ public class RestTemplateUtil {
      */
     public static RestTemplate getRestTemplate() {
         return restTemplate;
+    }
+
+    /**
+     * 通过实体类获取 URL Params
+     *
+     * @param clazz 实体类
+     * @return URL Params
+     */
+    @SneakyThrows(Exception.class)
+    public static String parseUrlParams(Object clazz) {
+        // 遍历属性类、属性值
+        Field[] fields = clazz.getClass().getDeclaredFields();
+        StringBuilder requestURL = new StringBuilder();
+        boolean flag = true;
+        String property, value;
+        for (Field field : fields) {
+            // 允许访问私有变量
+            field.setAccessible(true);
+            // 过滤静态属性
+            if (Modifier.isStatic(field.getModifiers())) {
+                continue;
+            }
+            // 属性名
+            property = field.getName();
+            // 属性值
+            value = field.get(clazz).toString();
+            String params = property + "=" + value;
+            if (flag) {
+                requestURL.append("?").append(params);
+                flag = false;
+            } else {
+                requestURL.append("&").append(params);
+            }
+        }
+        return requestURL.toString();
     }
 
 }
