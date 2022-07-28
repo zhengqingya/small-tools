@@ -2,14 +2,26 @@
 
 > 项目地址：[https://gitee.com/zhengqingya/small-tools](https://gitee.com/zhengqingya/small-tools)
 
-`Small-Tools`微服务项目目前技术：
+`Small-Tools`微服务项目
 
-1. Spring Cloud Alibaba
-2. Nacos
-3. Redis
-4. MySQL
-5. Vue
-6. Docker
+后端技术栈：
+
+1. SpringBoot2.7.0
+2. Spring Cloud Alibaba2021.0.1.0
+3. Nacos2.0.3
+4. Redis6.0.8
+5. MySQL5.7
+6. RabbitMQ
+7. Docker
+
+前端技术栈：
+
+1. Vue3
+2. Vite2
+3. TypeScript
+4. Vue Router
+5. Element Plus
+6. Pinia
 
 目前功能点：
 
@@ -34,6 +46,7 @@
 
 项目相关文档更新地址：[https://zhengqing.blog.csdn.net/category_10749058.html](https://zhengqing.blog.csdn.net/category_10749058.html)
 
+[点击查看前端项目搭建文档](https://gitee.com/zhengqingya/java-developer-document/blob/master/%E7%9F%A5%E8%AF%86%E5%BA%93/%E5%89%8D%E7%AB%AF/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98)
 
 ---
 
@@ -42,4 +55,3 @@
 > 但不要麻木，
 > 要很新鲜很激情，
 > 保持梦想的热度。
-
