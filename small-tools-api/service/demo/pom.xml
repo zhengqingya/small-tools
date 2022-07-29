@@ -35,6 +35,11 @@
             <artifactId>demo-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>seata</artifactId>
+        </dependency>
+
         <!-- 该模块属于 mybatis （MP） 的扩展库 https://baomidou.com/pages/1864e1/ -->
         <!--        <dependency>-->
         <!--            <groupId>com.baomidou</groupId>-->

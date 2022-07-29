@@ -74,3 +74,27 @@ docker-compose -f ./xxl-job/docker-compose-xxl-job.yml -p xxl-job up -d
 
 访问地址：[`http://ip地址:9003/xxl-job-admin`](http://127.0.0.1:9003/xxl-job-admin)
 默认登录账号密码：`admin/123456`
+
+### Seata - 分布式事务
+
+```shell
+# 修改seata配置文件`./seata/seata-server/resources/application.yml`
+# 修改`docker-compose-seata.yml`相关IP配置
+# nacos命名空间`prod`下新建配置`seata-server.properties`
+# 新建数据库`seata-server`，导入sql脚本`./seata/sql/seata-server.sql`
+# 运行
+docker-compose -f ./seata/docker-compose-seata.yml -p seata up -d
+```
+
+访问seata控制台：[`ip地址:7091`](http://www.zhengqingya.com:7091)
+登录账号密码默认：`seata/seata`
+
+![seata-login.png](../images/seata-login.png)
+
+![seata-TransactionInfo.png](../images/seata-TransactionInfo.png)
+
+![seata-GlobalLockInfo.png](../images/seata-GlobalLockInfo.png)
+
+nacos服务注册
+
+![seata-nacos.png](../images/seata-nacos.png)

@@ -1,7 +1,7 @@
 package com.zhengqing.demo.api;
 
 import com.zhengqing.demo.entity.Demo;
-import com.zhengqing.demo.service.IDemoService;
+import com.zhengqing.demo.service.ISeataService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -25,22 +25,17 @@ import javax.annotation.Resource;
 @Slf4j
 @RestController
 @RequestMapping("/test/seata")
-@Api(tags = {"测试 - seata"})
+@Api(tags = {"test-seata"})
 public class SeataController {
 
     @Resource
-    private IDemoService demoService;
+    private ISeataService seataService;
 
     @PostMapping("saveOrUpdate")
     @ApiOperation("saveOrUpdate")
 //    @GlobalTransactional(timeoutMills = 300000, name = "spring-cloud-demo-tx")
-    public Demo saveOrUpdate(@Validated @RequestBody Demo demo) {
-        Demo result = this.demoService.getDataByDbTest(1);
-
-//        this.demoService.saveOrUpdate(demo);
-//        int i = 1 / 0;
-        return result;
+    public void saveOrUpdate(@Validated @RequestBody Demo demo) {
+        this.seataService.test(demo);
     }
-
 
 }

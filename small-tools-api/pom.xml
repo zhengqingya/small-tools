@@ -144,6 +144,11 @@
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
+                <artifactId>seata</artifactId>
+                <version>${small-tools-api.project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zhengqing</groupId>
                 <artifactId>security</artifactId>
                 <version>${small-tools-api.project.version}</version>
             </dependency>
