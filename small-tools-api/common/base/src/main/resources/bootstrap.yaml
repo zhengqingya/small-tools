@@ -71,6 +71,7 @@ spring:
       - log
       - mq
       - redis
+      - seata
       - swagger
       - sentinel
       - xxl-job
