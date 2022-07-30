@@ -232,7 +232,7 @@ public class MallCommonServiceImpl implements MallCommonService {
      */
     private void initOrderSetData() {
         // 订单-设置
-        List<SysPropertySaveDTO> dataList = Lists.newArrayList();
+        ValidList<SysPropertySaveDTO> dataList = new ValidList<>();
         SysPropertyKeyEnum.LIST_MALL_ORDER_SET.forEach(
                 item -> dataList.add(SysPropertySaveDTO.builder().key(item.getKey()).value(item.getValue()).remark(item.getDesc()).build()));
         ApiResult<Boolean> sysPropertyDataWrapper = this.ISysPropertyFeignApi.saveBatch(dataList);

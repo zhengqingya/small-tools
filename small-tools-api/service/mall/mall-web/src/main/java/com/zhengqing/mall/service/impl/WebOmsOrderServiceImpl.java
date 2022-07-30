@@ -140,7 +140,7 @@ public class WebOmsOrderServiceImpl extends OmsOrderServiceImpl<OmsOrderMapper, 
     public void updateOrderSet(WebOmsOrderSetDTO params) {
         log.info("[商城] 保存订单设置数据：{}", params);
         // 1、保存订单设置数据
-        List<SysPropertySaveDTO> setList = params.getSetList();
+        ValidList<SysPropertySaveDTO> setList = params.getSetList();
         ApiResult<Boolean> setDataWrapper = this.sysPropertyFeignApi.saveBatch(setList);
         if (setDataWrapper.checkIsFail()) {
             log.error("[商城] 订单设置数据保存失败:{}", setDataWrapper);

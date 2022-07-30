@@ -2,6 +2,7 @@ package com.zhengqing.system.feign;
 
 import com.zhengqing.common.base.constant.RpcConstant;
 import com.zhengqing.common.base.model.vo.ApiResult;
+import com.zhengqing.common.core.custom.validator.common.ValidList;
 import com.zhengqing.system.feign.fallback.ISysPropertyFeignFallback;
 import com.zhengqing.system.model.dto.SysPropertySaveDTO;
 import com.zhengqing.system.model.vo.SysPropertyVO;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -62,6 +64,16 @@ public interface ISysPropertyFeignApi {
     ApiResult<Map<String, SysPropertyVO>> mapByKey(@RequestParam List<String> keyList);
 
     /**
+     * 保存
+     *
+     * @param params 保存参数
+     * @return true->成功 false->失败
+     */
+    @ApiOperation("保存")
+    @PostMapping("/save")
+    ApiResult<Boolean> save(@Validated @RequestBody SysPropertySaveDTO params);
+
+    /**
      * 批量保存
      *
      * @param dataList 保存参数
@@ -69,6 +81,6 @@ public interface ISysPropertyFeignApi {
      */
     @ApiOperation("批量保存")
     @PostMapping("/saveBatch")
-    ApiResult<Boolean> saveBatch(@Validated @RequestBody List<SysPropertySaveDTO> dataList);
+    ApiResult<Boolean> saveBatch(@Valid @RequestBody ValidList<SysPropertySaveDTO> dataList);
 
 }

@@ -1,6 +1,7 @@
 package com.zhengqing.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhengqing.common.core.custom.validator.common.ValidList;
 import com.zhengqing.system.entity.SysProperty;
 import com.zhengqing.system.model.dto.SysPropertySaveDTO;
 import com.zhengqing.system.model.vo.SysPropertyVO;
@@ -87,7 +88,7 @@ public interface ISysPropertyService extends IService<SysProperty> {
      * @author zhengqingya
      * @date 2021/09/06 22:57
      */
-    void saveBatch(@NotEmpty(message = "属性不能为空!") List<SysPropertySaveDTO> dataList);
+    void saveBatch(@NotEmpty(message = "属性不能为空!") ValidList<SysPropertySaveDTO> dataList);
 
     /**
      * 根据属性key删除数据

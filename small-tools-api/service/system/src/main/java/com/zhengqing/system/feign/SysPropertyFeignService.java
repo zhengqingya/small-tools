@@ -3,6 +3,7 @@ package com.zhengqing.system.feign;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.constant.RpcConstant;
 import com.zhengqing.common.base.model.vo.ApiResult;
+import com.zhengqing.common.core.custom.validator.common.ValidList;
 import com.zhengqing.system.model.dto.SysPropertySaveDTO;
 import com.zhengqing.system.model.vo.SysPropertyVO;
 import com.zhengqing.system.service.ISysPropertyService;
@@ -47,7 +48,15 @@ public class SysPropertyFeignService implements ISysPropertyFeignApi {
     }
 
     @Override
-    public ApiResult<Boolean> saveBatch(List<SysPropertySaveDTO> dataList) {
+    public ApiResult<Boolean> save(SysPropertySaveDTO params) {
+        ValidList<SysPropertySaveDTO> dataList = new ValidList<>();
+        dataList.add(params);
+        this.sysPropertyService.saveBatch(dataList);
+        return ApiResult.ok(true);
+    }
+
+    @Override
+    public ApiResult<Boolean> saveBatch(ValidList<SysPropertySaveDTO> dataList) {
         this.sysPropertyService.saveBatch(dataList);
         return ApiResult.ok(true);
     }

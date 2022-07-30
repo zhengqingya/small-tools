@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zhengqing.common.base.context.SysUserContext;
+import com.zhengqing.common.core.custom.validator.common.ValidList;
 import com.zhengqing.common.db.constant.MybatisConstant;
 import com.zhengqing.common.redis.util.RedisUtil;
 import com.zhengqing.system.constant.SystemConstant;
@@ -123,7 +124,7 @@ public class SysPropertyServiceImpl extends ServiceImpl<SysPropertyMapper, SysPr
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveBatch(List<SysPropertySaveDTO> dataList) {
+    public void saveBatch(ValidList<SysPropertySaveDTO> dataList) {
         if (CollectionUtils.isEmpty(dataList)) {
             return;
         }

@@ -1,7 +1,9 @@
 package com.zhengqing.system.feign;
 
+import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.model.vo.ApiResult;
+import com.zhengqing.common.db.mapper.MyBaseMapper;
 import com.zhengqing.common.web.util.RequestContextUtil;
 import com.zhengqing.system.model.dto.SysUserSaveDTO;
 import com.zhengqing.system.model.vo.SysDictVO;
@@ -9,6 +11,7 @@ import com.zhengqing.system.service.ISysDictService;
 import com.zhengqing.system.service.ISysUserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -34,6 +37,8 @@ public class SystemClient implements ISystemClient {
 
     private ISysUserService sysUserService;
 
+    private MyBaseMapper myBaseMapper;
+
     @Override
     public List<SysDictVO> getUpDictListFromCacheByCode(String code) {
         return this.dictService.listFromCacheByCode(Lists.newArrayList(code)).get(code);
@@ -53,7 +58,9 @@ public class SystemClient implements ISystemClient {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public String test() {
+        this.myBaseMapper.execSql("UPDATE t_demo SET username = 'system:" + RandomUtil.randomString(5) + "' WHERE id = 1;");
         return "666";
     }
 }

@@ -1,6 +1,7 @@
 package com.zhengqing.system.feign.fallback;
 
 import com.zhengqing.common.base.model.vo.ApiResult;
+import com.zhengqing.common.core.custom.validator.common.ValidList;
 import com.zhengqing.system.feign.ISysPropertyFeignApi;
 import com.zhengqing.system.model.dto.SysPropertySaveDTO;
 import com.zhengqing.system.model.vo.SysPropertyVO;
@@ -35,7 +36,12 @@ public class ISysPropertyFeignFallback implements ISysPropertyFeignApi {
     }
 
     @Override
-    public ApiResult<Boolean> saveBatch(List<SysPropertySaveDTO> dataList) {
+    public ApiResult<Boolean> save(SysPropertySaveDTO params) {
+        return ApiResult.busy();
+    }
+
+    @Override
+    public ApiResult<Boolean> saveBatch(ValidList<SysPropertySaveDTO> dataList) {
         return ApiResult.busy();
     }
 

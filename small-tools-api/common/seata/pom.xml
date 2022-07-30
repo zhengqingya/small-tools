@@ -19,12 +19,12 @@
     </properties>
 
     <dependencies>
+        <!-- 最外层父pom.xml中统一管理seata版本 -->
         <!-- seata -->
         <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-seata -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-            <version>2021.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>io.seata</groupId>
@@ -36,7 +36,7 @@
         <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-spring-boot-starter</artifactId>
-            <version>1.5.2</version>
+            <!--            <version>1.5.2</version>-->
         </dependency>
     </dependencies>
 

@@ -29,6 +29,11 @@
             <artifactId>core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>seata</artifactId>
+        </dependency>
+
         <!--
         *** SpringBoot 监控客户端 (tips:如果集成了nacos则无需引入客户端依赖和如下配置)
         # application.yml配置

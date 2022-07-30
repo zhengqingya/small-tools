@@ -1,7 +1,5 @@
 package com.zhengqing.demo.service;
 
-import com.zhengqing.demo.entity.Demo;
-
 /**
  * <p> seata 服务类 </p>
  *
@@ -11,6 +9,6 @@ import com.zhengqing.demo.entity.Demo;
  */
 public interface ISeataService {
 
-    void test(Demo demo);
+    void test();
 
 }

@@ -2,6 +2,7 @@ package com.zhengqing.system.api;
 
 import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.common.core.custom.repeatsubmit.NoRepeatSubmit;
+import com.zhengqing.common.core.custom.validator.common.ValidList;
 import com.zhengqing.system.model.dto.SysPropertySaveDTO;
 import com.zhengqing.system.model.vo.SysPropertyVO;
 import com.zhengqing.system.service.ISysPropertyService;
@@ -45,7 +46,7 @@ public class SysPropertyController extends BaseController {
     @NoRepeatSubmit
     @PostMapping("saveBatch")
     @ApiOperation("批量保存")
-    public void saveBatch(@Validated @RequestBody List<SysPropertySaveDTO> dataList) {
+    public void saveBatch(@Validated @RequestBody ValidList<SysPropertySaveDTO> dataList) {
         this.sysPropertyService.saveBatch(dataList);
     }
 

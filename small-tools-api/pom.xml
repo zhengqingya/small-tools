@@ -96,6 +96,14 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- seata分布式事务 -->
+            <!-- https://mvnrepository.com/artifact/io.seata/seata-spring-boot-starter -->
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>1.5.2</version>
+            </dependency>
+
             <!-- ************ ↓↓↓↓↓↓ 组件 ↓↓↓↓↓↓ ************ -->
             <dependency>
                 <groupId>com.zhengqing</groupId>
