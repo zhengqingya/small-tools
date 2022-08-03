@@ -12,12 +12,12 @@ import org.springframework.data.redis.connection.MessageListener;
  * @date 2022/6/17 17:38
  */
 @Slf4j
-public class MyTestListener implements MessageListener {
+public class DemoRedisTestListener implements MessageListener {
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
         String msg = new String(message.getBody());
-        log.info("redis收到订阅消息：{}", msg);
+        log.info("[demo] redis收到订阅消息：{}", msg);
     }
 
 }

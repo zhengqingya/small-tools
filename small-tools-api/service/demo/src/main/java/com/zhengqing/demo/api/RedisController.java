@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.zhengqing.common.base.util.MyDateUtil;
 import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.common.core.util.IdGeneratorUtil;
+import com.zhengqing.common.redis.constant.RedisConstant;
 import com.zhengqing.common.redis.util.RedisUtil;
 import com.zhengqing.demo.constant.DemoConstant;
 import com.zhengqing.demo.entity.Demo;
@@ -32,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @RestController
 @RequestMapping("/web/api/demo/redis")
-@Api(tags = "测试redis")
+@Api(tags = "test-redis")
 public class RedisController extends BaseController {
 
     @Resource
@@ -82,7 +83,8 @@ public class RedisController extends BaseController {
     @ApiOperation("发布订阅")
     @GetMapping("publishSubscribe")
     public String publishSubscribe() {
-        RedisUtil.publish(DemoConstant.REDIS_CHANNEL_TEST, RandomUtil.randomString(10));
+        RedisUtil.publish(RedisConstant.REDIS_CHANNEL_TEST, RandomUtil.randomString(10));
+        RedisUtil.publish(DemoConstant.REDIS_CHANNEL_DEMO, RandomUtil.randomString(10));
         return "success";
     }
 

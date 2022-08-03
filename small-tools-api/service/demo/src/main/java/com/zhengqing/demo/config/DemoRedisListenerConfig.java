@@ -1,7 +1,9 @@
 package com.zhengqing.demo.config;
 
+import com.zhengqing.common.redis.constant.RedisConstant;
+import com.zhengqing.common.redis.listener.RedisTestListener;
 import com.zhengqing.demo.constant.DemoConstant;
-import com.zhengqing.demo.listener.MyTestListener;
+import com.zhengqing.demo.listener.DemoRedisTestListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -28,13 +30,14 @@ public class DemoRedisListenerConfig {
         container.setConnectionFactory(factory);
         // 添加消息监听者，可以是多个
         container.addMessageListener(
-                new MessageListenerAdapter(new MyTestListener()),
-                new ChannelTopic(DemoConstant.REDIS_CHANNEL_TEST)
+                new MessageListenerAdapter(new DemoRedisTestListener()),
+                new ChannelTopic(DemoConstant.REDIS_CHANNEL_DEMO)
         );
-//        container.addMessageListener(
-//                new MessageListenerAdapter(new MyListener()),
-//                new ChannelTopic(DemoConstant.REDIS_CHANNEL_ZQ)
-//        );
+        container.addMessageListener(
+                new MessageListenerAdapter(new RedisTestListener()),
+                new ChannelTopic(RedisConstant.REDIS_CHANNEL_TEST)
+        );
         return container;
     }
+    
 }

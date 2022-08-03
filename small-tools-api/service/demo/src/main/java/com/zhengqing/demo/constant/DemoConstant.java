@@ -9,7 +9,6 @@ package com.zhengqing.demo.constant;
  */
 public interface DemoConstant {
 
-    String REDIS_CHANNEL_TEST = "channel_test";
-    String REDIS_CHANNEL_ZQ = "channel_zq";
+    String REDIS_CHANNEL_DEMO = "channel_demo";
 
 }

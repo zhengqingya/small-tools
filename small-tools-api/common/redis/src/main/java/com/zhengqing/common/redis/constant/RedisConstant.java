@@ -1,4 +1,4 @@
-package com.zhengqing.common.base.constant;
+package com.zhengqing.common.redis.constant;
 
 /**
  * <p>
@@ -29,5 +29,10 @@ public interface RedisConstant {
      */
     String GENERATE_RANDOM_CODE_RETRY_NUM_KEY = "small-tools:generate-random-code:retry-num";
     int GENERATE_RANDOM_CODE_MAX_RETRY_NUM = 5;
+
+    /**
+     * 发布订阅通道
+     */
+    String REDIS_CHANNEL_TEST = "channel_test";
 
 }
