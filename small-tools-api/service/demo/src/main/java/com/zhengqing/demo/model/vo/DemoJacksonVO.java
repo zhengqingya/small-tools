@@ -1,7 +1,9 @@
 package com.zhengqing.demo.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zhengqing.common.base.model.dto.BaseDTO;
+import com.zhengqing.common.web.config.jackson.ToLongSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +30,7 @@ public class DemoJacksonVO extends BaseDTO {
 
     private Long id;
 
+    @JsonSerialize(using = ToLongSerializer.class)
     private Long no;
 
     private Integer sex;

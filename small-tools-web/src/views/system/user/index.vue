@@ -1,8 +1,10 @@
 <template>
   <base-wraper>
     <base-header>
-      <el-input v-model="listQuery.username" clearable placeholder="请输入账号" style="width: 200px" @clear="refreshTableData" />
-      <el-input v-model="listQuery.nickname" clearable placeholder="请输入名称" style="width: 200px" @clear="refreshTableData" />
+      <el-input v-model="listQuery.username" clearable placeholder="请输入账号" style="width: 200px"
+        @clear="refreshTableData" />
+      <el-input v-model="listQuery.nickname" clearable placeholder="请输入名称" style="width: 200px"
+        @clear="refreshTableData" />
       <el-button type="primary" @click="refreshTableData">查询</el-button>
       <template #right>
         <el-button v-hasPerm="'sys:user:add'" type="primary" @click="handleCreate">添加</el-button>
@@ -106,7 +108,7 @@ export default {
       },
     }
   },
-  mounted() {},
+  mounted() { },
   methods: {
     async refreshTableData() {
       this.$refs.baseTable.refresh()
@@ -185,4 +187,5 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
