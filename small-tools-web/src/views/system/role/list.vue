@@ -23,7 +23,7 @@
     </base-table-p>
 
     <base-dialog v-model="dialogVisible" :title="textMap[dialogStatus]" width="50%">
-      <el-form ref="roleForm" :model="roleForm" :rules="rules" label-width="100px">
+      <el-form ref="roleFormRef" :model="roleForm" :rules="rules" label-width="100px">
         <el-form-item label="角色名：" prop="name">
           <el-input v-model="roleForm.name" placeholder="请输入角色名" />
         </el-form-item>
@@ -38,69 +38,67 @@
     </base-dialog>
   </base-wraper>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      roleForm: {
-        roleId: undefined, // 角色id
-        name: '', // 角色名称
-        code: '', // 角色编号
-        status: '', // 状态
-        type: 1, // 代表是编辑或添加 不代表权限设置
-      },
-      dialogVisible: false,
-      list: [], // 用户信息
-      listLoading: false,
-      listQuery: {
-        name: undefined, // 角色名称
-      },
-      total: 0,
-      rules: {
-        code: [{ required: true, message: '请输入角色编码', trigger: 'blur' }],
-        name: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
-      },
-      dialogStatus: '',
-      textMap: {
-        update: '编辑',
-        create: '添加',
-      },
+<script setup lang="ts">
+import { reactive, toRefs, getCurrentInstance } from 'vue'
+// 组件实例
+const { proxy }: any = getCurrentInstance()
+const state = reactive({
+  roleForm: {
+    roleId: null, // 角色id
+    name: '', // 角色名称
+    code: '', // 角色编号
+    status: '', // 状态
+    type: 1, // 代表是编辑或添加 不代表权限设置
+  } as any,
+  dialogVisible: false,
+  list: [], // 用户信息
+  listLoading: false,
+  listQuery: {
+    name: '', // 角色名称
+  },
+  total: 0,
+  rules: {
+    code: [{ required: true, message: '请输入角色编码', trigger: 'blur' }],
+    name: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
+  },
+  dialogStatus: '',
+  textMap: {
+    update: '编辑',
+    create: '添加',
+  } as any,
+})
+
+const { roleForm, dialogVisible, listQuery, rules, dialogStatus, textMap } = toRefs(state)
+
+async function refreshTableData() {
+  proxy.$refs.baseTable.refresh()
+}
+function saveForm() {
+  proxy.$refs.roleFormRef.validate(async (valid: any) => {
+    if (valid) {
+      let res = await proxy.$api.sys_role[state.roleForm.roleId ? 'update' : 'add'](state.roleForm)
+      proxy.submitOk(res.msg)
+      refreshTableData()
+      state.dialogVisible = false
     }
-  },
-  mounted() { },
-  methods: {
-    async refreshTableData() {
-      this.$refs.baseTable.refresh()
-    },
-    saveForm() {
-      this.$refs.roleForm.validate(async (valid) => {
-        if (valid) {
-          let res = await this.$api.sys_role[this.roleForm.roleId ? 'update' : 'add'](this.roleForm)
-          this.submitOk(res.msg)
-          this.refreshTableData()
-          this.dialogVisible = false
-        }
-      })
-    },
-    update(row) {
-      this.roleForm = Object.assign({}, row)
-      this.dialogVisible = true
-      this.dialogStatus = 'update'
-    },
-    add() {
-      this.dialogVisible = true
-      this.dialogStatus = 'create'
-      this.roleForm.roleId = ''
-      this.roleForm.name = ''
-      this.roleForm.code = ''
-    },
-    async deleteData(id) {
-      let res = await this.$api.sys_role.delete(id)
-      this.submitOk(res.msg)
-      this.refreshTableData()
-    },
-  },
+  })
+}
+function update(row: any) {
+  state.roleForm = Object.assign({}, row)
+  state.dialogVisible = true
+  state.dialogStatus = 'update'
+}
+function add() {
+  state.dialogVisible = true
+  state.dialogStatus = 'create'
+  state.roleForm.roleId = null
+  state.roleForm.name = ''
+  state.roleForm.code = ''
+}
+async function deleteData(id: number) {
+  let res = await proxy.$api.sys_role.delete(id)
+  proxy.submitOk(res.msg)
+  refreshTableData()
 }
 </script>
-<style scoped>
-</style>
+<style scoped></style>
