@@ -20,6 +20,7 @@
 <script>
 export default {
   name: 'EditDict',
+  emits: ["saveSucc"],
   data() {
     return {
       titleMap: {
@@ -78,4 +79,5 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

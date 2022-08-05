@@ -7,15 +7,10 @@
       </base-table-cell>
     </el-form>
     <div style="margin-left: 0px; margin-top: 10px">
-      <el-transfer
-        v-model="userForm.roleIdList"
-        :data="roleList"
-        :titles="['待选列表', '已选列表']"
-        :props="{
-          key: 'roleId',
-          label: 'name',
-        }"
-      />
+      <el-transfer v-model="userForm.roleIdList" :data="roleList" :titles="['待选列表', '已选列表']" :props="{
+        key: 'roleId',
+        label: 'name',
+      }" />
     </div>
     <template #footer>
       <el-button @click="dialogRoleVisible = false">取 消</el-button>
@@ -26,6 +21,7 @@
 <script>
 export default {
   name: 'RolePermission',
+  emits: ["saveSucc"],
   data() {
     return {
       dialogRoleVisible: false,
@@ -58,4 +54,5 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

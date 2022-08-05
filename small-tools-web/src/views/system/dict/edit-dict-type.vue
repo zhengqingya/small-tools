@@ -22,6 +22,7 @@
 <script>
 export default {
   name: 'EditDictType',
+  emits: ["saveSucc"],
   data() {
     return {
       statusList: [

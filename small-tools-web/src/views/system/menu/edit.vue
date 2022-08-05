@@ -67,6 +67,7 @@
 </template>
 <script>
 export default {
+  emits: ["handleSucc"],
   data() {
     return {
       dialogVisible: false,
