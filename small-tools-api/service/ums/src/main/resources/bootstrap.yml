@@ -1,16 +1,12 @@
 server:
-  port: 10010
+  port: 10010 # 服务端口
 spring:
   application:
     name: ums # 应用名称
   profiles:
     active: dev # 环境配置
-  # 数据源配置
-  datasource:
-    dynamic:
-      datasource:
-        master:
-          url: jdbc:mysql://${small-tools.mysql.master.ip}:${small-tools.mysql.master.port}/small-tools-mall${small-tools.mysql.master.url-params}
-          username: ${small-tools.mysql.master.username}
-          password: ${small-tools.mysql.master.password}
-          driver-class-name: com.mysql.cj.jdbc.Driver
+
+small-tools:
+  mysql:
+    master:
+      db-name: small-tools-mall # 主库

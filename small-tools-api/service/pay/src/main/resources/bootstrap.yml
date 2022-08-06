@@ -1,5 +1,5 @@
 server:
-  port: 20050
+  port: 20050 # 服务端口
 spring:
   application:
     name: pay # 应用名称

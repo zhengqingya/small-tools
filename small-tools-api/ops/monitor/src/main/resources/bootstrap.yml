@@ -1,6 +1,6 @@
 # http://localhost:30000/actuator
 server:
-  port: 30000
+  port: 30000 # 服务端口
   
 spring:
   application:
