@@ -1,5 +1,5 @@
 server:
-  port: 1218
+  port: 1218 # 服务端口
 
 spring:
   cloud:

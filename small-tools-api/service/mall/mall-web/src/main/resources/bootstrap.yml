@@ -1,5 +1,5 @@
 server:
-  port: 10021
+  port: 10021 # 服务端口
 spring:
   application:
     name: mall-web # 应用名称

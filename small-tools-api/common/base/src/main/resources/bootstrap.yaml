@@ -10,6 +10,7 @@ small-tools:
     master:
       ip: ${small-tools.ip}
       port: 3306
+      db-name: small-tools
       username: root
       password: root
       url-params: ${small-tools.mysql.url-params}
@@ -22,6 +23,7 @@ small-tools:
     db-test:
       ip: ${small-tools.ip}
       port: 3306
+      db-name: demo
       username: root
       password: root
       url-params: ${small-tools.mysql.url-params}

@@ -1,5 +1,5 @@
 server:
-  port: 1219
+  port: 1219 # 服务端口
 
 small-tools:
   # 安全认证
@@ -16,6 +16,7 @@ small-tools:
       - /v2/api-docs
       - /v3/api-docs
       - /favicon.ico
+  # jwt
   security-jwt:
     key-store-location: jwt.jks
     key-store-secret: 123456
