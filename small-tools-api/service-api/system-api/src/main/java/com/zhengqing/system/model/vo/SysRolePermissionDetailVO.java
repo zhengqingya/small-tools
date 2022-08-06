@@ -2,7 +2,11 @@ package com.zhengqing.system.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
@@ -16,6 +20,9 @@ import java.util.List;
  * @date 2020/9/10 14:48
  */
 @Data
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
 @ApiModel("角色权限输出内容")
 public class SysRolePermissionDetailVO {
 

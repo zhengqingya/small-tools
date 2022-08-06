@@ -42,16 +42,15 @@
 import { reactive, toRefs, getCurrentInstance } from 'vue'
 // 组件实例
 const { proxy }: any = getCurrentInstance()
+// 响应式
 const state = reactive({
   roleForm: {
     roleId: null, // 角色id
     name: '', // 角色名称
     code: '', // 角色编号
     status: '', // 状态
-    type: 1, // 代表是编辑或添加 不代表权限设置
   } as any,
   dialogVisible: false,
-  list: [], // 用户信息
   listLoading: false,
   listQuery: {
     name: '', // 角色名称
@@ -67,7 +66,6 @@ const state = reactive({
     create: '添加',
   } as any,
 })
-
 const { roleForm, dialogVisible, listQuery, rules, dialogStatus, textMap } = toRefs(state)
 
 async function refreshTableData() {
@@ -101,4 +99,5 @@ async function deleteData(id: number) {
   refreshTableData()
 }
 </script>
-<style scoped></style>
+<style scoped>
+</style>

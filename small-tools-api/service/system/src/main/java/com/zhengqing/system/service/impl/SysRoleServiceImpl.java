@@ -60,21 +60,27 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 
     @Override
     public Integer addOrUpdateData(SysRoleSaveDTO params) {
-        SysRole sysRole = MyBeanUtil.copyProperties(params, SysRole.class);
-        if (params.getRoleId() == null) {
-            this.sysRoleMapper.insert(sysRole);
-        } else {
-            this.sysRoleMapper.updateById(sysRole);
-        }
+        SysRole sysRole = SysRole.builder()
+                .roleId(params.getRoleId())
+                .name(params.getName())
+                .code(params.getCode())
+                .status(params.getStatus())
+                .build();
+        sysRole.insertOrUpdate();
         return sysRole.getRoleId();
     }
 
     @Override
     public SysRolePermissionDetailVO detail(Integer roleId) {
         SysRole sysRole = this.sysRoleMapper.selectById(roleId);
-        SysRolePermissionDetailVO result = MyBeanUtil.copyProperties(sysRole, SysRolePermissionDetailVO.class);
+        SysRolePermissionDetailVO result = SysRolePermissionDetailVO.builder()
+                .roleId(sysRole.getRoleId())
+                .name(sysRole.getName())
+                .code(sysRole.getCode())
+                .status(sysRole.getStatus())
+                .build();
         List<Integer> menuIdList = this.sysRoleMenuService.getMenuIdsByRoleId(roleId);
-        result.setMenuIdList(CollectionUtils.isEmpty(menuIdList) ? Lists.newArrayList() : menuIdList);
+        result.setMenuIdList(  menuIdList);
         return result;
     }
 
