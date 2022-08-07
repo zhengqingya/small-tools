@@ -21,8 +21,11 @@ import java.util.List;
 @AllArgsConstructor
 public enum SysOauthTypeEnum {
 
-    Gitee(1, "gitee", "Gitee"), GiteeBind(1, "giteeBind", "Gitee账号绑定"), GitHub(2, "github", "GitHub"),
-    GitHubBind(2, "githubBind", "GitHub账号绑定"), QQ(3, "qq", "QQ");
+    Gitee(1, "gitee", "Gitee"),
+    GiteeBind(1, "giteeBind", "Gitee账号绑定"),
+    GitHub(2, "github", "GitHub"),
+    GitHubBind(2, "githubBind", "GitHub账号绑定"),
+    QQ(3, "qq", "QQ");
 
     private final Integer oauthTypeValue;
     private final String oauthTypeName;

@@ -16,7 +16,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SysUserReRoleEnum {
 
-    凡人(1, "凡人"), 超级管理员(9, "超级管理员");
+    凡人(1, "凡人"),
+    超级管理员(9, "超级管理员");
 
     private final Integer roleId;
     private final String desc;

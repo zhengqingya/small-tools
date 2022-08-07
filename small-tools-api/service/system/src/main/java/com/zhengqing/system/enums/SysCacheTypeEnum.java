@@ -16,6 +16,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SysCacheTypeEnum {
 
-    系统菜单, 个人菜单按钮权限, 个人所有信息, 系统所有人菜单按钮权限;
+    系统菜单,
+    个人菜单按钮权限,
+    个人所有信息,
+    系统所有人菜单按钮权限;
 
 }

@@ -20,7 +20,8 @@ import java.util.List;
 @AllArgsConstructor
 public enum SysRoleOperationTypeEnum {
 
-    添加或修改角色(1, "添加或修改角色"), 角色关联菜单权限(2, "角色关联菜单权限");
+    添加或修改角色(1, "添加或修改角色"),
+    角色关联菜单权限(2, "角色关联菜单权限");
 
     private final Integer type;
     private final String desc;

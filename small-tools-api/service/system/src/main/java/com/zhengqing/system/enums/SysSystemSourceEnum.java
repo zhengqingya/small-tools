@@ -20,7 +20,8 @@ import java.util.List;
 @AllArgsConstructor
 public enum SysSystemSourceEnum {
 
-    小工具(0, "small-tools"), 其它(1, "other");
+    小工具(0, "small-tools"),
+    其它(1, "other");
 
     private final Integer systemSource;
     private final String desc;
