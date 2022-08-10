@@ -315,7 +315,7 @@
     <build>
         <finalName>${project.name}</finalName>
 
-        <!-- =============== ↓↓↓↓↓↓ 注：maven默认是不编译，因此加上如下resources才会生产对应的xml文件 目的：解决mybatis映射关系不对应问题  start ↓↓↓↓↓↓ =============== -->
+        <!-- 编译xml文件：解决mybatis映射关系不对应问题,maven默认不编译xml文件 -->
         <resources>
             <resource>
                 <directory>src/main/java</directory>
@@ -337,7 +337,6 @@
                 <filtering>false</filtering>
             </testResource>
         </testResources>
-        <!-- =============== ↑↑↑↑↑↑ 注：maven默认是不编译，因此加上如上resources才会生产对应的xml文件 目的：解决mybatis映射关系不对应问题  end ↑↑↑↑↑↑ =============== -->
 
 
         <!-- pluginManagement：仅仅是一种声明，子项目中可以对 pluginManagement 下的 plugin 进行信息的选择、继承、覆盖等 -->
