@@ -14,7 +14,7 @@
     <description>小工具服务系统</description>
 
     <properties>
-        <small-tools-api.project.version>0.0.1</small-tools-api.project.version>
+        <small-tools-api.project.version>1.0.1</small-tools-api.project.version>
 
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>

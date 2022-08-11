@@ -20,49 +20,14 @@
     </properties>
 
     <dependencies>
-        <!-- SpringBoot使用Undertow代替tomcat -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <!--            <exclusions>-->
-            <!--                <exclusion>-->
-            <!--                    <groupId>org.springframework.boot</groupId>-->
-            <!--                    <artifactId>spring-boot-starter-tomcat</artifactId>-->
-            <!--                </exclusion>-->
-            <!--            </exclusions>-->
-        </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-starter-undertow</artifactId>-->
-        <!--        </dependency>-->
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
 
-        <!-- lombok插件 -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- Hutool工具类 -->
-        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.4</version>
-        </dependency>
-
-        <!-- google-guava工具包 -->
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>29.0-jre</version>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>log</artifactId>
         </dependency>
 
     </dependencies>
@@ -74,6 +39,32 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- 使用自定义插件： maven-plugin-test -->
+            <plugin>
+                <groupId>com.zhengqing</groupId>
+                <artifactId>maven-plugin-test</artifactId>
+                <version>${small-tools-api.project.version}</version>
+                <configuration>
+                    <!-- 向插件传参 -->
+                    <msg>Hello World</msg>
+                    <options>
+                        <option>one</option>
+                        <option>two</option>
+                    </options>
+                    <args>hi</args>
+                </configuration>
+                <executions>
+                    <execution>
+                        <!-- 触发插件的生命周期 -->
+                        <phase>clean</phase>
+                        <goals>
+                            <!-- 插件标识 -->
+                            <goal>myPlugin</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

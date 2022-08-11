@@ -23,11 +23,17 @@ public class TestController {
     @Value(value = "${spring.application.name}")
     private String applicationName;
 
+    /**
+     * http://127.0.0.1:21010/index
+     */
     @GetMapping("/index")
     public String index() {
-        return "您好，欢迎访问【" + applicationName + "】";
+        return "您好，欢迎访问【" + this.applicationName + "】";
     }
 
+    /**
+     * http://127.0.0.1:21010/hello
+     */
     @GetMapping("/hello")
     public String hello() throws InterruptedException {
         // 模拟业务耗时处理流程
