@@ -1,5 +1,6 @@
 package com.zhengqing.demo;
 
+import cn.hutool.core.io.FileUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zhengqing.demo.entity.Demo;
@@ -8,6 +9,7 @@ import org.junit.Test;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
+import java.io.BufferedInputStream;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -140,6 +142,14 @@ public class AppTest {
         if (pathMatcher.match("*:/rpc/client/**/*", "GET:/rpc/client/test/1/2/3")) {
             System.out.println(666);
         }
+    }
+
+    @Test
+    public void test07() throws Exception {
+        // 拿到文件test1
+        BufferedInputStream inputStream = FileUtil.getInputStream("D:\\zq-share\\test.txt");
+        // 写入文件test2
+        FileUtil.writeFromStream(inputStream, "D:\\zq-share\\test2.txt");
     }
 
 }

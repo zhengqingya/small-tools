@@ -147,6 +147,11 @@
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
+                <artifactId>nacos</artifactId>
+                <version>${small-tools-api.project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zhengqing</groupId>
                 <artifactId>redis</artifactId>
                 <version>${small-tools-api.project.version}</version>
             </dependency>
@@ -339,7 +344,7 @@
         </testResources>
 
 
-        <!-- pluginManagement：仅仅是一种声明，子项目中可以对 pluginManagement 下的 plugin 进行信息的选择、继承、覆盖等 -->
+        <!-- pluginManagement：仅仅是一种声明，当前工程或其子工程中可以对 pluginManagement 下的 plugin 进行信息的选择、继承、覆盖等 -->
         <pluginManagement>
             <plugins>
                 <!-- maven打包插件：将整个工程打成一个 fatjar （注：默认集成`maven-surefire-plugin`插件） -->
@@ -417,6 +422,7 @@
         </pluginManagement>
 
         <!-- plugins：子pom文件中，省去了版本、配置细节等信息，只需要指定groupId和artifactId，其他信息均从父pom文件继承。当然，如果子pom文件想定制自己的特定内容，可以另行设置，并会覆盖从父pom文件继承到的内容。 -->
+        <!-- 所有子工程默认都有此插件 -->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

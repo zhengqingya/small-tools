@@ -4,7 +4,6 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ZipUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.InputStream;
@@ -82,9 +81,9 @@ public class MyFileUtil {
     public static File unzip(InputStream inputStream, String zipFilePath, String outFileDir, boolean isDeleteZip) {
         log.debug("【解压文件】 zip文件路径: 【{}】 解压后的目录路径: 【{}】", zipFilePath, outFileDir);
         // zip压缩文件
-        File zipFile = FileUtil.newFile(zipFilePath);
+//        File zipFile = FileUtil.newFile(zipFilePath);
         // 写入文件
-        FileUtils.copyInputStreamToFile(inputStream, zipFile);
+//        FileUtils.copyInputStreamToFile(inputStream, zipFile);
         // 编码方式 "UTF-8" 、"GBK" 【注： gbk编码才能解决报错: java.lang.IllegalArgumentException: MALFORMED】
         File outFile = ZipUtil.unzip(zipFilePath, outFileDir, Charset.forName("GBK"));
         // 删除zip -> 保证下次解压后的文件数据不会累计上次解压留下的文件

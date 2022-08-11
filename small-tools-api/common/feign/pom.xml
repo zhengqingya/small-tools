@@ -22,7 +22,11 @@
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>base</artifactId>
-            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>nacos</artifactId>
         </dependency>
 
         <!-- Feign:远程调用服务 -->

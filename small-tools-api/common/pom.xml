@@ -23,6 +23,7 @@
         <module>file</module>
         <module>log</module>
         <module>mq</module>
+        <module>nacos</module>
         <module>redis</module>
         <module>seata</module>
         <module>security</module>
@@ -33,18 +34,7 @@
     </modules>
 
     <dependencies>
-        <!-- SpringCloud Alibaba Nacos Discovery -->
-        <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <!-- SpringCloud Alibaba Nacos Config -->
-        <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
+
     </dependencies>
 
     <build>

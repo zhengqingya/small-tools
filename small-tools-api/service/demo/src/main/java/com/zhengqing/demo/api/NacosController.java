@@ -50,6 +50,9 @@ public class NacosController extends BaseController {
     @Value("${spring.profiles.active}")
     private String active;
 
+//    @Value("${test}")
+//    private String test;
+
     /**
      * https://github.com/nacos-group/nacos-examples/issues/28
      */
