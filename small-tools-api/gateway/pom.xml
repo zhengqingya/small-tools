@@ -103,18 +103,10 @@
             <artifactId>spring-security-oauth2-jose</artifactId>
         </dependency>
 
-
-        <!-- SpringCloud Alibaba Nacos -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>nacos</artifactId>
         </dependency>
-        <!-- SpringCloud Alibaba Nacos Config -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
-
 
         <!-- SpringCloud Loadbalancer -->
         <dependency>

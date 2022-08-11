@@ -49,17 +49,9 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- SpringCloud Alibaba Nacos Discovery -->
-        <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <!-- SpringCloud Alibaba Nacos Config -->
-        <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>nacos</artifactId>
         </dependency>
 
         <!-- SpringCloud Alibaba Sentinel -->
