@@ -10,6 +10,7 @@ import com.zhengqing.common.base.context.TenantIdContext;
 import com.zhengqing.common.db.config.mybatis.data.permission.first.DataPermissionInterceptor;
 import com.zhengqing.common.db.config.mybatis.data.permission.second.MyDataPermissionHandler;
 import com.zhengqing.common.db.config.mybatis.data.permission.second.MyDataPermissionInterceptor;
+import com.zhengqing.common.db.config.mybatis.plugins.LogicDeleteInterceptor;
 import com.zhengqing.common.db.config.mybatis.plugins.SqlLogInterceptor;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
@@ -43,8 +44,14 @@ public class MybatisPlusConfig {
      */
     public static Set<String> TENANT_ID_TABLE = new HashSet<>();
 
+    /**
+     * 需要逻辑删除的表
+     */
+    public static Set<String> LOGIC_DELETE_TABLE = new HashSet<>();
+
     static {
         TENANT_ID_TABLE.add("t_demo2");
+        LOGIC_DELETE_TABLE.add("t_demo");
     }
 
 
@@ -135,6 +142,15 @@ public class MybatisPlusConfig {
     @ConditionalOnMissingBean
     public DataPermissionInterceptor dataScopeInterceptor(DataSource dataSource) {
         return new DataPermissionInterceptor(dataSource);
+    }
+
+    /**
+     * 逻辑删除插件
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public LogicDeleteInterceptor logicDeleteInterceptor() {
+        return new LogicDeleteInterceptor();
     }
 
 }
