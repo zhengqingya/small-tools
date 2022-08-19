@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+**/.flattened-pom.xml
+**/**/.flattened-pom.xml
+
 ### IntelliJ IDEA ###
 .idea
 *.iws

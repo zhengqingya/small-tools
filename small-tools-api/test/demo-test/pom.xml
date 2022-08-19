@@ -3,17 +3,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>test</artifactId>
         <groupId>com.zhengqing</groupId>
-        <version>1.0.1</version>
+        <version>${revision}</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
     <artifactId>demo-test</artifactId>
 
     <name>${project.artifactId}</name>
-    <version>${small-tools-api.project.version}</version>
+    <version>${revision}</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -42,30 +43,30 @@
             </plugin>
 
             <!-- 使用自定义插件： maven-plugin-test -->
-            <plugin>
-                <groupId>com.zhengqing</groupId>
-                <artifactId>maven-plugin-test</artifactId>
-                <version>${small-tools-api.project.version}</version>
-                <configuration>
-                    <!-- 向插件传参 -->
-                    <msg>Hello World</msg>
-                    <options>
-                        <option>one</option>
-                        <option>two</option>
-                    </options>
-                    <args>hi</args>
-                </configuration>
-                <executions>
-                    <execution>
-                        <!-- 触发插件的生命周期 -->
-                        <phase>clean</phase>
-                        <goals>
-                            <!-- 插件标识 -->
-                            <goal>myPlugin</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>com.zhengqing</groupId>-->
+            <!--                <artifactId>maven-plugin-test</artifactId>-->
+            <!--                <version>${revision}</version>-->
+            <!--                <configuration>-->
+            <!--                    &lt;!&ndash; 向插件传参 &ndash;&gt;-->
+            <!--                    <msg>Hello World</msg>-->
+            <!--                    <options>-->
+            <!--                        <option>one</option>-->
+            <!--                        <option>two</option>-->
+            <!--                    </options>-->
+            <!--                    <args>hi</args>-->
+            <!--                </configuration>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        &lt;!&ndash; 触发插件的生命周期 &ndash;&gt;-->
+            <!--                        <phase>clean</phase>-->
+            <!--                        <goals>-->
+            <!--                            &lt;!&ndash; 插件标识 &ndash;&gt;-->
+            <!--                            <goal>myPlugin</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
 

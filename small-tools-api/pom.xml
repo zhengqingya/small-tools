@@ -6,7 +6,7 @@
 
     <groupId>com.zhengqing</groupId>
     <artifactId>small-tools-api</artifactId>
-    <version>1.0.1</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>small-tools-api</name>
@@ -14,8 +14,7 @@
     <description>小工具服务系统</description>
 
     <properties>
-        <small-tools-api.project.version>1.0.1</small-tools-api.project.version>
-
+        <revision>1.0.2</revision>
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -108,109 +107,109 @@
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>base</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>core</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>db</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>excel</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>feign</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>file</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>log</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>mq</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>nacos</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>redis</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>seata</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>security</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>sentinel</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>swagger</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>web</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>xxl-job</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- ************ ↓↓↓↓↓↓ 服务api ↓↓↓↓↓↓ ************ -->
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>demo-api</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>mall-api</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>pay-api</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>system-api</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.zhengqing</groupId>
                 <artifactId>ums-api</artifactId>
-                <version>${small-tools-api.project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
         </dependencies>
@@ -432,7 +431,38 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
+
+            <!-- Maven多模块项目统一修改版本号 -->
+            <plugin>
+                <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/flatten-maven-plugin -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.3.0</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
+
+
     </build>
 
     <!-- 配置maven项目的远程仓库 -->
