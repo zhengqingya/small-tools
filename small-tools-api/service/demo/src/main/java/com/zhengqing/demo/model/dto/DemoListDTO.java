@@ -28,7 +28,7 @@ import org.hibernate.validator.constraints.Range;
 public class DemoListDTO extends BaseDTO {
 
     @ApiModelProperty("主键ID")
-    private Integer id;
+    private Long id;
 
     @ApiModelProperty("用户名")
     private String username;
