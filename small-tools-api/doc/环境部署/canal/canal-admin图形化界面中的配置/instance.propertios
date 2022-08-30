@@ -1,4 +1,4 @@
-canal.instance.master.address=www.zhengqingya.com:3306
+canal.instance.master.address=127.0.0.1:3306
 # username/password
 canal.instance.dbUsername=canal
 canal.instance.dbPassword=canal

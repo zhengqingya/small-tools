@@ -12,7 +12,7 @@
 
 ```shell
 git clone https://gitee.com/zhengqingya/docker-compose.git
-cd docker-compose/Liunx/seata/1.5.2
+cd docker-compose/Linux/seata/1.5.2
 # 修改seata配置文件`./seata-server/resources/application.yml`
 # 修改`docker-compose-seata.yml`相关IP配置
 # nacos命名空间`prod`下新建配置`seata-server.properties`
@@ -35,7 +35,7 @@ docker logs -f seata-server
 
 #### 部分配置文件
 
-`Liunx/seata/1.5.2/docker-compose-seata.yml`
+`Linux/seata/1.5.2/docker-compose-seata.yml`
 
 ```yml
 # 可参考 https://seata.io/zh-cn/docs/ops/deploy-by-docker-compose.html
@@ -68,7 +68,7 @@ services:
       - seata
 ```
 
-`Liunx/seata/1.5.2/seata-server/resources/application.yml`
+`Linux/seata/1.5.2/seata-server/resources/application.yml`
 
 ```yml
 server:
@@ -115,7 +115,7 @@ seata:
       urls: /,/**/*.css,/**/*.js,/**/*.html,/**/*.map,/**/*.svg,/**/*.png,/**/*.ico,/console-fe/public/**,/api/v1/auth/login
 ```
 
-`Liunx/seata/1.5.2/nacos-config/seata-server.properties`
+`Linux/seata/1.5.2/nacos-config/seata-server.properties`
 
 ```
 # 可参考 https://github.com/seata/seata/blob/develop/script/config-center/config.txt

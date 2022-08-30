@@ -16,11 +16,13 @@
 
 ## 部署
 
-### nacos
+### 各组件环境部署
 
-> 先导入`nacos_config.sql`,再启动nacos，才能正常读取到配置信息，不然会有缓存问题
+见 [`doc/环境部署`](doc/环境部署)
 
 ### 项目部署
+
+> tips: 暂存，不用看这个...
 
 ```shell
 # 服务器运行
@@ -30,19 +32,6 @@ docker run -d -e APP_PROFILE=prod -p 1218:1218 -p 20010:20010 -p 20030:20030 --r
 docker stats small-tools-api
 # CONTAINER ID        NAME                CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O           PIDS
 # df0f8f22629c        small-tools-api     398.44%             1.022GiB / 18.66GiB   5.47%               79kB / 40.5kB       0B / 0B             234
-```
-
-### ELK
-
-> 注：在elk相关路径下执行以下命令
-
-```shell
-# 当前目录下所有文件赋予权限(读、写、执行)
-chmod -R 777 ./elk
-# 运行
-docker-compose -f docker-compose-elk.yml -p elk up -d
-# 若运行之后启动日志再次报相关权限问题，再次给新产生的文件赋予权限
-chmod -R 777 ./elk
 ```
 
 ## 其它
