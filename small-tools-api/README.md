@@ -2,25 +2,37 @@
 
 ### 服务
 
-| 名称        | 端口    |
-|-----------|-------|
-| gateway   | 1218  |
-| auth      | 1219  |
-| monitor   | 30000 |
-| system    | 20010 |
-| tool      | 20030 |
-| demo      | 20040 |
-| ums       | 10010 |
-| mall-mini | 10020 |
-| mall-web  | 10021 |
+| 名称                | 描述      | 端口  |
+| ------------------- | --------- | ----- |
+| GateWayApplication  | 网关      | 1218  |
+| AuthApplication     | 授权      | 1219  |
+| SystemApplication   | 系统      | 20010 |
+| MonitorApplication  | 监控      | 30000 |
+| ToolApplication     | 小工具    | 20030 |
+| UmsApplication      | C 端用户  | 10010 |
+| MiniMallApplication | 商城-mini | 10020 |
+| WebMallApplication  | 商城-web  | 10021 |
+| PayApplication      | 支付      | 20050 |
+| DemoApplication     | demo      | 20040 |
 
-## 部署
+## 组件部署
 
-### 各组件环境部署
+> mysql、redis、nacos、rabbitmq、seata、sentinel、xxl-job、canal、elk等
 
 见 [`doc/环境部署`](doc/环境部署)
 
-### 项目部署
+## 本地运行
+
+> 必须启动的服务：
+> - GateWayApplication
+> - AuthApplication
+> - SystemApplication
+
+> 其它服务可根据实际情况选择是否使用
+
+![small-tools-api-run.png](doc/images/small-tools-api-run.png)
+
+## 项目部署
 
 > tips: 暂存，不用看这个...
 
@@ -33,6 +45,8 @@ docker stats small-tools-api
 # CONTAINER ID        NAME                CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O           PIDS
 # df0f8f22629c        small-tools-api     398.44%             1.022GiB / 18.66GiB   5.47%               79kB / 40.5kB       0B / 0B             234
 ```
+
+---
 
 ## 其它
 
