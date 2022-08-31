@@ -185,6 +185,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public String addBatchData(int addSum) {
         LocalDateTime saveBeforeDateTime = LocalDateTime.now();
 
@@ -272,11 +273,13 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
      * 测试插入3000000条数据用时: [331082 ms]  [331 s]
      */
 //    @Async(ThreadPoolConstant.SMALL_TOOLS_THREAD_POOL)
+    @SneakyThrows
     private void insertData03(int addSum) {
         List<Demo> demoList = Lists.newLinkedList();
         Date now = new Date();
         for (int i = 0; i < addSum; i++) {
             Demo item = new Demo();
+//            item.setId((i + 3) * 2L);
             item.setUsername("insertData03 - " + i);
             item.setPassword("123456");
             item.setSexEnum(UserSexEnum.getEnum((byte) (i % 2)));

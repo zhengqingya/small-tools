@@ -102,11 +102,13 @@ public class MyGlobalExceptionHandler {
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public ApiResult handlerNoFoundException(Exception e) {
+        log.error("404:", e);
         return ApiResult.fail(404, "路径不存在，请检查路径是否正确");
     }
 
     @ExceptionHandler(DuplicateKeyException.class)
     public ApiResult handleDuplicateKeyException(DuplicateKeyException e) {
+        log.error("数据重复，请检查后提交:", e);
         return ApiResult.fail("数据重复，请检查后提交:" + e.getMessage());
     }
 

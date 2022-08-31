@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhengqing.demo.mapper.DemoMapper">
-
     <!-- 测试结果映射返回list对象  -->
     <resultMap id="resultMap" type="com.zhengqing.demo.model.vo.DemoListVO">
         <id column="id" jdbcType="BIGINT" property="id"/>
@@ -28,13 +27,13 @@
         td.password password2
         FROM t_demo td
         WHERE td.is_deleted = ${@com.zhengqing.common.db.enums.IsDeletedEnum@NO.getValue()}
-        <if test="filter.id!=null">
+        <if test="filter.id != null">
             AND td.id = #{filter.id}
         </if>
-        <if test="filter.username!=null and filter.username!=''">
+        <if test="filter.username != null and filter.username != ''">
             AND td.username LIKE CONCAT( '%', #{filter.username} , '%' )
         </if>
-        <if test="filter.password!=null and filter.password!=''">
+        <if test="filter.password != null and filter.password != ''">
             AND td.password LIKE CONCAT( '%', #{filter.password} , '%' )
         </if>
         ORDER BY td.update_time DESC
@@ -42,6 +41,7 @@
 
     <insert id="insertBatch">
         INSERT INTO t_demo (
+        id,
         username, password, sex,
         start_time, end_time, remark,
         create_by, create_time,
@@ -50,7 +50,8 @@
         VALUES
         <foreach collection="demoList" item="item" separator=",">
             (
-            #{item.username}, #{item.password}, #{item.sex},
+            #{item.id},
+            #{item.username}, #{item.password}, #{item.sexEnum},
             #{item.startTime}, #{item.endTime}, #{item.remark},
             #{item.createBy}, #{item.createTime},
             #{item.updateBy}, #{item.updateTime},
@@ -63,7 +64,6 @@
         UPDATE t_demo
         SET num = (num + #{num})
         WHERE id = #{id}
-          AND (num + #{num}) >= 0
+        AND (num + #{num}) >= 0
     </update>
-
 </mapper>
