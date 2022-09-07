@@ -61,8 +61,8 @@ public class ApiResult<T> {
         return result;
     }
 
-    public static ApiResult ok(String msg) {
-        return new ApiResult(ApiResultCodeEnum.SUCCESS.getCode(), msg, null);
+    public static ApiResult ok(String data) {
+        return new ApiResult(ApiResultCodeEnum.SUCCESS.getCode(), "OK", data);
     }
 
     public static ApiResult ok(Object data, String msg) {
