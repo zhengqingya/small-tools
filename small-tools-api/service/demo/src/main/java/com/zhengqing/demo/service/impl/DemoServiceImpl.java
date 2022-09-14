@@ -202,9 +202,9 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
             if (total > addSum) {
                 int finalNum = addSum - ((page - 1) * pageSize);
                 log.info("最后一页新增数：[{}]", finalNum);
-                this.insertData03(finalNum);
+                this.insertData02(finalNum);
             } else {
-                this.insertData03(pageSize);
+                this.insertData02(pageSize);
             }
             page += 1;
             index = total + 1;
@@ -253,7 +253,7 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     }
 
     /**
-     * 方式二：mybatis api 批量插入
+     * 方式二：mybatis api 批量插入  -- tips: jdbc需新增参数rewriteBatchedStatements=true
      * 测试插入1000条数据用时: [14668 ms]  [14 s]
      */
     private void insertData02(int addSum) {
