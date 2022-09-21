@@ -14,18 +14,17 @@ cnpm run dev
 # 构建出dist文件夹，然后将打包后的文件放到nginx中...
 cnpm run build:prod
 
-# sh small-tools-web-run.sh
+# 构建docker镜像
+docker build -f ./Docker/Dockerfile -t "registry.cn-hangzhou.aliyuncs.com/zhengqing/small-tools-web:prod" . --no-cache
+
+# 推送到远程仓库
+docker push registry.cn-hangzhou.aliyuncs.com/zhengqing/small-tools-web:prod
+
+# 运行
+docker run -d --name small-tools-web -p 80:80 --restart=always registry.cn-hangzhou.aliyuncs.com/zhengqing/small-tools-web:prod
 ```
 
 ---
-
-### 线上运行
-
-> tips: 暂存，不用看这个...
-
-```shell
-docker run -d --name small-tools-web -p 80:80 --restart=always registry.cn-hangzhou.aliyuncs.com/zhengqing/small-tools-web:prod
-```
 
 ### 全局格式化代码
 
