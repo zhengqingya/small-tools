@@ -34,13 +34,16 @@ VOLUME /tmp
 EXPOSE ${APP_PORT}
 
 # 让你先休息3秒再开始运动吧🏃🏃🏃
-CMD echo "****** Start... " & \
-    echo "****** APP_JAR: ${APP_JAR} " & \
-    echo "****** APP_PORT: ${APP_PORT} " & \
-    echo "****** JAVA_OPTS: ${JAVA_OPTS} " & \
-    echo "****** ${APP_JAR} will run ..." & \
-    sleep 3 & \
-    echo "****** 运行命令：nohup java -jar ${JAVA_OPTS} /home/${APP_JAR} >> /home/${APP_NAME}.log 2>&1 &" & \
-    nohup java -jar ${JAVA_OPTS} /home/${APP_JAR} >> /home/${APP_NAME}.log 2>&1 & \
-    echo "****** 查看日志..." & \
-    tail -f /home/${APP_NAME}.log
+#CMD echo "****** Start... " & \
+#    echo "****** APP_JAR: ${APP_JAR} " & \
+#    echo "****** APP_PORT: ${APP_PORT} " & \
+#    echo "****** JAVA_OPTS: ${JAVA_OPTS} " & \
+#    echo "****** ${APP_JAR} will run ..." & \
+#    sleep 3 & \
+#    echo "****** 运行命令：nohup java -jar ${JAVA_OPTS} /home/${APP_JAR} >> /home/${APP_NAME}.log 2>&1 &" & \
+#    nohup java -jar ${JAVA_OPTS} /home/${APP_JAR} >> /home/${APP_NAME}.log 2>&1 & \
+#    echo "****** 查看日志..." & \
+#    tail -f /home/${APP_NAME}.log
+
+# 以exec格式的CMD指令 -- 可实现优雅停止容器服务
+CMD ["sh", "-c", "echo \"****** 运行命令：java -jar ${JAVA_OPTS} /home/${APP_JAR}\"   &   java -jar ${JAVA_OPTS} /home/${APP_JAR}"]
