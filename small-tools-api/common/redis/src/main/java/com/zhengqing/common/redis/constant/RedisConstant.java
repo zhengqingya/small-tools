@@ -34,5 +34,10 @@ public interface RedisConstant {
      * 发布订阅通道
      */
     String REDIS_CHANNEL_TEST = "channel_test";
+    
+    /**
+     * 缓存null值过期时间
+     */
+    Long CACHE_NULL_TTL = 2L;
 
 }

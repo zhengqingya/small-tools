@@ -2,66 +2,6 @@
 small-tools:
   # 相关组件服务通用ip
   ip: 127.0.0.1
-  # mysql数据源连接参数
-  mysql:
-    master:
-      ip: ${small-tools.ip}
-      port: 3306
-      username: root
-      password: root
-    db-test:
-      ip: ${small-tools.ip}
-      port: 3306
-      username: root
-      password: root
-  # ========================== ↓↓↓↓↓↓  第三方授权配置 ↓↓↓↓↓↓ ==========================
-  #  gitee申请地址：https://gitee.com/oauth/applications
-  #  github申请地址：https://github.com/settings/developers
-  #  qq申请地址：https://connect.qq.com/manage.html#/
-  thirdpartOauth:
-    redirectUrlPrefix: http://${small-tools.ip}:1218
-    webRedirectUrl: http://${small-tools.ip}:8080/#/login?redirect=dashboard&ifThirdpartOauth=true&token=
-    webBindRedirectUrl: http://${small-tools.ip}:8080/#/system/personal-center?oauthType=%s&openId=%s
-    # 授权账号使用
-    gitee:
-      clientId: xxxxxx
-      clientSecret: xxxxxx
-      redirectUri: ${small-tools.thirdpartOauth.redirectUrlPrefix}/system/web/api/oauth/gitee/callback
-    github:
-      clientId: xxxxxx
-      clientSecret: xxxxxx
-      redirectUri: ${small-tools.thirdpartOauth.redirectUrlPrefix}/system/web/api/oauth/github/callback
-    qq:
-      clientId: xxxxxx
-      clientSecret: xxxxxx
-      redirectUri: ${small-tools.thirdpartOauth.redirectUrlPrefix}/system/web/api/oauth/qq/callback
-    # 绑定账号使用
-    giteeBind:
-      clientId: xxxxxx
-      clientSecret: xxxxxx
-      redirectUri: ${small-tools.thirdpartOauth.redirectUrlPrefix}/system/web/api/oauth/giteeBind/callback
-    githubBind:
-      clientId: xxxxxx
-      clientSecret: xxxxxx
-      redirectUri: ${small-tools.thirdpartOauth.redirectUrlPrefix}/system/web/api/oauth/githubBind/callback
-
-
-spring:
-  # Redis数据源
-  redis:
-    # Redis服务器连接端口
-    port: 6379
-    # Redis数据库索引（默认为0）
-    database: 1
-    # Redis服务器连接密码（默认为空）
-    password: 123456
-
-  # RabbitMQ配置
-  rabbitmq:
-    addresses: ${small-tools.ip}:5672
-    username: admin
-    password: 123456
-
 
 # ========================== ↓↓↓↓↓↓ 七牛云配置 ↓↓↓↓↓↓ ==========================
 qiniu:
