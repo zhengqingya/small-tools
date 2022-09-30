@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 27/07/2022 14:47:13
+ Date: 30/09/2022 18:41:33
 */
 
 SET NAMES utf8mb4;
@@ -45,11 +45,13 @@ CREATE TABLE `config_info`  (
   `c_schema` text CHARACTER SET utf8 COLLATE utf8_bin NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_configinfo_datagrouptenant`(`data_id`, `group_id`, `tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of config_info
 -- ----------------------------
+INSERT INTO `config_info` VALUES (1, 'demo.yml', 'small-tools', 'spring:\n  application:\n    name: demo # 应用名称\n\n  # cloud:\n  #   config:\n  #     # 相同配置下优先使用本地配置 (注：需在nacos上配置才生效！)\n  #     override-none: true\n  #     allow-override: true\n  #     override-system-properties: false\n\n  rabbitmq:\n    moduleList:\n      # 订单延时队列，到了过期的时间会被转发到订单取消队列\n      - routing-key: test.create.routing.key\n        queue:\n          name: test.delay.queue\n          dead-letter-exchange: test.exchange\n          dead-letter-routing-key: test.close.routing.key\n          arguments:\n            # 5秒 （单位：毫秒）  --  tips:mq最大延时4294967295毫秒(即49.7103天)\n            x-message-ttl: 5000\n        exchange:\n          name: test.exchange\n      # 订单取消队列\n      - routing-key: test.close.routing.key\n        queue:\n          name: test.close.queue\n        exchange:\n          name: test.exchange\n\n      - routing-key: demo.test.routing.key\n        queue:\n          name: demo.test.queue\n        exchange:\n          name: demo.exchange\n      - routing-key: demo.test_delay.routing.key\n        queue:\n          name: demo.test_delay.queue\n        exchange:\n          name: demo.delay.exchange\n          type: delay\n\n\n# XXL-JOB 配置\nxxl:\n  job:\n    admin:\n      addresses: http://172.16.22.244:9003/xxl-job-admin # 调度中心部署跟地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行\"执行器心跳注册\"和\"任务结果回调\"；为空则关闭自动注册；\n', '0694f886fd6842fec80a5250c9627f1f', '2022-09-30 18:38:53', '2022-09-30 18:40:51', 'nacos', '172.22.0.1', '', 'prod', 'demo服务配置文件', '', '', 'yaml', '');
+INSERT INTO `config_info` VALUES (2, 'common.yml', 'small-tools', '# ================================== ↓↓↓↓↓↓ small-tools配置 ↓↓↓↓↓↓ ==================================\r\nsmall-tools:\r\n  # 相关组件服务通用ip\r\n  ip: 127.0.0.1\r\n\r\n# ========================== ↓↓↓↓↓↓ 七牛云配置 ↓↓↓↓↓↓ ==========================\r\nqiniu:\r\n  accessKey: xxx\r\n  secretKey: xxx\r\n', 'b55f1a2a74555795dcea1572ba62990d', '2022-09-30 18:40:34', '2022-09-30 18:40:34', 'nacos', '172.22.0.1', '', 'prod', '公共配置文件', NULL, NULL, 'yaml', NULL);
 
 -- ----------------------------
 -- Table structure for config_info_aggr
@@ -66,7 +68,7 @@ CREATE TABLE `config_info_aggr`  (
   `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT '租户字段',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_configinfoaggr_datagrouptenantdatum`(`data_id`, `group_id`, `tenant_id`, `datum_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '增加租户字段' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '增加租户字段' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of config_info_aggr
@@ -91,7 +93,7 @@ CREATE TABLE `config_info_beta`  (
   `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT '租户字段',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_configinfobeta_datagrouptenant`(`data_id`, `group_id`, `tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info_beta' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info_beta' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of config_info_beta
@@ -116,7 +118,7 @@ CREATE TABLE `config_info_tag`  (
   `src_ip` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'source ip',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_configinfotag_datagrouptenanttag`(`data_id`, `group_id`, `tenant_id`, `tag_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info_tag' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info_tag' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of config_info_tag
@@ -137,7 +139,7 @@ CREATE TABLE `config_tags_relation`  (
   PRIMARY KEY (`nid`) USING BTREE,
   UNIQUE INDEX `uk_configtagrelation_configidtag`(`id`, `tag_name`, `tag_type`) USING BTREE,
   INDEX `idx_tenant_id`(`tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_tag_relation' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_tag_relation' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of config_tags_relation
@@ -160,7 +162,7 @@ CREATE TABLE `group_capacity`  (
   `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_group_id`(`group_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '集群、各Group容量信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '集群、各Group容量信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of group_capacity
@@ -188,11 +190,14 @@ CREATE TABLE `his_config_info`  (
   INDEX `idx_gmt_create`(`gmt_create`) USING BTREE,
   INDEX `idx_gmt_modified`(`gmt_modified`) USING BTREE,
   INDEX `idx_did`(`data_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '多租户改造' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '多租户改造' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of his_config_info
 -- ----------------------------
+INSERT INTO `his_config_info` VALUES (0, 1, 'demo.yml', 'small-tools', '', 'spring:\r\n  application:\r\n    name: demo # 应用名称\r\n\r\n  # cloud:\r\n  #   config:\r\n  #     # 相同配置下优先使用本地配置 (注：需在nacos上配置才生效！)\r\n  #     override-none: true\r\n  #     allow-override: true\r\n  #     override-system-properties: false\r\n\r\n  rabbitmq:\r\n    moduleList:\r\n      # 订单延时队列，到了过期的时间会被转发到订单取消队列\r\n      - routing-key: test.create.routing.key\r\n        queue:\r\n          name: test.delay.queue\r\n          dead-letter-exchange: test.exchange\r\n          dead-letter-routing-key: test.close.routing.key\r\n          arguments:\r\n            # 5秒 （单位：毫秒）  --  tips:mq最大延时4294967295毫秒(即49.7103天)\r\n            x-message-ttl: 5000\r\n        exchange:\r\n          name: test.exchange\r\n      # 订单取消队列\r\n      - routing-key: test.close.routing.key\r\n        queue:\r\n          name: test.close.queue\r\n        exchange:\r\n          name: test.exchange\r\n\r\n      - routing-key: demo.test.routing.key\r\n        queue:\r\n          name: demo.test.queue\r\n        exchange:\r\n          name: demo.exchange\r\n      - routing-key: demo.test_delay.routing.key\r\n        queue:\r\n          name: demo.test_delay.queue\r\n        exchange:\r\n          name: demo.delay.exchange\r\n          type: delay\r\n\r\n\r\n# XXL-JOB 配置\r\nxxl:\r\n  job:\r\n    admin:\r\n      addresses: http://172.16.22.244:9003/xxl-job-admin # 调度中心部署跟地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行\"执行器心跳注册\"和\"任务结果回调\"；为空则关闭自动注册；\r\n', '800f445a1c301f243524dca04459d2eb', '2022-09-30 18:38:53', '2022-09-30 18:38:53', 'nacos', '172.22.0.1', 'I', 'prod');
+INSERT INTO `his_config_info` VALUES (0, 2, 'common.yml', 'small-tools', '', '# ================================== ↓↓↓↓↓↓ small-tools配置 ↓↓↓↓↓↓ ==================================\r\nsmall-tools:\r\n  # 相关组件服务通用ip\r\n  ip: 127.0.0.1\r\n\r\n# ========================== ↓↓↓↓↓↓ 七牛云配置 ↓↓↓↓↓↓ ==========================\r\nqiniu:\r\n  accessKey: xxx\r\n  secretKey: xxx\r\n', 'b55f1a2a74555795dcea1572ba62990d', '2022-09-30 18:40:34', '2022-09-30 18:40:34', 'nacos', '172.22.0.1', 'I', 'prod');
+INSERT INTO `his_config_info` VALUES (1, 3, 'demo.yml', 'small-tools', '', 'spring:\r\n  application:\r\n    name: demo # 应用名称\r\n\r\n  # cloud:\r\n  #   config:\r\n  #     # 相同配置下优先使用本地配置 (注：需在nacos上配置才生效！)\r\n  #     override-none: true\r\n  #     allow-override: true\r\n  #     override-system-properties: false\r\n\r\n  rabbitmq:\r\n    moduleList:\r\n      # 订单延时队列，到了过期的时间会被转发到订单取消队列\r\n      - routing-key: test.create.routing.key\r\n        queue:\r\n          name: test.delay.queue\r\n          dead-letter-exchange: test.exchange\r\n          dead-letter-routing-key: test.close.routing.key\r\n          arguments:\r\n            # 5秒 （单位：毫秒）  --  tips:mq最大延时4294967295毫秒(即49.7103天)\r\n            x-message-ttl: 5000\r\n        exchange:\r\n          name: test.exchange\r\n      # 订单取消队列\r\n      - routing-key: test.close.routing.key\r\n        queue:\r\n          name: test.close.queue\r\n        exchange:\r\n          name: test.exchange\r\n\r\n      - routing-key: demo.test.routing.key\r\n        queue:\r\n          name: demo.test.queue\r\n        exchange:\r\n          name: demo.exchange\r\n      - routing-key: demo.test_delay.routing.key\r\n        queue:\r\n          name: demo.test_delay.queue\r\n        exchange:\r\n          name: demo.delay.exchange\r\n          type: delay\r\n\r\n\r\n# XXL-JOB 配置\r\nxxl:\r\n  job:\r\n    admin:\r\n      addresses: http://172.16.22.244:9003/xxl-job-admin # 调度中心部署跟地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行\"执行器心跳注册\"和\"任务结果回调\"；为空则关闭自动注册；\r\n', '800f445a1c301f243524dca04459d2eb', '2022-09-30 18:40:51', '2022-09-30 18:40:51', 'nacos', '172.22.0.1', 'U', 'prod');
 
 -- ----------------------------
 -- Table structure for permissions
@@ -203,7 +208,7 @@ CREATE TABLE `permissions`  (
   `resource` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `action` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   UNIQUE INDEX `uk_role_permission`(`role`, `resource`, `action`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of permissions
@@ -217,7 +222,7 @@ CREATE TABLE `roles`  (
   `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `role` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   UNIQUE INDEX `idx_user_role`(`username`, `role`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of roles
@@ -241,7 +246,7 @@ CREATE TABLE `tenant_capacity`  (
   `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_tenant_id`(`tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '租户容量信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '租户容量信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tenant_capacity
@@ -263,7 +268,7 @@ CREATE TABLE `tenant_info`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_tenant_info_kptenantid`(`kp`, `tenant_id`) USING BTREE,
   INDEX `idx_tenant_id`(`tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'tenant_info' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'tenant_info' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tenant_info
@@ -281,7 +286,7 @@ CREATE TABLE `users`  (
   `password` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `enabled` tinyint(1) NOT NULL,
   PRIMARY KEY (`username`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of users
