@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : mysql_3306
+ Source Server         : localhost_mysql_3306
  Source Server Type    : MySQL
  Source Server Version : 50726
  Source Host           : 127.0.0.1:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 25/07/2022 11:41:26
+ Date: 30/09/2022 16:43:20
 */
 
 SET NAMES utf8mb4;
@@ -657,7 +657,7 @@ CREATE TABLE `ums_user`
     `update_by`   bigint(20) UNSIGNED NOT NULL COMMENT '修改人',
     `is_deleted`  tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(0->否,1->是)',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ums_user

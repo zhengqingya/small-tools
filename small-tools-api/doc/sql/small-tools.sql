@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : mysql_3306
+ Source Server         : localhost_mysql_3306
  Source Server Type    : MySQL
  Source Server Version : 50726
  Source Host           : 127.0.0.1:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 25/07/2022 11:41:17
+ Date: 30/09/2022 16:53:24
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +35,7 @@ CREATE TABLE `t_cg_free_marker_template`
     `update_time`             datetime                                                      NOT NULL COMMENT '修改时间',
     `is_deleted`              tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(1->是，0->否)',
     PRIMARY KEY (`free_marker_template_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成器 - FreeMarker模板数据配置表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成器 - FreeMarker模板数据配置表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_cg_free_marker_template
@@ -62,7 +62,7 @@ CREATE TABLE `t_cg_project`
     `update_time`     datetime                                                     NOT NULL COMMENT '修改时间',
     `is_deleted`      tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(1->是，0->否)',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成器 - 项目管理表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成器 - 项目管理表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_cg_project
@@ -87,7 +87,7 @@ CREATE TABLE `t_cg_project_package`
     `update_time`     datetime NOT NULL COMMENT '修改时间',
     `is_deleted`      tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(1->是，0->否)',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 70 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成器 - 项目包管理表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 68 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成器 - 项目包管理表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_cg_project_package
@@ -137,7 +137,7 @@ CREATE TABLE `t_cg_project_re_db`
     `update_time`                  datetime NOT NULL COMMENT '修改时间',
     `is_deleted`                   tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(1->是，0->否)',
     PRIMARY KEY (`project_re_db_data_source_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成器 - 项目关联数据库表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成器 - 项目关联数据库表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_cg_project_re_db
@@ -263,7 +263,7 @@ CREATE TABLE `t_cg_project_velocity_context`
     `update_time` datetime NOT NULL COMMENT '修改时间',
     `is_deleted`  tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(1->是，0->否)',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8567 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成器 - 项目 - 模板数据源' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成器 - 项目 - 模板数据源' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_cg_project_velocity_context
@@ -290,7 +290,7 @@ CREATE TABLE `t_cg_table_config`
     `update_time`                  datetime                                                      NOT NULL COMMENT '修改时间',
     `is_deleted`                   tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(1->是，0->否)',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 331 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成器 - 项目数据表配置表' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成器 - 项目数据表配置表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of t_cg_table_config
@@ -310,30 +310,30 @@ CREATE TABLE `t_demo`
     `end_time`    datetime NULL DEFAULT NULL COMMENT '结束时间',
     `remark`      varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
     `tenant_id`   int(11) NULL DEFAULT NULL COMMENT '租户ID',
-    `num`         int(11) NOT NULL DEFAULT 0 COMMENT '数量',
-    `create_by`   int(11) NOT NULL COMMENT '创建人',
-    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_by`   int(11) NOT NULL COMMENT '修改人',
-    `update_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `is_deleted`  tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(1->是，0->否)',
+    `num`         int(11) NULL DEFAULT 0 COMMENT '数量',
+    `create_by`   int(11) NULL DEFAULT NULL COMMENT '创建人',
+    `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`   int(11) NULL DEFAULT NULL COMMENT '修改人',
+    `update_time` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    `is_deleted`  tinyint(1) UNSIGNED NULL DEFAULT 0 COMMENT '是否删除(1->是，0->否)',
     `demo_json`   varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'json',
     `num_json`    varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'json',
     PRIMARY KEY (`id`) USING BTREE,
     INDEX         `idx_remark`(`remark`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1533658068351582209 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '测试demo' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1564855300425654084 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '测试demo' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_demo
 -- ----------------------------
 INSERT INTO `t_demo`
-VALUES (1, 'abc11', '123', 0, '2021-08-25 00:00:00', '2021-10-25 23:59:59', NULL, 1, 95900, 1, '2021-12-06 17:35:50', 0,
-        '2022-06-09 16:59:10', 0, NULL, NULL);
+VALUES (1, 'admin', '123', 0, '2021-08-25 00:00:00', '2021-10-25 23:59:59', NULL, 1, 95900, 1, '2021-12-06 17:35:50', 0,
+        '2022-09-14 19:00:36', 0, NULL, NULL);
 INSERT INTO `t_demo`
-VALUES (2, '1范德萨范德萨', '12范德萨放大', 21, NULL, NULL, NULL, 1, 0, 1, '2021-12-06 17:35:50', 1, '2022-01-16 13:48:55', 0,
-        NULL, NULL);
+VALUES (2, 'hello', '666', 0, NULL, NULL, NULL, 1, 0, 1, '2021-12-06 17:35:50', 1, '2022-09-05 10:49:32', 0, NULL,
+        NULL);
 INSERT INTO `t_demo`
-VALUES (6661, 'admin', '123456', NULL, NULL, NULL, NULL, 1, 0, 0, '2022-01-10 15:55:58', 0, '2022-01-16 13:48:57', 0,
-        NULL, NULL);
+VALUES (3, 'test', '123456', 1, NULL, NULL, NULL, 1, 0, 1, '2021-12-06 17:35:50', 1, '2022-09-05 10:49:16', 0, NULL,
+        NULL);
 
 -- ----------------------------
 -- Table structure for t_st_crawler_article_info
@@ -354,7 +354,7 @@ CREATE TABLE `t_st_crawler_article_info`
     `update_by`       int(11) NOT NULL COMMENT '修改人',
     `update_time`     datetime NOT NULL COMMENT '修改时间',
     PRIMARY KEY (`article_info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '小工具 - 爬虫 - 文章信息' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '小工具 - 爬虫 - 文章信息' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_st_crawler_article_info
@@ -374,7 +374,7 @@ CREATE TABLE `t_st_crawler_website`
     `update_by`   int(11) NOT NULL COMMENT '修改人',
     `update_time` datetime NOT NULL COMMENT '修改时间',
     PRIMARY KEY (`website_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '小工具 - 爬虫 - 网站管理' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '小工具 - 爬虫 - 网站管理' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_st_crawler_website
@@ -458,7 +458,7 @@ CREATE TABLE `t_sys_dict`
     `update_time`  datetime                                                     NOT NULL COMMENT '修改时间',
     `is_deleted`   tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(1->是，0->否)',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 197 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '基础模块-数据字典' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 184 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '基础模块-数据字典' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of t_sys_dict
@@ -578,7 +578,7 @@ CREATE TABLE `t_sys_dict_type`
     `update_time` datetime                                                     NOT NULL COMMENT '修改时间',
     `is_deleted`  tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(1->是，0->否)',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '基础模块-数据字典类型' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '基础模块-数据字典类型' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of t_sys_dict_type
@@ -767,7 +767,7 @@ CREATE TABLE `t_sys_permission`
     `update_by`   int(11) NOT NULL COMMENT '修改人',
     `update_time` datetime                                                NOT NULL COMMENT '修改时间',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 425 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统管理-菜单关联权限表' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统管理-菜单关联权限表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of t_sys_permission
@@ -826,15 +826,17 @@ CREATE TABLE `t_sys_role`
     `update_by`   int(11) NOT NULL COMMENT '修改人',
     `update_time` datetime                                                     NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统管理-角色管理表' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统管理-角色管理表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of t_sys_role
 -- ----------------------------
 INSERT INTO `t_sys_role`
-VALUES (1, '普通用户', 'persion', 1, 1, '2020-08-22 15:01:51', 1, '2022-07-22 14:30:59');
+VALUES (1, '普通用户', 'persion', 1, 1, '2020-08-22 15:01:51', 1, '2022-08-05 20:00:30');
 INSERT INTO `t_sys_role`
 VALUES (9, '超级管理员', 'super_admin', 1, 1, '2020-08-22 15:01:51', 1, '2022-07-15 11:36:42');
+INSERT INTO `t_sys_role`
+VALUES (10, '测试用户', 'test', 1, 1, '2022-08-05 20:00:36', 1, '2022-08-06 15:59:10');
 
 -- ----------------------------
 -- Table structure for t_sys_role_menu
@@ -984,7 +986,7 @@ CREATE TABLE `t_sys_user`
     `update_time` datetime                                                      NOT NULL COMMENT '修改时间',
     `is_deleted`  tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(1->是，0->否)',
     PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统管理 - 用户基础信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统管理 - 用户基础信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_sys_user
@@ -997,7 +999,7 @@ VALUES (1, 'admin', '$2a$10$ixRnaJGhG6Sr1d3XHwrBzO6ZcZGDrEwY.KQX3MFGllS4AwKPwkr7
 INSERT INTO `t_sys_user`
 VALUES (2, 'test', '$2a$10$CH9IX8jARPy0.f9.uy8uAeXCAzbZGxgR.ES4JBZMMxtKmGZAQPepq', '测试号', 1, '', '',
         'http://oss.zhengqingya.com/%E7%BE%8E%E5%9B%BE13.png?e=1657685387&token=1v94f3iDKR4xON6gz6V2yFZ_tkG0Ujs6stsadNSg:MHEirqtjFqFzhU9HJ0498mJw5Oc=',
-        1, '2020-08-22 15:01:51', 1, '2022-07-21 10:25:48', 0);
+        1, '2020-08-22 15:01:51', 1, '2022-08-05 17:45:31', 0);
 
 -- ----------------------------
 -- Table structure for t_sys_user_re_oauth
@@ -1062,10 +1064,9 @@ CREATE TABLE `undo_log`
     `log_status`    int(11) NOT NULL,
     `log_created`   datetime                                                NOT NULL,
     `log_modified`  datetime                                                NOT NULL,
-    `ext`           varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE INDEX `ux_undo_log`(`xid`, `branch_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 173 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of undo_log
