@@ -27,9 +27,9 @@ seata:
     type: nacos
     nacos:
       # nacos ip地址
-      server-addr: 127.0.0.1:8848
+      server-addr: nacos:8848
       group: SEATA_GROUP
-      namespace: prod
+      namespace: dev
       username: nacos
       password: nacos
       ##if use MSE Nacos with auth, mutex with username/password attribute
@@ -43,9 +43,9 @@ seata:
     nacos:
       application: seata-server
       # nacos ip地址
-      server-addr: 127.0.0.1:8848
+      server-addr: nacos:8848
       group: SEATA_GROUP
-      namespace: prod
+      namespace: dev
       cluster: default
       username: nacos
       password: nacos

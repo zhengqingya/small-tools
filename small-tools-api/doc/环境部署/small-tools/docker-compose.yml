@@ -131,6 +131,7 @@ services:
   xxl-job-admin:
     image: registry.cn-hangzhou.aliyuncs.com/zhengqing/xxl-job-admin:2.3.0 # 原镜像`xuxueli/xxl-job-admin:2.3.0`
     container_name: xxl-job-admin
+    restart: unless-stopped                                      # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
     environment:
       # TODO 根据自己的配置修改，配置项参考源码文件：/xxl-job/xxl-job-admin/src/main/resources/application.properties
       PARAMS: "--spring.datasource.url=jdbc:mysql://mysql:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
@@ -150,4 +151,147 @@ services:
     networks:
       small-tools:
         ipv4_address: 172.22.0.15
+  # ----------------------------------------------------------------------------------------------------------------------------
+  seata:
+    image: registry.cn-hangzhou.aliyuncs.com/zhengqing/seata-server:1.5.2      # 原镜像`seataio/seata-server:1.5.2`
+    container_name: seata-server                                  # 容器名为'seata-server'
+    restart: unless-stopped                                       # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
+    volumes: # 数据卷挂载路径设置,将本机目录映射到容器目录
+      #      - "./seata/logs:/root/logs"
+      - "./seata/seata-server/resources/application.yml:/seata-server/resources/application.yml"
+    environment: # 设置环境变量,相当于docker run命令中的-e
+      TZ: Asia/Shanghai
+      LANG: en_US.UTF-8
+      # 注册到nacos上的ip。客户端将通过该ip访问seata服务。
+      # 注意公网ip和内网ip的差异。
+      SEATA_IP: 172.22.0.16
+      # 指定seata服务启动端口
+      SEATA_PORT: 8091
+      #      STORE_MODE: file # 指定seata-server的事务日志存储方式, 支持db ,file,redis(Seata-Server 1.3及以上版本支持), 默认是 file
+      #      SERVER_NODE: 1 # 指定seata-server节点ID, 如 1,2,3..., 默认为 根据ip生成
+      #      SEATA_ENV: dev # 指定 seata-server 运行环境, 如 dev, test 等, 服务启动时会使用 registry-dev.conf 这样的配置
+      # 指定配置文件位置, 如 file:/root/registry, 将会加载 /root/registry.conf 作为配置文件，
+      # 如果需要同时指定 file.conf文件，需要将registry.conf的config.file.name的值改为类似file:/root/file.conf：
+    #      SEATA_CONFIG_NAME: file:/root/seata-config/registry
+    depends_on:
+      - mysql
+    ports: # 映射端口
+      - "7091:7091"
+      - "8091:8091"
+    networks:
+      small-tools:
+        ipv4_address: 172.22.0.16
+  # ----------------------------------------------------------------------------------------------------------------------------
+  canal_admin:
+    image: registry.cn-hangzhou.aliyuncs.com/zhengqing/canal-admin:v1.1.5      # 原镜像`canal/canal-admin:v1.1.5`
+    container_name: canal_admin               # 容器名为'canal_admin'
+    restart: unless-stopped                   # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
+    volumes: # 数据卷挂载路径设置,将本机目录映射到容器目录
+      #      - "./canal/canal/canal-admin/conf/application.yml:/home/admin/canal-admin/conf/application.yml"
+      # 如果需要jvm内存控制可放开下面注释，修改`JAVA_OPTS`参数
+      #      - "./canal/canal/canal-admin/bin/startup.sh:/home/admin/canal-admin/bin/startup.sh"
+      - "./canal/canal/canal-admin/logs:/home/admin/canal-admin/logs"
+    environment: # 设置环境变量,相当于docker run命令中的-e
+      TZ: Asia/Shanghai
+      LANG: en_US.UTF-8
+      canal.adminUser: admin
+      canal.adminPasswd: 123456
+      spring.datasource.address: mysql:3306
+      spring.datasource.database: canal_manager
+      spring.datasource.username: root
+      spring.datasource.password: root
+    ports:
+      - "8089:8089"
+    networks:
+      small-tools:
+        ipv4_address: 172.22.0.17
+  canal_server:
+    image: registry.cn-hangzhou.aliyuncs.com/zhengqing/canal-server:v1.1.5      # 原镜像`canal/canal-server:v1.1.5`
+    container_name: canal_server              # 容器名为'canal_server'
+    restart: unless-stopped                   # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
+    volumes: # 数据卷挂载路径设置,将本机目录映射到容器目录
+      #      - "./canal/canal/canal-server/conf/example/instance.properties:/home/admin/canal-server/conf/example/instance.properties"
+      #      - "./canal/canal/canal-server/conf/canal.properties:/home/admin/canal-server/conf/canal.properties"
+      #      - "./canal/canal/canal-server/conf/canal_local.properties:/home/admin/canal-server/conf/canal_local.properties"
+      - "./canal/canal/canal-server/logs:/home/admin/canal-server/logs"
+    environment: # 设置环境变量,相当于docker run命令中的-e
+      TZ: Asia/Shanghai
+      LANG: en_US.UTF-8
+      canal.register.ip: 172.22.0.18
+      canal.admin.manager: canal_admin:8089
+      canal.admin.port: 11110
+      canal.admin.user: admin
+      canal.admin.passwd: 6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9
+    #      canal.admin.register.cluster: online
+    ports:
+      - "11110:11110"
+      - "11111:11111"
+      - "11112:11112"
+    depends_on:
+      - canal_admin
+    links:
+      - canal_admin
+    networks:
+      small-tools:
+        ipv4_address: 172.22.0.18
+  # ----------------------------------------------------------------------------------------------------------------------------
+  elasticsearch:
+    image: registry.cn-hangzhou.aliyuncs.com/zhengqing/elasticsearch:7.9.2      # 原镜像`elasticsearch:7.9.2`
+    container_name: elk_elasticsearch         # 容器名为'elk_elasticsearch'
+    restart: unless-stopped                           # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
+    volumes: # 数据卷挂载路径设置,将本机目录映射到容器目录
+      - "./elk/elasticsearch/data:/usr/share/elasticsearch/data"
+      - "./elk/elasticsearch/logs:/usr/share/elasticsearch/logs"
+      - "./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
+    #      - "./elk/elasticsearch/config/jvm.options:/usr/share/elasticsearch/config/jvm.options"
+    environment: # 设置环境变量,相当于docker run命令中的-e
+      TZ: Asia/Shanghai
+      LANG: en_US.UTF-8
+      discovery.type: single-node
+      ES_JAVA_OPTS: "-Xmx512m -Xms512m"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      small-tools:
+        ipv4_address: 172.22.0.20
+  kibana:
+    image: registry.cn-hangzhou.aliyuncs.com/zhengqing/kibana:7.9.2       # 原镜像`kibana:7.9.2`
+    container_name: elk_kibana
+    restart: unless-stopped
+    volumes:
+      - "./elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml"
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    links:
+      - elasticsearch
+    networks:
+      small-tools:
+        ipv4_address: 172.22.0.21
+  logstash:
+    image: registry.cn-hangzhou.aliyuncs.com/zhengqing/logstash:7.9.2     # 原镜像`logstash:7.9.2`
+    container_name: elk_logstash
+    restart: unless-stopped
+    environment:
+      LS_JAVA_OPTS: "-Xmx512m -Xms512m"
+    volumes:
+      - "./elk/logstash/data:/usr/share/logstash/data"
+      - "./elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml"
+      #      - "./elk/logstash/config/logstash.conf:/usr/share/logstash/config/logstash.conf"
+      - "./elk/logstash/config/small-tools:/usr/share/logstash/config/small-tools"
+    #    command: logstash -f /usr/share/logstash/config/logstash.conf  # 指定logstash启动时使用的配置文件 - 指定单个文件
+    command: logstash -f /usr/share/logstash/config/small-tools         # 指定logstash启动时使用的配置文件 - 指定目录夹（系统会自动读取文件夹下所有配置文件，并在内存中整合）
+    ports:
+      - "9600:9600"
+      - "1218:1218"
+      - "20010:20010"
+      - "20030:20030"
+      - "20040:20040"
+    depends_on:
+      - elasticsearch
+    networks:
+      small-tools:
+        ipv4_address: 172.22.0.22
   # ----------------------------------------------------------------------------------------------------------------------------
