@@ -5,17 +5,17 @@
 
     <select id="selectDataList" resultType="com.zhengqing.system.model.vo.SysUserListVO">
         SELECT
-        u.*
-        FROM t_sys_user u
-        WHERE u.is_deleted = 0
-        <if test="filter.username!=null and filter.username!=''">
-            AND u.username LIKE CONCAT( '%', #{filter.username} , '%' )
-        </if>
-        <if test="filter.nickname!=null and filter.nickname!=''">
-            AND u.nickname LIKE CONCAT( '%', #{filter.nickname} , '%' )
-        </if>
-        GROUP BY u.user_id
-        ORDER BY u.user_id DESC
+        *
+        FROM t_sys_user
+        <where>
+            <if test="filter.username!=null and filter.username!=''">
+                AND username LIKE CONCAT( '%', #{filter.username} , '%' )
+            </if>
+            <if test="filter.nickname!=null and filter.nickname!=''">
+                AND nickname LIKE CONCAT( '%', #{filter.nickname} , '%' )
+            </if>
+        </where>
+        ORDER BY user_id DESC
     </select>
 
     <select id="detail" resultType="com.zhengqing.system.model.vo.SysUserDetailVO">
