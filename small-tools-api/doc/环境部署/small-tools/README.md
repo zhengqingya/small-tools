@@ -12,10 +12,12 @@ chmod -R 777 ./elk
 # tips: [ rabbitmq: 如果之前有安装过，需要清除浏览器缓存和删除rabbitmq相关的存储数据(如:这里映射到宿主机的data数据目录)，再重装，否则会出现一定问题！ ]
 #       [ `mysql5.7/docker-entrypoint-initdb.d`下包含了一些其它组件需要的初始化SQL脚本 ]
 docker-compose -f ./docker-compose.yml -p small-tools up -d mysql nacos redis rabbitmq sentinel xxl-job-admin
+# tips: 若nacos启动失败可尝试等mysql中的sql脚本初始化成功后再重启nacos
+docker-compose restart nacos
 
 # 其它组件:根据自己的条件去启动 ---------------------------------------------
 
-# seata
+# seata -- tips: 需修改下`docker-compose.yml`中的`SEATA_IP`值
 docker-compose -p small-tools up -d seata
 
 # canal
