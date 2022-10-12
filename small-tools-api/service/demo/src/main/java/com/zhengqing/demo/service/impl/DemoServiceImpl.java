@@ -324,4 +324,12 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         sqlSession.clearCache();
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void seckill() {
+        Demo demo = this.demoMapper.selectById(1);
+        demo.setNum(demo.getNum()-1);
+        demo.updateById();
+    }
+
 }

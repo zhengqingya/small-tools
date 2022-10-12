@@ -88,5 +88,12 @@ public class RedisController extends BaseController {
         return "success";
     }
 
+    @ApiOperation("秒杀")
+    @GetMapping("seckill")
+    public String seckill() {
+        this.demoService.seckill();
+        return "success";
+    }
+
 }
 
