@@ -28,6 +28,16 @@
         <dependency>
             <groupId>com.zhengqing</groupId>
             <artifactId>core</artifactId>
+            <!--
+            解决： cn.hutool.core.util.ObjectUtil.defaultIfNull(Ljava/lang/Object;Ljava/util/function/Supplier;)Ljava/lang/Object;
+            问题原因： log模块中tlog的hutool-core版本不一致
+             -->
+            <exclusions>
+                <exclusion>
+                    <groupId>cn.hutool</groupId>
+                    <artifactId>hutool-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

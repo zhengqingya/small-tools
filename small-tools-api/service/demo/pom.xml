@@ -46,11 +46,11 @@
 
         <!--  临时解决： cn.hutool.core.util.ObjectUtil.defaultIfNull(Ljava/lang/Object;Ljava/util/function/Supplier;)Ljava/lang/Object; -->
         <!-- 猜测问题原因应该是子工程包引用传递关系，这里暂时重复引用下此包 -->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.7</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>cn.hutool</groupId>-->
+<!--            <artifactId>hutool-all</artifactId>-->
+<!--            <version>5.8.7</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 
