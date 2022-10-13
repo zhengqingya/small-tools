@@ -3,6 +3,7 @@ package com.zhengqing.demo.service.impl;
 import cn.hutool.core.lang.Assert;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -327,9 +328,17 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void seckill() {
-        Demo demo = this.demoMapper.selectById(1);
-        demo.setNum(demo.getNum()-1);
-        demo.updateById();
+//        Demo demo = this.demoMapper.selectById(1);
+//        demo.setNum(demo.getNum()-1);
+//        demo.updateById();
+//        Integer userId = SysUserContext.getUserId();
+        int updateNum = this.demoMapper.update(null,
+                new LambdaUpdateWrapper<Demo>()
+                        .setSql("num = num - 1")
+                        .eq(Demo::getId,1)
+                        .gt(Demo::getNum,0)
+        );
+        Assert.isTrue(updateNum>0,"库存不足！");
     }
 
 }

@@ -157,6 +157,8 @@
 
     <!-- other -->
     <logger name="com.alibaba" level="WARN"/>
+    <logger name="com.alibaba.cloud.nacos.client.NacosPropertySourceBuilder" level="ERROR"/>
+    <logger name="com.alibaba.cloud.sentinel.datasource.converter.SentinelConverter" level="ERROR"/>
     <logger name="com.netflix" level="WARN"/>
     <logger name="org.xnio" level="WARN"/>
     <logger name="sun.rmi" level="WARN"/>
