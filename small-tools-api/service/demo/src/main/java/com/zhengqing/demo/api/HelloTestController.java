@@ -1,6 +1,7 @@
 package com.zhengqing.demo.api;
 
 import com.alibaba.fastjson.JSON;
+import com.zhengqing.common.base.constant.ServiceConstant;
 import io.swagger.annotations.Api;
 import lombok.Data;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ import java.util.List;
  * @date 2022/7/16 10:40 上午
  */
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping(ServiceConstant.SERVICE_API_PREFIX_WEB_DEMO + "/api/test")
 @Api(tags = "test")
 public class HelloTestController {
     @PostMapping("")

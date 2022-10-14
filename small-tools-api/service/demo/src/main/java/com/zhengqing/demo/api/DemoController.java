@@ -1,6 +1,7 @@
 package com.zhengqing.demo.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.common.base.context.SysUserContext;
 import com.zhengqing.common.base.model.dto.BaseDTO;
 import com.zhengqing.common.core.api.BaseController;
@@ -44,7 +45,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/web/api/demo/demo")
+@RequestMapping(ServiceConstant.SERVICE_API_PREFIX_WEB_DEMO + "/demo")
 @Api(tags = {"测试demo接口"})
 // @Transactional(rollbackFor = Exception.class)
 public class DemoController extends BaseController {

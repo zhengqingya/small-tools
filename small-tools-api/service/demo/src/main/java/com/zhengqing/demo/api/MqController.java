@@ -1,5 +1,6 @@
 package com.zhengqing.demo.api;
 
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.common.mq.util.MqUtil;
 import com.zhengqing.demo.constant.DemoRabbitMqConstant;
 import io.swagger.annotations.Api;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/test/mq")
+@RequestMapping(ServiceConstant.SERVICE_API_PREFIX_WEB_DEMO + "/test/mq")
 @Api(tags = {"mq"})
 @RequiredArgsConstructor
 public class MqController {

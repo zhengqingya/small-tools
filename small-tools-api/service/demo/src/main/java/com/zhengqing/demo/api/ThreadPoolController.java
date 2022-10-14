@@ -1,5 +1,6 @@
 package com.zhengqing.demo.api;
 
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.demo.threadpool.AsyncTaskThread;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,7 @@ import java.util.concurrent.Future;
 
 @Slf4j
 @RestController
-@RequestMapping("")
+@RequestMapping(ServiceConstant.SERVICE_API_PREFIX_WEB_DEMO + "")
 public class ThreadPoolController {
 
     @Resource

@@ -5,6 +5,7 @@ import com.alibaba.cloud.nacos.NacosServiceManager;
 import com.alibaba.nacos.api.naming.NamingFactory;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.common.core.api.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,7 +29,7 @@ import java.util.Properties;
  */
 @Slf4j
 @RestController
-@RequestMapping("/nacos/test")
+@RequestMapping(ServiceConstant.SERVICE_API_PREFIX_WEB_DEMO + "/nacos/test")
 @Api(tags = "nacos-api")
 public class NacosController extends BaseController {
 

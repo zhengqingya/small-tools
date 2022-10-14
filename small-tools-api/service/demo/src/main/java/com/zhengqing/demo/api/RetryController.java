@@ -1,5 +1,6 @@
 package com.zhengqing.demo.api;
 
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.demo.service.IBusinessService;
 import io.swagger.annotations.Api;
@@ -24,7 +25,7 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @RestController
-@RequestMapping("/web/api/demo/business")
+@RequestMapping(ServiceConstant.SERVICE_API_PREFIX_WEB_DEMO + "/business")
 @Api(tags = "retry重试")
 public class RetryController extends BaseController {
 

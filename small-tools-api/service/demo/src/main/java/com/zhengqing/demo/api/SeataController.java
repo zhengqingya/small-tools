@@ -1,5 +1,6 @@
 package com.zhengqing.demo.api;
 
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.demo.service.ISeataService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,7 +22,7 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @RestController
-@RequestMapping("/test/seata")
+@RequestMapping(ServiceConstant.SERVICE_API_PREFIX_WEB_DEMO + "/test/seata")
 @Api(tags = {"test-seata"})
 public class SeataController {
 

@@ -3,6 +3,7 @@ package com.zhengqing.demo.api;
 import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.constant.AppConstant;
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.common.base.model.dto.BaseDTO;
 import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.common.core.api.BaseController;
@@ -34,7 +35,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/web/api/demo/test")
+@RequestMapping(ServiceConstant.SERVICE_API_PREFIX_WEB_DEMO + "/test")
 @Api(tags = "测试api")
 public class TestController extends BaseController implements BeanSelfAware {
 

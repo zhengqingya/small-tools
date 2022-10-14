@@ -1,6 +1,7 @@
 package com.zhengqing.demo.api;
 
 import cn.hutool.json.JSONUtil;
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.common.redis.util.RedisBusinessCacheUtil;
 import com.zhengqing.demo.entity.Demo;
@@ -26,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "test-redis-cache")
-@RequestMapping("/web/api/test/redis")
+@RequestMapping(ServiceConstant.SERVICE_API_PREFIX_WEB_DEMO + "/redis/cache")
 public class RedisCacheProblemController extends BaseController {
 
     private final IDemoService demoService;

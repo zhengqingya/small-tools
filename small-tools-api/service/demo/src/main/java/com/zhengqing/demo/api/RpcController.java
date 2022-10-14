@@ -1,5 +1,6 @@
 package com.zhengqing.demo.api;
 
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.common.web.util.RequestContextUtil;
 import com.zhengqing.demo.threadpool.SystemTaskThread;
@@ -27,7 +28,7 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
-@RequestMapping("/web/api/demo/test")
+@RequestMapping(ServiceConstant.SERVICE_API_PREFIX_WEB_DEMO + "/test")
 @Api(tags = "测试rpc")
 @AllArgsConstructor
 public class RpcController extends BaseController {

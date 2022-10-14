@@ -1,5 +1,6 @@
 package com.zhengqing.demo.api;
 
+import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.common.core.custom.lock.RedisLock;
 import com.zhengqing.common.core.custom.lock.RedisLockType;
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/web/api/demo/redisson")
-@Api(tags = "redisson-lock-test")
+@RequestMapping(ServiceConstant.SERVICE_API_PREFIX_WEB_DEMO + "/redisson/lock")
+@Api(tags = "test-redisson-lock")
 public class RedissonLockController extends BaseController {
 
     @PostMapping("reentrantLock")
