@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.context.TenantIdContext;
 import com.zhengqing.common.redis.util.RedisUtil;
+import com.zhengqing.common.redis.util.RedissonUtil;
 import com.zhengqing.mall.common.model.bo.PmsSpuBuyNumInfoBO;
 import com.zhengqing.mall.common.model.dto.PmsSkuDTO;
 import com.zhengqing.mall.common.model.vo.PmsSkuVO;
@@ -154,7 +155,7 @@ public class MiniOmsCartServiceImpl implements MiniOmsCartService {
     public void saveCartData(Long userId, String spuId, String skuId, Integer num) {
         String cartKey = this.getCartKey(userId);
         // 加锁
-        RLock redisLock = RedisUtil.lock(String.format("%s%s:%s", MallRedisConstant.MINI_CART_LOCK, TenantIdContext.getTenantId(), userId), 5, TimeUnit.SECONDS);
+        RLock redisLock = RedissonUtil.lock(String.format("%s%s:%s", MallRedisConstant.MINI_CART_LOCK, TenantIdContext.getTenantId(), userId), 5, TimeUnit.SECONDS);
         try {
             // 查询之前购物车中的数据
             Object cartData = RedisUtil.hGet(cartKey, skuId);

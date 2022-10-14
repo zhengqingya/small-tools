@@ -2,7 +2,7 @@ package com.zhengqing.demo.api;
 
 import cn.hutool.json.JSONUtil;
 import com.zhengqing.common.core.api.BaseController;
-import com.zhengqing.common.redis.util.RedisUtil;
+import com.zhengqing.common.redis.util.RedisBusinessCacheUtil;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.service.IDemoService;
 import io.swagger.annotations.Api;
@@ -35,13 +35,13 @@ public class RedisCacheProblemController extends BaseController {
     @ApiOperation("测试")
     public String test() {
         // 逻辑过期
-        RedisUtil.setWithLogicalExpire("test", JSONUtil.toJsonStr(Demo.builder().id(1L).build()), 5L, TimeUnit.SECONDS);
+        RedisBusinessCacheUtil.setWithLogicalExpire("test", JSONUtil.toJsonStr(Demo.builder().id(1L).build()), 5L, TimeUnit.SECONDS);
         // 缓存穿透
-        Demo test1 = RedisUtil.queryWithPassThrough("test1", 1L, Demo.class, this.demoService::getById, 5L, TimeUnit.SECONDS);
+        Demo test1 = RedisBusinessCacheUtil.queryWithPassThrough("test1", 1L, Demo.class, this.demoService::getById, 5L, TimeUnit.SECONDS);
         // 缓存击穿 -- 逻辑过期
-        Demo test2 = RedisUtil.queryWithLogicalExpire("test2", 1L, Demo.class, this.demoService::getById, 5L, TimeUnit.SECONDS, "lock1");
+        Demo test2 = RedisBusinessCacheUtil.queryWithLogicalExpire("test2", 1L, Demo.class, this.demoService::getById, 5L, TimeUnit.SECONDS, "lock1");
         // 缓存击穿 -- 逻辑过期
-        Demo test3 = RedisUtil.queryWithMutex("test3", 1L, Demo.class, this.demoService::getById, 5L, TimeUnit.SECONDS, "lock2");
+        Demo test3 = RedisBusinessCacheUtil.queryWithMutex("test3", 1L, Demo.class, this.demoService::getById, 5L, TimeUnit.SECONDS, "lock2");
         return "成功";
     }
 

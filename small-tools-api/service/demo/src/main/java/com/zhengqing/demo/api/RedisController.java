@@ -7,6 +7,7 @@ import com.zhengqing.common.core.api.BaseController;
 import com.zhengqing.common.core.util.IdGeneratorUtil;
 import com.zhengqing.common.redis.constant.RedisConstant;
 import com.zhengqing.common.redis.util.RedisUtil;
+import com.zhengqing.common.redis.util.RedissonUtil;
 import com.zhengqing.demo.constant.DemoConstant;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.service.IDemoService;
@@ -52,7 +53,7 @@ public class RedisController extends BaseController {
     @ApiOperation("可重入锁")
     public void reentrantLock() {
         // 加锁
-        RLock redisLock = RedisUtil.lock("test:lock", 5, TimeUnit.SECONDS);
+        RLock redisLock = RedissonUtil.lock("test:lock", 5, TimeUnit.SECONDS);
         try {
 
             // 模拟扣减库存

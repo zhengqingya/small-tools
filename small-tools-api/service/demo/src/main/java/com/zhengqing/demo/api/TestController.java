@@ -10,6 +10,7 @@ import com.zhengqing.common.core.aspect.config.BeanSelfAware;
 import com.zhengqing.common.core.custom.limit.ApiLimit;
 import com.zhengqing.common.redis.util.RedisUtil;
 import com.zhengqing.common.web.util.RestTemplateUtil;
+import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.vo.DemoJacksonVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -105,6 +106,15 @@ public class TestController extends BaseController implements BeanSelfAware {
     @SneakyThrows(Exception.class)
     public DemoJacksonVO jackson() {
         return DemoJacksonVO.builder().no(1111111111111111111L).sex(1).time(new Date()).build();
+    }
+
+    @ApiOperation("post-form-接收form-data值")
+    @PostMapping("post-form")
+    public String postFrom(
+            @RequestParam String name,
+            @RequestParam Integer age,
+            @ModelAttribute DemoListDTO params) {
+        return "666";
     }
 
 }
