@@ -128,13 +128,4 @@ public interface IDemoService extends IService<Demo> {
      */
     void asyncExecute05();
 
-    /**
-     * 秒杀
-     *
-     * @return void
-     * @author zhengqingya
-     * @date 2022/10/10 16:02
-     */
-    void seckill();
-
 }

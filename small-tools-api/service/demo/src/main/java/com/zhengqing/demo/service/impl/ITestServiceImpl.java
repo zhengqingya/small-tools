@@ -1,12 +1,12 @@
 package com.zhengqing.demo.service.impl;
 
-import com.zhengqing.demo.service.TestService;
+import com.zhengqing.demo.service.ITestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class TestServiceImpl implements TestService {
+public class ITestServiceImpl implements ITestService {
 
 
     /**
@@ -20,7 +20,7 @@ public class TestServiceImpl implements TestService {
 
         System.out.println(666);
 
-        
+
     }
 
 

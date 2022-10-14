@@ -7,7 +7,7 @@ package com.zhengqing.demo.service;
  * @author zhengqingya
  * @date 2022/08/28
  */
-public interface TestService {
+public interface ITestService {
 
 
     /**
