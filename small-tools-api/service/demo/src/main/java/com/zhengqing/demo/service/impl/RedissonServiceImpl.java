@@ -35,20 +35,36 @@ public class RedissonServiceImpl implements IRedissonService {
     @SneakyThrows(Exception.class)
     public void seckill() {
         Integer userId = SysUserContext.getUserId();
+        String key = "test_lock_" + userId;
         // 加锁
-        RLock lock = this.redissonClient.getLock("test:lock:" + userId);
+        RLock lock = this.redissonClient.getLock(key);
 //        lock.lock(5, TimeUnit.SECONDS);
-        // 加锁leaseTime以后自动解锁, 无需调用unlock方法手动解锁
-        lock.tryLock(10, 50, TimeUnit.SECONDS);
+        // 尝试加锁，最多等待100秒，上锁以后50秒自动解锁
+        boolean isLock = lock.tryLock(100, 50, TimeUnit.SECONDS);
+        if (!isLock) {
+//            return;
+        }
         try {
             // 模拟扣减库存
             this.demoService.updateNum(1, -1);
+            this.handleData(key);
             Demo demo = this.demoService.getById(1);
             log.info("time:{} incrBy: {}", MyDateUtil.nowStr(), demo.getNum());
         } finally {
             // 释放锁
             lock.unlock();
         }
+    }
+
+    @SneakyThrows(Exception.class)
+    public void handleData(String key) {
+        RLock lock = this.redissonClient.getLock(key);
+        boolean isLock = lock.tryLock(100, 50, TimeUnit.SECONDS);
+        if (!isLock) {
+            return;
+        }
+        System.out.println(1);
+        lock.unlock();
     }
 
 
