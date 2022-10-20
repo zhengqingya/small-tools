@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping(ServiceConstant.SERVICE_API_PREFIX_WEB_DEMO + "/api/jackson")
-@Api(tags = "jackson")
+@Api(tags = "test-jackson")
 public class JacksonController {
 
     @PostMapping("/test1")
