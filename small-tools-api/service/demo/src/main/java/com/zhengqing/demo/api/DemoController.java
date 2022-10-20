@@ -181,29 +181,31 @@ public class DemoController extends BaseController {
 //        return "OK" + websiteIdStr;
 //    }
 
+    @Data
+    @SuperBuilder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @EqualsAndHashCode(callSuper = true)
+    static class TestSaveDTO extends BaseDTO {
+
+        @ApiModelProperty("主键ID")
+        @NotNull(message = "主键ID不能为空!")
+        private Integer id;
+
+
+        @NotBlank(message = "用户名不能为空!")
+        @ApiModelProperty("用户名")
+        private String username;
+
+        @ApiModelProperty("密码")
+        private String password;
+
+        //    @NotEmpty(message = "list不能为空！")
+        @ApiModelProperty("list")
+        private List<TestSaveDTO> list;
+
+    }
+
+
 }
 
-@Data
-@SuperBuilder
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-class TestSaveDTO extends BaseDTO {
-
-    @ApiModelProperty("主键ID")
-    @NotNull(message = "主键ID不能为空!")
-    private Integer id;
-
-
-    @NotBlank(message = "用户名不能为空!")
-    @ApiModelProperty("用户名")
-    private String username;
-
-    @ApiModelProperty("密码")
-    private String password;
-
-    //    @NotEmpty(message = "list不能为空！")
-    @ApiModelProperty("list")
-    private List<TestSaveDTO> list;
-
-}
