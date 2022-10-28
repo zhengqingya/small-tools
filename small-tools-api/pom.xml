@@ -15,9 +15,12 @@
 
     <properties>
         <revision>1.0.2</revision>
-        <java.version>1.8</java.version>
+        <java.version>8</java.version>
+
+        <!-- 配置maven使用jdk8编译 -->
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.build.sourceEncoding}
         </project.reporting.outputEncoding>
@@ -372,6 +375,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.1</version>
                     <configuration>
+                        <!-- 配置maven使用jdk8编译 -->
                         <source>${java.version}</source>
                         <target>${java.version}</target>
                         <encoding>${project.build.sourceEncoding}</encoding>

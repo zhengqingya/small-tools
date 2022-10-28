@@ -52,6 +52,16 @@
 <!--            <version>5.8.7</version>-->
 <!--        </dependency>-->
 
+
+        <!-- Caffeine是一个基于Java8开发的提供了近乎最佳命中率的高性能的缓存库。 -->
+        <!-- https://mvnrepository.com/artifact/com.github.ben-manes.caffeine/caffeine -->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>2.9.3</version>
+        </dependency>
+
+
     </dependencies>
 
 
