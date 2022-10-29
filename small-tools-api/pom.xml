@@ -106,6 +106,25 @@
                 <version>1.5.2</version>
             </dependency>
 
+            <!-- Hutool工具类 -->
+            <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+            <dependency>
+                <groupId>com.yomahub</groupId>
+                <artifactId>tlog-all-spring-boot-starter</artifactId>
+                <version>1.4.3</version>
+                <exclusions>
+                    <!--
+                       解决： cn.hutool.core.util.ObjectUtil.defaultIfNull(Ljava/lang/Object;Ljava/util/function/Supplier;)Ljava/lang/Object;
+                       问题原因： log模块中tlog的hutool-core版本不一致
+                    -->
+                    <exclusion>
+                        <groupId>cn.hutool</groupId>
+                        <artifactId>hutool-core</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+
             <!-- ************ ↓↓↓↓↓↓ 组件 ↓↓↓↓↓↓ ************ -->
             <dependency>
                 <groupId>com.zhengqing</groupId>

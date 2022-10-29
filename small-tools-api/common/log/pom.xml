@@ -24,7 +24,6 @@
         <dependency>
             <groupId>com.yomahub</groupId>
             <artifactId>tlog-all-spring-boot-starter</artifactId>
-            <version>1.4.3</version>
         </dependency>
 
         <!-- elk日志链路追踪工具 -->
