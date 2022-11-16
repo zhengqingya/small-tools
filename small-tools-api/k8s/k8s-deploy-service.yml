@@ -35,6 +35,9 @@ spec:
             - name: http
               containerPort: ${APP_PORT}
               protocol: TCP
+            - name: sentinel
+              containerPort: 8719
+              protocol: TCP
           # CPU内存限制
           resources:
             limits:
