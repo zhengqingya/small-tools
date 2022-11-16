@@ -8,7 +8,7 @@ metadata:
   labels:
     app: ${APP_NAME}
 spec:
-  replicas: 1 # TODO 副本数量
+  replicas: ${APP_REPLICAS} # 副本数量
   strategy:
     rollingUpdate:
       maxSurge: 50%
@@ -36,7 +36,7 @@ spec:
               containerPort: ${APP_PORT}
               protocol: TCP
             - name: sentinel
-              containerPort: 8719
+              containerPort: ${APP_SENTINEL_PORT}
               protocol: TCP
           # CPU内存限制
           resources:
