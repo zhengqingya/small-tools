@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.common.base.constant.ServiceConstant;
 import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryListDTO;
 import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryPageDTO;
-import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryReSpuPageDTO;
+import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryReSpuListDTO;
 import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryListVO;
 import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryPageVO;
-import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryReSpuPageVO;
+import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryReSpuListVO;
 import com.zhengqing.mall.service.MiniOmsCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,10 +48,15 @@ public class MiniPmsCategoryController {
         return this.miniPmsCategoryService.list(params);
     }
 
+    @GetMapping("reSpuList")
+    @ApiOperation("列表(包含关联商品数据)")
+    public List<MiniPmsCategoryReSpuListVO> reSpuList(@Validated @ModelAttribute MiniPmsCategoryReSpuListDTO params) {
+        return this.miniPmsCategoryService.reSpuList(params);
+    }
 
     @GetMapping("reSpuPage")
     @ApiOperation("分页列表(包含4个商品数据)")
-    public IPage<MiniPmsCategoryReSpuPageVO> reSpuPage(@Validated @ModelAttribute MiniPmsCategoryReSpuPageDTO params) {
+    public IPage<MiniPmsCategoryReSpuListVO> reSpuPage(@Validated @ModelAttribute MiniPmsCategoryReSpuListDTO params) {
         return this.miniPmsCategoryService.reSpuPage(params);
     }
 

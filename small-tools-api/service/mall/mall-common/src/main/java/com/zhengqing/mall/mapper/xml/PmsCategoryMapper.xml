@@ -54,13 +54,13 @@
         ORDER BY sort DESC
     </select>
 
-    <select id="selectReSpuPageForMini" resultType="com.zhengqing.mall.mini.model.vo.MiniPmsCategoryReSpuPageVO">
+    <select id="selectReSpuDataListForMini" resultType="com.zhengqing.mall.mini.model.vo.MiniPmsCategoryReSpuListVO">
         SELECT
         c.id,
         c.name
         FROM pms_category c
-        JOIN pms_category_spu_relation cs
-        ON ( c.id = cs.category_id AND cs.is_deleted = 0 AND c.is_deleted = 0 )
+        JOIN pms_category_spu_relation csr
+        ON ( c.id = csr.category_id AND csr.is_deleted = 0 AND c.is_deleted = 0 )
         WHERE c.is_show = 1
         <if test="filter.name!=null and filter.name!=''">
             AND c.name LIKE CONCAT( #{filter.name} , '%' )

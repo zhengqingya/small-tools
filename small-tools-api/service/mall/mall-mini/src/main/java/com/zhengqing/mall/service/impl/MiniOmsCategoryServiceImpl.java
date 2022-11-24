@@ -2,15 +2,16 @@ package com.zhengqing.mall.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.collect.Lists;
 import com.zhengqing.mall.common.model.vo.PmsCategoryReSpuListVO;
 import com.zhengqing.mall.entity.PmsCategory;
 import com.zhengqing.mall.mapper.PmsCategoryMapper;
 import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryListDTO;
 import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryPageDTO;
-import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryReSpuPageDTO;
+import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryReSpuListDTO;
 import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryListVO;
 import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryPageVO;
-import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryReSpuPageVO;
+import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryReSpuListVO;
 import com.zhengqing.mall.service.MiniOmsCategoryService;
 import com.zhengqing.mall.service.MiniPmsCategorySpuRelationService;
 import lombok.extern.slf4j.Slf4j;
@@ -50,20 +51,34 @@ public class MiniOmsCategoryServiceImpl extends OmsCategoryServiceImpl<PmsCatego
     }
 
     @Override
-    public IPage<MiniPmsCategoryReSpuPageVO> reSpuPage(MiniPmsCategoryReSpuPageDTO params) {
-        IPage<MiniPmsCategoryReSpuPageVO> categoryReSpuPage = this.pmsCategoryMapper.selectReSpuPageForMini(new Page<>(), params);
-        List<MiniPmsCategoryReSpuPageVO> categoryReSpuList = categoryReSpuPage.getRecords();
+    public List<MiniPmsCategoryReSpuListVO> reSpuList(MiniPmsCategoryReSpuListDTO params) {
+        List<MiniPmsCategoryReSpuListVO> categoryReSpuList = this.pmsCategoryMapper.selectReSpuDataListForMini(params);
+        if (CollectionUtils.isEmpty(categoryReSpuList)) {
+            return Lists.newArrayList();
+        }
+        this.handleReSpuData(categoryReSpuList);
+        return categoryReSpuList;
+    }
+
+    @Override
+    public IPage<MiniPmsCategoryReSpuListVO> reSpuPage(MiniPmsCategoryReSpuListDTO params) {
+        IPage<MiniPmsCategoryReSpuListVO> categoryReSpuPage = this.pmsCategoryMapper.selectReSpuDataListForMini(new Page<>(), params);
+        List<MiniPmsCategoryReSpuListVO> categoryReSpuList = categoryReSpuPage.getRecords();
         if (CollectionUtils.isEmpty(categoryReSpuList)) {
             return categoryReSpuPage;
         }
+        this.handleReSpuData(categoryReSpuList);
+        return categoryReSpuPage;
+    }
+
+    private void handleReSpuData(List<MiniPmsCategoryReSpuListVO> categoryReSpuList) {
         // 分类ids
-        List<String> categoryIdList = categoryReSpuList.stream().map(MiniPmsCategoryReSpuPageVO::getId).collect(Collectors.toList());
+        List<String> categoryIdList = categoryReSpuList.stream().map(MiniPmsCategoryReSpuListVO::getId).collect(Collectors.toList());
         Map<String, List<PmsCategoryReSpuListVO>> categoryReSpuMap = this.miniPmsCategorySpuRelationService.mapByCategoryIdList(categoryIdList);
         categoryReSpuList.forEach(item -> {
             item.setSpuList(categoryReSpuMap.get(item.getId()));
             item.handleData();
         });
-        return categoryReSpuPage;
     }
 
 }

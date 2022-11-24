@@ -5,10 +5,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.mall.entity.PmsCategory;
 import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryListDTO;
 import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryPageDTO;
-import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryReSpuPageDTO;
+import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryReSpuListDTO;
 import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryListVO;
 import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryPageVO;
-import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryReSpuPageVO;
+import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryReSpuListVO;
 import com.zhengqing.mall.web.model.dto.WebPmsCategoryListDTO;
 import com.zhengqing.mall.web.model.dto.WebPmsCategoryPageDTO;
 import com.zhengqing.mall.web.model.vo.WebPmsCategoryListVO;
@@ -70,6 +70,16 @@ public interface PmsCategoryMapper extends BaseMapper<PmsCategory> {
     IPage<MiniPmsCategoryPageVO> selectPageForMini(IPage<MiniPmsCategoryPageVO> page, @Param("filter") MiniPmsCategoryPageDTO filter);
 
     /**
+     * 列表
+     *
+     * @param filter 查询过滤参数
+     * @return 查询结果
+     * @author zhengqingya
+     * @date 2022/02/10 14:01
+     */
+    List<MiniPmsCategoryReSpuListVO> selectReSpuDataListForMini(@Param("filter") MiniPmsCategoryReSpuListDTO filter);
+
+    /**
      * 列表分页
      *
      * @param page   分页数据
@@ -78,8 +88,7 @@ public interface PmsCategoryMapper extends BaseMapper<PmsCategory> {
      * @author zhengqingya
      * @date 2022/02/10 14:01
      */
-    IPage<MiniPmsCategoryReSpuPageVO> selectReSpuPageForMini(
-            IPage<MiniPmsCategoryReSpuPageVO> page, @Param("filter") MiniPmsCategoryReSpuPageDTO filter);
+    IPage<MiniPmsCategoryReSpuListVO> selectReSpuDataListForMini(IPage<MiniPmsCategoryReSpuListVO> page, @Param("filter") MiniPmsCategoryReSpuListDTO filter);
 
     /**
      * 列表分页

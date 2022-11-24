@@ -15,7 +15,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.List;
 
 /**
- * <p>商城-分类-含商品-分页列表-响应参数</p>
+ * <p>商城-分类-含商品-列表-响应参数</p>
  *
  * @author zhengqingya
  * @description
@@ -26,8 +26,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@ApiModel("mini-商城-分类-含商品-分页列表-响应参数")
-public class MiniPmsCategoryReSpuPageVO extends BaseVO {
+@ApiModel("mini-商城-分类-含商品-列表-响应参数")
+public class MiniPmsCategoryReSpuListVO extends BaseVO {
 
     @ApiModelProperty("主键ID")
     private String id;

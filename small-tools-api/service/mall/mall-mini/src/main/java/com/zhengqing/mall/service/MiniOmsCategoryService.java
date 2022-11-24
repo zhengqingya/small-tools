@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.mall.entity.PmsCategory;
 import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryListDTO;
 import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryPageDTO;
-import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryReSpuPageDTO;
+import com.zhengqing.mall.mini.model.dto.MiniPmsCategoryReSpuListDTO;
 import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryListVO;
 import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryPageVO;
-import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryReSpuPageVO;
+import com.zhengqing.mall.mini.model.vo.MiniPmsCategoryReSpuListVO;
 
 import java.util.List;
 
@@ -41,6 +41,16 @@ public interface MiniOmsCategoryService extends OmsCategoryService<PmsCategory> 
     List<MiniPmsCategoryListVO> list(MiniPmsCategoryListDTO params);
 
     /**
+     * 列表(包含关联商品数据)
+     *
+     * @param params 查询参数
+     * @return 查询结果
+     * @author zhengqingya
+     * @date 2022/02/10 14:01
+     */
+    List<MiniPmsCategoryReSpuListVO> reSpuList(MiniPmsCategoryReSpuListDTO params);
+
+    /**
      * 分页列表(包含4个商品数据)
      *
      * @param params 查询参数
@@ -48,6 +58,7 @@ public interface MiniOmsCategoryService extends OmsCategoryService<PmsCategory> 
      * @author zhengqingya
      * @date 2022/02/10 14:01
      */
-    IPage<MiniPmsCategoryReSpuPageVO> reSpuPage(MiniPmsCategoryReSpuPageDTO params);
+    IPage<MiniPmsCategoryReSpuListVO> reSpuPage(MiniPmsCategoryReSpuListDTO params);
+
 
 }
