@@ -31,9 +31,9 @@ public class MiniOmsCartController {
     @Resource
     private MiniOmsCartService miniOmsCartService;
 
-    @GetMapping("list/{userId}")
+    @GetMapping("list")
     @ApiOperation("列表")
-    public List<MiniOmsCartVO> list(@PathVariable Long userId) {
+    public List<MiniOmsCartVO> list(@RequestParam(required = false) Long userId) {
         if (userId == null) {
             userId = UmsUserContext.getUserId();
         }

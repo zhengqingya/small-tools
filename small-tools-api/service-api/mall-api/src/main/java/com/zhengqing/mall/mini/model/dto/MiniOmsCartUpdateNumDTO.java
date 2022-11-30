@@ -27,9 +27,9 @@ import javax.validation.constraints.NotNull;
 @ApiModel
 public class MiniOmsCartUpdateNumDTO extends BaseDTO {
 
-    @NotNull(message = "用户id不能为空！")
-    @ApiModelProperty(value = "用户id", required = true, example = "1")
-    private Long userId;
+//    @NotNull(message = "用户id不能为空！")
+//    @ApiModelProperty(value = "用户id", required = true, example = "1")
+//    private Long userId;
 
     @NotBlank(message = "商品id不能为空！")
     @ApiModelProperty(value = "商品id", required = true, example = "1")

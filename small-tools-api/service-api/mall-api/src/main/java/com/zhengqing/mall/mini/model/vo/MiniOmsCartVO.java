@@ -2,6 +2,7 @@ package com.zhengqing.mall.mini.model.vo;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.base.Joiner;
 import com.zhengqing.common.base.model.vo.BaseVO;
 import com.zhengqing.mall.common.model.bo.PmsSkuSpecBO;
 import io.swagger.annotations.ApiModel;
@@ -14,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p> mini-商城-购物车-响应参数 </p>
@@ -60,6 +62,9 @@ public class MiniOmsCartVO extends BaseVO {
     @ApiModelProperty(value = "商品规格sku属性(前端用于购物车列表展示使用)")
     private List<PmsSkuSpecBO> specList;
 
+    @ApiModelProperty(value = "商品规格sku属性(前端用于购物车列表展示使用)")
+    private String specDesc;
+
     @ApiModelProperty(value = "商品名称", example = "小熊猫")
     private String name;
 
@@ -77,5 +82,10 @@ public class MiniOmsCartVO extends BaseVO {
 
     @ApiModelProperty("运费(单位:分 0:包邮)")
     private Integer freight;
+
+    public void handleData() {
+        List<String> specAttrList = this.specList.stream().map(e -> e.getAttrValueName()).collect(Collectors.toList());
+        this.specDesc = Joiner.on(",").join(specAttrList);
+    }
 
 }

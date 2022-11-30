@@ -103,7 +103,7 @@ public class MiniOmsCartServiceImpl implements MiniOmsCartService {
                 cartItem.setLimitCount(mysqlSku.getLimitCount());
                 cartItem.setFreight(mysqlSku.getFreight());
             }
-
+            cartItem.handleData();
             resultList.add(cartItem);
         }
         // 5、根据时间降序，最新的数据放最前面
@@ -189,14 +189,14 @@ public class MiniOmsCartServiceImpl implements MiniOmsCartService {
     public void updateNum(MiniOmsCartUpdateNumDTO params) {
         log.info("[商城] 购物车-更新数量：[{}]", params);
         // 保存数据
-        this.saveCartData(params.getUserId(), params.getSpuId(), params.getSkuId(), params.getNum());
+        this.saveCartData(UmsUserContext.getUserId(), params.getSpuId(), params.getSkuId(), params.getNum());
     }
 
 
     @Override
     public void deleteData(MiniOmsCartDeleteDTO params) {
         log.info("[商城] 购物车-删除-提交参数：[{}]", params);
-        String cartKey = this.getCartKey(params.getUserId());
+        String cartKey = this.getCartKey(UmsUserContext.getUserId());
         List<String> skuIdList = params.getSkuIdList();
         skuIdList.forEach(skuIdItem -> RedisUtil.hDelete(cartKey, skuIdItem));
     }
