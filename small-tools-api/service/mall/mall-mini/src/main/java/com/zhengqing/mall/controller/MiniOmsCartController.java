@@ -1,6 +1,7 @@
 package com.zhengqing.mall.controller;
 
 import com.zhengqing.common.base.constant.ServiceConstant;
+import com.zhengqing.common.base.context.UmsUserContext;
 import com.zhengqing.mall.mini.model.dto.MiniOmsCartDeleteDTO;
 import com.zhengqing.mall.mini.model.dto.MiniOmsCartSaveDTO;
 import com.zhengqing.mall.mini.model.dto.MiniOmsCartUpdateNumDTO;
@@ -33,6 +34,9 @@ public class MiniOmsCartController {
     @GetMapping("list/{userId}")
     @ApiOperation("列表")
     public List<MiniOmsCartVO> list(@PathVariable Long userId) {
+        if (userId == null) {
+            userId = UmsUserContext.getUserId();
+        }
         return this.miniOmsCartService.list(userId);
     }
 

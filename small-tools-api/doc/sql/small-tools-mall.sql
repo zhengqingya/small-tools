@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 30/09/2022 16:43:20
+ Date: 30/11/2022 14:20:40
 */
 
 SET NAMES utf8mb4;
@@ -19,9 +19,11 @@ SET
 FOREIGN_KEY_CHECKS = 0;
 
 -- 创建数据库
-CREATE database if NOT EXISTS `small-tools-mall`;
+CREATE
+database if NOT EXISTS `small-tools-mall`;
 -- 使用数据库
-use `small-tools-mall`;
+use
+`small-tools-mall`;
 
 
 -- ----------------------------
@@ -440,6 +442,16 @@ INSERT INTO `pms_category`
 VALUES (1532285975026335744, 1, 0, '六一专属', 1, 1, '2022-06-02 17:00:20', '2022-06-02 17:00:20', 0, 0, 0);
 INSERT INTO `pms_category`
 VALUES (1533982865094737920, 1, 0, 'GOODS', 1, 1, '2022-06-07 09:23:10', '2022-06-07 09:23:10', 0, 0, 0);
+INSERT INTO `pms_category`
+VALUES (1533982865094737921, 1, 0, '甜的', 1, 1, '2022-06-07 09:23:10', '2022-11-28 13:39:39', 0, 0, 0);
+INSERT INTO `pms_category`
+VALUES (1533982865094737922, 1, 0, '酸的', 1, 1, '2022-06-07 09:23:10', '2022-11-28 13:39:44', 0, 0, 0);
+INSERT INTO `pms_category`
+VALUES (1533982865094737923, 1, 0, '辣的', 1, 1, '2022-06-07 09:23:10', '2022-11-28 13:39:48', 0, 0, 0);
+INSERT INTO `pms_category`
+VALUES (1533982865094737924, 1, 0, '测试', 1, 1, '2022-06-07 09:23:10', '2022-11-28 13:39:52', 0, 0, 0);
+INSERT INTO `pms_category`
+VALUES (1533982865094737925, 1, 0, '好好学习', 1, 1, '2022-06-07 09:23:10', '2022-11-28 13:39:57', 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for pms_category_attr_relation
@@ -489,8 +501,38 @@ CREATE TABLE `pms_category_spu_relation`
 -- Records of pms_category_spu_relation
 -- ----------------------------
 INSERT INTO `pms_category_spu_relation`
+VALUES (1534424038364020735, 1, 1532285975026335744, 1534420706752856065, 1, 1, 1, '2022-06-08 14:36:14',
+        '2022-11-24 13:54:45', 0, 0, 0);
+INSERT INTO `pms_category_spu_relation`
 VALUES (1534424038364020736, 1, 1532285889399619584, 1534420706752856064, 1, 1, 1, '2022-06-08 14:36:14',
         '2022-06-08 14:36:45', 0, 0, 0);
+INSERT INTO `pms_category_spu_relation`
+VALUES (1534424038364020737, 1, 1532285975026335744, 1534420706752856064, 1, 1, 1, '2022-06-08 14:36:14',
+        '2022-11-24 13:53:49', 0, 0, 0);
+INSERT INTO `pms_category_spu_relation`
+VALUES (1534424038364020738, 1, 1533982865094737920, 1534420706752856064, 1, 1, 1, '2022-06-08 14:36:14',
+        '2022-11-24 13:53:52', 0, 0, 0);
+INSERT INTO `pms_category_spu_relation`
+VALUES (1534424038364020739, 1, 1532285889399619584, 1534420706752856065, 1, 1, 1, '2022-06-08 14:36:14',
+        '2022-11-24 13:54:20', 0, 0, 0);
+INSERT INTO `pms_category_spu_relation`
+VALUES (1534424038364020740, 1, 1533982865094737921, 1534420706752856065, 1, 1, 1, '2022-06-08 14:36:14',
+        '2022-11-28 13:40:57', 0, 0, 0);
+INSERT INTO `pms_category_spu_relation`
+VALUES (1534424038364020741, 1, 1533982865094737922, 1534420706752856065, 1, 1, 1, '2022-06-08 14:36:14',
+        '2022-11-28 13:40:59', 0, 0, 0);
+INSERT INTO `pms_category_spu_relation`
+VALUES (1534424038364020742, 1, 1533982865094737923, 1534420706752856065, 1, 1, 1, '2022-06-08 14:36:14',
+        '2022-11-28 13:41:01', 0, 0, 0);
+INSERT INTO `pms_category_spu_relation`
+VALUES (1534424038364020743, 1, 1533982865094737924, 1534420706752856065, 1, 1, 1, '2022-06-08 14:36:14',
+        '2022-11-28 13:41:03', 0, 0, 0);
+INSERT INTO `pms_category_spu_relation`
+VALUES (1534424038364020744, 1, 1533982865094737925, 1534420706752856065, 1, 1, 1, '2022-06-08 14:36:14',
+        '2022-11-28 13:41:06', 0, 0, 0);
+INSERT INTO `pms_category_spu_relation`
+VALUES (1534424038364020745, 1, 1533982865094737926, 1534420706752856065, 1, 1, 1, '2022-06-08 14:36:14',
+        '2022-11-28 13:41:09', 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for pms_sku
@@ -506,7 +548,7 @@ CREATE TABLE `pms_sku`
     `cost_price`    int(11) UNSIGNED NULL DEFAULT NULL COMMENT '成本价(单位:分)',
     `sell_price`    int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '销售单价(单位:分)',
     `presell_price` int(11) UNSIGNED NULL DEFAULT NULL COMMENT '预售价格(单位:分)',
-    `limit_count`   int(11) UNSIGNED NULL DEFAULT NULL COMMENT '每人限购',
+    `limit_count`   int(11) UNSIGNED NULL DEFAULT NULL COMMENT '每人限购(0:不限购)',
     `total_stock`   int(11) UNSIGNED NOT NULL COMMENT '总库存',
     `use_stock`     int(11) UNSIGNED NOT NULL COMMENT '已用库存',
     `usable_stock`  int(11) UNSIGNED NOT NULL COMMENT '可用库存',
@@ -525,8 +567,13 @@ CREATE TABLE `pms_sku`
 INSERT INTO `pms_sku`
 VALUES (1534420706920628224, 1, 1534420706752856064, 'ABC',
         '[{\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueId\":\"1\",\"attrValueName\":\"蓝色\"}]', NULL, 10, 10,
-        1, 4, 0, 4, 'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg', 1, 0,
-        '2022-06-08 14:22:59', '2022-06-08 15:41:29', 0);
+        0, 4, 0, 4, 'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg', 1, 0,
+        '2022-06-08 14:22:59', '2022-11-30 14:19:51', 0);
+INSERT INTO `pms_sku`
+VALUES (1534420706920628225, 1, 1534420706752856065, 'ABC',
+        '[{\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueId\":\"1\",\"attrValueName\":\"蓝色\"}]', NULL, 999, 10,
+        0, 4, 0, 4, 'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg', 1, 0,
+        '2022-06-08 14:22:59', '2022-11-30 14:19:51', 0);
 
 -- ----------------------------
 -- Table structure for pms_spu
@@ -570,14 +617,24 @@ CREATE TABLE `pms_spu`
 -- ----------------------------
 INSERT INTO `pms_spu`
 VALUES (1534420706752856064, 1, '熊猫限定帆布袋', 1, 101, 1, '买一送一', 100,
-        'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg',
+        'https://img1.baidu.com/it/u=3969247811,1285706727&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400',
         '[{\"url\":\"https://www.zhengqingya.com/label.png\",\"name\":\"熊猫限定帆布袋\"}]',
         '[{\"url\":\"https://www.zhengqingya.com/label.png\",\"name\":\"熊猫限定帆布袋\"}]', 100, 0,
         '[{\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueList\":[{\"attrValueId\":\"1\",\"attrValueName\":\"蓝色\"}]}]',
         1, '2021-08-25 09:00:00', '2021-08-26 23:59:59', 15, 1, 1,
         '[{\"code\":\"btn\",\"remark\":\"this is the add.\",\"sort\":1,\"name\":\"添加\",\"value\":\"add\"}]',
         '[{\"code\":\"btn\",\"remark\":\"this is the add.\",\"sort\":1,\"name\":\"添加\",\"value\":\"add\"}]', NULL,
-        '2022-06-08 14:22:59', '2022-06-08 15:41:20', 0, 0, 0);
+        '2022-06-08 14:22:59', '2022-10-31 09:41:25', 0, 0, 0);
+INSERT INTO `pms_spu`
+VALUES (1534420706752856065, 1, '小书包', 2, 101, 1, '买一送一', 100,
+        'https://img2.baidu.com/it/u=19775305,1089138380&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=338',
+        '[{\"url\":\"https://www.zhengqingya.com/label.png\",\"name\":\"熊猫限定帆布袋\"}]',
+        '[{\"url\":\"https://www.zhengqingya.com/label.png\",\"name\":\"熊猫限定帆布袋\"}]', 100, 0,
+        '[{\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueList\":[{\"attrValueId\":\"1\",\"attrValueName\":\"蓝色\"}]}]',
+        1, '2021-08-25 09:00:00', '2021-08-26 23:59:59', 15, 1, 1,
+        '[{\"code\":\"btn\",\"remark\":\"this is the add.\",\"sort\":1,\"name\":\"添加\",\"value\":\"add\"}]',
+        '[{\"code\":\"btn\",\"remark\":\"this is the add.\",\"sort\":1,\"name\":\"添加\",\"value\":\"add\"}]', NULL,
+        '2022-06-08 14:22:59', '2022-11-07 14:13:24', 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for pms_spu_rate

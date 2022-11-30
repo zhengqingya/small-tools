@@ -4,6 +4,7 @@ import cn.hutool.core.lang.Assert;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.context.TenantIdContext;
+import com.zhengqing.common.base.context.UmsUserContext;
 import com.zhengqing.common.redis.util.RedisUtil;
 import com.zhengqing.common.redis.util.RedissonUtil;
 import com.zhengqing.mall.common.model.bo.PmsSpuBuyNumInfoBO;
@@ -113,7 +114,7 @@ public class MiniOmsCartServiceImpl implements MiniOmsCartService {
     @Override
     public void addData(MiniOmsCartSaveDTO params) {
         log.info("[商城] 购物车-保存参数：[{}]", params);
-        Long userId = params.getUserId();
+        Long userId = UmsUserContext.getUserId();
         String spuId = params.getSpuId();
         String skuId = params.getSkuId();
         Integer num = params.getNum();
