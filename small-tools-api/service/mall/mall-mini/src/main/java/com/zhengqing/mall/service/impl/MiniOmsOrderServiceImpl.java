@@ -1,12 +1,14 @@
 package com.zhengqing.mall.service.impl;
 
 import cn.hutool.core.lang.Assert;
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.binarywang.wxpay.bean.result.WxPayUnifiedOrderResult;
 import com.google.common.collect.Lists;
 import com.zhengqing.common.base.context.TenantIdContext;
+import com.zhengqing.common.base.context.UmsUserContext;
 import com.zhengqing.common.base.exception.MyException;
 import com.zhengqing.common.base.model.vo.ApiResult;
 import com.zhengqing.common.base.util.MyDateUtil;
@@ -104,13 +106,13 @@ public class MiniOmsOrderServiceImpl extends
     @SneakyThrows(Exception.class)
     @Transactional(rollbackFor = Exception.class)
     public MiniOmsSpuBuyVO createOrder(MiniOmsSpuBuyDTO params) {
-        log.info("[商城] 订单购买提交参数：{}", params);
+        log.info("[商城] 订单购买提交参数：{}", JSONUtil.toJsonStr(params));
         List<MiniPmsSpuBuySkuDTO> spuList = params.getSkuList();
         Integer freight = params.getFreight();
         Integer totalPrice = params.getTotalPrice();
         Integer payPrice = params.getPayPrice();
-        Long userId = params.getUserId();
-        String wxOpenid = params.getWxOpenid();
+        Long userId = UmsUserContext.getUserId();
+//        String wxOpenid = params.getWxOpenid();
         String orderRemark = params.getOrderRemark();
         String receiverName = params.getReceiverName();
         String receiverPhone = params.getReceiverPhone();
@@ -179,6 +181,7 @@ public class MiniOmsOrderServiceImpl extends
         ApiResult<UmsUserVO> userInfoResult = this.umsUserFeignApi.getUser(userId);
         userInfoResult.checkForRpc();
         UmsUserVO userInfo = userInfoResult.getData();
+        String wxOpenid = userInfo.getOpenid();
 
         // 计算配送方式
         OmsOrderDeliverTypeEnum deliverTypeEnum = OmsOrderDeliverTypeEnum.NULL;

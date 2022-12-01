@@ -10,9 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -31,13 +31,13 @@ import java.util.List;
 @ApiModel("mini-商城-商品购买-保存参数")
 public class MiniOmsSpuBuyDTO implements ParamCheck {
 
-    @NotNull(message = "操作用户id不能为空")
-    @ApiModelProperty(value = "操作用户id", required = true, example = "666")
-    private Long userId;
+//    @NotNull(message = "操作用户id不能为空")
+//    @ApiModelProperty(value = "操作用户id", required = true, example = "666")
+//    private Long userId;
 
-    @NotBlank(message = "微信openid不能为空")
-    @ApiModelProperty(value = "微信openid", required = true, example = "xxx")
-    private String wxOpenid;
+//    @NotBlank(message = "微信openid不能为空")
+//    @ApiModelProperty(value = "微信openid", required = true, example = "xxx")
+//    private String wxOpenid;
 
     // ========================== ↓↓↓↓↓↓ 收货人信息 ↓↓↓↓↓↓ ==========================
 
@@ -57,8 +57,8 @@ public class MiniOmsSpuBuyDTO implements ParamCheck {
     private String receiverAddress;
 
     @Valid
-    @NotNull(message = "收货人地址信息不能为空")
-    @ApiModelProperty(value = "收货人地址信息（实物和虚拟都填写地址）", required = true)
+//    @NotNull(message = "收货人地址信息不能为空")
+    @ApiModelProperty("收货人地址信息（实物时填写地址）")
     private OmsOrderReceiverAddressBO receiverAddressObj;
 
     // ========================== ↑↑↑↑↑↑ 收货人信息 ↑↑↑↑↑↑ ==========================
@@ -80,14 +80,17 @@ public class MiniOmsSpuBuyDTO implements ParamCheck {
     @ApiModelProperty(value = "实付总金额(单位:分)", required = true, example = "1000")
     private Integer payPrice;
 
+    @Length(max = 100, message = "备注最多100字！")
     @ApiModelProperty("订单备注")
     private String orderRemark;
 
     @Override
     public void checkParam() {
-        this.receiverName = this.receiverAddressObj.getReceiverName();
-        this.receiverPhone = this.receiverAddressObj.getReceiverPhone();
-        this.receiverAddress = this.receiverAddressObj.getReceiverAddress();
+        if (this.receiverAddressObj != null) {
+            this.receiverName = this.receiverAddressObj.getReceiverName();
+            this.receiverPhone = this.receiverAddressObj.getReceiverPhone();
+            this.receiverAddress = this.receiverAddressObj.getReceiverAddress();
+        }
     }
 
 }
