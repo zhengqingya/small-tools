@@ -96,7 +96,14 @@ public class LogicDeleteInterceptor implements Interceptor {
      */
     @SneakyThrows(Exception.class)
     protected void setWhere(PlainSelect plainSelect) {
-        Table fromItem = (Table) plainSelect.getFromItem();
+        Table fromItem = null;
+        try {
+            fromItem = (Table) plainSelect.getFromItem();
+        } catch (Exception e) {
+            // FIXME 空了优化...
+            log.error("逻辑删除插件异常：", e);
+            return;
+        }
         // 有别名用别名，无别名用表名，防止字段冲突报错
         Alias fromItemAlias = fromItem.getAlias();
         String originalTableName = fromItem.getName();

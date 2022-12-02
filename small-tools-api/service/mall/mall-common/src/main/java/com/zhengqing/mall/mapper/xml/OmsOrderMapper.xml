@@ -150,6 +150,12 @@
         <if test="filter.userId!=null">
             AND o.user_id = #{filter.userId}
         </if>
+        <if test="filter.dataType == 1">
+            AND o.create_time >= DATE_FORMAT(now(),'%Y-%m-%d 00:00:00')
+        </if>
+        <if test="filter.dataType == 2">
+            AND o.create_time &lt; DATE_FORMAT(now(),'%Y-%m-%d 00:00:00')
+        </if>
     </sql>
 
     <select id="selectTabConditionByMini" resultType="com.zhengqing.mall.common.model.vo.MallTabConditionListVO">
@@ -171,6 +177,7 @@
         o.order_status,
         o.total_price,
         o.pay_price,
+        o.pay_time,
         o.un_pay_end_time,
         o.after_sale_end_time
         <include refid="CONDITION_COMMON_PAGE_MINI"/>

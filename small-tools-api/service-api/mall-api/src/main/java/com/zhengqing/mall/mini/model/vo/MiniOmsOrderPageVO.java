@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +26,9 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel("mini-商城-订单分页列表-展示视图")
 public class MiniOmsOrderPageVO extends MiniOmsOrderBaseVO {
+
+    @ApiModelProperty("支付时间")
+    private Date payTime;
 
     @ApiModelProperty("商品信息")
     private List<OmsOrderItemVO> spuList;

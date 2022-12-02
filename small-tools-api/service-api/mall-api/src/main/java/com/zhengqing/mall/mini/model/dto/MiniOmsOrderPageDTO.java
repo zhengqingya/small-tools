@@ -2,6 +2,7 @@ package com.zhengqing.mall.mini.model.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.zhengqing.common.base.context.UmsUserContext;
 import com.zhengqing.common.base.exception.MyException;
 import com.zhengqing.common.base.model.dto.BasePageDTO;
 import com.zhengqing.common.core.custom.parameter.ParamCheck;
@@ -14,8 +15,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * <p> 商城-订单分页列表-查询参数 </p>
@@ -48,12 +47,15 @@ public class MiniOmsOrderPageDTO extends BasePageDTO implements ParamCheck {
     @ApiModelProperty("tab条件")
     private Byte tabValue;
 
-    @NotNull(message = "用戶ID不能为空！")
-    @ApiModelProperty(value = "用户ID", required = true)
+    @ApiModelProperty("用户ID")
     private Long userId;
+
+    @ApiModelProperty("数据类型（1:今日订单 2：历史订单）")
+    private Integer dataType;
 
     @Override
     public void checkParam() {
+        this.userId = UmsUserContext.getUserId();
         if (this.tabValue != null) {
             MiniOmsOrderTabEnum orderTabEnum = MiniOmsOrderTabEnum.getEnum(this.tabValue);
             switch (orderTabEnum) {
