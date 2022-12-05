@@ -27,6 +27,9 @@ import java.util.List;
 @ApiModel("mini-商城-订单分页列表-展示视图")
 public class MiniOmsOrderPageVO extends MiniOmsOrderBaseVO {
 
+    @ApiModelProperty("下单时间")
+    private Date createTime;
+
     @ApiModelProperty("支付时间")
     private Date payTime;
 

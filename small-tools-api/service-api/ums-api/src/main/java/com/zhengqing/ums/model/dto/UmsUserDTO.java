@@ -46,9 +46,9 @@ public class UmsUserDTO extends BaseDTO implements ParamCheck {
     public void checkParam() throws ParameterException {
         Assert.isFalse(
                 this.userId == null
-                        || StringUtils.isBlank(this.username)
-                        || StringUtils.isBlank(this.openid)
-                        || StringUtils.isBlank(this.phone)
+                        && StringUtils.isBlank(this.username)
+                        && StringUtils.isBlank(this.openid)
+                        && StringUtils.isBlank(this.phone)
                 , "用户查询条件丢失！"
         );
     }

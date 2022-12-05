@@ -178,6 +178,7 @@
         o.total_price,
         o.pay_price,
         o.pay_time,
+        o.create_time,
         o.un_pay_end_time,
         o.after_sale_end_time
         <include refid="CONDITION_COMMON_PAGE_MINI"/>
