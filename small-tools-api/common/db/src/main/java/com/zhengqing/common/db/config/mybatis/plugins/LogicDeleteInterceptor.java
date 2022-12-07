@@ -11,10 +11,7 @@ import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.schema.Table;
-import net.sf.jsqlparser.statement.select.PlainSelect;
-import net.sf.jsqlparser.statement.select.Select;
-import net.sf.jsqlparser.statement.select.SelectBody;
-import net.sf.jsqlparser.statement.select.SetOperationList;
+import net.sf.jsqlparser.statement.select.*;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -96,17 +93,16 @@ public class LogicDeleteInterceptor implements Interceptor {
      */
     @SneakyThrows(Exception.class)
     protected void setWhere(PlainSelect plainSelect) {
-        Table fromItem = null;
-        try {
-            fromItem = (Table) plainSelect.getFromItem();
-        } catch (Exception e) {
-            // FIXME 空了优化...
-            log.error("逻辑删除插件异常：", e);
+        FromItem fromItem = plainSelect.getFromItem();
+        if (fromItem instanceof SubSelect) {
+            // mybatis-plus分页时会查询count(*)查询总数 会有嵌套 因此这里需要处理下...
+            this.setWhere((PlainSelect) ((SubSelect) fromItem).getSelectBody());
             return;
         }
+        Table fromItemOfTable = (Table) fromItem;
         // 有别名用别名，无别名用表名，防止字段冲突报错
-        Alias fromItemAlias = fromItem.getAlias();
-        String originalTableName = fromItem.getName();
+        Alias fromItemAlias = fromItemOfTable.getAlias();
+        String originalTableName = fromItemOfTable.getName();
         String mainTableName = fromItemAlias == null ? originalTableName : fromItemAlias.getName();
 
         // 判断是否需要逻辑删除,如果不需要直接过滤
