@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 30/09/2022 16:53:24
+ Date: 07/12/2022 16:58:57
 */
 
 SET NAMES utf8mb4;
@@ -20,9 +20,11 @@ FOREIGN_KEY_CHECKS = 0;
 
 
 -- 创建数据库
-CREATE database if NOT EXISTS `small-tools`;
+CREATE
+database if NOT EXISTS `small-tools`;
 -- 使用数据库
-use `small-tools`;
+use
+`small-tools`;
 
 -- ----------------------------
 -- Table structure for t_cg_free_marker_template
@@ -326,14 +328,14 @@ CREATE TABLE `t_demo`
     `num_json`    varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'json',
     PRIMARY KEY (`id`) USING BTREE,
     INDEX         `idx_remark`(`remark`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1564855300425654084 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '测试demo' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '测试demo' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_demo
 -- ----------------------------
 INSERT INTO `t_demo`
-VALUES (1, 'admin', '123', 0, '2021-08-25 00:00:00', '2021-10-25 23:59:59', NULL, 1, 95900, 1, '2021-12-06 17:35:50', 0,
-        '2022-09-14 19:00:36', 0, NULL, NULL);
+VALUES (1, 'admin', '123', 0, '2021-08-25 00:00:00', '2021-10-25 23:59:59', NULL, 1, 79, 1, '2021-12-06 17:35:50', 1,
+        '2022-10-19 10:10:05', 0, NULL, '');
 INSERT INTO `t_demo`
 VALUES (2, 'hello', '666', 0, NULL, NULL, NULL, 1, 0, 1, '2021-12-06 17:35:50', 1, '2022-09-05 10:49:32', 0, NULL,
         NULL);
@@ -490,7 +492,8 @@ INSERT INTO `t_sys_dict`
 VALUES (117, 1, 'permission_btn', '开启授权', 'open_authorization', 1, 27, NULL, 1, '2020-08-22 15:01:51', 0,
         '2021-08-28 00:03:01', 0);
 INSERT INTO `t_sys_dict`
-VALUES (141, 1, 'permission_btn', '刷新', 'refresh', 1, 28, NULL, 1, '2020-08-22 15:01:51', 0, '2021-08-28 00:03:01', 0);
+VALUES (141, 1, 'permission_btn', '刷新', 'refresh', 1, 28, NULL, 1, '2020-08-22 15:01:51', 0, '2021-08-28 00:03:01',
+        0);
 INSERT INTO `t_sys_dict`
 VALUES (153, 1, 'permission_btn', '导出', 'export', 1, 29, NULL, 1, '2020-08-22 15:01:51', 0, '2021-08-28 00:03:01', 0);
 INSERT INTO `t_sys_dict`
@@ -599,7 +602,8 @@ INSERT INTO `t_sys_dict_type`
 VALUES (4, 'st_crawler_csdn_export_data_type', '小工具_爬虫_CSDN文章导出数据类型', 1, 6, 0, 1, '2020-08-30 16:46:07', 1,
         '2020-08-30 16:46:11', 0);
 INSERT INTO `t_sys_dict_type`
-VALUES (5, 'st_db_data_source_type', '小工具_数据库_数据源类型', 1, 5, 0, 1, '2020-09-02 20:41:27', 1, '2020-09-12 19:27:47', 0);
+VALUES (5, 'st_db_data_source_type', '小工具_数据库_数据源类型', 1, 5, 0, 1, '2020-09-02 20:41:27', 1,
+        '2020-09-12 19:27:47', 0);
 INSERT INTO `t_sys_dict_type`
 VALUES (6, 'oauth_type', '第三方帐号授权类型', 1, 3, 0, 1, '2020-12-06 13:11:27', 1, '2020-12-06 13:21:45', 0);
 
@@ -653,23 +657,23 @@ INSERT INTO `t_sys_menu`
 VALUES (6, '角色权限', 'roleForm', NULL, 'roleForm', 2, 8, 'system/role/form', 1, NULL, 1, 0, 1, 1, 1,
         '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
 INSERT INTO `t_sys_menu`
-VALUES (8, '个人中心', 'personal-center', NULL, 'personal-center', 2, 2, 'system/personal-center/index', 0, NULL, 1, 0, 0,
-        1, 1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
+VALUES (8, '个人中心', 'personal-center', NULL, 'personal-center', 2, 2, 'system/personal-center/index', 0, NULL, 1, 0,
+        0, 1, 1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
 INSERT INTO `t_sys_menu`
-VALUES (10, '数据字典', 'dict', NULL, 'dict', 2, 10, 'system/dict/index', 0, NULL, 1, 0, 0, 1, 1, '2020-08-22 15:01:51', 1,
-        '2020-08-22 15:01:51', 0);
+VALUES (10, '数据字典', 'dict', NULL, 'dict', 2, 10, 'system/dict/index', 0, NULL, 1, 0, 0, 1, 1, '2020-08-22 15:01:51',
+        1, '2020-08-22 15:01:51', 0);
 INSERT INTO `t_sys_menu`
 VALUES (11, '首页1', 'dashboard', 'Loading', '/', 0, 0, 'Layout', 0, '/dashboard', 1, 0, 0, 0, 1, '2020-08-22 15:01:51',
         1, '2020-09-09 17:35:09', 0);
 INSERT INTO `t_sys_menu`
-VALUES (12, '首页', 'Dashboard', '', '/dashboard', 11, 1, 'dashboard/index', 0, '', 1, 0, 0, 0, 1, '2020-08-22 15:01:51',
-        1, '2022-07-15 16:53:46', 0);
+VALUES (12, '首页', 'Dashboard', '', '/dashboard', 11, 1, 'dashboard/index', 0, '', 1, 0, 0, 0, 1,
+        '2020-08-22 15:01:51', 1, '2022-07-15 16:53:46', 0);
 INSERT INTO `t_sys_menu`
 VALUES (13, '项目管理', 'project', NULL, 'project', 1, 1, 'code-generator/project/index', 0, NULL, 1, 0, 0, 1, 1,
         '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
 INSERT INTO `t_sys_menu`
-VALUES (15, '项目模板管理', 'project_template', NULL, 'project_template', 1, 3, 'code-generator/project-template/index', 0,
-        NULL, 1, 0, 0, 1, 1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
+VALUES (15, '项目模板管理', 'project_template', NULL, 'project_template', 1, 3, 'code-generator/project-template/index',
+        0, NULL, 1, 0, 0, 1, 1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
 INSERT INTO `t_sys_menu`
 VALUES (27, '小工具', 'small-tools', 'Sunny', '/small-tools', 0, 5, 'Layout', 0, NULL, 1, 0, 1, 1, 1,
         '2020-08-22 15:01:51', 1, '2020-08-30 03:18:44', 0);
@@ -680,17 +684,17 @@ INSERT INTO `t_sys_menu`
 VALUES (29, '网站列表', 'website', NULL, 'website', 28, 1, 'small-tools/crawler/website/list', 0, NULL, 1, 0, 0, 1, 1,
         '2020-08-22 15:01:51', 1, '2020-09-10 21:02:30', 0);
 INSERT INTO `t_sys_menu`
-VALUES (30, '文章信息', 'article-info', NULL, 'article-info', 28, 2, 'small-tools/crawler/article-info/list', 0, NULL, 1, 0,
+VALUES (30, '文章信息', 'article-info', NULL, 'article-info', 28, 2, 'small-tools/crawler/article-info/list', 0, NULL,
+        1, 0, 0, 1, 1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
+INSERT INTO `t_sys_menu`
+VALUES (31, '数据库', 'db', 'MostlyCloudy', '/db', 27, 3, 'parentView', 0, NULL, 1, 0, 1, 1, 1, '2020-08-22 15:01:51',
+        1, '2020-08-30 03:19:17', 0);
+INSERT INTO `t_sys_menu`
+VALUES (32, '数据源管理', 'data-source', NULL, 'data-source', 31, 1, 'small-tools/db/data-source/index', 0, NULL, 1, 0,
         0, 1, 1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
 INSERT INTO `t_sys_menu`
-VALUES (31, '数据库', 'db', 'MostlyCloudy', '/db', 27, 3, 'parentView', 0, NULL, 1, 0, 1, 1, 1, '2020-08-22 15:01:51', 1,
-        '2020-08-30 03:19:17', 0);
-INSERT INTO `t_sys_menu`
-VALUES (32, '数据源管理', 'data-source', NULL, 'data-source', 31, 1, 'small-tools/db/data-source/index', 0, NULL, 1, 0, 0, 1,
+VALUES (33, '数据库操作', 'databases', NULL, 'databases', 31, 2, 'small-tools/db/databases/index', 0, NULL, 1, 0, 0, 1,
         1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
-INSERT INTO `t_sys_menu`
-VALUES (33, '数据库操作', 'databases', NULL, 'databases', 31, 2, 'small-tools/db/databases/index', 0, NULL, 1, 0, 0, 1, 1,
-        '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
 INSERT INTO `t_sys_menu`
 VALUES (34, '修改表字段信息', 'update-column-info', NULL, 'update-column-info', 31, 3,
         'small-tools/db/databases/update-column-info', 1, NULL, 1, 0, 0, 1, 1, '2020-08-22 15:01:51', 1,
@@ -699,21 +703,21 @@ INSERT INTO `t_sys_menu`
 VALUES (35, '其它', 'other', 'More', '/other', 27, 4, 'parentView', 0, NULL, 1, 0, 1, 1, 1, '2020-08-22 15:01:51', 1,
         '2020-08-30 03:19:17', 0);
 INSERT INTO `t_sys_menu`
-VALUES (36, '匿名反馈箱', 'anonymity', NULL, 'anonymity', 35, 1, 'small-tools/other/anonymity/index', 0, NULL, 1, 0, 0, 1, 1,
-        '2020-08-22 15:01:51', 1, '2021-01-13 07:38:37', 0);
+VALUES (36, '匿名反馈箱', 'anonymity', NULL, 'anonymity', 35, 1, 'small-tools/other/anonymity/index', 0, NULL, 1, 0, 0,
+        1, 1, '2020-08-22 15:01:51', 1, '2021-01-13 07:38:37', 0);
 INSERT INTO `t_sys_menu`
 VALUES (37, 'freemaker模板数据配置', 'free-marker-template', NULL, 'free-marker-template', 1, 5,
         'code-generator/free-marker-template/index', 0, NULL, 1, 0, 0, 1, 1, '2020-08-22 15:01:51', 1,
         '2020-08-22 15:01:51', 0);
 INSERT INTO `t_sys_menu`
-VALUES (38, '生成代码', 'project-re-db', NULL, 'project-re-db', 1, 6, 'code-generator/project-re-db/index', 0, NULL, 1, 0,
-        0, 1, 1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
+VALUES (38, '生成代码', 'project-re-db', NULL, 'project-re-db', 1, 6, 'code-generator/project-re-db/index', 0, NULL, 1,
+        0, 0, 1, 1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
 INSERT INTO `t_sys_menu`
-VALUES (39, '数据库表', 'table', NULL, 'project-re-db/table', 1, 7, 'code-generator/project-re-db/table', 1, NULL, 1, 0, 1,
-        1, 1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
-INSERT INTO `t_sys_menu`
-VALUES (40, '数据表字段', 'column', NULL, 'project-re-db/column', 1, 8, 'code-generator/project-re-db/column', 1, NULL, 1, 0,
+VALUES (39, '数据库表', 'table', NULL, 'project-re-db/table', 1, 7, 'code-generator/project-re-db/table', 1, NULL, 1, 0,
         1, 1, 1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
+INSERT INTO `t_sys_menu`
+VALUES (40, '数据表字段', 'column', NULL, 'project-re-db/column', 1, 8, 'code-generator/project-re-db/column', 1, NULL,
+        1, 0, 1, 1, 1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51', 0);
 
 -- ----------------------------
 -- Table structure for t_sys_oauth_client
@@ -779,9 +783,11 @@ CREATE TABLE `t_sys_permission`
 -- Records of t_sys_permission
 -- ----------------------------
 INSERT INTO `t_sys_permission`
-VALUES (1, '查看用户', 4, 78, 'sys:user:view', 'GET:/web/api/user/*', 1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51');
+VALUES (1, '查看用户', 4, 78, 'sys:user:view', 'GET:/web/api/user/*', 1, '2020-08-22 15:01:51', 1,
+        '2020-08-22 15:01:51');
 INSERT INTO `t_sys_permission`
-VALUES (2, '编辑用户', 4, 75, 'sys:user:edit', 'PUT:/web/api/user/*', 1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51');
+VALUES (2, '编辑用户', 4, 75, 'sys:user:edit', 'PUT:/web/api/user/*', 1, '2020-08-22 15:01:51', 1,
+        '2020-08-22 15:01:51');
 INSERT INTO `t_sys_permission`
 VALUES (3, '新增用户', 4, 76, 'sys:user:add', 'POST:/web/api/user', 1, '2020-08-22 15:01:51', 1, '2020-08-22 15:01:51');
 INSERT INTO `t_sys_permission`
@@ -1001,11 +1007,11 @@ INSERT INTO `t_sys_user`
 VALUES (1, 'admin', '$2a$10$ixRnaJGhG6Sr1d3XHwrBzO6ZcZGDrEwY.KQX3MFGllS4AwKPwkr7K', '郑清', 1, '15183303003',
         '10000@qq.com',
         'http://oss.zhengqingya.com/%E7%BE%8E%E5%9B%BE13.png?e=1657869600&token=1v94f3iDKR4xON6gz6V2yFZ_tkG0Ujs6stsadNSg:HuQBLQG_QbJQJYrNOaM1r7dYPbU=',
-        1, '2020-08-22 15:01:51', 1, '2022-07-21 10:25:59', 0);
+        1, '2020-08-22 15:01:51', 1, '2022-10-08 17:22:37', 0);
 INSERT INTO `t_sys_user`
 VALUES (2, 'test', '$2a$10$CH9IX8jARPy0.f9.uy8uAeXCAzbZGxgR.ES4JBZMMxtKmGZAQPepq', '测试号', 1, '', '',
         'http://oss.zhengqingya.com/%E7%BE%8E%E5%9B%BE13.png?e=1657685387&token=1v94f3iDKR4xON6gz6V2yFZ_tkG0Ujs6stsadNSg:MHEirqtjFqFzhU9HJ0498mJw5Oc=',
-        1, '2020-08-22 15:01:51', 1, '2022-08-05 17:45:31', 0);
+        1, '2020-08-22 15:01:51', 1, '2022-10-08 17:22:33', 0);
 
 -- ----------------------------
 -- Table structure for t_sys_user_re_oauth
@@ -1072,7 +1078,7 @@ CREATE TABLE `undo_log`
     `log_modified`  datetime                                                NOT NULL,
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE INDEX `ux_undo_log`(`xid`, `branch_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 173 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of undo_log

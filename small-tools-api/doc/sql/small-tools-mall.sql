@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 30/11/2022 14:20:40
+ Date: 07/12/2022 16:57:22
 */
 
 SET NAMES utf8mb4;
@@ -99,34 +99,6 @@ CREATE TABLE `oms_order`
 -- ----------------------------
 -- Records of oms_order
 -- ----------------------------
-INSERT INTO `oms_order`
-VALUES (1534726306686697472, 1, 'xxx', 1, 'admin', '15183303003', 1, NULL, NULL, NULL, '2022-06-09 10:42:20', 10, 0, 10,
-        2, 1, '', NULL, 0, NULL, '2022-06-09 10:42:44', 1, '皮卡丘', '88888888', '四川省成都市高新区天府三街', 2, NULL, NULL, 0,
-        '2022-06-09 10:37:20', '2022-06-09 10:42:44', 0, 0, 0);
-INSERT INTO `oms_order`
-VALUES (1534726770547359744, 1, 'xxx', 1, 'admin', '15183303003', 1, NULL, NULL, NULL, '2022-06-09 10:44:11', 10, 0, 10,
-        2, 1, '', NULL, 0, NULL, '2022-06-09 10:44:11', 1, '皮卡丘', '88888888', '四川省成都市高新区天府三街', 2, NULL, NULL, 0,
-        '2022-06-09 10:39:11', '2022-06-09 10:44:11', 0, 0, 0);
-INSERT INTO `oms_order`
-VALUES (1534727102006427648, 1, 'xxx', 1, 'admin', '15183303003', 1, NULL, NULL, NULL, '2022-06-09 10:45:30', 10, 0, 10,
-        2, 1, '', NULL, 0, NULL, '2022-06-09 10:46:52', 1, '皮卡丘', '88888888', '四川省成都市高新区天府三街', 2, NULL, NULL, 0,
-        '2022-06-09 10:40:30', '2022-06-09 10:46:52', 0, 0, 0);
-INSERT INTO `oms_order`
-VALUES (1534727462980812800, 1, 'xxx', 1, 'admin', '15183303003', 1, NULL, NULL, NULL, '2022-06-09 10:46:56', 10, 0, 10,
-        2, 1, '', NULL, 0, NULL, '2022-06-09 10:47:02', 1, '皮卡丘', '88888888', '四川省成都市高新区天府三街', 2, NULL, NULL, 0,
-        '2022-06-09 10:41:56', '2022-06-09 10:47:02', 0, 0, 0);
-INSERT INTO `oms_order`
-VALUES (1534728119984979968, 1, 'xxx', 1, 'admin', '15183303003', 1, NULL, NULL, NULL, '2022-06-09 10:49:32', 10, 0, 10,
-        2, 1, '', NULL, 0, NULL, '2022-06-09 10:49:48', 1, '皮卡丘', '88888888', '四川省成都市高新区天府三街', 2, NULL, NULL, 0,
-        '2022-06-09 10:44:32', '2022-06-09 10:49:48', 0, 0, 0);
-INSERT INTO `oms_order`
-VALUES (1534728195633446912, 1, 'xxx', 1, 'admin', '15183303003', 1, NULL, NULL, NULL, '2022-06-09 10:49:50', 10, 0, 10,
-        2, 1, '', NULL, 0, NULL, '2022-06-09 10:50:23', 1, '皮卡丘', '88888888', '四川省成都市高新区天府三街', 2, NULL, NULL, 0,
-        '2022-06-09 10:44:50', '2022-06-09 10:50:23', 0, 0, 0);
-INSERT INTO `oms_order`
-VALUES (1534729113984696320, 1, 'xxx', 1, 'admin', '15183303003', 1, NULL, NULL, NULL, '2022-06-09 10:53:29', 10, 0, 10,
-        2, 1, '', NULL, 0, NULL, '2022-06-09 10:53:29', 1, '皮卡丘', '88888888', '四川省成都市高新区天府三街', 2, NULL, NULL, 0,
-        '2022-06-09 10:48:29', '2022-06-09 10:53:29', 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for oms_order_after_sale
@@ -236,41 +208,6 @@ CREATE TABLE `oms_order_item`
 -- ----------------------------
 -- Records of oms_order_item
 -- ----------------------------
-INSERT INTO `oms_order_item`
-VALUES (1534726306820915200, 1, 1534726306686697472, 1, 1534420706752856064, 1534420706920628224, '熊猫限定帆布袋',
-        'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg',
-        '[{\"attrValueId\":\"1\",\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueName\":\"蓝色\"}]', 1, 10, 10, 101,
-        2, 0, NULL, NULL, NULL, 0, '2022-06-09 10:37:26', '2022-06-09 10:42:44');
-INSERT INTO `oms_order_item`
-VALUES (1534726770614468608, 1, 1534726770547359744, 1, 1534420706752856064, 1534420706920628224, '熊猫限定帆布袋',
-        'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg',
-        '[{\"attrValueId\":\"1\",\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueName\":\"蓝色\"}]', 1, 10, 10, 101,
-        2, 0, NULL, NULL, NULL, 0, '2022-06-09 10:39:11', '2022-06-09 10:44:10');
-INSERT INTO `oms_order_item`
-VALUES (1534727102069342208, 1, 1534727102006427648, 1, 1534420706752856064, 1534420706920628224, '熊猫限定帆布袋',
-        'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg',
-        '[{\"attrValueId\":\"1\",\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueName\":\"蓝色\"}]', 1, 10, 10, 101,
-        2, 0, NULL, NULL, NULL, 0, '2022-06-09 10:41:49', '2022-06-09 10:46:52');
-INSERT INTO `oms_order_item`
-VALUES (1534727463115030528, 1, 1534727462980812800, 1, 1534420706752856064, 1534420706920628224, '熊猫限定帆布袋',
-        'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg',
-        '[{\"attrValueId\":\"1\",\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueName\":\"蓝色\"}]', 1, 10, 10, 101,
-        2, 0, NULL, NULL, NULL, 0, '2022-06-09 10:41:58', '2022-06-09 10:47:01');
-INSERT INTO `oms_order_item`
-VALUES (1534728120052088832, 1, 1534728119984979968, 1, 1534420706752856064, 1534420706920628224, '熊猫限定帆布袋',
-        'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg',
-        '[{\"attrValueId\":\"1\",\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueName\":\"蓝色\"}]', 1, 10, 10, 101,
-        2, 0, NULL, NULL, NULL, 0, '2022-06-09 10:44:44', '2022-06-09 10:49:48');
-INSERT INTO `oms_order_item`
-VALUES (1534728195696361472, 1, 1534728195633446912, 1, 1534420706752856064, 1534420706920628224, '熊猫限定帆布袋',
-        'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg',
-        '[{\"attrValueId\":\"1\",\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueName\":\"蓝色\"}]', 1, 10, 10, 101,
-        2, 0, NULL, NULL, NULL, 0, '2022-06-09 10:45:07', '2022-06-09 10:50:23');
-INSERT INTO `oms_order_item`
-VALUES (1534729114068582400, 1, 1534729113984696320, 1, 1534420706752856064, 1534420706920628224, '熊猫限定帆布袋',
-        'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg',
-        '[{\"attrValueId\":\"1\",\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueName\":\"蓝色\"}]', 1, 10, 10, 101,
-        2, 0, NULL, NULL, NULL, 0, '2022-06-09 10:48:29', '2022-06-09 10:53:29');
 
 -- ----------------------------
 -- Table structure for oms_order_setting
@@ -566,13 +503,13 @@ CREATE TABLE `pms_sku`
 -- ----------------------------
 INSERT INTO `pms_sku`
 VALUES (1534420706920628224, 1, 1534420706752856064, 'ABC',
-        '[{\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueId\":\"1\",\"attrValueName\":\"蓝色\"}]', NULL, 10, 10,
-        0, 4, 0, 4, 'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg', 1, 0,
+        '[{\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueId\":\"1\",\"attrValueName\":\"蓝色\"}]', NULL, 10,
+        10, 0, 4, 0, 4, 'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg', 1, 0,
         '2022-06-08 14:22:59', '2022-11-30 14:19:51', 0);
 INSERT INTO `pms_sku`
 VALUES (1534420706920628225, 1, 1534420706752856065, 'ABC',
-        '[{\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueId\":\"1\",\"attrValueName\":\"蓝色\"}]', NULL, 999, 10,
-        0, 4, 0, 4, 'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg', 1, 0,
+        '[{\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueId\":\"1\",\"attrValueName\":\"蓝色\"}]', NULL, 999,
+        10, 0, 4, 0, 4, 'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg', 1, 0,
         '2022-06-08 14:22:59', '2022-11-30 14:19:51', 0);
 
 -- ----------------------------
@@ -720,13 +657,17 @@ CREATE TABLE `ums_user`
     `update_by`   bigint(20) UNSIGNED NOT NULL COMMENT '修改人',
     `is_deleted`  tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(0->否,1->是)',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1600405424362881025 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ums_user
 -- ----------------------------
 INSERT INTO `ums_user`
-VALUES (1, 1, '666', '郑清', '15183304000', 1, '2022-06-10', NULL, '2022-06-10 16:10:24', '2022-06-10 16:10:28', 1, 1, 0);
+VALUES (0, 1, '666666', 'zhengqingya', '15186666666', 1, '2022-06-10', NULL, '2022-06-10 16:10:24',
+        '2022-12-01 15:06:51', 1, 1, 0);
+INSERT INTO `ums_user`
+VALUES (1, 1, '666', '郑清', '15186666666', 1, '2022-06-10', NULL, '2022-06-10 16:10:24', '2022-12-01 15:06:05', 1, 1,
+        0);
 
 SET
 FOREIGN_KEY_CHECKS = 1;
