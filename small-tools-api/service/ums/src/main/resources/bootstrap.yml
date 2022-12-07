@@ -10,3 +10,11 @@ small-tools:
   mysql:
     master:
       db-name: small-tools-mall # 主库
+
+
+# 微信小程序
+wx:
+  miniapp:
+    appid: xxx
+    secret: xxx
+    msgDataFormat: JSON

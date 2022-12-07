@@ -1,6 +1,7 @@
 package com.zhengqing.common.db.config.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.zhengqing.common.base.constant.BaseConstant;
 import com.zhengqing.common.base.context.JwtCustomUserContext;
 import com.zhengqing.common.base.enums.AuthSourceEnum;
 import com.zhengqing.common.base.model.bo.JwtCustomUserBO;
@@ -81,7 +82,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
                 return Long.valueOf(jwtCustomUserBO.getUmsUserId());
             }
         }
-        return null;
+        return Long.valueOf(BaseConstant.DEFAULT_CONTEXT_KEY_USER_ID);
     }
 
 }
