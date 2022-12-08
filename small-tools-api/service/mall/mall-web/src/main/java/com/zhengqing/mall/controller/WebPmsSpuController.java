@@ -100,4 +100,11 @@ public class WebPmsSpuController {
         return true;
     }
 
+    @PutMapping("updateBatchVirtualUseStock")
+    @ApiOperation("批量修改虚拟销量")
+    public Boolean updateBatchVirtualUseStock(@Validated @RequestBody ValidList<WebPmsSpuEditVirtualUseStockDTO> list) {
+        this.webPmsSpuService.updateBatchVirtualUseStock(list);
+        return true;
+    }
+
 }

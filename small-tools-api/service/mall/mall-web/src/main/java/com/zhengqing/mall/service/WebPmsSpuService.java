@@ -130,4 +130,14 @@ public interface WebPmsSpuService extends PmsSpuService<PmsSpu> {
      */
     void updateBatchSort(List<WebPmsSpuEditSortListDTO> list);
 
+    /**
+     * 批量修改虚拟销量
+     *
+     * @param list 提交参数
+     * @return void
+     * @author zhengqingya
+     * @date 2021/9/15 14:16
+     */
+    void updateBatchVirtualUseStock(List<WebPmsSpuEditVirtualUseStockDTO> list);
+
 }

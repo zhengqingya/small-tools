@@ -1,6 +1,7 @@
 package com.zhengqing.mall.service;
 
 import com.zhengqing.mall.entity.PmsSku;
+import com.zhengqing.mall.web.model.dto.WebPmsSpuEditVirtualUseStockDTO;
 
 import java.util.List;
 
@@ -42,5 +43,15 @@ public interface WebPmsSkuService extends PmsSkuService<PmsSku> {
      * @date 2021/8/17 19:49
      */
     void deleteDataBySpuIdList(List<String> spuIdList);
+
+    /**
+     * 批量修改虚拟销量
+     *
+     * @param list 提交参数
+     * @return void
+     * @author zhengqingya
+     * @date 2021/9/15 14:16
+     */
+    void updateBatchVirtualUseStock(List<WebPmsSpuEditVirtualUseStockDTO> list);
 
 }

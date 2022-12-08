@@ -65,6 +65,9 @@ public class PmsSku extends Model<PmsSku> {
     @ApiModelProperty("已用库存")
     private Integer useStock;
 
+    @ApiModelProperty("虚拟-已用库存(虚拟销量)")
+    private Integer virtualUseStock;
+
     @ApiModelProperty("封面图")
     private String coverImg;
 

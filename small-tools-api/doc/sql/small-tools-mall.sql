@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 07/12/2022 16:57:22
+ Date: 08/12/2022 17:43:21
 */
 
 SET NAMES utf8mb4;
@@ -477,24 +477,25 @@ VALUES (1534424038364020745, 1, 1533982865094737926, 1534420706752856065, 1, 1, 
 DROP TABLE IF EXISTS `pms_sku`;
 CREATE TABLE `pms_sku`
 (
-    `id`            bigint(20) NOT NULL COMMENT '主键ID',
-    `tenant_id`     int(11) UNSIGNED NOT NULL COMMENT '租户ID',
-    `spu_id`        bigint(20) NOT NULL COMMENT '商品ID',
-    `code`          varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规格编码',
-    `spec_list`     text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '商品规格-属性',
-    `cost_price`    int(11) UNSIGNED NULL DEFAULT NULL COMMENT '成本价(单位:分)',
-    `sell_price`    int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '销售单价(单位:分)',
-    `presell_price` int(11) UNSIGNED NULL DEFAULT NULL COMMENT '预售价格(单位:分)',
-    `limit_count`   int(11) UNSIGNED NULL DEFAULT NULL COMMENT '每人限购(0:不限购)',
-    `total_stock`   int(11) UNSIGNED NOT NULL COMMENT '总库存',
-    `use_stock`     int(11) UNSIGNED NOT NULL COMMENT '已用库存',
-    `usable_stock`  int(11) UNSIGNED NOT NULL COMMENT '可用库存',
-    `cover_img`     varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '封面图',
-    `is_show`       tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否显示(0->否 1->是)',
-    `sort`          int(11) UNSIGNED NOT NULL DEFAULT 1 COMMENT '排序',
-    `create_time`   datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`   datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `is_deleted`    tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(0->否,1->是)',
+    `id`                bigint(20) NOT NULL COMMENT '主键ID',
+    `tenant_id`         int(11) UNSIGNED NOT NULL COMMENT '租户ID',
+    `spu_id`            bigint(20) NOT NULL COMMENT '商品ID',
+    `code`              varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规格编码',
+    `spec_list`         text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '商品规格-属性',
+    `cost_price`        int(11) UNSIGNED NULL DEFAULT NULL COMMENT '成本价(单位:分)',
+    `sell_price`        int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '销售单价(单位:分)',
+    `presell_price`     int(11) UNSIGNED NULL DEFAULT NULL COMMENT '预售价格(单位:分)',
+    `limit_count`       int(11) UNSIGNED NULL DEFAULT NULL COMMENT '每人限购(0:不限购)',
+    `total_stock`       int(11) UNSIGNED NOT NULL COMMENT '总库存',
+    `use_stock`         int(11) UNSIGNED NOT NULL COMMENT '已用库存',
+    `virtual_use_stock` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '虚拟-已用库存(虚拟销量)',
+    `usable_stock`      int(11) UNSIGNED NOT NULL COMMENT '可用库存',
+    `cover_img`         varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '封面图',
+    `is_show`           tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否显示(0->否 1->是)',
+    `sort`              int(11) UNSIGNED NOT NULL DEFAULT 1 COMMENT '排序',
+    `create_time`       datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`       datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `is_deleted`        tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(0->否,1->是)',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商城-商品规格' ROW_FORMAT = DYNAMIC;
 
@@ -504,12 +505,12 @@ CREATE TABLE `pms_sku`
 INSERT INTO `pms_sku`
 VALUES (1534420706920628224, 1, 1534420706752856064, 'ABC',
         '[{\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueId\":\"1\",\"attrValueName\":\"蓝色\"}]', NULL, 10,
-        10, 0, 4, 0, 4, 'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg', 1, 0,
+        10, 0, 4, 0, 0, 4, 'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg', 1, 0,
         '2022-06-08 14:22:59', '2022-11-30 14:19:51', 0);
 INSERT INTO `pms_sku`
 VALUES (1534420706920628225, 1, 1534420706752856065, 'ABC',
         '[{\"attrKeyId\":\"1\",\"attrKeyName\":\"颜色\",\"attrValueId\":\"1\",\"attrValueName\":\"蓝色\"}]', NULL, 999,
-        10, 0, 4, 0, 4, 'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg', 1, 0,
+        10, 0, 4, 0, 0, 4, 'http://www.zhengqingya.com:9002/default/b1f263076e2147388251db3682df5f46.jpg', 1, 0,
         '2022-06-08 14:22:59', '2022-11-30 14:19:51', 0);
 
 -- ----------------------------
@@ -657,7 +658,7 @@ CREATE TABLE `ums_user`
     `update_by`   bigint(20) UNSIGNED NOT NULL COMMENT '修改人',
     `is_deleted`  tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除(0->否,1->是)',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1600405424362881025 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ums_user

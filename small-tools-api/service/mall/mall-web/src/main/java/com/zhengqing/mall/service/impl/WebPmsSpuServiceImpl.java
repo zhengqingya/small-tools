@@ -404,4 +404,12 @@ public class WebPmsSpuServiceImpl extends PmsSpuServiceImpl<PmsSpuMapper, PmsSpu
         this.pmsSpuMapper.updateBatchSort(list);
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateBatchVirtualUseStock(List<WebPmsSpuEditVirtualUseStockDTO> list) {
+        // 只要大于0的数据
+        list = list.stream().filter(e -> e.getVirtualUseStock() > 0).collect(Collectors.toList());
+        this.webPmsSkuService.updateBatchVirtualUseStock(list);
+    }
+
 }

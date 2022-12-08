@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zhengqing.mall.common.model.bo.PmsSkuBO;
 import com.zhengqing.mall.common.model.bo.PmsSkuStockBO;
 import com.zhengqing.mall.entity.PmsSku;
+import com.zhengqing.mall.web.model.dto.WebPmsSpuEditVirtualUseStockDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -36,5 +37,15 @@ public interface PmsSkuMapper extends BaseMapper<PmsSku> {
      * @date 2021/6/28 15:44
      */
     int updateSkuStock(@Param("list") List<PmsSkuStockBO> list);
+
+    /**
+     * 修改虚拟销量
+     *
+     * @param list 数据
+     * @return 修改条数
+     * @author zhengqingya
+     * @date 2021/9/15 14:16
+     */
+    long updateBatchVirtualUseStock(List<WebPmsSpuEditVirtualUseStockDTO> list);
 
 }

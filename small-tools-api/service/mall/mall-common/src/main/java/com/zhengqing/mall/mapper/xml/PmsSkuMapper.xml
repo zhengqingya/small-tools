@@ -45,4 +45,16 @@
         </foreach>
     </update>
 
+    <update id="updateBatchVirtualUseStock">
+        <foreach collection="list" separator=";" item="item">
+            UPDATE pms_sku
+            SET virtual_use_stock = (#{item.virtualUseStock} + virtual_use_stock),
+            use_stock = (use_stock + #{item.virtualUseStock}),
+            usable_stock = (usable_stock - #{item.virtualUseStock})
+            WHERE is_deleted = 0
+            AND id = #{item.id}
+            AND #{item.virtualUseStock} &lt;= usable_stock
+        </foreach>
+    </update>
+
 </mapper>
