@@ -33,6 +33,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -164,6 +165,12 @@ public class DemoController extends BaseController {
     @ApiOperation("testBuilder")
     public void testBuilder() {
 
+    }
+
+    @GetMapping("getMap")
+    @ApiOperation("getMap")
+    public Map<String, Object> getMap() {
+        return this.demoService.getMap();
     }
 
 

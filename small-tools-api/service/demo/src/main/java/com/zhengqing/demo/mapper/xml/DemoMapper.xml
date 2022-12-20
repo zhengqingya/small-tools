@@ -64,6 +64,20 @@
         UPDATE t_demo
         SET num = (num + #{num})
         WHERE id = #{id}
-        AND (num + #{num}) >= 0
+          AND (num + #{num}) >= 0
     </update>
+
+    <select id="selectMap" resultType="java.util.Map">
+        SELECT id,
+               username,
+               remark
+        FROM t_demo LIMIT 2
+    </select>
+
+    <select id="selectMap2" resultType="java.util.Map">
+        SELECT id,
+               username,
+               remark
+        FROM t_demo LIMIT 2
+    </select>
 </mapper>

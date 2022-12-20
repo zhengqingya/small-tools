@@ -8,6 +8,7 @@ import com.zhengqing.demo.model.dto.DemoSaveDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -128,4 +129,12 @@ public interface IDemoService extends IService<Demo> {
      */
     void asyncExecute05();
 
+    /**
+     * 测试返回map
+     *
+     * @return Map
+     * @author zhengqingya
+     * @date 2022/12/20 9:50
+     */
+    Map<String, Object> getMap();
 }

@@ -1,6 +1,7 @@
 package com.zhengqing.demo.service.impl;
 
 import cn.hutool.core.lang.Assert;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -20,6 +21,7 @@ import com.zhengqing.demo.mapper.DemoMapper;
 import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.dto.DemoSaveDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
+import com.zhengqing.demo.model.vo.UserInfoVO;
 import com.zhengqing.demo.service.IDemoService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -329,6 +332,18 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         demoList.stream().forEach(demoMapperNew::insert);
         sqlSession.commit();
         sqlSession.clearCache();
+    }
+
+    @Override
+    public Map<String, Object> getMap() {
+        Map<String, Object> resultMap = this.demoMapper.selectMap();
+        resultMap.put("test", "666");
+        System.out.println(JSONUtil.toJsonStr(resultMap));
+
+        Map<String, UserInfoVO> resultMap2 = this.demoMapper.selectMap2();
+        System.out.println(JSONUtil.toJsonStr(resultMap2));
+
+        return resultMap;
     }
 
 }

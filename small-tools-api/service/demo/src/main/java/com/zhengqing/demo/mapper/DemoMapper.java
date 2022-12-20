@@ -5,12 +5,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.demo.entity.Demo;
 import com.zhengqing.demo.model.dto.DemoListDTO;
 import com.zhengqing.demo.model.vo.DemoListVO;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import com.zhengqing.demo.model.vo.UserInfoVO;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -112,5 +111,25 @@ public interface DemoMapper extends BaseMapper<Demo> {
      * @date 2022/1/17 6:55 下午
      */
     long updateNum(@Param("id") Integer id, @Param("num") Integer num);
+
+    /**
+     * 测试返回map
+     *
+     * @return Map
+     * @author zhengqingya
+     * @date 2022/12/20 9:50
+     */
+    @MapKey("username")
+    Map<String, Object> selectMap();
+
+    /**
+     * 测试返回map
+     *
+     * @return Map
+     * @author zhengqingya
+     * @date 2022/12/20 9:50
+     */
+    @MapKey("id")
+    Map<String, UserInfoVO> selectMap2();
 
 }
