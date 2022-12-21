@@ -130,6 +130,6 @@ public interface DemoMapper extends BaseMapper<Demo> {
      * @date 2022/12/20 9:50
      */
     @MapKey("id")
-    Map<String, UserInfoVO> selectMap2();
+    Map<Long, UserInfoVO> selectMap2();
 
 }

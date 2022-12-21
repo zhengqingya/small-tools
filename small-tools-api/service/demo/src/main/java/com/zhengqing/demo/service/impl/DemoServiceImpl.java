@@ -340,7 +340,8 @@ public class DemoServiceImpl extends ServiceImpl<DemoMapper, Demo> implements ID
         resultMap.put("test", "666");
         System.out.println(JSONUtil.toJsonStr(resultMap));
 
-        Map<String, UserInfoVO> resultMap2 = this.demoMapper.selectMap2();
+        Map<Long, UserInfoVO> resultMap2 = this.demoMapper.selectMap2();
+        UserInfoVO userInfoVO = resultMap2.get(2L);
         System.out.println(JSONUtil.toJsonStr(resultMap2));
 
         return resultMap;
