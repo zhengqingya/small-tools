@@ -1,0 +1,8 @@
+server:
+  port: 21011
+
+spring:
+  application:
+    name: im-test # 应用名称
+  profiles:
+    active: dev # 环境配置

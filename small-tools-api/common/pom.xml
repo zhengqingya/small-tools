@@ -22,6 +22,7 @@
         <module>excel</module>
         <module>feign</module>
         <module>file</module>
+        <module>im</module>
         <module>log</module>
         <module>mq</module>
         <module>nacos</module>

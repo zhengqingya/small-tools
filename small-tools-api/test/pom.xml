@@ -17,6 +17,7 @@
     <description>测试</description>
 
     <modules>
+        <module>im-test</module>
         <module>nacos-test</module>
         <module>demo-test</module>
         <module>maven-plugin-test</module>
