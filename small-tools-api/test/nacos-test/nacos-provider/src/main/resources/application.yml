@@ -9,8 +9,12 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848 # nacos服务地址
+        username: nacos
+        password: nacos
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        username: nacos
+        password: nacos
 
     sentinel:
       enabled: true # 自动化配置是否生效
@@ -19,3 +23,11 @@ spring:
         dashboard: 127.0.0.1:8858 # 控制台地址
 
 myName: nacos--dev--test # 自定义参数
+test: zq
+
+order:
+  print:
+    # 订单备注打印过滤关键字前缀  -- tips:数组不能通过@Value直接获取值...
+    remark-filter-str-list:
+      - "收餐人隐私号"
+      - "依据餐量提供餐具"

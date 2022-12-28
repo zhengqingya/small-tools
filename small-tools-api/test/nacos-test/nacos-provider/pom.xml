@@ -38,9 +38,14 @@
         </dependency>
 
         <!-- Sentinel -->
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba.cloud</groupId>-->
+        <!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
+        <!--        </dependency>-->
+
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+            <groupId>com.zhengqing</groupId>
+            <artifactId>log</artifactId>
         </dependency>
 
     </dependencies>

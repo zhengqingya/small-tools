@@ -1,9 +1,12 @@
 package com.zhengqing.nacos.provider.controller;
 
+import com.zhengqing.nacos.provider.config.AppConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -25,10 +28,16 @@ public class ProviderController {
     @Value("${test}")
     private String test;
 
+    @Resource
+    private AppConfig appConfig;
+
+//    @Value("#{'${order.print.remark-filter-str-list}'.split('-')}")
+//    private List<String> strList;
+
     @GetMapping("/hello")
     public String hello() {
         // int result = 1 / 0;
-        return "《hello》:" + name + " *** 《test》:" + test;
+        return "《hello》:" + this.name + " *** 《test》:" + this.test;
     }
 
     @GetMapping("/hi")
