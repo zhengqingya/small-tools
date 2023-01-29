@@ -106,8 +106,7 @@
                 <version>1.5.2</version>
             </dependency>
 
-            <!-- Hutool工具类 -->
-            <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+            <!-- TLog: https://tlog.yomahub.com -->
             <dependency>
                 <groupId>com.yomahub</groupId>
                 <artifactId>tlog-all-spring-boot-starter</artifactId>
