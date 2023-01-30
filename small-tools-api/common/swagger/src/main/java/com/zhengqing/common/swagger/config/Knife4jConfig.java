@@ -157,7 +157,7 @@ public class Knife4jConfig {
                         new Contact(
                                 "zhengqingya",
                                 "https://gitee.com/zhengqingya",
-                                "960869719@qq.com"
+                                "zhengqingya@it.com"
                         )
                 )
                 .version("1.0.0")
