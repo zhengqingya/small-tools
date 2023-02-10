@@ -2,6 +2,8 @@
 
 > 项目地址：[https://gitee.com/zhengqingya/small-tools](https://gitee.com/zhengqingya/small-tools)
 
+> SpringBoot版本 https://gitee.com/zhengqingya/smallboot
+
 `Small-Tools`微服务项目
 
 后端技术栈：
