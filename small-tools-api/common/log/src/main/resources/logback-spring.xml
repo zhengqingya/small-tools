@@ -122,11 +122,25 @@
     <!--    </contextListener>-->
 
 
+    <!-- 4、plumelog -->
+    <!-- 环境配置 -->
+    <!--    <springProperty scope="context" name="plumelog.appName" source="spring.application.name"/>-->
+    <!--    <springProperty scope="context" name="plumelog.env" source="spring.cloud.nacos.config.namespace"/>-->
+    <!--    <appender name="plumelog" class="com.plumelog.logback.appender.RedisAppender">-->
+    <!--        <appName>${plumelog.appName}</appName>-->
+    <!--        <redisHost>127.0.0.1:6379</redisHost>-->
+    <!--        <redisAuth>123456</redisAuth>-->
+    <!--        <redisDb>10</redisDb>-->
+    <!--        <env>${plumelog.env}</env>-->
+    <!--    </appender>-->
+
+
     <!-- 开发或测试环境：仅输出到控制台即可 -->
     <springProfile name="dev | test">
         <!-- 日志输出级别 -->
         <root level="DEBUG">
             <appender-ref ref="CONSOLE"/>
+            <!--            <appender-ref ref="plumelog"/>-->
         </root>
     </springProfile>
 

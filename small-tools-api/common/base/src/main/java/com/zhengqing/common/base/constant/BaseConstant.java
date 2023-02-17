@@ -31,4 +31,9 @@ public interface BaseConstant {
      */
     String REQUEST_HEADER_JWT_USER = "JWT_USER";
 
+    /**
+     * 请求头中的plumelog日志追踪码
+     */
+    String REQUEST_HEADER_TRACE_ID = "TRACE_ID";
+
 }

@@ -34,6 +34,19 @@
         <!--            <version>6.6</version>-->
         <!--        </dependency>-->
 
+        <!-- plumelog: https://gitee.com/plumeorg/plumelog -->
+        <!--        <dependency>-->
+        <!--            <groupId>com.plumelog</groupId>-->
+        <!--            <artifactId>plumelog-logback</artifactId>-->
+        <!--            <version>3.5.3</version>-->
+        <!--        </dependency>-->
+        <!-- sleuth：用于traceID生成 -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.cloud</groupId>-->
+        <!--            <artifactId>spring-cloud-starter-sleuth</artifactId>-->
+        <!--            <version>2.2.7.RELEASE</version>-->
+        <!--        </dependency>-->
+
     </dependencies>
 
 </project>
