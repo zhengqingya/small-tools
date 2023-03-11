@@ -6,6 +6,8 @@
     <resultMap id="resultMap" type="com.zhengqing.demo.model.vo.DemoListVO">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="username" property="userObj.username"/>
+        <result column="password" property="userObj.password"/>
         <collection property="userList"
                     ofType="com.zhengqing.demo.model.vo.DemoListVO$UserObj">
             <result column="username2" jdbcType="VARCHAR" property="username"/>
@@ -13,8 +15,7 @@
         </collection>
     </resultMap>
 
-    <!--    <select id="selectDataList" resultMap="resultMap">-->
-    <select id="selectDataList" resultType="com.zhengqing.demo.model.vo.DemoListVO">
+    <select id="selectDataList" resultMap="resultMap">
         SELECT
         td.id id,
         td.username username,
