@@ -1,4 +1,4 @@
-package ${package.dto};
+package ${ package.vo };
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -7,11 +7,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 /**
- * <p> ${tableComment}-保存-提交参数 </p>
+ * <p>${tableComment}-响应参数</p>
  *
  * @author ${ author }
  * @description
@@ -22,18 +20,14 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@ApiModel("${tableComment}-保存-提交参数")
-public class ${entity}SaveDTO extends BaseDTO {
+@ApiModel("${tableComment}-响应参数")
+public class ${entity}PageVO extends BaseVO {
 
 <#list columnInfoList as item>
-<#if item.columnNameDb != "create_by" && item.columnNameDb != "create_time" && item.columnNameDb != "update_by" && item.columnNameDb != "update_time" && item.columnNameDb != "is_deleted">
+    <#if item.columnNameDb != "create_by" && item.columnNameDb != "create_time" && item.columnNameDb != "update_by" && item.columnNameDb != "update_time" && item.columnNameDb != "is_deleted">
     @ApiModelProperty("${item.columnComment}")
-<#if item.ifPrimaryKey>
-    @NotNull(groups = {UpdateGroup.class}, message = "${item.columnComment}不能为空!")
-</#if>
     private ${item.columnTypeJava} ${item.columnNameJavaLower};
 
-</#if>
+    </#if>
 </#list>
-
 }

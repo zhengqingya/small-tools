@@ -25,16 +25,16 @@ public interface ${entity}Mapper extends BaseMapper<${entity}> {
      * @author ${author}
      * @date ${date}
      */
-    IPage<${entity}ListVO> selectDataList(IPage page, @Param("filter") ${entity}ListDTO filter);
+    IPage<${entity}PageVO> selectDataPage(IPage page, @Param("filter") ${entity}PageDTO filter);
 
     /**
-     * 列表
+     * 详情
      *
      * @param filter 查询过滤参数
-     * @return 查询结果
+     * @return 详情
      * @author ${author}
      * @date ${date}
      */
-    List<${entity}ListVO> selectDataList(@Param("filter") ${entity}ListDTO filter);
+     ${entity}DetailVO detail(@Param("filter") ${entity}DetailDTO filter);
 
 }

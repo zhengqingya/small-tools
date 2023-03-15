@@ -22,37 +22,27 @@ public interface I${entity}Service extends IService<${entity}> {
      * @author ${author}
      * @date ${date}
      */
-    IPage<${entity}ListVO> page(${entity}ListDTO params);
-
-    /**
-     * 列表
-     *
-     * @param params 查询参数
-     * @return 查询结果
-     * @author ${author}
-     * @date ${date}
-     */
-    List<${entity}ListVO> list(${entity}ListDTO params);
+    IPage<${entity}PageVO> page(${entity}PageDTO params);
 
     /**
      * 详情
      *
-     * @param ${primaryColumnNameJavaLower} 主键ID
+     * @param params 查询参数
      * @return 详情
      * @author ${author}
      * @date ${date}
      */
-    ${entity} detail(${primaryColumnTypeJava} ${primaryColumnNameJavaLower});
+     ${entity}DetailVO detail(${entity}DetailDTO params);
 
     /**
      * 新增或更新
      *
      * @param params 保存参数
-     * @return 主键id
+     * @return void
      * @author ${author}
      * @date ${date}
      */
-     ${primaryColumnTypeJava} addOrUpdateData(${entity}SaveDTO params);
+     void addOrUpdateData(${entity}SaveDTO params);
 
      /**
       * 删除数据

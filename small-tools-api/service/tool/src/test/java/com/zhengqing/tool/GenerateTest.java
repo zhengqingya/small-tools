@@ -23,6 +23,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * <p> 代码生成器测试 </p>
@@ -65,8 +66,8 @@ public class GenerateTest {
         final String moduleName = generateConfig.getModuleName();
         final String tplRootPath = AppConstant.PROJECT_ROOT_DIRECTORY + "/template/small-tools";
 
-        // 查询字段数据
-        List<String> queryColumnList = Lists.newArrayList("username");
+        // 查询字段数据   eg: "username"
+        List<String> queryColumnList = Lists.newArrayList();
 
         // 包名信息
         Map<String, String> packageNameInfoMap = Maps.newHashMap();
@@ -77,6 +78,9 @@ public class GenerateTest {
 
         // 查询表字段信息
         StDbTableColumnListVO columnInfo = new StDbJdbcServiceImpl().getAllColumnsByDbInfo(StDbDataSourceTypeEnum.MySQL, ip, port, username, password, dbName, tableName);
+
+        // TODO 默认所有字段
+        queryColumnList = columnInfo.getColumnInfoList().stream().map(e -> e.getColumnName()).collect(Collectors.toList());
 
         // 模板数据处理
         Map<String, Object> templateDataMap = GenerateCodeUtil.handleTplData(moduleName, columnInfo, packageNameInfoMap, queryColumnList);
