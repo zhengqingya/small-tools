@@ -32,6 +32,7 @@ public class ${entity}ServiceImpl extends ServiceImpl<${entity}Mapper, ${entity}
     public IPage<${entity}PageVO> page(${entity}PageDTO params) {
         IPage<${entity}PageVO> result = this.${entityNameLower}Mapper.selectDataPage(new Page<>(), params);
         List<${entity}PageVO> list = result.getRecords();
+        list.forEach(${entity}PageVO::handleData);
         return result;
     }
 

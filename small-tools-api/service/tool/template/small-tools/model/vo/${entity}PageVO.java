@@ -30,4 +30,9 @@ public class ${entity}PageVO extends BaseVO {
 
     </#if>
 </#list>
+
+    public void handleData() {
+
+    }
+
 }
