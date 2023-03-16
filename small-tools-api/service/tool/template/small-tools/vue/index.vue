@@ -1,5 +1,5 @@
 <template>
-  <base-header>
+  <base-wraper>
     <base-header>
         <#if queryColumnInfoList??>
             <#list queryColumnInfoList as item>
@@ -48,7 +48,7 @@
         <el-button type="primary" @click="submitForm">确 定</el-button>
       </template>
     </base-dialog>
-  </base-header>
+  </base-wraper>
 </template>
 
 <script>
