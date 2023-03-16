@@ -1,5 +1,5 @@
 <template>
-  <cus-wraper>
+  <base-header>
     <base-header>
         <#if queryColumnInfoList??>
             <#list queryColumnInfoList as item>
@@ -8,9 +8,9 @@
                         @clear="refreshTableData"></el-input>
             </#list>
         </#if>
-      <el-button v-has="'query'" type="primary" @click="refreshTableData">查询</el-button>
+      <el-button type="primary" @click="refreshTableData">查询</el-button>
       <template #right>
-        <el-button v-has="'add'" type="primary" @click="handleAdd">添加</el-button>
+        <el-button type="primary" @click="handleAdd">添加</el-button>
       </template>
     </base-header>
 
@@ -29,13 +29,13 @@
         </#list>
       <el-table-column align="center" label="操作">
         <template slot-scope="scope">
-          <el-button type="text" @click="handleUpdate(scope.row)">编辑</el-button>
-          <cus-del-btn @ok="handleDelete(scope.row)"></cus-del-btn>
+          <el-button link @click="handleUpdate(scope.row)">编辑</el-button>
+          <base-delete-btn @ok="handleDelete(scope.row)"></base-delete-btn>
         </template>
       </el-table-column>
     </base-table-p>
 
-    <base-dialog :visible.sync="dialogVisible" :title="titleMap[dialogStatus]" width="30%">
+    <base-dialog v-model="dialogVisible" :title="titleMap[dialogStatus]" width="30%">
       <el-form ref="dataForm" :model="form" :rules="rules" label-width="100px">
           <#list columnInfoList as item>
             <el-form-item label="${item.columnComment}:" prop="${item.columnNameJavaLower}">
@@ -43,12 +43,12 @@
             </el-form-item>
           </#list>
       </el-form>
-      <div slot="footer">
+      <template #footer>
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="submitForm">确 定</el-button>
-      </div>
+      </template>
     </base-dialog>
-  </cus-wraper>
+  </base-header>
 </template>
 
 <script>
@@ -56,7 +56,6 @@
     name: '${entity}',
     data() {
       return {
-        dialogVisible: false,
         listQuery: {
           <#list queryColumnInfoList as item>
           ${item.columnNameJavaLower}: undefined, // ${item.columnComment}
@@ -67,6 +66,7 @@
           ${item.columnNameJavaLower}: undefined, // ${item.columnComment}
           </#list>
         },
+        dialogVisible: false,
         dialogStatus: "",
         titleMap: {
           add: "添加",
