@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import ${package.vo}.${entity}DetailVO;
+import ${package.vo}.${entity}PageVO;
+import ${package.dto}.${entity}PageDTO;
+import ${package.dto}.${entity}DetailDTO;
+import ${package.dto}.${entity}SaveDTO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengqing.modules.common.api.BaseController;
 import com.zhengqing.modules.common.validator.fieldrepeat.Update;

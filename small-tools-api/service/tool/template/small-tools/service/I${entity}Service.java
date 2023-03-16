@@ -1,7 +1,11 @@
 package ${package.service};
 
 import java.util.List;
-
+import ${package.vo}.${entity}DetailVO;
+import ${package.vo}.${entity}PageVO;
+import ${package.dto}.${entity}PageDTO;
+import ${package.dto}.${entity}DetailDTO;
+import ${package.dto}.${entity}SaveDTO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 

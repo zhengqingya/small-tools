@@ -1,6 +1,10 @@
 package ${package.mapper};
 
 import java.util.List;
+import ${package.vo}.${entity}DetailVO;
+import ${package.vo}.${entity}PageVO;
+import ${package.dto}.${entity}PageDTO;
+import ${package.dto}.${entity}DetailDTO;
 
 import org.apache.ibatis.annotations.Param;
 
