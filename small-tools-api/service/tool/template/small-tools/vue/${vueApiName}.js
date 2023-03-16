@@ -13,21 +13,21 @@ export default {
   },
   add(form) {
     return request({
-      url: BASE_API,
+      url: BASE_API + "/add",
       method: "post",
       data: form
     });
   },
   update(form) {
     return request({
-      url: BASE_API,
+      url: BASE_API + "/update",
       method: "put",
       data: form
     });
   },
   delete(id) {
     return request({
-      url: BASE_API,
+      url: BASE_API + "/delete",
       method: "delete",
       params: { id: id }
     });
