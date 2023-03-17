@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
- * <p>${tableComment}-响应参数</p>
+ * <p>${tableComment}-分页列表-响应参数</p>
  *
  * @author ${ author }
  * @description
@@ -20,7 +20,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@ApiModel("${tableComment}-响应参数")
+@ApiModel("${tableComment}-分页列表-响应参数")
 public class ${entity}PageVO extends BaseVO {
 
 <#list columnInfoList as item>
