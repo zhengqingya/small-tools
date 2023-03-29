@@ -11,25 +11,25 @@ export default {
       headers
     });
   },
-  add(form) {
+  add(data) {
     return request({
       url: BASE_API + "/add",
       method: "post",
-      data: form
+      data: data
     });
   },
-  update(form) {
+  update(data) {
     return request({
       url: BASE_API + "/update",
       method: "put",
-      data: form
+      data: data
     });
   },
-  delete(id) {
+  delete(params) {
     return request({
       url: BASE_API + "/delete",
       method: "delete",
-      params: { id: id }
+      params: params
     });
   }
 };

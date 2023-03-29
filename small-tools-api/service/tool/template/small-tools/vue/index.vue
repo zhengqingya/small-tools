@@ -104,7 +104,7 @@
         this.dialogVisible = true;
       },
       async handleDelete(row) {
-        let res = await this.$api.${vueApiName}.delete(row.id);
+        let res = await this.$api.${vueApiName}.delete({id: row.id});
         this.refreshTableData();
         this.submitOk(res.message);
       },

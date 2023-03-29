@@ -55,7 +55,7 @@ public class GenerateCodeUtil {
         String entityNameUpper = MyStringUtil.dbStrToHumpUpper(entityName);
         templateDataMap.put("tableName", tableName);
         templateDataMap.put("tableNameAbbr", MyStringUtil.tableNameToAbbr(tableName));
-        templateDataMap.put("vueApiName", tableName.substring("t_".length()));
+        templateDataMap.put("vueApiName", tableName.startsWith("t_") ? tableName.substring("t_".length()) : tableName);
         templateDataMap.put("entityNameLower", entityNameLower);
         templateDataMap.put("entityNameUpper", entityNameUpper);
         templateDataMap.put("entity", entityNameUpper);
