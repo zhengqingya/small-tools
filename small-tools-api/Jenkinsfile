@@ -161,20 +161,19 @@ node {
                 sh "mv -f ${JENKINS_WORKSPACE}/small-tools-api/docker/*.jar ${PROJECT_DOCKER_HISTORY_JAR_HOME}/"
             }
 
-
-            echo '****************************** 项目部署 ******************************'
-
-            // 遍历所有服务器，分别部署
-            for (int j = 0; j < PUBLISH_SSH_SERVER_SELECT.length; j++) {
-                // 获取当前服务器名称
-                def currentServerName = PUBLISH_SSH_SERVER_SELECT[j]
-                echo '开始发布远程机器'
-                sshPublisher(publishers: [sshPublisherDesc(
-                        // `Manage Jenkins` -> `Configure System` -> `Publish over SSH` -> `SSH Servers` 中的name值
-                        configName: "${currentServerName}",
-                        transfers: [sshTransfer(cleanRemote: false, excludes: '',
-                                // ===================== ↓↓↓↓↓↓ 执行命令 ↓↓↓↓↓↓ =====================
-                                execCommand: """
+            if ("${PUBLISH_SSH_SERVER_SELECT}" != "[]") {
+                echo '****************************** 项目部署 ******************************'
+                // 遍历所有服务器，分别部署
+                for (int j = 0; j < PUBLISH_SSH_SERVER_SELECT.length; j++) {
+                    // 获取当前服务器名称
+                    def currentServerName = PUBLISH_SSH_SERVER_SELECT[j]
+                    echo '开始发布远程机器'
+                    sshPublisher(publishers: [sshPublisherDesc(
+                            // `Manage Jenkins` -> `Configure System` -> `Publish over SSH` -> `SSH Servers` 中的name值
+                            configName: "${currentServerName}",
+                            transfers: [sshTransfer(cleanRemote: false, excludes: '',
+                                    // ===================== ↓↓↓↓↓↓ 执行命令 ↓↓↓↓↓↓ =====================
+                                    execCommand: """
 
                                     // 传输部署脚本到远程服务器之后，执行该脚本运行程序
 
@@ -193,19 +192,22 @@ node {
                                     "${JAVA_OPTS}"
 
                                 """,
-                                // 超时时间1000ms*60*2=2分钟
-                                execTimeout: 120000,
-                                flatten: false, makeEmptyDirs: false, noDefaultExcludes: false,
-                                patternSeparator: '[, ]+',
-                                // ===================== ↓↓↓↓↓↓ 传输文件 ↓↓↓↓↓↓ =====================
-                                // 传输文件
-                                sourceFiles: 'small-tools-api/ssh-publish.sh',
-                                // 远程服务器目录
-                                remoteDirectory: "${PROJECT_SERVICE_LOG_HOME}",
-                                remoteDirectorySDF: false,
-                                // 传输时移除前缀路径
-                                removePrefix: 'small-tools-api/')],
-                        usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                                    // 超时时间1000ms*60*2=2分钟
+                                    execTimeout: 120000,
+                                    flatten: false, makeEmptyDirs: false, noDefaultExcludes: false,
+                                    patternSeparator: '[, ]+',
+                                    // ===================== ↓↓↓↓↓↓ 传输文件 ↓↓↓↓↓↓ =====================
+                                    // 传输文件
+                                    sourceFiles: 'small-tools-api/ssh-publish.sh',
+                                    // 远程服务器目录
+                                    remoteDirectory: "${PROJECT_SERVICE_LOG_HOME}",
+                                    remoteDirectorySDF: false,
+                                    // 传输时移除前缀路径
+                                    removePrefix: 'small-tools-api/')],
+                            usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                }
+            } else {
+                echo '****************************** 项目不部署 ******************************'
             }
 
         }
