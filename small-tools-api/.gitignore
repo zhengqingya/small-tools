@@ -22,4 +22,3 @@ logs
 LOG_HOME_IS_UNDEFINED
 tmp
 docker/*.jar
-service/tool/src/main/resources/generate-config.yml
